@@ -245,6 +245,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3673011630814679513, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673011630814679513, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3673011630814679514, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
       propertyPath: m_Name
@@ -263,7 +273,7 @@ PrefabInstance:
     - target: {fileID: 3673011630814679515, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.49
+      value: 2.99
       objectReference: {fileID: 0}
     - target: {fileID: 3673011630814679515, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
@@ -601,7 +611,7 @@ GameObject:
   - component: {fileID: 1691863940}
   - component: {fileID: 1691863939}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
