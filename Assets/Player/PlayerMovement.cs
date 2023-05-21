@@ -51,8 +51,9 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
     }
-    [SerializeField] private float Gravity = -15.0f;
+    [SerializeField] private float Gravity = -375.0f;
     [SerializeField] private float VerticalVelocity;
+    [SerializeField] private float maxVertVelocity = -15000.00f;
     private float TerminalVelocity = 53.00f;
 
     // Start is called before the first frame update
@@ -71,21 +72,31 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+    private void FixedUpdate()
+    {
         MoveTowardsCam(Player.ControlsInput.moveInput);
     }
 
     public void ApplyGravity()
     {
-        // Apply gravity over time if under terminal (max) velocity
-        if(VerticalVelocity < TerminalVelocity)
-        {
-            VerticalVelocity += Gravity * Time.deltaTime;
-        }
-
         // stop vertical velocity from dropping infinitely when grounded
-        if(VerticalVelocity < 0.00f)
+        if (IsGrounded())
         {
-            VerticalVelocity = -2.00f;
+            if(VerticalVelocity < 0.00f)
+            {
+                VerticalVelocity = 0.00f;
+            }
+        }
+        else
+        {
+            // Apply gravity over time if under terminal (max) velocity
+            if (VerticalVelocity < TerminalVelocity)
+            {
+                VerticalVelocity += (Gravity * Time.deltaTime) * 25.5f;
+
+                if (VerticalVelocity < maxVertVelocity) VerticalVelocity = maxVertVelocity;
+            }
         }
     }
 
@@ -94,9 +105,8 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
 
         Vector3 moveDirection = new Vector3(direction.x, VerticalVelocity, direction.y);
-
         Rigidbody.velocity = moveDirection * Time.deltaTime;
     }
-    
-// end
+
+    // end
 }
