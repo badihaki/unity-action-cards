@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,10 +52,14 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
     }
-    [SerializeField] private float Gravity = -375.0f;
+    [SerializeField] private float Gravity = -15.0f;
     [SerializeField] private float VerticalVelocity;
-    [SerializeField] private float maxVertVelocity = -15000.00f;
+    [SerializeField] private float maxVertVelocity = -150.00f;
     private float TerminalVelocity = 53.00f;
+    private Vector3 moveDirection;
+    private float rotationVelocity;
+    private float rotationSmoothingTime = 0.15f;
+    private float targetRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        MoveTowardsCam(Player.ControlsInput.moveInput);
+        MoveTowardsCamWhileGrounded(Player.ControlsInput.moveInput);
     }
 
     public void ApplyGravity()
@@ -93,19 +98,38 @@ public class PlayerMovement : MonoBehaviour
             // Apply gravity over time if under terminal (max) velocity
             if (VerticalVelocity < TerminalVelocity)
             {
-                VerticalVelocity += (Gravity * Time.deltaTime) * 25.5f;
+                VerticalVelocity += Gravity * Time.deltaTime;
 
                 if (VerticalVelocity < maxVertVelocity) VerticalVelocity = maxVertVelocity;
             }
         }
+        print(VerticalVelocity);
+        Rigidbody.velocity = new Vector3(0.0f, VerticalVelocity, 0.0f);
     }
 
-    public void MoveTowardsCam(Vector2 direction)
+    public void MoveTowardsCamWhileGrounded(Vector2 direction)
     {
         ApplyGravity();
 
-        Vector3 moveDirection = new Vector3(direction.x, VerticalVelocity, direction.y);
-        Rigidbody.velocity = moveDirection * Time.deltaTime;
+        if(Player.ControlsInput.moveInput != Vector2.zero)
+        {
+            RotateCharacter(direction);
+            // moveDirection = new Vector3(direction.x * Player.CharacterSheet.Speed, VerticalVelocity, direction.y * Player.CharacterSheet.Speed);
+            moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+            Rigidbody.velocity = moveDirection * (Player.CharacterSheet.Speed * Time.deltaTime);
+        }
+    }
+
+    private void RotateCharacter(Vector2 inputDirection)
+    {
+        // target rotation is the intended vector we want to rotate to
+        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
+            * Mathf.Rad2Deg
+            + Camera.main.transform.eulerAngles.y; // we take the rotation of the camera into consideration
+        // rotation direction determines which direction we move to reach our intended rotation
+        float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
+        // actually rotating the transform
+        transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
     // end

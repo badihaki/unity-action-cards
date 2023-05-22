@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [field: SerializeField] public CharacterSheet CharacterSheet { get; private set; }
     [field: SerializeField] public PlayerControlsInput ControlsInput { get; private set; }
     [field: SerializeField] public PlayerCamera CameraController { get; private set; }
     [field: SerializeField] public PlayerMovement LocomotionController { get; private set; }
