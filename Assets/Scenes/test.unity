@@ -245,14 +245,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 562391084, guid: b8add3d121ba3e14d81acfbb644b152b, type: 3}
-      propertyPath: Gravity
-      value: -15
-      objectReference: {fileID: 0}
-    - target: {fileID: 562391084, guid: b8add3d121ba3e14d81acfbb644b152b, type: 3}
-      propertyPath: maxVertVelocity
-      value: -150
-      objectReference: {fileID: 0}
     - target: {fileID: 3673011630814679514, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
       propertyPath: m_Name
@@ -313,6 +305,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4763357572531752977, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 54c2dbe6b630aae45910de96971d8eae, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8add3d121ba3e14d81acfbb644b152b, type: 3}
 --- !u!1 &961739749
