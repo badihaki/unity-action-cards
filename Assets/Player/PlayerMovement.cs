@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Player Player;
     private Rigidbody Rigidbody;
     private Collider body;
-    private float GroundRayDistance = 0.250f;
+    [SerializeField]private float GroundRayDistance = 0.500f;
     public bool IsGrounded()
     {
         Ray midRay = new Ray(transform.position, -transform.up);
@@ -52,11 +52,13 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
     }
+    public bool Grounded;
     [SerializeField] private float Gravity = -15.0f;
     [SerializeField] private float VerticalVelocity;
+    [SerializeField] private float BaseVerticalVelocity = -2.00f;
     [SerializeField] private float maxVertVelocity = -150.00f;
     private float TerminalVelocity = 53.00f;
-    private Vector3 moveDirection;
+    [SerializeField]private Vector3 moveDirection;
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.15f;
     private float targetRotation;
@@ -77,10 +79,19 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Grounded = IsGrounded();
     }
     private void FixedUpdate()
     {
-        MoveTowardsCamWhileGrounded(Player.ControlsInput.moveInput);
+        /*
+         * DELETE This shit below:
+        */
+        MoveTowardsCam(Player.ControlsInput.moveInput);
+        if (Player.ControlsInput.jump)
+        {
+            Jump();
+        }
+        ApplyGravity();
     }
 
     public void ApplyGravity()
@@ -90,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if(VerticalVelocity < 0.00f)
             {
-                VerticalVelocity = 0.00f;
+                VerticalVelocity = BaseVerticalVelocity;
             }
         }
         else
@@ -103,21 +114,21 @@ public class PlayerMovement : MonoBehaviour
                 if (VerticalVelocity < maxVertVelocity) VerticalVelocity = maxVertVelocity;
             }
         }
-        print(VerticalVelocity);
-        Rigidbody.velocity = new Vector3(0.0f, VerticalVelocity, 0.0f);
+        // Rigidbody.velocity = new Vector3(0.0f, VerticalVelocity, 0.0f);
+        Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, Rigidbody.velocity.y + VerticalVelocity, Rigidbody.velocity.z);
     }
 
-    public void MoveTowardsCamWhileGrounded(Vector2 direction)
+    public void MoveTowardsCam(Vector2 direction)
     {
-        ApplyGravity();
+        RotateCharacter(direction);
+        moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        if (direction == Vector2.zero) moveDirection = Vector2.zero;
+        float movementSpeed = Player.ControlsInput.run ? Player.CharacterSheet.RunSpeed : Player.CharacterSheet.WalkSpeed;
+        // Vector3 desiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        // moveDirection = new Vector3(desiredMoveDirection.x, desiredMoveDirection.y + VerticalVelocity, desiredMoveDirection.z);
 
-        if(Player.ControlsInput.moveInput != Vector2.zero)
-        {
-            RotateCharacter(direction);
-            // moveDirection = new Vector3(direction.x * Player.CharacterSheet.Speed, VerticalVelocity, direction.y * Player.CharacterSheet.Speed);
-            moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
-            Rigidbody.velocity = moveDirection * (Player.CharacterSheet.Speed * Time.deltaTime);
-        }
+        // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
+        Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
     }
 
     private void RotateCharacter(Vector2 inputDirection)
@@ -130,6 +141,14 @@ public class PlayerMovement : MonoBehaviour
         float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
         // actually rotating the transform
         transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+    }
+
+    public void Jump()
+    {
+        if (IsGrounded())
+        {
+            VerticalVelocity = Mathf.Sqrt(Player.CharacterSheet.JumpPower * BaseVerticalVelocity * Gravity);
+        }
     }
 
     // end

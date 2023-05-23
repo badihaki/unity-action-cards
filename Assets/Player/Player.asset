@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Player
   StartingHealth: 1
-  Speed: 500
+  WalkSpeed: 280
+  RunSpeed: 525
+  RushDashSpeed: 15.65
+  JumpPower: 5.25

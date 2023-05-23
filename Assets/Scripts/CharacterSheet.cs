@@ -12,5 +12,12 @@ public class CharacterSheet : ScriptableObject
     public int StartingHealth = 1;
 
     [Header("Mechanical Info")]
-    public float Speed = 5.00f;
+    [Tooltip("The walking speed the character moves at")]
+    public float WalkSpeed = 5.00f;
+    [Tooltip("The running speed the character moves at")]
+    public float RunSpeed = 8.00f;
+    [Tooltip("The speed at which the character dashes/rushes")]
+    public float RushDashSpeed = 15.65f;
+    [Tooltip("Yep, how far the character can jump??")]
+    public float JumpPower = 5.25f;
 }

@@ -10,6 +10,7 @@ public class PlayerControlsInput : MonoBehaviour
     [field:SerializeField]public Vector2 moveInput { get; private set; }
     [field:SerializeField]public Vector2 aimInput { get; private set; }
     [field: SerializeField] public bool jump { get; private set; }
+    [field: SerializeField] public bool run { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +47,20 @@ public class PlayerControlsInput : MonoBehaviour
     public void OnJump(InputValue val)
     {
         ProcessJumpInput(val.isPressed);
-        print(val.isPressed);
     }
     private void ProcessJumpInput(bool inputState)
     {
         jump = inputState;
+    }
+
+    public void OnRun(InputValue val)
+    {
+        ProcessRunInput(val.isPressed);
+    }
+
+    private void ProcessRunInput(bool inputState)
+    {
+        run = inputState;
     }
 
     // end
