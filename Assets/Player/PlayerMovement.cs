@@ -120,14 +120,17 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveTowardsCam(Vector2 direction)
     {
-        RotateCharacter(direction);
-        moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         if (direction == Vector2.zero) moveDirection = Vector2.zero;
-        float movementSpeed = Player.ControlsInput.run ? Player.CharacterSheet.RunSpeed : Player.CharacterSheet.WalkSpeed;
+        else
+        {
+            RotateCharacter(direction);
+            moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        }
         // Vector3 desiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         // moveDirection = new Vector3(desiredMoveDirection.x, desiredMoveDirection.y + VerticalVelocity, desiredMoveDirection.z);
 
         // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
+        float movementSpeed = Player.ControlsInput.run ? Player.CharacterSheet.RunSpeed : Player.CharacterSheet.WalkSpeed;
         Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
     }
 
