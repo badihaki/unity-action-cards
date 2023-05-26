@@ -10,7 +10,12 @@ public class Health : MonoBehaviour
     public void InitiateHealth(int health)
     {
         MaxHealth = health;
-        CurrentHealth = health;
+        ResetHealth();
+    }
+
+    public void ResetHealth()
+    {
+        CurrentHealth = MaxHealth;
     }
 
     // end
