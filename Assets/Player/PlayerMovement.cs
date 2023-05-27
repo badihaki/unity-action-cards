@@ -52,7 +52,6 @@ public class PlayerMovement : MonoBehaviour
             return false;
         }
     }
-    public bool Grounded;
     [SerializeField] private float Gravity = -15.0f;
     [SerializeField] private float VerticalVelocity;
     [SerializeField] private float BaseVerticalVelocity = -2.00f;
@@ -79,7 +78,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Grounded = IsGrounded();
     }
     private void FixedUpdate()
     {
@@ -91,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Jump();
         }
-        ApplyGravity();
+        // ApplyGravity();
     }
 
     public void ApplyGravity()
@@ -114,7 +112,6 @@ public class PlayerMovement : MonoBehaviour
                 if (VerticalVelocity < maxVertVelocity) VerticalVelocity = maxVertVelocity;
             }
         }
-        // Rigidbody.velocity = new Vector3(0.0f, VerticalVelocity, 0.0f);
         Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, Rigidbody.velocity.y + VerticalVelocity, Rigidbody.velocity.z);
     }
 
@@ -132,6 +129,8 @@ public class PlayerMovement : MonoBehaviour
         // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
         float movementSpeed = Player.ControlsInput.run ? Player.CharacterSheet.RunSpeed : Player.CharacterSheet.WalkSpeed;
         Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
+
+        ApplyGravity();
     }
 
     private void RotateCharacter(Vector2 inputDirection)
