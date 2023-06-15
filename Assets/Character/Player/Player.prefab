@@ -139,13 +139,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c87c882a14ff148b067770e57cd847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_CharacterSheet>k__BackingField: {fileID: 0}
+  <_CharacterSheet>k__BackingField: {fileID: 11400000, guid: 1476ea23c099899478a06d3262f16d50,
+    type: 2}
   <_Health>k__BackingField: {fileID: 0}
   <_Actor>k__BackingField: {fileID: 0}
-  <ControlsInput>k__BackingField: {fileID: 0}
-  <CameraController>k__BackingField: {fileID: 0}
-  <LocomotionController>k__BackingField: {fileID: 0}
-  <PlayerCards>k__BackingField: {fileID: 0}
+  <_Controls>k__BackingField: {fileID: 0}
+  <_CameraController>k__BackingField: {fileID: 0}
+  <_LocomotionController>k__BackingField: {fileID: 0}
+  <_PlayerCards>k__BackingField: {fileID: 0}
 --- !u!114 &680191765608160042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,10 +159,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f3d536d38bdc14ea2747dbe2841037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <moveInput>k__BackingField: {x: 0, y: 0}
-  <aimInput>k__BackingField: {x: 0, y: 0}
-  <jump>k__BackingField: 0
-  <run>k__BackingField: 0
+  <_MoveInput>k__BackingField: {x: 0, y: 0}
+  <_AimInput>k__BackingField: {x: 0, y: 0}
+  <_Jump>k__BackingField: 0
+  <_Run>k__BackingField: 0
+  <_Cards>k__BackingField: 0
 --- !u!114 &851387895230023576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -243,6 +245,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e21e68f078499049b0d7d5596317755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_Deck>k__BackingField: []
+  <_Abyss>k__BackingField: []
+  <_Hand>k__BackingField: []
+  cardPrefab: {fileID: 2994744669256209799, guid: 9cbbbfb1755bbf94aabe2cd0d91d35b6,
+    type: 3}
+  showingHand: 0
 --- !u!1 &3673011631263412373
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +310,7 @@ GameObject:
   - component: {fileID: 4061949375344056071}
   - component: {fileID: 1334770446004098489}
   m_Layer: 0
-  m_Name: UI-Card
+  m_Name: UI-Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

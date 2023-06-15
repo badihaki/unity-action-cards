@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
         if (Physics.Raycast(midRay, out RaycastHit midHitInfo, GroundRayDistance))
         {
             Debug.DrawLine(midRay.origin, new Vector3(midRay.origin.x, midRay.origin.y - GroundRayDistance, midRay.origin.z), Color.red, 0.05f);
-            Debug.Log(midHitInfo);
+            // Debug.Log(midHitInfo);
             return true;
         }
         if (Physics.Raycast(leftRay, out RaycastHit leftHitInfo, GroundRayDistance))
@@ -84,8 +84,8 @@ public class PlayerMovement : MonoBehaviour
         /*
          * DELETE This shit below:
         */
-        MoveTowardsCam(Player.ControlsInput.moveInput);
-        if (Player.ControlsInput.jump)
+        MoveTowardsCam(Player._Controls._MoveInput);
+        if (Player._Controls._Jump)
         {
             Jump();
         }
@@ -123,12 +123,14 @@ public class PlayerMovement : MonoBehaviour
             RotateCharacter(direction);
             moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
+        
         // Vector3 desiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         // moveDirection = new Vector3(desiredMoveDirection.x, desiredMoveDirection.y + VerticalVelocity, desiredMoveDirection.z);
-
         // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
-        float movementSpeed = Player.ControlsInput.run ? Player._CharacterSheet._RunSpeed : Player._CharacterSheet._WalkSpeed;
-        Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
+
+        float movementSpeed = Player._Controls._Run ? Player._CharacterSheet._RunSpeed : Player._CharacterSheet._WalkSpeed;
+        // Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
+        Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed);
 
         ApplyGravity();
     }

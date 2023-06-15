@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerCharacter : Character
 {
-    [field: SerializeField] public PlayerControlsInput ControlsInput { get; private set; }
-    [field: SerializeField] public PlayerCamera CameraController { get; private set; }
-    [field: SerializeField] public PlayerMovement LocomotionController { get; private set; }
-    [field: SerializeField] public PlayerCards PlayerCards { get; private set; }
+    [field: SerializeField] public PlayerControlsInput _Controls { get; private set; }
+    [field: SerializeField] public PlayerCamera _CameraController { get; private set; }
+    [field: SerializeField] public PlayerMovement _LocomotionController { get; private set; }
+    [field: SerializeField] public PlayerCards _PlayerCards { get; private set; }
 
 
     public override void Initialize()
@@ -15,14 +15,15 @@ public class PlayerCharacter : Character
         base.Initialize();
         
         // get the inputs
-        ControlsInput = GetComponent<PlayerControlsInput>();
+        _Controls = GetComponent<PlayerControlsInput>();
 
         // start the camera
-        CameraController = GetComponent<PlayerCamera>();
-        CameraController.Initialize(this);
-        LocomotionController = GetComponent<PlayerMovement>();
-        LocomotionController.Initialize(this);
-        PlayerCards = GetComponent<PlayerCards>();
+        _CameraController = GetComponent<PlayerCamera>();
+        _CameraController.Initialize(this);
+        _LocomotionController = GetComponent<PlayerMovement>();
+        _LocomotionController.Initialize(this);
+        _PlayerCards = GetComponent<PlayerCards>();
+        _PlayerCards.Initialize(this);
     }
 
     // Update is called once per frame

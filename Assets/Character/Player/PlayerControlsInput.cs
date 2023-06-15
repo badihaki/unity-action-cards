@@ -7,10 +7,11 @@ using UnityEngine.InputSystem;
 public class PlayerControlsInput : MonoBehaviour
 {
     private PlayerCharacter Player;
-    [field:SerializeField]public Vector2 moveInput { get; private set; }
-    [field:SerializeField]public Vector2 aimInput { get; private set; }
-    [field: SerializeField] public bool jump { get; private set; }
-    [field: SerializeField] public bool run { get; private set; }
+    [field:SerializeField]public Vector2 _MoveInput { get; private set; }
+    [field:SerializeField]public Vector2 _AimInput { get; private set; }
+    [field: SerializeField] public bool _Jump { get; private set; }
+    [field: SerializeField] public bool _Run { get; private set; }
+    [field: SerializeField] public bool _Cards { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,7 @@ public class PlayerControlsInput : MonoBehaviour
         else if(moveVector.x < 0) moveVector.x = -1;
         if (moveVector.y > 0) moveVector.y = 1;
         else if (moveVector.y < 0) moveVector.y = -1;
-        moveInput = moveVector;
+        _MoveInput = moveVector;
     }
     public void OnAim(InputValue val)
     {
@@ -41,7 +42,7 @@ public class PlayerControlsInput : MonoBehaviour
     }
     private void ProcessAimInput(Vector2 input)
     {
-        aimInput = input.normalized;
+        _AimInput = input.normalized;
     }
 
     public void OnJump(InputValue val)
@@ -50,7 +51,7 @@ public class PlayerControlsInput : MonoBehaviour
     }
     private void ProcessJumpInput(bool inputState)
     {
-        jump = inputState;
+        _Jump = inputState;
     }
 
     public void OnRun(InputValue val)
@@ -60,7 +61,15 @@ public class PlayerControlsInput : MonoBehaviour
 
     private void ProcessRunInput(bool inputState)
     {
-        run = inputState;
+        _Run = inputState;
+    }
+    public void OnCards(InputValue val)
+    {
+        ProcessCards(val.isPressed);
+    }
+    private void ProcessCards(bool inputState)
+    {
+        _Cards = inputState;
     }
 
     // end

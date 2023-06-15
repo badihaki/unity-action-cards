@@ -45,7 +45,7 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CameraRotation(Player.ControlsInput.aimInput);
+        CameraRotation(Player._Controls._AimInput);
     }
 
     public void CameraRotation(Vector2 aimInput)
