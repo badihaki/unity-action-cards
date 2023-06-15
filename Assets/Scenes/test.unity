@@ -488,6 +488,29 @@ PrefabInstance:
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: <_Hand>k__BackingField.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: <_Hand>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
+    - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: <_Hand>k__BackingField.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
+    - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: <_Hand>k__BackingField.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
     - target: {fileID: 4763357572531752977, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
