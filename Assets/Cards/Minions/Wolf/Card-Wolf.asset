@@ -16,5 +16,7 @@ MonoBehaviour:
   _TypeOfCard: 0
   _CardCost: 10
   _CardImage: {fileID: 21300000, guid: 43a9d6a797231e047ab99c4eff9a2cd3, type: 3}
-  _MinionCharacterSheet: {fileID: 0}
-  _MinionActor: {fileID: 0}
+  _MinionCharacterSheet: {fileID: 11400000, guid: a2600819b2e338645bf4389bbe18c047,
+    type: 2}
+  _MinionActor: {fileID: 5464613232524399442, guid: 7d26b3d088ae50e4d9275b8c8f0cd9b2,
+    type: 3}

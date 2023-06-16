@@ -48,14 +48,14 @@ public class PlayerCards : MonoBehaviour
     {
         handOfCards.SetActive(true);
         List<RectTransform> cardGameObjs = new List<RectTransform>();
-        print("Amount of cards in hand: " + _Hand.Count);
+
         for (int cardIndex = 0; cardIndex < _Hand.Count; cardIndex++)
         {
             GameObject cardGameObj = CreateCardUIObject(_Hand[cardIndex]);
             cardGameObjs.Add(cardGameObj.GetComponent<RectTransform>());
             // print("Card Index: " + cardIndex + " || Card Name: " + cardGameObj.name);
         }
-        print("Amount of card game objs before rearranging: " + cardGameObjs.Count);
+
         RearrangeCards(cardGameObjs);
     }
 
@@ -80,9 +80,10 @@ public class PlayerCards : MonoBehaviour
     {
         GameObject newCard = Instantiate(cardPrefab, handOfCards.transform);
         newCard.name = cardSO.name;
-        newCard.transform.Find("Illo").GetComponent<RawImage>().texture = cardSO._CardImage.texture;
-        newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardSO._CardName;
-        newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cardSO._CardCost.ToString();
+        newCard.GetComponent<CardUI>().Initialize(cardSO, player);
+        // newCard.transform.Find("Illo").GetComponent<RawImage>().texture = cardSO._CardImage.texture;
+        // newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardSO._CardName;
+        // newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cardSO._CardCost.ToString();
 
         return newCard;
     }
@@ -93,12 +94,11 @@ public class PlayerCards : MonoBehaviour
         
         for(int currentIndex = 0; currentIndex < cardGameObjs.Count; currentIndex++)
         {
-            float transformX = Mathf.Sin(radiansOfSeparation * currentIndex * radius);
-            float transformY = Mathf.Cos(radiansOfSeparation * currentIndex * radius);
+            float transformX = Mathf.Sin(radiansOfSeparation * currentIndex) * radius;
+            float transformY = Mathf.Cos(radiansOfSeparation * currentIndex) * radius;
 
-            print("Current Index: " + currentIndex + " Card: " + cardGameObjs[currentIndex]);
-            print("X: " + transformX + " Y: " + transformY);
             cardGameObjs[currentIndex].anchoredPosition = new Vector2(transformX, transformY);
+            // cardGameObjs[currentIndex].anchoredPosition3D = new Vector3(transformX, transformY, 0.00f);
         }
     }
 
