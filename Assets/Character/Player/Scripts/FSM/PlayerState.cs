@@ -6,14 +6,14 @@ public class PlayerState
 {
     public PlayerState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
     {
-        _PC = pc;
+        _PlayerCharacter = pc;
         _StateAnimationName = animationName;
         _StateMachine = stateMachine;
     }
 
     // state setup variables
     // ref to player character
-    public PlayerCharacter _PC { get; private set; }
+    public PlayerCharacter _PlayerCharacter { get; private set; }
     public string _StateAnimationName { get; private set; }
     public PlayerStateMachine _StateMachine { get;private set; }
 
@@ -28,6 +28,8 @@ public class PlayerState
     public virtual void EnterState()
     {
         _StateEnterTime = Time.time;
+        _IsExitingState = false;
+        _SideEffectTrigger = false;
     }
     public virtual void ExitState()
     {
@@ -38,7 +40,8 @@ public class PlayerState
     #region Update Functions
     public virtual void LogicUpdate()
     {
-        // check state transitions
+        CheckStateTransitions();
+        CheckInputs();
     }
     public virtual void PhysicsUpdate()
     {
@@ -54,6 +57,10 @@ public class PlayerState
     public virtual void CheckStateTransitions()
     {
         // check for transitions to other states
+    }
+    public virtual void CheckInputs()
+    {
+        // use this to hold whatever inputs you want to check for
     }
     #endregion
 

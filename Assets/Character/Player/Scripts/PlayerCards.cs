@@ -32,12 +32,12 @@ public class PlayerCards : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player._Controls._Cards && !showingHand)
+        if(player._Controls._CardsInput && !showingHand)
         {
             ShowHand();
             showingHand = true;
         }
-        else if (!player._Controls._Cards)
+        else if (!player._Controls._CardsInput)
         {
             if(showingHand) PutAwayHand();
             showingHand = false;

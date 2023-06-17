@@ -9,9 +9,9 @@ public class PlayerControlsInput : MonoBehaviour
     private PlayerCharacter Player;
     [field:SerializeField]public Vector2 _MoveInput { get; private set; }
     [field:SerializeField]public Vector2 _AimInput { get; private set; }
-    [field: SerializeField] public bool _Jump { get; private set; }
-    [field: SerializeField] public bool _Run { get; private set; }
-    [field: SerializeField] public bool _Cards { get; private set; }
+    [field: SerializeField] public bool _JumpInput { get; private set; }
+    [field: SerializeField] public bool _RunInput { get; private set; }
+    [field: SerializeField] public bool _CardsInput { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +51,7 @@ public class PlayerControlsInput : MonoBehaviour
     }
     private void ProcessJumpInput(bool inputState)
     {
-        _Jump = inputState;
+        _JumpInput = inputState;
     }
 
     public void OnRun(InputValue val)
@@ -61,7 +61,7 @@ public class PlayerControlsInput : MonoBehaviour
 
     private void ProcessRunInput(bool inputState)
     {
-        _Run = inputState;
+        _RunInput = inputState;
     }
     public void OnCards(InputValue val)
     {
@@ -69,7 +69,7 @@ public class PlayerControlsInput : MonoBehaviour
     }
     private void ProcessCards(bool inputState)
     {
-        _Cards = inputState;
+        _CardsInput = inputState;
     }
 
     // end

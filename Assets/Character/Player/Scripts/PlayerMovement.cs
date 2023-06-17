@@ -5,59 +5,15 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private PlayerCharacter Player;
-    private Rigidbody Rigidbody;
-    private Collider body;
-    [SerializeField]private float GroundRayDistance = 0.500f;
-    public bool IsGrounded()
-    {
-        Ray midRay = new Ray(transform.position, -transform.up);
-        Ray leftRay = new Ray(new Vector3(transform.position.x - body.bounds.extents.x, transform.position.y, transform.position.z), -transform.up);
-        Ray rightRay = new Ray(new Vector3(transform.position.x + body.bounds.extents.x, transform.position.y, transform.position.z), -transform.up);
-        Ray frontRay = new Ray(new Vector3(transform.position.x, transform.position.y, transform.position.z + body.bounds.extents.z), -transform.up);
-        Ray backRay = new Ray(new Vector3(transform.position.x, transform.position.y, transform.position.z - body.bounds.extents.z), -transform.up);
-        if (Physics.Raycast(midRay, out RaycastHit midHitInfo, GroundRayDistance))
-        {
-            Debug.DrawLine(midRay.origin, new Vector3(midRay.origin.x, midRay.origin.y - GroundRayDistance, midRay.origin.z), Color.red, 0.05f);
-            // Debug.Log(midHitInfo);
-            return true;
-        }
-        if (Physics.Raycast(leftRay, out RaycastHit leftHitInfo, GroundRayDistance))
-        {
-            Debug.DrawLine(leftRay.origin, new Vector3(leftRay.origin.x, leftRay.origin.y - GroundRayDistance, leftRay.origin.z), Color.red, 0.05f);
-            return true;
-        }
-        if (Physics.Raycast(rightRay, out RaycastHit rightHitInfo, GroundRayDistance))
-        {
-            Debug.DrawLine(rightRay.origin, new Vector3(rightRay.origin.x, rightRay.origin.y - GroundRayDistance, rightRay.origin.z), Color.red, 0.05f);
-            return true;
-        }
-        if (Physics.Raycast(frontRay, out RaycastHit frontHitInfo, GroundRayDistance))
-        {
-            Debug.DrawLine(frontRay.origin, new Vector3(frontRay.origin.x, frontRay.origin.y - GroundRayDistance, frontRay.origin.z), Color.red, 0.05f);
-            return true;
-        }
-        if (Physics.Raycast(backRay, out RaycastHit backHitInfo, GroundRayDistance))
-        {
-            Debug.DrawLine(backRay.origin, new Vector3(backRay.origin.x, backRay.origin.y - GroundRayDistance, backRay.origin.z), Color.red, 0.05f);
-            return true;
-        }
-        else
-        {
-            Debug.DrawLine(midRay.origin, new Vector3(midRay.origin.x, midRay.origin.y - GroundRayDistance, midRay.origin.z), Color.gray, 0.05f);
-            Debug.DrawLine(leftRay.origin, new Vector3(leftRay.origin.x, leftRay.origin.y - GroundRayDistance, leftRay.origin.z), Color.gray, 0.05f);
-            Debug.DrawLine(rightRay.origin, new Vector3(rightRay.origin.x, rightRay.origin.y - GroundRayDistance, rightRay.origin.z), Color.gray, 0.05f);
-            Debug.DrawLine(frontRay.origin, new Vector3(frontRay.origin.x, frontRay.origin.y - GroundRayDistance, frontRay.origin.z), Color.gray, 0.05f);
-            Debug.DrawLine(backRay.origin, new Vector3(backRay.origin.x, backRay.origin.y - GroundRayDistance, backRay.origin.z), Color.gray, 0.05f);
-            return false;
-        }
-    }
-    [SerializeField] private float Gravity = -15.0f;
-    [SerializeField] private float VerticalVelocity;
-    [SerializeField] private float BaseVerticalVelocity = -2.00f;
-    [SerializeField] private float maxVertVelocity = -150.00f;
-    private float TerminalVelocity = 53.00f;
-    [SerializeField]private Vector3 moveDirection;
+    private PlayerCharacter _Player;
+    private Rigidbody _Rigidbody;
+    
+    [SerializeField] private float _Gravity = -15.0f;
+    [SerializeField] private float _VerticalVelocity;
+    [SerializeField] private float _BaseVerticalVelocity = -2.00f;
+    [SerializeField] private float _MaxVertVelocity = -150.00f;
+    private float terminalVelocity = 53.00f;
+    [SerializeField]private Vector3 _MoveDirection;
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.15f;
     private float targetRotation;
@@ -70,22 +26,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void Initialize(PlayerCharacter controller)
     {
-        Player = controller;
-        Rigidbody = GetComponent<Rigidbody>();
-        body = transform.Find("Colliders").Find("Body").GetComponent<Collider>();
+        _Player = controller;
+        _Rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
     private void FixedUpdate()
     {
         /*
          * DELETE This shit below:
         */
-        MoveTowardsCam(Player._Controls._MoveInput);
-        if (Player._Controls._Jump)
+        if (_Player._Controls._JumpInput)
         {
             Jump();
         }
@@ -95,42 +45,47 @@ public class PlayerMovement : MonoBehaviour
     public void ApplyGravity()
     {
         // stop vertical velocity from dropping infinitely when grounded
-        if (IsGrounded())
+        if (_Player._CheckGrounded.IsGrounded())
         {
-            if(VerticalVelocity < 0.00f)
+            if(_VerticalVelocity < 0.00f)
             {
-                VerticalVelocity = BaseVerticalVelocity;
+                _VerticalVelocity = _BaseVerticalVelocity;
             }
         }
         else
         {
             // Apply gravity over time if under terminal (max) velocity
-            if (VerticalVelocity < TerminalVelocity)
+            if (_VerticalVelocity < terminalVelocity)
             {
-                VerticalVelocity += Gravity * Time.deltaTime;
+                _VerticalVelocity += _Gravity * Time.deltaTime;
 
-                if (VerticalVelocity < maxVertVelocity) VerticalVelocity = maxVertVelocity;
+                if (_VerticalVelocity < _MaxVertVelocity) _VerticalVelocity = _MaxVertVelocity;
             }
         }
-        Rigidbody.velocity = new Vector3(Rigidbody.velocity.x, Rigidbody.velocity.y + VerticalVelocity, Rigidbody.velocity.z);
+        _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _VerticalVelocity, _Rigidbody.velocity.z);
+    }
+
+    public void ZeroOutVelocity()
+    {
+        _Rigidbody.velocity = Vector3.zero;
     }
 
     public void MoveTowardsCam(Vector2 direction)
     {
-        if (direction == Vector2.zero) moveDirection = Vector2.zero;
+        if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
         {
             RotateCharacter(direction);
-            moveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+            _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
         
         // Vector3 desiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         // moveDirection = new Vector3(desiredMoveDirection.x, desiredMoveDirection.y + VerticalVelocity, desiredMoveDirection.z);
         // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
 
-        float movementSpeed = Player._Controls._Run ? Player._CharacterSheet._RunSpeed : Player._CharacterSheet._WalkSpeed;
+        float movementSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
         // Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
-        Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed);
+        _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
 
         ApplyGravity();
     }
@@ -149,9 +104,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void Jump()
     {
-        if (IsGrounded())
+        if (_Player._CheckGrounded.IsGrounded())
         {
-            VerticalVelocity = Mathf.Sqrt(Player._CharacterSheet._JumpPower * BaseVerticalVelocity * Gravity);
+            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity * _Gravity);
         }
     }
 

@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 562391084}
   - component: {fileID: 562391085}
   - component: {fileID: 4508823607405184665}
+  - component: {fileID: 4404630978568566191}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -142,6 +143,7 @@ MonoBehaviour:
   <_CharacterSheet>k__BackingField: {fileID: 11400000, guid: 1476ea23c099899478a06d3262f16d50,
     type: 2}
   <_Health>k__BackingField: {fileID: 0}
+  <_CheckGrounded>k__BackingField: {fileID: 0}
   <_Actor>k__BackingField: {fileID: 0}
   <_Controls>k__BackingField: {fileID: 0}
   <_CameraController>k__BackingField: {fileID: 0}
@@ -161,9 +163,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_MoveInput>k__BackingField: {x: 0, y: 0}
   <_AimInput>k__BackingField: {x: 0, y: 0}
-  <_Jump>k__BackingField: 0
-  <_Run>k__BackingField: 0
-  <_Cards>k__BackingField: 0
+  <_JumpInput>k__BackingField: 0
+  <_RunInput>k__BackingField: 0
+  <_CardsInput>k__BackingField: 0
 --- !u!114 &851387895230023576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,12 +213,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f6e41e1e54867b41b2fcc385b922f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroundRayDistance: 0.5
-  Gravity: -15
-  VerticalVelocity: 0
-  BaseVerticalVelocity: -2
-  maxVertVelocity: -150
-  moveDirection: {x: 0, y: 0, z: 0}
+  _Gravity: -15
+  _VerticalVelocity: 0
+  _BaseVerticalVelocity: -2
+  _MaxVertVelocity: -150
+  _MoveDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &562391085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,8 +252,20 @@ MonoBehaviour:
   cardPrefab: {fileID: 2994744669256209799, guid: 9cbbbfb1755bbf94aabe2cd0d91d35b6,
     type: 3}
   handOfCards: {fileID: 0}
-  radius: 300
   showingHand: 0
+--- !u!114 &4404630978568566191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3673011630814679514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28860ea4d9b52542999b89c820443cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GroundRayDistance: 1.5
 --- !u!1 &3673011631263412373
 GameObject:
   m_ObjectHideFlags: 0
