@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a4c6563f51534449b0528545c24e9e, type: 3}
-  m_Name: Player
+  m_Script: {fileID: 11500000, guid: 94d11b2cbf4435d43941a681d6f7e6d3, type: 3}
+  m_Name: MagicMissle
   m_EditorClassIdentifier: 
-  _CharacterName: 
-  _StartingHealth: 1
-  _WalkSpeed: 5
-  _RunSpeed: 8
-  _RushDashSpeed: 15.65
-  _JumpPower: 5.25
+  _CardName: Magic Missle
+  _TypeOfCard: 2
+  _CardCost: 3
+  _CardImage: {fileID: 21300000, guid: c3503013a7e30a04083c45dc4453225c, type: 3}
+  _SpellProjectile: {fileID: 0}
+  _SpellCharges: 15

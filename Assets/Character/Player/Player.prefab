@@ -65,7 +65,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3673011630814679514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4258327, y: 0.17, z: 5.5557194}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -107,7 +107,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -250,6 +250,8 @@ MonoBehaviour:
   <_Hand>k__BackingField: []
   cardPrefab: {fileID: 2994744669256209799, guid: 9cbbbfb1755bbf94aabe2cd0d91d35b6,
     type: 3}
+  handOfCards: {fileID: 0}
+  radius: 300
   showingHand: 0
 --- !u!1 &3673011631263412373
 GameObject:
@@ -290,13 +292,13 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3673011631263412373}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9dfa13a6a4c3d8242aacc038713ce15f, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.35
-  m_Height: 2.45
+  m_Height: 2.48
   m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: -0.05, z: 0}
 --- !u!1 &4479749927040893547
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,12 +465,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 61bcfe81b82c8b645bed13a80cf77ca7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.92372
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 61bcfe81b82c8b645bed13a80cf77ca7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.003
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 61bcfe81b82c8b645bed13a80cf77ca7,
         type: 3}

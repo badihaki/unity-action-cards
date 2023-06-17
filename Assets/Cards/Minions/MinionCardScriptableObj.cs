@@ -15,7 +15,7 @@ public class MinionCardScriptableObj : CardScriptableObj
     {
         base.PlayCard(controllingCharacter);
 
-        Vector3 spawnPosition = new Vector3(controllingCharacter.transform.position.x + Random.Range(1.5f, 2.3f), controllingCharacter.transform.position.y, controllingCharacter.transform.position.z + Random.Range(1.5f, 3.5f));
+        Vector3 spawnPosition = new Vector3(controllingCharacter.transform.position.x + Random.Range(-1.35f, 1.35f), controllingCharacter.transform.position.y, controllingCharacter.transform.position.z - (1.0f - Random.Range(1.5f, 3.5f)));
 
         if(Physics.Raycast(spawnPosition, Vector3.forward, out RaycastHit hitinfo, 5.0f))
         {

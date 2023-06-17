@@ -18,7 +18,7 @@ public class PlayerCards : MonoBehaviour
     [field: SerializeField] public List<CardScriptableObj> _Hand { get; private set; }
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject handOfCards;
-    [SerializeField] private float radius = 300.00f;
+    private float radius = 300.00f;
     public bool showingHand = false;
     
     public void Initialize(PlayerCharacter pl)
@@ -51,7 +51,7 @@ public class PlayerCards : MonoBehaviour
 
         for (int cardIndex = 0; cardIndex < _Hand.Count; cardIndex++)
         {
-            GameObject cardGameObj = CreateCardUIObject(_Hand[cardIndex]);
+            GameObject cardGameObj = CreateCardUIObject(_Hand[cardIndex], cardIndex);
             cardGameObjs.Add(cardGameObj.GetComponent<RectTransform>());
             // print("Card Index: " + cardIndex + " || Card Name: " + cardGameObj.name);
         }
@@ -76,11 +76,11 @@ public class PlayerCards : MonoBehaviour
         _Hand[0].PlayCard(player);
     }
 
-    private GameObject CreateCardUIObject(CardScriptableObj cardSO)
+    private GameObject CreateCardUIObject(CardScriptableObj cardSO, int index)
     {
         GameObject newCard = Instantiate(cardPrefab, handOfCards.transform);
         newCard.name = cardSO.name;
-        newCard.GetComponent<CardUI>().Initialize(cardSO, player);
+        newCard.GetComponent<CardUI>().Initialize(cardSO, player, index);
         // newCard.transform.Find("Illo").GetComponent<RawImage>().texture = cardSO._CardImage.texture;
         // newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardSO._CardName;
         // newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cardSO._CardCost.ToString();
@@ -100,6 +100,13 @@ public class PlayerCards : MonoBehaviour
             cardGameObjs[currentIndex].anchoredPosition = new Vector2(transformX, transformY);
             // cardGameObjs[currentIndex].anchoredPosition3D = new Vector3(transformX, transformY, 0.00f);
         }
+    }
+
+    public void PlayCard(int cardIndex)
+    {
+        _Hand[cardIndex].PlayCard(player);
+        _Abyss.Add(_Hand[cardIndex]);
+        _Hand.RemoveAt(cardIndex);
     }
 
 }

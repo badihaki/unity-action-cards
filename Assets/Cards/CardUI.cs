@@ -10,10 +10,12 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     CardScriptableObj card;
     Animator cardAnimator;
     PlayerCharacter player;
-    public void Initialize(CardScriptableObj cardSO, PlayerCharacter thePlayer)
+    int indexNumberReference;
+    public void Initialize(CardScriptableObj cardSO, PlayerCharacter thePlayer, int indexNumber)
     {
         card = cardSO;
         player = thePlayer;
+        indexNumberReference = indexNumber;
 
         transform.Find("Illo").GetComponent<RawImage>().texture = card._CardImage.texture;
         transform.Find("Name").GetComponent<TextMeshProUGUI>().text = card._CardName;
@@ -24,7 +26,8 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        card.PlayCard(player);
+        player._PlayerCards.PlayCard(indexNumberReference);
+        Destroy(gameObject);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
