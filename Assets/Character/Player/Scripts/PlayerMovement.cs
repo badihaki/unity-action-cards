@@ -18,28 +18,10 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSmoothingTime = 0.15f;
     private float targetRotation;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     public void Initialize(PlayerCharacter controller)
     {
         _Player = controller;
         _Rigidbody = GetComponent<Rigidbody>();
-    }
-
-    private void FixedUpdate()
-    {
-        /*
-         * DELETE This shit below:
-        */
-        if (_Player._Controls._JumpInput)
-        {
-            Jump();
-        }
-        // ApplyGravity();
     }
 
     public void ApplyGravity()
@@ -65,10 +47,7 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _VerticalVelocity, _Rigidbody.velocity.z);
     }
 
-    public void ZeroOutVelocity()
-    {
-        _Rigidbody.velocity = Vector3.zero;
-    }
+    public void ZeroOutVelocity() => _Rigidbody.velocity = Vector3.zero;
 
     public void MoveTowardsCam(Vector2 direction)
     {
@@ -106,7 +85,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_Player._CheckGrounded.IsGrounded())
         {
-            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity * _Gravity);
+            // _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity * _Gravity);
+            _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
         }
     }
 

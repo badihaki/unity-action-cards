@@ -15,7 +15,8 @@ public class PlayerGroundedSuperState : PlayerState
     {
         base.CheckStateTransitions();
 
-        // check if we are still grounded, if not go to falling state
+        if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+        if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
     }
     public override void CheckInputs()
     {

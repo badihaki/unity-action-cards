@@ -399,7 +399,7 @@ PrefabInstance:
     - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
       propertyPath: <_Hand>k__BackingField.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
@@ -417,7 +417,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <_Hand>k__BackingField.Array.data[2]
       value: 
-      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+      objectReference: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9,
         type: 2}
     - target: {fileID: 4508823607405184665, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}

@@ -15,6 +15,13 @@ public class PlayerIdleState : PlayerGroundedSuperState
         if (moveInput != Vector2.zero) _StateMachine.ChangeState(_PlayerCharacter._MoveState);
     }
 
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+        
+        _PlayerCharacter._LocomotionController.ApplyGravity();
+    }
+
     public override void EnterState()
     {
         base.EnterState();

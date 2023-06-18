@@ -14,6 +14,8 @@ public class PlayerCharacter : Character
     public PlayerStateMachine _StateMachine { get; private set; }
     public PlayerIdleState _IdleState { get; private set; }
     public PlayerMoveState _MoveState { get; private set; }
+    public PlayerFallingState _FallingState { get; private set; }
+    public PlayerJumpState _JumpState { get; private set; }
 
     public override void Initialize()
     {
@@ -39,6 +41,8 @@ public class PlayerCharacter : Character
 
         _IdleState = new PlayerIdleState(this, "idle", _StateMachine);
         _MoveState = new PlayerMoveState(this, "move", _StateMachine);
+        _FallingState = new PlayerFallingState(this, "falling", _StateMachine);
+        _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
 
         _StateMachine.InitializeStateMachine(_MoveState);
     }
