@@ -9,6 +9,15 @@ public class PlayerInAirSuperState : PlayerState
     }
 
     public Vector2 moveInput { get; private set; }
+    public Vector2 aimInput { get; private set; }
+    public bool cardInput { get; private set; }
+
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        _PlayerCharacter._CameraController.CameraRotation(aimInput);
+    }
 
     public override void PhysicsUpdate()
     {
@@ -22,6 +31,7 @@ public class PlayerInAirSuperState : PlayerState
         base.CheckStateTransitions();
 
         if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._InAirCardState);
     }
 
     public override void CheckInputs()
@@ -29,5 +39,7 @@ public class PlayerInAirSuperState : PlayerState
         base.CheckInputs();
 
         moveInput = _PlayerCharacter._Controls._MoveInput;
+        aimInput = _PlayerCharacter._Controls._AimInput;
+        cardInput = _PlayerCharacter._Controls._CardsInput;
     }
 }

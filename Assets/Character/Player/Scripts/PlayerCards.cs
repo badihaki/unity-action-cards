@@ -19,30 +19,16 @@ public class PlayerCards : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject handOfCards;
     private float radius = 300.00f;
-    public bool showingHand = false;
     
     public void Initialize(PlayerCharacter pl)
     {
         player = pl;
-        handOfCards = transform.Find("UI-Hand").gameObject;
+        // handOfCards = transform.Find("UI-Hand").gameObject;
+        handOfCards = Instantiate(handOfCards, transform);
+        handOfCards.name = "Card-Hand-UI";
         handOfCards.SetActive(false);
-        showingHand = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(player._Controls._CardsInput && !showingHand)
-        {
-            ShowHand();
-            showingHand = true;
-        }
-        else if (!player._Controls._CardsInput)
-        {
-            if(showingHand) PutAwayHand();
-            showingHand = false;
-        }
-    }
 
     public void ShowHand()
     {

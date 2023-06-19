@@ -53,6 +53,7 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _JumpInput = inputState;
     }
+    public void UseJump() => _JumpInput = false;
 
     public void OnRun(InputValue val)
     {

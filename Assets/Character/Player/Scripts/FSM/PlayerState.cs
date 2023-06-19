@@ -30,10 +30,14 @@ public class PlayerState
         _StateEnterTime = Time.time;
         _IsExitingState = false;
         _SideEffectTrigger = false;
+
+        Debug.Log("Entering new state: " + _StateAnimationName + " at " + Time.time);
     }
     public virtual void ExitState()
     {
         _IsExitingState = true;
+
+        Debug.Log("Leaving state " + _StateAnimationName + " at " + Time.time);
     }
     #endregion
 

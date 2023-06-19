@@ -26,6 +26,7 @@ public class PlayerCamera : MonoBehaviour
         // GameObject newGameObj = Instantiate(new GameObject(), new Vector3(0, 0, 0), Quaternion.identity);
         cinemachineCamTarget = transform.Find("CamTarget");
         InitializeCinemachineController();
+        LockCursorKBM();
     }
     private void InitializeCinemachineController()
     {
@@ -42,11 +43,8 @@ public class PlayerCamera : MonoBehaviour
         cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        CameraRotation(Player._Controls._AimInput);
-    }
+    public void LockCursorKBM() => Cursor.lockState = CursorLockMode.Locked;
+    public void UnlockCursorKBM() => Cursor.lockState = CursorLockMode.None;
 
     public void CameraRotation(Vector2 aimInput)
     {

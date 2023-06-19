@@ -16,6 +16,8 @@ public class PlayerCharacter : Character
     public PlayerMoveState _MoveState { get; private set; }
     public PlayerFallingState _FallingState { get; private set; }
     public PlayerJumpState _JumpState { get; private set; }
+    public PlayerGroundedCardState _GroundedCardState { get; private set; }
+    public PlayerInAirCardState _InAirCardState { get; private set; }
 
     public override void Initialize()
     {
@@ -27,11 +29,16 @@ public class PlayerCharacter : Character
         // start the camera
         _CameraController = GetComponent<PlayerCamera>();
         _CameraController.Initialize(this);
+
+        // start locomotion --> movement && jumping
         _LocomotionController = GetComponent<PlayerMovement>();
         _LocomotionController.Initialize(this);
+
+        // start the card stuff
         _PlayerCards = GetComponent<PlayerCards>();
         _PlayerCards.Initialize(this);
 
+        // initialize the statemachine
         InitializeStateMachine();
     }
 
@@ -43,8 +50,10 @@ public class PlayerCharacter : Character
         _MoveState = new PlayerMoveState(this, "move", _StateMachine);
         _FallingState = new PlayerFallingState(this, "falling", _StateMachine);
         _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
+        _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
+        _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
 
-        _StateMachine.InitializeStateMachine(_MoveState);
+        _StateMachine.InitializeStateMachine(_IdleState);
     }
 
     // Update is called once per frame

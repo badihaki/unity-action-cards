@@ -15,10 +15,8 @@ public class PlayerStateMachine
 
     public void ChangeState(PlayerState state)
     {
-        Debug.Log("Leaving state " + _CurrentState._StateAnimationName + " at " + Time.time);
         _CurrentState.ExitState();
         _CurrentState = state;
-        Debug.Log("And enetering new state: " + _CurrentState._StateAnimationName);
         _CurrentState.EnterState();
     }
     // end
