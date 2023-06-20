@@ -33,7 +33,10 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        //
+        IDamageable damageableEntity = trigger.GetComponent<IDamageable>();
+        damageableEntity?.Damage(damage, this.transform);
+
+        Destroy(gameObject);
     }
 
     // end

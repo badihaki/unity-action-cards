@@ -18,5 +18,10 @@ public class Health : MonoBehaviour
         _CurrentHealth = _MaxHealth;
     }
 
+    public void TakeDamage(int damage)
+    {
+        _CurrentHealth -= damage;
+    }
+
     // end
 }

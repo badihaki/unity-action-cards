@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -8,6 +10,7 @@ public class Character : MonoBehaviour
     [field: SerializeField] public Health _Health { get; private set; }
     [field: SerializeField] public CheckForGround _CheckGrounded { get; private set; }
     [field: SerializeField] public Transform _Actor { get; protected set; }
+    [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -22,11 +25,18 @@ public class Character : MonoBehaviour
 
         // start health
         _Health = GetComponent<Health>();
+        if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
 
         // start checking for ground
         _CheckGrounded = GetComponent<CheckForGround>();
+        if (_CheckGrounded == null) _CheckGrounded = transform.AddComponent<CheckForGround>();
         _CheckGrounded.Initialize();
+
+        // Start the hurtbox
+        _Hurtbox = GetComponentInChildren<CharacterHurtbox>();
+        if (_Hurtbox == null) _Hurtbox = transform.Find("Colliders").Find("Hurtbox").AddComponent<CharacterHurtbox>();
+        _Hurtbox.InitializeHurtBox(this);
     }
     // Update is called once per frame
     void Update()
