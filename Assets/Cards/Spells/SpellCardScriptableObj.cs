@@ -8,10 +8,17 @@ public class SpellCardScriptableObj : CardScriptableObj
     [Header("Spell Specific Below")]
     public GameObject _SpellProjectile;
     public int _SpellCharges;
+    public float _SpellSpeed;
 
     public override void PlayCard(Character controllingCharacter)
     {
         base.PlayCard(controllingCharacter);
+
+        if(controllingCharacter.GetComponent<PlayerCharacter>() != null)
+        {
+            PlayerCharacter player = controllingCharacter.GetComponent<PlayerCharacter>();
+            player._PlayerSpells.AddSpellToList(this);
+        }
 
         Debug.Log("Playing spell card: " + _CardName);
     }

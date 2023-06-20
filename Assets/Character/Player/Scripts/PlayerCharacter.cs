@@ -9,6 +9,7 @@ public class PlayerCharacter : Character
     [field: SerializeField] public PlayerCamera _CameraController { get; private set; }
     [field: SerializeField] public PlayerMovement _LocomotionController { get; private set; }
     [field: SerializeField] public PlayerCards _PlayerCards { get; private set; }
+    [field: SerializeField] public PlayerSpell _PlayerSpells { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -37,6 +38,10 @@ public class PlayerCharacter : Character
         // start the card stuff
         _PlayerCards = GetComponent<PlayerCards>();
         _PlayerCards.Initialize(this);
+
+        // give the player the ability to use spells
+        _PlayerSpells = GetComponent<PlayerSpell>();
+        _PlayerSpells.Initialize(this);
 
         // initialize the statemachine
         InitializeStateMachine();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class CardScriptableObj : ScriptableObject
         Weapon,
         Spell
     }
+
     public _CardType _TypeOfCard;
     [Tooltip("The type of card (can be minion, weapon or spell)")]
     public int _CardCost;

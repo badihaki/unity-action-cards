@@ -12,6 +12,8 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _JumpInput { get; private set; }
     [field: SerializeField] public bool _RunInput { get; private set; }
     [field: SerializeField] public bool _CardsInput { get; private set; }
+    [field: SerializeField] public bool _ReadySpellInput { get; private set; }
+    [field: SerializeField] public bool _AttackInput { get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +73,24 @@ public class PlayerControlsInput : MonoBehaviour
     private void ProcessCards(bool inputState)
     {
         _CardsInput = inputState;
+    }
+
+    public void OnAttack(InputValue val)
+    {
+        ProcessAttack(val.isPressed);
+    }
+    private void ProcessAttack(bool inputState)
+    {
+        _AttackInput = inputState;
+    }
+
+    public void OnReadySpell(InputValue val)
+    {
+        ProcessReadySpell(val.isPressed);
+    }
+    private void ProcessReadySpell(bool inputState)
+    {
+        _ReadySpellInput = inputState;
     }
 
     // end
