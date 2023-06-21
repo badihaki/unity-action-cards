@@ -22,6 +22,7 @@ public class PlayerState
     
     // boolean triggers
     public bool _IsExitingState { get; protected set; }
+    public bool _AnimationIsFinished { get; private set; }
     public bool _SideEffectTrigger { get; protected set; }
 
     #region Enter/Exit Functions
@@ -30,6 +31,7 @@ public class PlayerState
         _StateEnterTime = Time.time;
         _IsExitingState = false;
         _SideEffectTrigger = false;
+        _AnimationIsFinished = false;
 
         Debug.Log("Entering new state: " + _StateAnimationName + " at " + Time.time);
     }
@@ -54,6 +56,10 @@ public class PlayerState
     #endregion
 
     #region MISC Functions
+    public virtual void AnimationFinished()
+    {
+        _AnimationIsFinished = true;
+    }
     public virtual void TriggerSideEffect()
     {
         // trigger any side effect logic during the animation

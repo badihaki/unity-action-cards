@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerControlsInput : MonoBehaviour
 {
-    private PlayerCharacter Player;
     [field:SerializeField]public Vector2 _MoveInput { get; private set; }
     [field:SerializeField]public Vector2 _AimInput { get; private set; }
     [field: SerializeField] public bool _JumpInput { get; private set; }
@@ -14,16 +13,7 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _CardsInput { get; private set; }
     [field: SerializeField] public bool _ReadySpellInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    public void Initialize(PlayerCharacter controller)
-    {
-        Player = controller;
-    }
+    
 
     public void OnMove(InputValue val)
     {

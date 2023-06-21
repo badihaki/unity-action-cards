@@ -12,12 +12,13 @@ public class PlayerGroundedSuperState : PlayerState
     public Vector2 aimInput { get; private set; }
     public bool jumpInput { get; private set; }
     public bool cardInput { get; private set; }
+    public bool readySpellInput { get; private set; }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.CameraRotation(aimInput);
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
     }
 
     public override void CheckStateTransitions()
@@ -27,6 +28,7 @@ public class PlayerGroundedSuperState : PlayerState
         if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
         if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
         if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
+        if (readySpellInput) _StateMachine.ChangeState(_PlayerCharacter._ReadySpellState);
     }
     public override void CheckInputs()
     {
@@ -35,5 +37,6 @@ public class PlayerGroundedSuperState : PlayerState
         aimInput = _PlayerCharacter._Controls._AimInput;
         jumpInput = _PlayerCharacter._Controls._JumpInput;
         cardInput = _PlayerCharacter._Controls._CardsInput;
+        readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
     }
 }

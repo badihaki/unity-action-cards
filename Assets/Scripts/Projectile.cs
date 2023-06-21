@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
-    private bool ready = false;
+    [SerializeField] private bool ready = false;
 
     public void InitializeProjectile(Character _controller, int _dmg, float _speed)
     {
@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        IDamageable damageableEntity = trigger.GetComponent<IDamageable>();
+        IDamageable damageableEntity = trigger.GetComponentInParent<IDamageable>();
         damageableEntity?.Damage(damage, this.transform);
 
         Destroy(gameObject);

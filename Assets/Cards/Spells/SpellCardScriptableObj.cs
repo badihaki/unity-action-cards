@@ -7,6 +7,7 @@ public class SpellCardScriptableObj : CardScriptableObj
 {
     [Header("Spell Specific Below")]
     public GameObject _SpellProjectile;
+    public int _SpellDamage;
     public int _SpellCharges;
     public float _SpellSpeed;
 

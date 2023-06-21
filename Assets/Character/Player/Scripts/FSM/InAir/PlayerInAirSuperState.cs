@@ -16,7 +16,7 @@ public class PlayerInAirSuperState : PlayerState
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.CameraRotation(aimInput);
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
     }
 
     public override void PhysicsUpdate()

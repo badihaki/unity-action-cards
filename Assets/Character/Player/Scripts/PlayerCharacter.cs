@@ -19,6 +19,7 @@ public class PlayerCharacter : Character
     public PlayerJumpState _JumpState { get; private set; }
     public PlayerGroundedCardState _GroundedCardState { get; private set; }
     public PlayerInAirCardState _InAirCardState { get; private set; }
+    public PlayerReadySpellState _ReadySpellState { get; private set; }
 
     public override void Initialize()
     {
@@ -57,6 +58,7 @@ public class PlayerCharacter : Character
         _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
         _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
         _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
+        _ReadySpellState = new PlayerReadySpellState(this, "readySpell", _StateMachine);
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }
@@ -70,4 +72,9 @@ public class PlayerCharacter : Character
     {
         _StateMachine?._CurrentState.PhysicsUpdate();
     }
+
+    public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
+    public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
+
+
 }
