@@ -17,14 +17,33 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private int currentSpellIndex;
     [SerializeField] private SpellCardScriptableObj baseSpell;
 
-    [SerializeField] private Transform spellTarget;
+    [SerializeField] private LockSpellTargetRotation spellTarget;
+
+    private float timeToAddToTimer;
+    [SerializeField] private float spellTimer;
 
     public void Initialize(PlayerCharacter pl)
     {
         player = pl;
         activeSpellList = new List<storedSpell>();
         AddSpellToList(baseSpell);
-        spellTarget = player.transform.Find("SpellTarget");
+        spellTarget = GetComponentInChildren<LockSpellTargetRotation>();
+        spellTimer = 0.0f;
+        timeToAddToTimer = activeSpellList[currentSpellIndex].spell._SpellAddonTime;
+    }
+
+    private void Update()
+    {
+        RunSpellTimer();
+    }
+
+    private void RunSpellTimer()
+    {
+        if (spellTimer <= 0) spellTimer = 0.0f;
+        else
+        {
+            spellTimer -= Time.deltaTime;
+        }
     }
 
     public void AddSpellToList(SpellCardScriptableObj spellCard)
@@ -47,13 +66,33 @@ public class PlayerSpell : MonoBehaviour
         {
             currentSpellIndex = 0;
         }
+        spellTimer = 0.0f;
+        timeToAddToTimer = activeSpellList[currentSpellIndex].spell._SpellAddonTime;
     }
 
     public void UseSpell()
     {
-        Projectile conjuredSpell = Instantiate(activeSpellList[currentSpellIndex].spell._SpellProjectile, spellTarget.position, transform.rotation).GetComponent<Projectile>();
-        conjuredSpell.name = activeSpellList[currentSpellIndex].spell._CardName;
-        conjuredSpell.InitializeProjectile(player, activeSpellList[currentSpellIndex].spell._SpellDamage, activeSpellList[currentSpellIndex].spell._SpellSpeed);
+        if(spellTimer <= 0)
+        {
+            Projectile conjuredSpell = Instantiate(activeSpellList[currentSpellIndex].spell._SpellProjectile, spellTarget.transform.position, spellTarget.targetRotation).GetComponent<Projectile>();
+            conjuredSpell.name = activeSpellList[currentSpellIndex].spell._CardName;
+            conjuredSpell.InitializeProjectile(player, activeSpellList[currentSpellIndex].spell._SpellDamage, activeSpellList[currentSpellIndex].spell._SpellProjectileSpeed);
+            spellTimer = timeToAddToTimer;
+        
+            // remove a charge
+            if (currentSpellIndex != 0)
+            {
+                storedSpell modifiedSpell = activeSpellList[currentSpellIndex];
+                modifiedSpell.chargesLeft -= 1;
+                if (modifiedSpell.chargesLeft <= 0)
+                {
+                    int oldSpellIndexNumber = currentSpellIndex;
+                    ChangeSpellIndex();
+                    activeSpellList.Remove(activeSpellList[oldSpellIndexNumber]);
+                }
+                else activeSpellList[currentSpellIndex] = modifiedSpell;
+            }
+        }
     }
 
     // end

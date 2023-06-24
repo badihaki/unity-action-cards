@@ -9,7 +9,8 @@ public class SpellCardScriptableObj : CardScriptableObj
     public GameObject _SpellProjectile;
     public int _SpellDamage;
     public int _SpellCharges;
-    public float _SpellSpeed;
+    public float _SpellProjectileSpeed;
+    public float _SpellAddonTime;
 
     public override void PlayCard(Character controllingCharacter)
     {

@@ -12,6 +12,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
     {
         base.EnterState();
 
+        _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
     }
 
@@ -20,6 +21,11 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+
+        if (attackInput)
+        {
+            _PlayerCharacter._PlayerSpells.UseSpell();
+        }
     }
 
     public override void ExitState()

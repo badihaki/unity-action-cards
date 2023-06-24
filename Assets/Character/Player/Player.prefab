@@ -1333,8 +1333,6 @@ MonoBehaviour:
   <_CardsInput>k__BackingField: 0
   <_ReadySpellInput>k__BackingField: 0
   <_AttackInput>k__BackingField: 0
-  <_AttackTapInput>k__BackingField: 0
-  <_AttackHoldInput>k__BackingField: 0
 --- !u!114 &851387895230023576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1399,7 +1397,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2997f7a05c0b6954583a7802e2e9525f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CinemachineController: {fileID: 0}
+  <_PlayerCamController>k__BackingField: {fileID: 0}
+  <_PlayerAimCamController>k__BackingField: {fileID: 0}
+  currentCameraController: {fileID: 0}
   topLookClamp: 70
   bottomLookClamp: -30
   cinemachineCamTarget: {fileID: 0}
@@ -1435,8 +1435,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpellList: 6
+  activeSpellList: []
   currentSpellIndex: 0
   baseSpell: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9, type: 2}
+  spellTarget: {fileID: 0}
+  spellTimer: 0
 --- !u!1 &3673011631263412373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2224,7 +2227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7539562470738454986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0.5, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

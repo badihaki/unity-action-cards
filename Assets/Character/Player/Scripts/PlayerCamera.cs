@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Cinemachine.Editor;
+using System;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float topLookClamp = 70.0f;
     [Tooltip("How far can the camera look down")]
     [SerializeField] private float bottomLookClamp = -30.0f;
-    
-    [field: SerializeField] private Transform cinemachineCamTarget;
+
+    [field: SerializeField] public Transform cinemachineCamTarget { get; private set; }
     
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
@@ -66,11 +67,12 @@ public class PlayerCamera : MonoBehaviour
         _PlayerAimCamController.m_Lens.FieldOfView = 25.5f;
 
         Cinemachine3rdPersonFollow body = _PlayerAimCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
-        body.CameraDistance = 1.035f;
-        body.VerticalArmLength = 1.55f;
+        body.CameraDistance = 1.75f;
+        body.VerticalArmLength = 1.6f;
+        body.ShoulderOffset = new Vector3(0.0f, 0.75f, 0.0f);
         
         CinemachineComposer composer = _PlayerAimCamController.AddCinemachineComponent<CinemachineComposer>();
-        composer.m_TrackedObjectOffset = new Vector3(0, 1.05f, 0);
+        composer.m_TrackedObjectOffset = new Vector3(0, 0.775f, 0);
         cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
         composer.m_ScreenY = 0.45f;
     }
@@ -104,6 +106,8 @@ public class PlayerCamera : MonoBehaviour
         currentCameraController = vCam;
         currentCameraController.Priority = 10;
     }
+
+    public void ResetCinemachineTargetTransform() => cinemachineCamTarget.rotation = Quaternion.Euler(Vector3.zero);
 
     // end
 }
