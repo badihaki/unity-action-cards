@@ -8,6 +8,8 @@ public class PlayerReadySpellState : PlayerCombatSuperState
     {
     }
 
+    bool interactionInput;
+
     public override void EnterState()
     {
         base.EnterState();
@@ -22,9 +24,11 @@ public class PlayerReadySpellState : PlayerCombatSuperState
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 
-        if (attackInput)
+        if (attackInput)_PlayerCharacter._PlayerSpells.UseSpell();
+        if (interactionInput)
         {
-            _PlayerCharacter._PlayerSpells.UseSpell();
+            _PlayerCharacter._Controls.UseInteract();
+            _PlayerCharacter._PlayerSpells.ChangeSpellIndex();
         }
     }
 
@@ -44,6 +48,13 @@ public class PlayerReadySpellState : PlayerCombatSuperState
             if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
             else _StateMachine.ChangeState(_PlayerCharacter._FallingState);
         }
+    }
+
+    public override void CheckInputs()
+    {
+        base.CheckInputs();
+
+        interactionInput = _PlayerCharacter._Controls.__InteractInput;
     }
 
     // end

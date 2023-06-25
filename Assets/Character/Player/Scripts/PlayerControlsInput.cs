@@ -13,6 +13,7 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _CardsInput { get; private set; }
     [field: SerializeField] public bool _ReadySpellInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
+    [field: SerializeField] public bool __InteractInput { get; private set; }
     
 
     public void OnMove(InputValue val)
@@ -82,6 +83,16 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _ReadySpellInput = inputState;
     }
+    
+    public void OnInteract(InputValue val)
+    {
+        ProcessInteract(val.isPressed);
+    }
+    private void ProcessInteract(bool inputState)
+    {
+        __InteractInput = inputState;
+    }
+    public void UseInteract() => __InteractInput = false;
 
     // end
 }

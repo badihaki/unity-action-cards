@@ -9,7 +9,7 @@ public class PlayerStateMachine
     public void InitializeStateMachine(PlayerState state)
     {
         _CurrentState = state;
-        Debug.Log("Starting state machine with " + state._StateAnimationName);
+        // Debug.Log("Starting state machine with " + state._StateAnimationName);
         _CurrentState.EnterState();
     }
 

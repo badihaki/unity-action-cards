@@ -18,7 +18,7 @@ MonoBehaviour:
   _CardImage: {fileID: 21300000, guid: a94f24e3ec7256541aced6d573fd9e79, type: 3}
   _SpellProjectile: {fileID: 5110936282929510790, guid: 75229f5f90797a44a99fc79ab206a2ae,
     type: 3}
-  _SpellDamage: 0
-  _SpellCharges: 0
-  _SpellProjectileSpeed: 0
-  _SpellAddonTime: 0
+  _SpellDamage: 2
+  _SpellCharges: 10
+  _SpellProjectileSpeed: 10
+  _SpellAddonTime: 2.5

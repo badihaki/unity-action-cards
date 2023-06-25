@@ -1333,6 +1333,7 @@ MonoBehaviour:
   <_CardsInput>k__BackingField: 0
   <_ReadySpellInput>k__BackingField: 0
   <_AttackInput>k__BackingField: 0
+  <__InteractInput>k__BackingField: 0
 --- !u!114 &851387895230023576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1402,7 +1403,7 @@ MonoBehaviour:
   currentCameraController: {fileID: 0}
   topLookClamp: 70
   bottomLookClamp: -30
-  cinemachineCamTarget: {fileID: 0}
+  <cinemachineCamTarget>k__BackingField: {fileID: 0}
 --- !u!114 &4508823607405184665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,12 +1435,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a98e74e20e97944a4077256fd0998c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpellList: 6
-  activeSpellList: []
-  currentSpellIndex: 0
-  baseSpell: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9, type: 2}
-  spellTarget: {fileID: 0}
-  spellTimer: 0
+  _maxSpellList: 6
+  _activeSpellList: []
+  _currentSpellIndex: 0
+  _baseSpell: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9, type: 2}
+  _spellTarget: {fileID: 0}
+  _spellTimer: 0
+  _spellUIPrefab: {fileID: 8331729735603304313, guid: 6a890885860d600419d9a31456fdb228,
+    type: 3}
+  _spellUI: {fileID: 0}
+  _spellIconPrefab: {fileID: 4196082061840423992, guid: 145d3d7e21ed8144ab2a1671f65702ca,
+    type: 3}
 --- !u!1 &3673011631263412373
 GameObject:
   m_ObjectHideFlags: 0
