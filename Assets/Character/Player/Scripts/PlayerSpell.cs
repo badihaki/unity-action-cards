@@ -12,6 +12,7 @@ public class PlayerSpell : MonoBehaviour
         public SpellCardScriptableObj spell;
         public int chargesLeft;
         public Image spellIcon;
+        public RectTransform spellIconTransform;
         public TextMeshProUGUI spellChargeText;
     }
 
@@ -65,6 +66,7 @@ public class PlayerSpell : MonoBehaviour
     {
         if (_activeSpellList.Count < _maxSpellList)
         {
+            if (_activeSpellList.Count == 1) _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
             // create a new struct
             storedSpell spell = new storedSpell();
             
@@ -78,6 +80,7 @@ public class PlayerSpell : MonoBehaviour
             spell.spellIcon.sprite = spellCard._CardImage;
             spell.spellChargeText = spell.spellIcon.GetComponentInChildren<TextMeshProUGUI>();
             spell.spellChargeText.text = spell.chargesLeft.ToString();
+            spell.spellIconTransform = spell.spellIcon.GetComponent<RectTransform>();
 
             // add spell to list
             _activeSpellList.Add(spell);
@@ -91,6 +94,7 @@ public class PlayerSpell : MonoBehaviour
             int maxIndex = _activeSpellList.Count - 1;
 
             // change current spell index size to 1x1
+            _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
             _currentSpellIndex++;
             if (_currentSpellIndex > maxIndex)
             {
@@ -99,6 +103,7 @@ public class PlayerSpell : MonoBehaviour
             _spellTimer = 0.0f;
             timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
             // change current spell index size to 1.5x1.5
+            _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
         }
     }
 
