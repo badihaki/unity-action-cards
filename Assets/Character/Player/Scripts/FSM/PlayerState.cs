@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerState
 {
     public PlayerState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
@@ -14,7 +15,7 @@ public class PlayerState
     // state setup variables
     // ref to player character
     public PlayerCharacter _PlayerCharacter { get; private set; }
-    public string _StateAnimationName { get; private set; }
+    [field: SerializeField] public string _StateAnimationName { get; private set; }
     public PlayerStateMachine _StateMachine { get;private set; }
 
     // the time the state starts
@@ -23,7 +24,7 @@ public class PlayerState
     // boolean triggers
     public bool _IsExitingState { get; protected set; }
     public bool _AnimationIsFinished { get; private set; }
-    public bool _SideEffectTrigger { get; protected set; }
+    [field: SerializeField] public bool _SideEffectTrigger { get; protected set; }
 
     #region Enter/Exit Functions
     public virtual void EnterState()
@@ -32,12 +33,14 @@ public class PlayerState
         _IsExitingState = false;
         _SideEffectTrigger = false;
         _AnimationIsFinished = false;
+        _PlayerCharacter._AnimationController.SetBool(_StateAnimationName, true);
 
         // Debug.Log("Entering new state: " + _StateAnimationName + " at " + Time.time);
     }
     public virtual void ExitState()
     {
         _IsExitingState = true;
+        _PlayerCharacter._AnimationController.SetBool(_StateAnimationName, true);
 
         // Debug.Log("Leaving state " + _StateAnimationName + " at " + Time.time);
     }

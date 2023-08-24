@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateMachine
+public class PlayerStateMachine : MonoBehaviour
 {
-    public PlayerState _CurrentState { get; private set; }
+    [field: SerializeField] public PlayerState _CurrentState { get; private set; }
 
     public void InitializeStateMachine(PlayerState state)
     {

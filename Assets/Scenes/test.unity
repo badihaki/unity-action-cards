@@ -1870,9 +1870,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_CharacterSheet>k__BackingField: {fileID: 11400000, guid: 2d180f70094d38c409678999fb906477,
     type: 2}
-  <_Health>k__BackingField: {fileID: 0}
-  <_CheckGrounded>k__BackingField: {fileID: 0}
   <_Actor>k__BackingField: {fileID: 0}
+  <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

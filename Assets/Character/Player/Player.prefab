@@ -999,6 +999,7 @@ GameObject:
   - component: {fileID: 5475127990028884413}
   - component: {fileID: 4404630978568566191}
   - component: {fileID: 5709653274757234468}
+  - component: {fileID: 3951395704987251187}
   - component: {fileID: 680191765608160042}
   - component: {fileID: 851387895230023576}
   - component: {fileID: 562391084}
@@ -1099,15 +1100,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_CharacterSheet>k__BackingField: {fileID: 11400000, guid: 1476ea23c099899478a06d3262f16d50,
     type: 2}
-  <_Health>k__BackingField: {fileID: 0}
-  <_CheckGrounded>k__BackingField: {fileID: 0}
   <_Actor>k__BackingField: {fileID: 0}
+  <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
-  <_Controls>k__BackingField: {fileID: 0}
-  <_CameraController>k__BackingField: {fileID: 0}
-  <_LocomotionController>k__BackingField: {fileID: 0}
-  <_PlayerCards>k__BackingField: {fileID: 0}
-  <_PlayerSpells>k__BackingField: {fileID: 0}
+--- !u!114 &3951395704987251187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3673011630814679514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b2aaaa41e816cf4babdfb2c3c1bb011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_CurrentState>k__BackingField:
+    <_StateAnimationName>k__BackingField: 
+    <_SideEffectTrigger>k__BackingField: 0
 --- !u!114 &680191765608160042
 MonoBehaviour:
   m_ObjectHideFlags: 0

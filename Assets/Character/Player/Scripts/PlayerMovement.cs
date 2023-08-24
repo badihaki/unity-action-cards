@@ -47,7 +47,11 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _VerticalVelocity, _Rigidbody.velocity.z);
     }
 
-    public void ZeroOutVelocity() => _Rigidbody.velocity = Vector3.zero;
+    public void ZeroOutVelocity()
+    {
+        _Player._AnimationController.SetFloat("speed", 0.0f);
+        _Rigidbody.velocity = Vector3.zero;
+    }
 
     public void MoveTowardsCam(Vector2 direction)
     {
@@ -62,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
         // moveDirection = new Vector3(desiredMoveDirection.x, desiredMoveDirection.y + VerticalVelocity, desiredMoveDirection.z);
         // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
 
+        _Player._AnimationController.SetFloat("speed", 0.250f);
+        if (_Player._Controls._RunInput) _Player._AnimationController.SetFloat("speed", 1.0f);
         float movementSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
         // Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
         _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
