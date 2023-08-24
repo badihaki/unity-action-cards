@@ -6,15 +6,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerControlsInput : MonoBehaviour
 {
-    [field:SerializeField]public Vector2 _MoveInput { get; private set; }
-    [field:SerializeField]public Vector2 _AimInput { get; private set; }
+    [field: SerializeField] public Vector2 _MoveInput { get; private set; }
+    [field: SerializeField] public Vector2 _AimInput { get; private set; }
+    [field: SerializeField] public bool _LockOnInput { get; private set; }
     [field: SerializeField] public bool _JumpInput { get; private set; }
     [field: SerializeField] public bool _RunInput { get; private set; }
     [field: SerializeField] public bool _CardsInput { get; private set; }
     [field: SerializeField] public bool _ReadySpellInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
     [field: SerializeField] public bool __InteractInput { get; private set; }
-    
+
 
     public void OnMove(InputValue val)
     {
@@ -23,8 +24,8 @@ public class PlayerControlsInput : MonoBehaviour
     private void ProcessMoveInput(Vector2 input)
     {
         Vector2 moveVector = input;
-        if(moveVector.x > 0) moveVector.x = 1;
-        else if(moveVector.x < 0) moveVector.x = -1;
+        if (moveVector.x > 0) moveVector.x = 1;
+        else if (moveVector.x < 0) moveVector.x = -1;
         if (moveVector.y > 0) moveVector.y = 1;
         else if (moveVector.y < 0) moveVector.y = -1;
         _MoveInput = moveVector;
@@ -37,6 +38,12 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _AimInput = input.normalized;
     }
+
+    public void OnLockOn(InputValue val)
+    {
+        ProcessLockOnInput(val.isPressed);
+    }
+    private void ProcessLockOnInput(bool inputState) => _LockOnInput = inputState;
 
     public void OnJump(InputValue val)
     {

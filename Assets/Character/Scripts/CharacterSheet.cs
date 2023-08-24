@@ -19,5 +19,5 @@ public class CharacterSheet : ScriptableObject
     [Tooltip("The speed at which the character dashes/rushes")]
     public float _RushDashSpeed = 15.65f;
     [Tooltip("Yep, how far the character can jump??")]
-    public float _JumpPower = 5.25f;
+    public float _JumpPower = 13.25f;
 }

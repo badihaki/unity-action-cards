@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CheckForGround : MonoBehaviour
 {
-    private Collider body;
-    [SerializeField] private float GroundRayDistance = 1.500f;
+    [SerializeField] private Collider body;
+    [SerializeField] private float GroundRayDistance = 1.105f;
 
     public void Initialize()
     {
-        body = transform.Find("Colliders").Find("Body").GetComponent<Collider>();
+        body = transform.Find("Actor").Find("Colliders").Find("Body").GetComponent<Collider>();
     }
 
     public bool IsGrounded()

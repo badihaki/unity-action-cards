@@ -40,7 +40,7 @@ public class PlayerState
     public virtual void ExitState()
     {
         _IsExitingState = true;
-        _PlayerCharacter._AnimationController.SetBool(_StateAnimationName, true);
+        _PlayerCharacter._AnimationController.SetBool(_StateAnimationName, false);
 
         // Debug.Log("Leaving state " + _StateAnimationName + " at " + Time.time);
     }

@@ -10,6 +10,7 @@ public class PlayerCharacter : Character
     public PlayerMovement _LocomotionController { get; private set; }
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
+    public PlayerWeapon _WeaponController { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -44,6 +45,9 @@ public class PlayerCharacter : Character
         _PlayerSpells = GetComponent<PlayerSpell>();
         _PlayerSpells.Initialize(this);
 
+        // get the weapon system
+        _WeaponController = GetComponent<PlayerWeapon>();
+
         // initialize the statemachine
         InitializeStateMachine();
     }
@@ -53,11 +57,9 @@ public class PlayerCharacter : Character
         // _StateMachine = new PlayerStateMachine();
         _StateMachine = GetComponent<PlayerStateMachine>();
 
-        // _IdleState = new PlayerIdleState(this, "idle", _StateMachine);
         _IdleState = new PlayerIdleState(this, "grounded", _StateMachine);
-        // _MoveState = new PlayerMoveState(this, "move", _StateMachine);
         _MoveState = new PlayerMoveState(this, "grounded", _StateMachine);
-        _FallingState = new PlayerFallingState(this, "falling", _StateMachine);
+        _FallingState = new PlayerFallingState(this, "air", _StateMachine);
         _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
         _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
         _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
