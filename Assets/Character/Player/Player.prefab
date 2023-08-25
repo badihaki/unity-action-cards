@@ -1105,6 +1105,7 @@ MonoBehaviour:
   <_Actor>k__BackingField: {fileID: 0}
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
+  <_Hitbox>k__BackingField: {fileID: 0}
 --- !u!114 &3951395704987251187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1329,6 +1330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
   <_CurrentWeapon>k__BackingField: {fileID: 0}
+  <_Damage>k__BackingField: 0
 --- !u!1 &3673011631263412373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,7 +2089,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6001132869876437906}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f18a481597f7fa8428644fd960c9a63f, type: 3}
+  m_Script: {fileID: 11500000, guid: 4773ddef31445bc4c8715a50744d37cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <_Character>k__BackingField: {fileID: 0}

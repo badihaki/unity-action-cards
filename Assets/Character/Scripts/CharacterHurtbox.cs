@@ -11,7 +11,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         character = _character;
     }
 
-    public void Damage(int damage, Transform damageSource)
+    public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
     {
         character._Health.TakeDamage(damage);
 

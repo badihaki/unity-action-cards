@@ -56,8 +56,7 @@ public class PlayerCharacter : Character
         actor.Initialize(this);
 
         // start the hitbox
-        _Hitbox = GetComponentInChildren<PlayerCharacterHitbox>();
-        if (_Hitbox == null) _Hitbox = transform.Find("Colliders").Find("Hitbox").AddComponent<PlayerCharacterHitbox>();
+        _Hitbox = _Actor.Find("Colliders").Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
         _Hitbox.Initialize(this);
 
         // initialize the statemachine

@@ -97,7 +97,8 @@ AnimatorStateMachine:
   - {fileID: 8145849993475308567}
   m_StateMachineTransitions:
   - first: {fileID: 2664500685132020451}
-    second: []
+    second:
+    - {fileID: 5327741476313213487}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}
@@ -206,7 +207,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk-3
+  m_Name: AtkC
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -232,7 +233,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk-2
+  m_Name: AtkB
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -260,6 +261,12 @@ AnimatorController:
   m_Name: Player
   serializedVersion: 5
   m_AnimatorParameters:
+  - m_Name: attack
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
   - m_Name: attackA
     m_Type: 4
     m_DefaultFloat: 0
@@ -407,7 +414,7 @@ AnimatorStateMachine:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Attacks
+  m_Name: Weaponless
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 5555427122561722749}
@@ -521,6 +528,23 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1109 &5327741476313213487
+AnimatorTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: weaponless
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 1
 --- !u!1102 &5555427122561722749
 AnimatorState:
   serializedVersion: 6
@@ -528,7 +552,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Atk-1
+  m_Name: AtkA
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -600,7 +624,10 @@ AnimatorTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: attackA
+    m_ConditionEvent: weaponless
+    m_EventTreshold: 0
+  - m_ConditionMode: 1
+    m_ConditionEvent: attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 2664500685132020451}
   m_DstState: {fileID: 0}
