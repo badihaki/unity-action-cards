@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCharacter : Character
@@ -10,9 +11,9 @@ public class PlayerCharacter : Character
     public PlayerMovement _LocomotionController { get; private set; }
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
-    public PlayerWeapon _WeaponController { get; private set; }
     public PlayerAttack _PlayerAttack { get; private set; }
     private PlayerActor actor;
+    [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -47,12 +48,17 @@ public class PlayerCharacter : Character
         _PlayerSpells = GetComponent<PlayerSpell>();
         _PlayerSpells.Initialize(this);
 
-        // get the weapon system
-        _WeaponController = GetComponent<PlayerWeapon>();
+        _PlayerAttack = GetComponent<PlayerAttack>();
+        _PlayerAttack.Initialize(this);
 
         // lets set up the actor
         actor = GetComponentInChildren<PlayerActor>();
         actor.Initialize(this);
+
+        // start the hitbox
+        _Hitbox = GetComponentInChildren<PlayerCharacterHitbox>();
+        if (_Hitbox == null) _Hitbox = transform.Find("Colliders").Find("Hitbox").AddComponent<PlayerCharacterHitbox>();
+        _Hitbox.Initialize(this);
 
         // initialize the statemachine
         InitializeStateMachine();

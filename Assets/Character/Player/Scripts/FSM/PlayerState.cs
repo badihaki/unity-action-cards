@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
-public class PlayerState
+public class PlayerState : ScriptableObject
 {
     public PlayerState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
     {
@@ -14,9 +15,9 @@ public class PlayerState
 
     // state setup variables
     // ref to player character
-    public PlayerCharacter _PlayerCharacter { get; private set; }
-    [field: SerializeField] public string _StateAnimationName { get; private set; }
-    public PlayerStateMachine _StateMachine { get;private set; }
+    public PlayerCharacter _PlayerCharacter { get; protected set; }
+    [field: SerializeField] public string _StateAnimationName { get; protected set; }
+    public PlayerStateMachine _StateMachine { get; protected set; }
 
     // the time the state starts
     public float _StateEnterTime { get; protected set; }

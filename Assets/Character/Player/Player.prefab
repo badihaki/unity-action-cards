@@ -1007,7 +1007,6 @@ GameObject:
   - component: {fileID: 562391085}
   - component: {fileID: 4508823607405184665}
   - component: {fileID: 1826916945884247424}
-  - component: {fileID: 6382612102330867182}
   - component: {fileID: 6017779105362570710}
   m_Layer: 0
   m_Name: Player
@@ -1118,9 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b2aaaa41e816cf4babdfb2c3c1bb011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_CurrentState>k__BackingField:
-    <_StateAnimationName>k__BackingField: 
-    <_SideEffectTrigger>k__BackingField: 0
+  <_CurrentState>k__BackingField: {fileID: 0}
 --- !u!114 &680191765608160042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,18 +1315,6 @@ MonoBehaviour:
   _spellUI: {fileID: 0}
   _spellIconPrefab: {fileID: 4196082061840423992, guid: 145d3d7e21ed8144ab2a1671f65702ca,
     type: 3}
---- !u!114 &6382612102330867182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3673011630814679514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 756f5fe8d8003f142aa58e76b20ccb6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6017779105362570710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,6 +1327,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8a23b80ac415f45a0c83ad1a6d7388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
+  <_CurrentWeapon>k__BackingField: {fileID: 0}
 --- !u!1 &3673011631263412373
 GameObject:
   m_ObjectHideFlags: 0
@@ -2047,6 +2034,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6052617942331408374}
   - component: {fileID: 1988463445142687586}
+  - component: {fileID: 2092539489070452841}
   m_Layer: 0
   m_Name: Hitbox
   m_TagString: Untagged
@@ -2090,6 +2078,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2092539489070452841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6001132869876437906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18a481597f7fa8428644fd960c9a63f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_Character>k__BackingField: {fileID: 0}
 --- !u!1 &6007389273734240683
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Character _controllingCharacter;
     [SerializeField] private int _damage;
+    [SerializeField] private Vector2 damageForces;
     [SerializeField] private float _speed;
 
     private Rigidbody _rigidbody;
@@ -37,14 +38,17 @@ public class Projectile : MonoBehaviour
         if(_ready)
         {
             Character hitCharacter = trigger.GetComponentInParent<Character>();
+            // gonna have to add props as a secondary thing
             if (hitCharacter && hitCharacter != _controllingCharacter)
+            if (hitCharacter != _controllingCharacter)
             {
                 IDamageable damageableEntity = trigger.GetComponentInParent<IDamageable>();
-                damageableEntity?.Damage(_damage, this.transform);
-
+                    damageableEntity?.Damage(_damage, this.transform, damageForces.x, damageForces.y);
+            
                 print("projectile " + name + " collided with " + hitCharacter.name);
                 Destroy(gameObject);
             }
+            // else if prop != null then run IDamageable.Damage()
         }
     }
 

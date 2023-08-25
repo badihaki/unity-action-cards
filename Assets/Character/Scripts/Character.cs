@@ -39,11 +39,19 @@ public class Character : MonoBehaviour
         if (_Hurtbox == null) _Hurtbox = transform.Find("Colliders").Find("Hurtbox").AddComponent<CharacterHurtbox>();
         _Hurtbox.InitializeHurtBox(this);
 
+        // start the hitbox
+        
+
         _AnimationController = _Actor.GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Damage(int damage, Transform damageSource)
+    {
+        throw new System.NotImplementedException();
     }
 }
