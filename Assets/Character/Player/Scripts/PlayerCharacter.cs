@@ -11,6 +11,8 @@ public class PlayerCharacter : Character
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerWeapon _WeaponController { get; private set; }
+    public PlayerAttack _PlayerAttack { get; private set; }
+    private PlayerActor actor;
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -47,6 +49,10 @@ public class PlayerCharacter : Character
 
         // get the weapon system
         _WeaponController = GetComponent<PlayerWeapon>();
+
+        // lets set up the actor
+        actor = GetComponentInChildren<PlayerActor>();
+        actor.Initialize(this);
 
         // initialize the statemachine
         InitializeStateMachine();
