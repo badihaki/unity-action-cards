@@ -11,7 +11,7 @@ public class PlayerCharacter : Character
     public PlayerMovement _LocomotionController { get; private set; }
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
-    public PlayerAttack _PlayerAttack { get; private set; }
+    public PlayerAttack _AttackController { get; private set; }
     private PlayerActor actor;
     [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
 
@@ -48,12 +48,12 @@ public class PlayerCharacter : Character
         _PlayerSpells = GetComponent<PlayerSpell>();
         _PlayerSpells.Initialize(this);
 
-        _PlayerAttack = GetComponent<PlayerAttack>();
-        _PlayerAttack.Initialize(this);
-
         // lets set up the actor
         actor = GetComponentInChildren<PlayerActor>();
         actor.Initialize(this);
+
+        // ok lets get attacks up
+        _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
         _Hitbox = _Actor.Find("Colliders").Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
@@ -61,6 +61,9 @@ public class PlayerCharacter : Character
 
         // initialize the statemachine
         InitializeStateMachine();
+
+        // and initialize the attack controller, since it needs the state machine
+        _AttackController.Initialize(this);
     }
 
     private void InitializeStateMachine()

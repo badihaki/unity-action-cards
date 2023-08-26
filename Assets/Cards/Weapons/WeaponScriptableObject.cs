@@ -7,4 +7,11 @@ public class WeaponScriptableObject : ScriptableObject
 {
     public GameObject _Prefab;
     public PlayerMoveSet _PlayerMoves;
+    public enum WeaponType
+    {
+        weaponless,
+        sword,
+        spear
+    }
+    public WeaponType _WeaponType;
 }

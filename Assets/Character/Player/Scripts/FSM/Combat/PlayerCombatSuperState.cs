@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,5 +23,6 @@ public class PlayerCombatSuperState : PlayerState
         jumpInput = _PlayerCharacter._Controls._JumpInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
         readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
+
     }
 }

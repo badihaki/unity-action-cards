@@ -1330,6 +1330,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   noWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
   <_CurrentWeapon>k__BackingField: {fileID: 0}
+  <_AttackA>k__BackingField: {fileID: 0}
+  <_AttackB>k__BackingField: {fileID: 0}
+  <_AttackC>k__BackingField: {fileID: 0}
   <_Damage>k__BackingField: 0
 --- !u!1 &3673011631263412373
 GameObject:

@@ -9,5 +9,20 @@ public class PlayerWeaponlessAttackBState : PlayerAttackSuperState
     {
     }
 
+    public override void EnterState()
+    {
+        base.EnterState();
+
+        _PlayerCharacter._AnimationController.SetBool("attackB", true);
+        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+
+        _PlayerCharacter._AnimationController.SetBool("attackB", false);
+    }
+
     // end
 }

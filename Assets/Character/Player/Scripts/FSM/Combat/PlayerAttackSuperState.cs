@@ -19,13 +19,12 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     {
         base.EnterState();
         canCombo = false;
+        _PlayerCharacter._Controls.UseAttack();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
     }
 
     public override void TriggerSideEffect()
@@ -33,6 +32,25 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         base.TriggerSideEffect();
 
         canCombo = true;
+    }
+
+    public override void CheckStateTransitions()
+    {
+        base.CheckStateTransitions();
+
+        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+    }
+
+    public override void CheckInputs()
+    {
+        base.CheckInputs();
+
+        if (attackInput) HandleAttack();
+    }
+
+    public virtual void HandleAttack()
+    {
+        _PlayerCharacter._Controls.UseAttack();
     }
 
     // end

@@ -9,9 +9,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private WeaponScriptableObject noWeapon;
     [field: SerializeField] public WeaponScriptableObject _CurrentWeapon { get; private set; }
 
-    public PlayerAttackSuperState _AttackA { get; private set; }
-    public PlayerAttackSuperState _AttackB { get; private set; }
-    public PlayerAttackSuperState _AttackC { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AttackA { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AttackC { get; private set; }
 
     [field:Header("Attack Stats"),SerializeField]
     public int _Damage { get; private set; }
@@ -21,25 +21,31 @@ public class PlayerAttack : MonoBehaviour
     public void Initialize(PlayerCharacter newPlayer)
     {
         player = newPlayer;
-        SwitchWeapons(noWeapon);
+        SetWeapon(noWeapon);
     }
 
-    private void SwitchWeapons(WeaponScriptableObject newWeapon)
+    public void SwitchWeapon(WeaponScriptableObject weapon)
+    {
+        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
+        SetWeapon(weapon);
+    }
+    private void SetWeapon(WeaponScriptableObject newWeapon)
     {
         _CurrentWeapon = newWeapon;
         LoadMoveset();
+        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true);
     }
 
     private void LoadMoveset()
     {
         _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
-        _AttackA.ManualSetUp(player, "attackA", player._StateMachine);
+        _AttackA.ManualSetUp(player, "attack", player._StateMachine);
         
         _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
-        _AttackB.ManualSetUp(player, "attackB", player._StateMachine);
+        _AttackB.ManualSetUp(player, "attack", player._StateMachine);
 
         _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
-        _AttackC.ManualSetUp(player, "attackC", player._StateMachine);
+        _AttackC.ManualSetUp(player, "attack", player._StateMachine);
     }
 
     public void SetAttackParameters(int damage, float knockbackForce, float launchForce)

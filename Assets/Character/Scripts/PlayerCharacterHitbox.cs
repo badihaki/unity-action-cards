@@ -23,7 +23,7 @@ public class PlayerCharacterHitbox : MonoBehaviour
                 if (hitCharacter != _Character)
                 {
                     IDamageable damageableEntity = trigger.GetComponentInParent<IDamageable>();
-                    damageableEntity?.Damage(_Character._PlayerAttack._Damage, this.transform, _Character._PlayerAttack._KnockbackForce, _Character._PlayerAttack._LaunchForce);
+                    damageableEntity?.Damage(_Character._AttackController._Damage, this.transform, _Character._AttackController._KnockbackForce, _Character._AttackController._LaunchForce);
 
                     print("projectile " + name + " collided with " + hitCharacter.name);
                     Destroy(gameObject);

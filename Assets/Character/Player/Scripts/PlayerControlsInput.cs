@@ -81,6 +81,7 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _AttackInput = inputState;
     }
+    public void UseAttack() => _AttackInput = false;
 
     public void OnReadySpell(InputValue val)
     {
