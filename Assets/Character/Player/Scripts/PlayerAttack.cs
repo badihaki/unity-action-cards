@@ -13,10 +13,16 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackC { get; private set; }
 
-    [field:Header("Attack Stats"),SerializeField]
+    [field: Header("Attack Stats"), SerializeField]
     public int _Damage { get; private set; }
-    public float _KnockbackForce { get; private set; }
-    public float _LaunchForce { get; private set; }
+    [field: SerializeField] public float _KnockbackForce { get; private set; }
+    [field: SerializeField] public float _LaunchForce { get; private set; }
+
+    [field: Header("Where the weapons lie"), SerializeField]
+    public Transform _WeaponHolderL { get; private set; }
+    [field: SerializeField] public GameObject _WeaponL;
+    [field: SerializeField] public Transform _WeaponHolderR { get; private set; }
+    [field: SerializeField] public GameObject _WeaponR;
 
     public void Initialize(PlayerCharacter newPlayer)
     {
@@ -27,13 +33,44 @@ public class PlayerAttack : MonoBehaviour
     public void SwitchWeapon(WeaponScriptableObject weapon)
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
+        DestroyWeaponGameObjects();
         SetWeapon(weapon);
     }
+
+    private void DestroyWeaponGameObjects()
+    {
+        if (_WeaponL)
+        {
+            Destroy(_WeaponL);
+            _WeaponL = null;
+        }
+        if(_WeaponR)
+        {
+            Destroy(_WeaponR);
+            _WeaponR = null;
+        }
+    }
+
     private void SetWeapon(WeaponScriptableObject newWeapon)
     {
         _CurrentWeapon = newWeapon;
+        LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
         LoadMoveset();
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true);
+    }
+
+    private void LoadWeaponGameObjects(GameObject weaponL = null, GameObject weaponR = null)
+    {
+        if (weaponL != null)
+        {
+            _WeaponL = Instantiate(weaponL, _WeaponHolderL);
+        }
+        else print("no left-hand weapon");
+        if(weaponR != null)
+        {
+            _WeaponR = Instantiate(weaponR, _WeaponHolderR);
+        }
+        else print("no right-hand weapon");
     }
 
     private void LoadMoveset()
@@ -44,7 +81,7 @@ public class PlayerAttack : MonoBehaviour
         _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
         _AttackB.ManualSetUp(player, "attack", player._StateMachine);
 
-        _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
+        _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
         _AttackC.ManualSetUp(player, "attack", player._StateMachine);
     }
 

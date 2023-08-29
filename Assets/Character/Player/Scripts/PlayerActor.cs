@@ -6,7 +6,7 @@ public class PlayerActor : Actor
 {
     private PlayerCharacter Character;
 
-    public void Initialize(PlayerCharacter character)
+    public void InitializePlayerActor(PlayerCharacter character)
     {
         Character = character;
     }

@@ -15,6 +15,7 @@ public class PlayerWeaponlessAttackBState : PlayerAttackSuperState
 
         _PlayerCharacter._AnimationController.SetBool("attackB", true);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._AttackController.SetAttackParameters(1, 2, 1.35f);
     }
 
     public override void ExitState()
@@ -22,6 +23,13 @@ public class PlayerWeaponlessAttackBState : PlayerAttackSuperState
         base.ExitState();
 
         _PlayerCharacter._AnimationController.SetBool("attackB", false);
+    }
+
+    public override void CheckStateTransitions()
+    {
+        base.CheckStateTransitions();
+
+        if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackC);
     }
 
     // end

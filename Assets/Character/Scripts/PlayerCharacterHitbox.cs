@@ -9,8 +9,6 @@ public class PlayerCharacterHitbox : MonoBehaviour
     public void Initialize(PlayerCharacter character)
     {
         _Character = character;
-
-        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider trigger)
@@ -25,8 +23,8 @@ public class PlayerCharacterHitbox : MonoBehaviour
                     IDamageable damageableEntity = trigger.GetComponentInParent<IDamageable>();
                     damageableEntity?.Damage(_Character._AttackController._Damage, this.transform, _Character._AttackController._KnockbackForce, _Character._AttackController._LaunchForce);
 
-                    print("projectile " + name + " collided with " + hitCharacter.name);
-                    Destroy(gameObject);
+                    print(_Character.name+"'s hitbox collided with " + hitCharacter.name);
+                    gameObject.SetActive(false);
                 }
             // else if prop != null then run IDamageable.Damage()
         }

@@ -15,6 +15,7 @@ public class PlayerWeaponlessAttackAState : PlayerAttackSuperState
 
         _PlayerCharacter._AnimationController.SetBool("attackA", true);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._AttackController.SetAttackParameters(1, 1.178f, 0.75f);
     }
 
     public override void ExitState()
@@ -24,10 +25,10 @@ public class PlayerWeaponlessAttackAState : PlayerAttackSuperState
         _PlayerCharacter._AnimationController.SetBool("attackA", false);
     }
 
-    public override void LogicUpdate()
+    public override void CheckStateTransitions()
     {
-        base.LogicUpdate();
-
+        base.CheckStateTransitions();
+     
         if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackB);
     }
 

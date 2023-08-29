@@ -50,7 +50,7 @@ public class PlayerCharacter : Character
 
         // lets set up the actor
         actor = GetComponentInChildren<PlayerActor>();
-        actor.Initialize(this);
+        actor.InitializePlayerActor(this);
 
         // ok lets get attacks up
         _AttackController = GetComponent<PlayerAttack>();

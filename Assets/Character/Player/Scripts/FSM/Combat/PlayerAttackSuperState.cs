@@ -18,8 +18,16 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     public override void EnterState()
     {
         base.EnterState();
+
         canCombo = false;
         _PlayerCharacter._Controls.UseAttack();
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+
+        _PlayerCharacter._AttackController.ResetAttackParameters();
     }
 
     public override void LogicUpdate()

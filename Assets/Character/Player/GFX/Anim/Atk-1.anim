@@ -8163,7 +8163,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.31666666
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -8172,7 +8172,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.36666667
+        time: 0.35
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -42054,7 +42054,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.33333334
+        time: 0.31666666
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -42063,7 +42063,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.36666667
+        time: 0.35
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -54908,7 +54908,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.43333334
+  - time: 0.4
     functionName: AnimationTrigger
     data: 
     objectReferenceParameter: {fileID: 0}

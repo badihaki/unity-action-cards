@@ -9,9 +9,11 @@ public class WeaponScriptableObject : ScriptableObject
     public PlayerMoveSet _PlayerMoves;
     public enum WeaponType
     {
-        weaponless,
+        unarmed,
         sword,
         spear
     }
     public WeaponType _WeaponType;
+    public GameObject _WeaponGameObjectL;
+    public GameObject _WeaponGameObjectR;
 }

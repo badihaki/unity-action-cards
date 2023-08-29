@@ -390,6 +390,11 @@ PrefabInstance:
       propertyPath: GroundRayDistance
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2622369087802699666, guid: b8add3d121ba3e14d81acfbb644b152b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 9.52681e-31
+      objectReference: {fileID: 0}
     - target: {fileID: 3673011630814679514, guid: b8add3d121ba3e14d81acfbb644b152b,
         type: 3}
       propertyPath: m_Name
