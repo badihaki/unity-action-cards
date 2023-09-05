@@ -10,6 +10,8 @@ public class CharacterSheet : ScriptableObject
     public string _CharacterName;
     [Tooltip("The starting health of this character")]
     public int _StartingHealth = 1;
+    [Tooltip("The starting Aether (magic) Points for this character")]
+    public int _StartingAetherPool = 1;
 
     [Header("Mechanical Info")]
     [Tooltip("The walking speed the character moves at")]

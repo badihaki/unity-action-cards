@@ -20,8 +20,30 @@ public class CardScriptableObj : ScriptableObject
     public int _CardCost;
     public Sprite _CardImage;
 
-    public virtual void PlayCard(Character controllingCharacter)
+    public void PlayCard(Character controllingCharacter)
     {
-        //
+        if (AetherCheck(controllingCharacter._AetherPoints._CurrentAetherPoints, controllingCharacter._AetherPoints))
+        {
+            UseCardAbility(controllingCharacter);
+
+            Debug.Log("Playing card: " + _CardName);
+        }
     }
+
+    protected virtual void UseCardAbility(Character controllingCharacter)
+    {
+        throw new NotImplementedException();
+    }
+
+    protected bool AetherCheck(float aetherPoints, Aether _AetherPool)
+    {
+        if (aetherPoints >= _CardCost)
+        {
+            _AetherPool.UseAetherPoints(_CardCost);
+            return true;
+        }
+        else return false;
+    }
+
+    // end
 }

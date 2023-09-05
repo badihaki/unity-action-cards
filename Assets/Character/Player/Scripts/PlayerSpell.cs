@@ -111,6 +111,7 @@ public class PlayerSpell : MonoBehaviour
     {
         if(_spellTimer <= 0)
         {
+            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
             Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, _spellTarget.targetRotation).GetComponent<Projectile>();
 
             conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;

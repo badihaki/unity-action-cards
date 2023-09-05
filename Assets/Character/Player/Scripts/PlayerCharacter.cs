@@ -71,13 +71,13 @@ public class PlayerCharacter : Character
         // _StateMachine = new PlayerStateMachine();
         _StateMachine = GetComponent<PlayerStateMachine>();
 
-        _IdleState = new PlayerIdleState(this, "grounded", _StateMachine);
-        _MoveState = new PlayerMoveState(this, "grounded", _StateMachine);
+        _IdleState = new PlayerIdleState(this, "idle", _StateMachine);
+        _MoveState = new PlayerMoveState(this, "move", _StateMachine);
         _FallingState = new PlayerFallingState(this, "air", _StateMachine);
         _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
         _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
         _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
-        _ReadySpellState = new PlayerReadySpellState(this, "readySpell", _StateMachine);
+        _ReadySpellState = new PlayerReadySpellState(this, "range", _StateMachine);
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }

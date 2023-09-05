@@ -16,6 +16,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
 
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
     }
 
     public override void LogicUpdate()
@@ -37,6 +38,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         base.ExitState();
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);
     }
 
     public override void CheckStateTransitions()

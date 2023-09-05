@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PlayerActor : Actor
 {
-    private PlayerCharacter Character;
+    private PlayerCharacter PCActor;
 
     public void InitializePlayerActor(PlayerCharacter character)
     {
-        Character = character;
+        PCActor = character;
     }
 
-    public void AnimationTrigger()=> Character.StateTrigger();
-    public void StateAnimationFinished() => Character.StateAnimationFinished();
+    public void AnimationTrigger()=> PCActor.StateTrigger();
+    public void StateAnimationFinished() => PCActor.StateAnimationFinished();
 }

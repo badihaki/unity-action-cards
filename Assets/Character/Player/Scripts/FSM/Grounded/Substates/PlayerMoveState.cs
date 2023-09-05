@@ -8,6 +8,18 @@ public class PlayerMoveState : PlayerGroundedSuperState
     {
     }
 
+    public override void EnterState()
+    {
+        base.EnterState();
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
+    }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);
+    }
+
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();

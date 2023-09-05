@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,16 +13,20 @@ public class SpellCardScriptableObj : CardScriptableObj
     public float _SpellProjectileSpeed;
     public float _SpellAddonTime;
 
-    public override void PlayCard(Character controllingCharacter)
+    public enum spellAnimationType
     {
-        base.PlayCard(controllingCharacter);
+        shoot,
+        pull,
+        meteor
+    }
 
-        if(controllingCharacter.GetComponent<PlayerCharacter>() != null)
+    public spellAnimationType _SpellAnimationBool;
+    protected override void UseCardAbility(Character controllingCharacter)
+    {
+        if (controllingCharacter.GetComponent<PlayerCharacter>() != null)
         {
             PlayerCharacter player = controllingCharacter.GetComponent<PlayerCharacter>();
             player._PlayerSpells.AddSpellToList(this);
         }
-
-        Debug.Log("Playing spell card: " + _CardName);
     }
 }

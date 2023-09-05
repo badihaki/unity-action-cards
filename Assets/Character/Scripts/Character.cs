@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
 {
     [field: SerializeField] public CharacterSheet _CharacterSheet { get; protected set; }
     public Health _Health { get; private set; }
+    public Aether _AetherPoints { get; private set; }
     public CheckForGround _CheckGrounded { get; private set; }
     [field: SerializeField] public Transform _Actor { get; protected set; }
     [field: SerializeField] public Animator _AnimationController { get; private set; }
@@ -28,6 +29,10 @@ public class Character : MonoBehaviour
         _Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
+
+        // start aether points (magic points)
+        _AetherPoints = GetComponent<Aether>();
+        _AetherPoints.InitiateAetherPointPool(_CharacterSheet._StartingAetherPool);
 
         // start checking for ground
         _CheckGrounded = GetComponent<CheckForGround>();
