@@ -1087,6 +1087,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1706b46bae9b6419af8a3ef30486ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_CurrentAetherPoints>k__BackingField: 0
+  _MaxAetherPoints: 0
 --- !u!114 &4404630978568566191
 MonoBehaviour:
   m_ObjectHideFlags: 0
