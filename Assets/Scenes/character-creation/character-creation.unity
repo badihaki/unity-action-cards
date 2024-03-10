@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 700641373}
   m_Layer: 0
-  m_Name: Actor
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -409,24 +409,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77507cbd7a80e5841a986b5ef9375cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  head: {fileID: 6262540890773082612}
+  head: {fileID: 5904485994383358957}
   _head_parts:
   - {fileID: 988784040648762817, guid: b2474da210d0f6f469655c90e880406a, type: 3}
-  hair: {fileID: 6842385469003325246}
+  hair: {fileID: 6946600005829799179}
   _hair_parts:
   - {fileID: 2278626980225758391, guid: 23f4e68b23663ef498828e8f5bfdb2cb, type: 3}
-  horns: {fileID: 8756542022041944788}
+  horns: {fileID: 8138005318680690371}
   _horns_parts:
   - {fileID: 5377093888158791642, guid: 93884e52e6ffb254887b777b8afb319a, type: 3}
-  top: {fileID: 7511437109415814716}
-  _top_parts:
-  - {fileID: 2552142476915092584, guid: 44b3b1c99cd927c47887cb6a7dd8c122, type: 3}
-  - {fileID: 6644002679246980550, guid: 3f8ddb3db36f76346ba53f1aa08c3349, type: 3}
-  bottom: {fileID: 8859804233353513780}
-  _bottom_parts:
-  - {fileID: 2304244504438985600, guid: 57c1e6e3f161b6b4c8e53198caa35ac9, type: 3}
-  - {fileID: 4286043010743230543, guid: af06e6016cc7f1b41a18f76a75a07be3, type: 3}
-  hands: {fileID: 9087225658013831087}
+  top: {fileID: 5162634874687817745}
+  top_parts:
+  - {fileID: 933275776387678789, guid: 44b3b1c99cd927c47887cb6a7dd8c122, type: 3}
+  - {fileID: 1399167554180418660, guid: 3f8ddb3db36f76346ba53f1aa08c3349, type: 3}
+  bottom: {fileID: 7306238821887057468}
+  bottom_parts:
+  - {fileID: 30102801942939272, guid: 57c1e6e3f161b6b4c8e53198caa35ac9, type: 3}
+  - {fileID: 3934694841215988120, guid: af06e6016cc7f1b41a18f76a75a07be3, type: 3}
+  hands: {fileID: 6788619377960563521}
   _hands_parts:
   - {fileID: 8901401077700444449, guid: 7607914208014434f8e5a0e98a15ac58, type: 3}
 --- !u!1 &6184554532058011
