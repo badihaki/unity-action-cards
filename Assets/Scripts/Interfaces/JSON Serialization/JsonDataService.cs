@@ -9,7 +9,24 @@ public class JsonDataService : IDataServiceable
 {
     public T LoadData<T>(string RelativePathj, bool Encrypted)
     {
-        throw new NotImplementedException();
+        string path = Application.persistentDataPath + "/" + RelativePathj;
+
+        if (!File.Exists(path))
+        {
+            Debug.LogError("No save data exists");
+            throw new FileNotFoundException($"{path} does not exist. No data to load!");
+        }
+
+        try
+        {
+            T data = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
+            return data;
+        }
+        catch (Exception err)
+        {
+            Debug.LogError($"Can't load data because of : {err.Message} {err.StackTrace}");
+            throw err;
+        }
     }
 
     public bool SaveData<T>(string RelativePathj, T Data, bool Encrypted)

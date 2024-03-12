@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class SaveLoadManager
@@ -18,6 +20,22 @@ public class SaveLoadManager
             Debug.LogError("Did not save");
         }
     }
+
+    public CharacterSaveData LoadCharacterData()
+    {
+        try
+        {
+            CharacterSaveData data = dataService.LoadData<CharacterSaveData>("/charsave.json", Encrypted);
+            return data;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"Can't load data due to {e.Message} {e.StackTrace}");
+            throw e;
+        }
+    }
+
+    // end of the line
 }
 
 public class CharacterSaveData

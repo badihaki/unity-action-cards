@@ -9,6 +9,17 @@ public class PlayerActor : Actor
     public void InitializePlayerActor(PlayerCharacter character)
     {
         PCActor = character;
+
+        try
+        {
+            CharacterSaveData loadedOutfit = GameManagerMaster.GameMaster.SaveLoadManager.LoadCharacterData();
+            print(loadedOutfit);
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
     }
 
     public void AnimationTrigger()=> PCActor.StateTrigger();
