@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using UnityEngine;
 
@@ -107,8 +108,20 @@ public class CreationController : MonoBehaviour
                 break;
         }
     }
-    public void Test()
+    public void SaveChar()
     {
-        print("test");
+        // System.Object charSaveData = new System.Object();
+
+        /*
+        dynamic characterSaveData = new ExpandoObject();
+        characterSaveData.headIndex = headIndex;
+        characterSaveData.hornsIndex = hornsIndex;
+        characterSaveData.hairIndex = hairIndex;
+        characterSaveData.topIndex = topIndex;
+        characterSaveData.handsIndex = handsIndex;
+        characterSaveData.bottomIndex = bottomIndex;
+        */
+        CharacterSaveData save = new CharacterSaveData("Player", headIndex, hornsIndex, hairIndex, topIndex, handsIndex, bottomIndex);
+        GameManagerMaster.GameMaster.SaveLoadManager.SaveCharacterData(save);
     }
 }

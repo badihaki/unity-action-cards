@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManagerMaster : MonoBehaviour
 {
     public static GameManagerMaster GameMaster { get; private set; }
+    public SaveLoadManager SaveLoadManager { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,8 @@ public class GameManagerMaster : MonoBehaviour
             GameMaster = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        SaveLoadManager = new SaveLoadManager();
     }
 
     // Update is called once per frame
