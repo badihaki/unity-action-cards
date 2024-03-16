@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 233204250641984248}
   - component: {fileID: 2555641686671377901}
+  - component: {fileID: 7106337775562811646}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,3 +45,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bc34ef1157ade4d9f55967f3457ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7106337775562811646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696046997118454275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae90a3d3964a684a89dbc04f550ba01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  torsoDatabase:
+  - {fileID: 11400000, guid: b1d8da3d5e25dc44daae2d927920b685, type: 2}
+  - {fileID: 11400000, guid: 6bf865641b9a57c4787b94a58ab9dbe9, type: 2}
+  handsDatabase:
+  - {fileID: 11400000, guid: 6a4459d547b865a4ba1d5bd692673c62, type: 2}
+  - {fileID: 11400000, guid: 57e864f73b0a1604987855ff7f81a91e, type: 2}
+  bottomsDatabase:
+  - {fileID: 11400000, guid: 322cb2f2502836540b71ef19ca521288, type: 2}
+  - {fileID: 11400000, guid: 93bb232eac79b0d479cf94cdaa6827a3, type: 2}
