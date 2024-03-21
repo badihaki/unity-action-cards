@@ -18,10 +18,10 @@ public class ClothingSO : ScriptableObject
     public outfitSlots outfitSlot;
 
     [Header("Bodytype: M")]
-    public GameObject meshMale;
+    public Mesh meshMale;
     public Material materialMale;
     [Header("Bodytype: F")]
-    public GameObject meshfemale;
+    public Mesh meshfemale;
     public Material materialfemale;
     // end
 }

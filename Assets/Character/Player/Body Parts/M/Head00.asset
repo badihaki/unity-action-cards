@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fed0b54911f3104fafaf4a855f9dc70, type: 3}
-  m_Name: rags_hands
+  m_Script: {fileID: 11500000, guid: 3ff84bec0781c904ebc4e25af6c54ac9, type: 3}
+  m_Name: Head00
   m_EditorClassIdentifier: 
-  weight: 0
-  outfitSlot: 0
-  meshMale: {fileID: 0}
-  materialMale: {fileID: 0}
-  meshfemale: {fileID: 0}
-  materialfemale: {fileID: 0}
+  mesh: {fileID: 4246073439981449165, guid: 60694fceb8acb034aaeddd3052bad7b2, type: 3}
+  material: {fileID: 2100000, guid: 90ba2cb4243beea45b169f2634690a19, type: 2}

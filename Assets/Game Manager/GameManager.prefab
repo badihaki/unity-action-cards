@@ -62,7 +62,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6bf865641b9a57c4787b94a58ab9dbe9, type: 2}
   handsDatabase:
   - {fileID: 11400000, guid: 6a4459d547b865a4ba1d5bd692673c62, type: 2}
-  - {fileID: 11400000, guid: 57e864f73b0a1604987855ff7f81a91e, type: 2}
   bottomsDatabase:
   - {fileID: 11400000, guid: 322cb2f2502836540b71ef19ca521288, type: 2}
   - {fileID: 11400000, guid: 93bb232eac79b0d479cf94cdaa6827a3, type: 2}
+  headDatabase:
+  - {fileID: 11400000, guid: 61e3e3dd3deb5904c94587c7b16dfe3b, type: 2}
+  hairDatabase:
+  - {fileID: 11400000, guid: 3d585822d14bb38449636a682979c374, type: 2}
+  hornsDatabase:
+  - {fileID: 11400000, guid: 191e128f267e8654abf015cec9ceade1, type: 2}

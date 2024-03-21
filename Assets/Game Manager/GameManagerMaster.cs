@@ -6,6 +6,7 @@ public class GameManagerMaster : MonoBehaviour
 {
     public static GameManagerMaster GameMaster { get; private set; }
     public SaveLoadManager SaveLoadManager { get; private set; }
+    public CharCustomizationDatabase CharacterCustomizationDatabase { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class GameManagerMaster : MonoBehaviour
         }
 
         SaveLoadManager = new SaveLoadManager();
+        CharacterCustomizationDatabase = GetComponent<CharCustomizationDatabase>();
     }
 
     // Update is called once per frame

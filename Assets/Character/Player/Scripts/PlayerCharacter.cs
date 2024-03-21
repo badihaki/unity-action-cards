@@ -13,6 +13,7 @@ public class PlayerCharacter : Character
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
     private PlayerActor actor;
+    [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
     [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
 
     // state machine
@@ -71,13 +72,33 @@ public class PlayerCharacter : Character
         // _StateMachine = new PlayerStateMachine();
         _StateMachine = GetComponent<PlayerStateMachine>();
 
-        _IdleState = new PlayerIdleState(this, "idle", _StateMachine);
+        _IdleState = ScriptableObject.CreateInstance<PlayerIdleState>();
+        _IdleState.InitializeState(this, "idle", _StateMachine);
+
+        _MoveState = ScriptableObject.CreateInstance<PlayerMoveState>();
+        _MoveState.InitializeState(this, "move", _StateMachine);
+
+        _FallingState = ScriptableObject.CreateInstance<PlayerFallingState>();
+        _FallingState.InitializeState(this, "air", _StateMachine);
+
+        _JumpState = ScriptableObject.CreateInstance<PlayerJumpState>();
+        _JumpState.InitializeState(this, "jump", _StateMachine);
+
+        _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
+        _GroundedCardState.InitializeState(this, "card", _StateMachine);
+
+        _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
+        _InAirCardState.InitializeState(this, "airCard", _StateMachine);
+
+        _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
+        _ReadySpellState.InitializeState(this, "range", _StateMachine);
+        /*_IdleState = new PlayerIdleState(this, "idle", _StateMachine);
         _MoveState = new PlayerMoveState(this, "move", _StateMachine);
         _FallingState = new PlayerFallingState(this, "air", _StateMachine);
         _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
         _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
         _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
-        _ReadySpellState = new PlayerReadySpellState(this, "range", _StateMachine);
+        _ReadySpellState = new PlayerReadySpellState(this, "range", _StateMachine);*/
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }
