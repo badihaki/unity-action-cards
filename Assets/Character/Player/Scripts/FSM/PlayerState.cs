@@ -12,6 +12,12 @@ public class PlayerState : ScriptableObject
         _StateAnimationName = animationName;
         _StateMachine = stateMachine;
     }
+    public virtual void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+    {
+        _PlayerCharacter = pc;
+        _StateAnimationName = animationName;
+        _StateMachine = stateMachine;
+    }
 
     // state setup variables
     // ref to player character

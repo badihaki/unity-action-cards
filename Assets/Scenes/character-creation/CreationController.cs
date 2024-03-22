@@ -1,54 +1,47 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using UnityEngine;
 
 public class CreationController : MonoBehaviour
 {
     [field: SerializeField] private SkinnedMeshRenderer head;
-    [field: SerializeField] private SkinnedMeshRenderer[] head_parts;
     [field: SerializeField] private int headIndex = 0;
     [field: SerializeField] private SkinnedMeshRenderer hair;
-    [field: SerializeField] private SkinnedMeshRenderer[] hair_parts;
     [field: SerializeField] private int hairIndex = 0;
     [field: SerializeField] private SkinnedMeshRenderer horns;
-    [field: SerializeField] private SkinnedMeshRenderer[] horns_parts;
     [field: SerializeField] private int hornsIndex = 0;
     [field: SerializeField] private SkinnedMeshRenderer top;
-    [field: SerializeField] private SkinnedMeshRenderer[] top_parts;
     [field: SerializeField] private int topIndex = 0;
     [field: SerializeField] private SkinnedMeshRenderer bottom;
-    [field: SerializeField] private SkinnedMeshRenderer[] bottom_parts;
     [field: SerializeField] private int bottomIndex = 0;
     [field: SerializeField] private SkinnedMeshRenderer hands;
-    [field: SerializeField] private SkinnedMeshRenderer[] hands_parts;
     [field: SerializeField] private int handsIndex = 0;
+
+    private CharCustomizationDatabase customizationDatabase;
     // Start is called before the first frame update
     void Start()
     {
-        // head = _head_parts[0];
-        // hair = _hair_parts[0];
-        // horns = _horns_parts[0];
-        // top = GameObject.Find("Character").transform.Find("Model").Find("Top").GetComponent<SkinnedMeshRenderer>();
-        // hands = _hands_parts[0];
-        head.sharedMesh = head_parts[headIndex].sharedMesh;
-        head.sharedMaterial = head_parts[headIndex].sharedMaterial;
+        customizationDatabase = GameManagerMaster.GameMaster.CharacterCustomizationDatabase;
+        head.sharedMesh = customizationDatabase.headDatabase[headIndex].mesh;
+        head.material= customizationDatabase.headDatabase[headIndex].material;
 
-        hair.sharedMesh = hair_parts[hairIndex].sharedMesh;
-        hair.sharedMaterials = hair_parts[hairIndex].sharedMaterials;
+        hair.sharedMesh = customizationDatabase.hairDatabase[hairIndex].mesh;
+        hair.material = customizationDatabase.hairDatabase[hairIndex].material;
 
-        horns.sharedMesh = horns_parts[hornsIndex].sharedMesh;
-        horns.sharedMaterials = horns_parts[hornsIndex].sharedMaterials;
+        horns.sharedMesh = customizationDatabase.hornsDatabase[hornsIndex].mesh;
+        horns.material = customizationDatabase.hornsDatabase[hornsIndex].material;
 
-        top.sharedMesh = top_parts[topIndex].sharedMesh;
-        top.sharedMaterial = top_parts[topIndex].sharedMaterial;
+        top.sharedMesh = customizationDatabase.torsoDatabase[topIndex].meshMale;
+        top.material = customizationDatabase.torsoDatabase[topIndex].materialMale;
         
-        hands.sharedMesh = hands_parts[handsIndex].sharedMesh;
-        hands.sharedMaterial = hands_parts[handsIndex].sharedMaterial;
+        hands.sharedMesh = customizationDatabase.handsDatabase[handsIndex].meshMale;
+        hands.sharedMaterial = customizationDatabase.handsDatabase[handsIndex].materialMale;
 
-        bottom.sharedMesh = bottom_parts[bottomIndex].sharedMesh;
-        bottom.sharedMaterial = bottom_parts[bottomIndex].sharedMaterial;
+        bottom.sharedMesh = customizationDatabase.bottomsDatabase[bottomIndex].meshMale;
+        bottom.material = customizationDatabase.bottomsDatabase[bottomIndex].materialMale;
     }
 
     public void SelectNextBodyPart(string bodyPart)
@@ -56,26 +49,22 @@ public class CreationController : MonoBehaviour
         switch(bodyPart)
         {
             case "top":
-                // print("max index number for tops is " + (top_parts.Length - 1).ToString());
-                // print("top index is now " + (topIndex++).ToString());
                 topIndex++;
-                if(topIndex > (top_parts.Length - 1))
+                if(topIndex > (customizationDatabase.torsoDatabase.Count - 1))
                 {
                     topIndex = 0;
                 }
-                top.sharedMesh = top_parts[topIndex].sharedMesh;
-                top.sharedMaterial = top_parts[topIndex].sharedMaterial;
+                top.sharedMesh = customizationDatabase.torsoDatabase[topIndex].meshMale;
+                top.material = customizationDatabase.torsoDatabase[topIndex].materialMale;
                 break;
             case "bottom":
-                // print("max index number for tops is " + (top_parts.Length - 1).ToString());
-                // print("top index is now " + (topIndex++).ToString());
                 bottomIndex++;
-                if (bottomIndex > (bottom_parts.Length - 1))
+                if (bottomIndex > (customizationDatabase.bottomsDatabase.Count - 1))
                 {
                     bottomIndex = 0;
                 }
-                bottom.sharedMesh = bottom_parts[bottomIndex].sharedMesh;
-                bottom.sharedMaterial = bottom_parts[bottomIndex].sharedMaterial;
+                bottom.sharedMesh = customizationDatabase.bottomsDatabase[bottomIndex].meshMale;
+                bottom.material = customizationDatabase.bottomsDatabase[bottomIndex].materialMale;
                 break;
         }
     }
@@ -84,31 +73,28 @@ public class CreationController : MonoBehaviour
         switch (bodyPart)
         {
             case "top":
-                // print("max index number for tops is " + (top_parts.Length - 1).ToString());
-                // print("top index is now " + (topIndex++).ToString());
                 topIndex--;
                 if (topIndex < 0)
                 {
-                    topIndex = (top_parts.Length - 1);
+                    topIndex = (customizationDatabase.torsoDatabase.Count - 1);
                 }
-                top.sharedMesh = top_parts[topIndex].sharedMesh;
-                top.sharedMaterial = top_parts[topIndex].sharedMaterial;
+                top.sharedMesh = customizationDatabase.torsoDatabase[topIndex].meshMale;
+                top.material = customizationDatabase.torsoDatabase[topIndex].materialMale;
                 break;
             case "bottom":
-                // print("max index number for tops is " + (top_parts.Length - 1).ToString());
-                // print("top index is now " + (topIndex++).ToString());
                 bottomIndex--;
                 if (bottomIndex < 0)
                 {
-                    bottomIndex = (bottom_parts.Length - 1);
+                    bottomIndex = (customizationDatabase.bottomsDatabase.Count - 1);
                 }
-                bottom.sharedMesh = bottom_parts[bottomIndex].sharedMesh;
-                bottom.sharedMaterial = bottom_parts[bottomIndex].sharedMaterial;
+                bottom.sharedMesh = customizationDatabase.bottomsDatabase[bottomIndex].meshMale;
+                bottom.material = customizationDatabase.bottomsDatabase[bottomIndex].materialMale;
                 break;
         }
     }
-    public void Test()
+    public void SaveChar()
     {
-        print("test");
+        CharacterSaveData save = new CharacterSaveData("Player", headIndex, hornsIndex, hairIndex, topIndex, handsIndex, bottomIndex);
+        GameManagerMaster.GameMaster.SaveLoadManager.SaveCharacterData(save);
     }
 }
