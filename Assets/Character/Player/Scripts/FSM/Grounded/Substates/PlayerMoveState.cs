@@ -24,13 +24,20 @@ public class PlayerMoveState : PlayerGroundedSuperState
     {
         base.CheckStateTransitions();
 
-        if (moveInput == Vector2.zero) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        /*if (moveInput == Vector2.zero) _StateMachine.ChangeState(_PlayerCharacter._IdleState);*/
+        if(_PlayerCharacter._LocomotionController.movementSpeed < 0.1f)
+        {
+            _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        }
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.MoveTowardsCam(moveInput);
+        if (moveInput != Vector2.zero)
+            _PlayerCharacter._LocomotionController.MoveTowardsCam(moveInput);
+        else
+            _PlayerCharacter._LocomotionController.SlowDown();
     }
 }

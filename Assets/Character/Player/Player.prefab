@@ -684,6 +684,9 @@ MonoBehaviour:
   _BaseVerticalVelocity: -2
   _MaxVertVelocity: -150
   _MoveDirection: {x: 0, y: 0, z: 0}
+  <movementSpeed>k__BackingField: 0
+  lerpSpeedOnMovement: 0.085
+  lerpSpeedOnSlowDown: 0.05
 --- !u!114 &2985811743604711824
 MonoBehaviour:
   m_ObjectHideFlags: 0

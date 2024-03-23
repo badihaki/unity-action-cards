@@ -17,11 +17,21 @@ public class PlayerMovement : MonoBehaviour
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.15f;
     private float targetRotation;
+    [field: SerializeField] public float movementSpeed { get; private set; }
+    private float targetSpeed;
+    private float lerpSpeedOnMovement = 0.085f;
+    private float lerpSpeedOnSlowDown = 0.5f;
 
     public void Initialize(PlayerCharacter controller)
     {
         _Player = controller;
         _Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        print("Speed normalized = " + _Rigidbody.velocity.normalized.x);
+        print("Speed??? = " + targetSpeed/movementSpeed);
     }
 
     public void ApplyGravity()
@@ -49,8 +59,21 @@ public class PlayerMovement : MonoBehaviour
 
     public void ZeroOutVelocity()
     {
-        _Player._AnimationController.SetFloat("speed", 0.0f);
+        movementSpeed = 0.0f;
+        targetSpeed = 0.0f;
         _Rigidbody.velocity = Vector3.zero;
+        _Player._AnimationController.SetFloat("speed", 0.0f);
+    }
+
+    public void SlowDown()
+    {
+        if (movementSpeed < 0.1f) ZeroOutVelocity();
+        targetSpeed = 0;
+        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnSlowDown);
+
+        ApplyMovementToVelocity();
+        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
+        print("slowing down");
     }
 
     public void MoveTowardsCam(Vector2 direction)
@@ -61,18 +84,19 @@ public class PlayerMovement : MonoBehaviour
             RotateCharacter(direction);
             _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
-        
-        // Vector3 desiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
-        // moveDirection = new Vector3(desiredMoveDirection.x, desiredMoveDirection.y + VerticalVelocity, desiredMoveDirection.z);
-        // Rigidbody.velocity = moveDirection * Player.CharacterSheet.WalkSpeed * Time.deltaTime;
 
-        _Player._AnimationController.SetFloat("speed", 0.250f);
-        if (_Player._Controls._RunInput) _Player._AnimationController.SetFloat("speed", 1.0f);
-        float movementSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
-        // Rigidbody.velocity = new Vector3(moveDirection.x * movementSpeed, moveDirection.y, moveDirection.z * movementSpeed) * Time.deltaTime;
-        _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
+        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
 
+
+        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
+        ApplyMovementToVelocity();
         ApplyGravity();
+    }
+
+    private void ApplyMovementToVelocity()
+    {
+        _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
     }
 
     private void RotateCharacter(Vector2 inputDirection)
