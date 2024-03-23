@@ -47,6 +47,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         base.CheckStateTransitions();
 
         if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if(_StateEnterTime + 3.5f > _StateEnterTime) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
     }
 
     public override void CheckInputs()
