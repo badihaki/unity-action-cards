@@ -12,6 +12,8 @@ public class PlayerCharacter : Character
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
+    
+    // Actor Stuff
     private PlayerActor actor;
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
     [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
@@ -50,6 +52,7 @@ public class PlayerCharacter : Character
         _PlayerSpells.Initialize(this);
 
         // lets set up the actor
+        if(_LoadNewOnStart)LoadAndBuildActor();
         actor = GetComponentInChildren<PlayerActor>();
         actor.InitializePlayerActor(this);
 
@@ -65,6 +68,52 @@ public class PlayerCharacter : Character
 
         // and initialize the attack controller, since it needs the state machine
         _AttackController.Initialize(this);
+    }
+
+    private void LoadAndBuildActor()
+    {
+        try
+        {
+            CharacterSaveData loadedOutfit = GameManagerMaster.GameMaster.SaveLoadManager.LoadCharacterData();
+            BuildActorBody(loadedOutfit);
+        }
+        catch (Exception err)
+        {
+            Debug.LogError($"Exception was thrown: {err}");
+        }
+    }
+
+    private void BuildActorBody(CharacterSaveData saveData)
+    {
+        CharCustomizationDatabase parts = GameManagerMaster.GameMaster.CharacterCustomizationDatabase;
+
+        if (saveData.isMale)
+        {
+            SkinnedMeshRenderer head = transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hair = transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer horns = transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer top = transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hands = transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer bottom = transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
+
+            head.sharedMesh = parts.mHeadDatabase[saveData.HeadIndex].mesh;
+            head.material = parts.mHeadDatabase[saveData.HeadIndex].material;
+
+            hair.sharedMesh = parts.mHairDatabase[saveData.HairIndex].mesh;
+            hair.material = parts.mHairDatabase[saveData.HairIndex].material;
+
+            horns.sharedMesh = parts.mHornsDatabase[saveData.HornIndex].mesh;
+            horns.material = parts.mHornsDatabase[saveData.HornIndex].material;
+
+            top.sharedMesh = parts.mTorsoDatabase[saveData.TopIndex].mesh;
+            top.material = parts.mTorsoDatabase[saveData.TopIndex].material;
+
+            hands.sharedMesh = parts.mHandsDatabase[saveData.HandsIndex].mesh;
+            hands.material = parts.mHandsDatabase[saveData.HandsIndex].material;
+
+            bottom.sharedMesh = parts.mBottomsDatabase[saveData.BottomIndex].mesh;
+            bottom.material = parts.mBottomsDatabase[saveData.BottomIndex].material;
+        }
     }
 
     private void InitializeStateMachine()

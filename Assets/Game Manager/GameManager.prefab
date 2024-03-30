@@ -57,17 +57,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae90a3d3964a684a89dbc04f550ba01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  torsoDatabase:
+  <mActorBase>k__BackingField: {fileID: 9079905749349731218, guid: 501dc8395d770f24dbbf2583309b4d5b,
+    type: 3}
+  <fActorBase>k__BackingField: {fileID: 8891329745662662745, guid: 745344a50df249d4e838b7e1425e23c7,
+    type: 3}
+  <mTorsoDatabase>k__BackingField:
   - {fileID: 11400000, guid: b1d8da3d5e25dc44daae2d927920b685, type: 2}
   - {fileID: 11400000, guid: 6bf865641b9a57c4787b94a58ab9dbe9, type: 2}
-  handsDatabase:
+  <mHandsDatabase>k__BackingField:
   - {fileID: 11400000, guid: 6a4459d547b865a4ba1d5bd692673c62, type: 2}
-  bottomsDatabase:
+  <mBottomsDatabase>k__BackingField:
   - {fileID: 11400000, guid: 322cb2f2502836540b71ef19ca521288, type: 2}
   - {fileID: 11400000, guid: 93bb232eac79b0d479cf94cdaa6827a3, type: 2}
-  headDatabase:
+  <mHeadDatabase>k__BackingField:
   - {fileID: 11400000, guid: 61e3e3dd3deb5904c94587c7b16dfe3b, type: 2}
-  hairDatabase:
+  <mHairDatabase>k__BackingField:
   - {fileID: 11400000, guid: 3d585822d14bb38449636a682979c374, type: 2}
-  hornsDatabase:
+  <mHornsDatabase>k__BackingField:
   - {fileID: 11400000, guid: 191e128f267e8654abf015cec9ceade1, type: 2}
+  <fTorsoDatabase>k__BackingField:
+  - {fileID: 11400000, guid: a74916e009ac28240a9700721c8b21fd, type: 2}
+  <fHandsDatabase>k__BackingField:
+  - {fileID: 11400000, guid: 4a78b22c58d42d14fbb9dcade51388c3, type: 2}
+  <fBottomsDatabase>k__BackingField:
+  - {fileID: 11400000, guid: c398cadeba4258441929f4812ff7c7d0, type: 2}
+  <fHeadDatabase>k__BackingField:
+  - {fileID: 11400000, guid: 1cf00765c88120e40810b22506a0ca4d, type: 2}
+  <fHairDatabase>k__BackingField:
+  - {fileID: 11400000, guid: 9d242f15d4ee7d942bfc2a59f1a66445, type: 2}
+  <fHornsDatabase>k__BackingField:
+  - {fileID: 11400000, guid: ff78bfed53ebcf045997c89543eb2347, type: 2}

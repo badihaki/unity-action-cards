@@ -41,9 +41,11 @@ public class SaveLoadManager
 public class CharacterSaveData
 {
     public string Name;
+    public bool isMale;
     public int HeadIndex, HornIndex, HairIndex, TopIndex, HandsIndex, BottomIndex;
-    public CharacterSaveData(string name, int headIndex, int hornsIndex, int hairIndex, int topIndex, int handsIndex, int bottomIndex)
+    public CharacterSaveData(bool isMale, string name, int headIndex, int hornsIndex, int hairIndex, int topIndex, int handsIndex, int bottomIndex)
     {
+        this.isMale = isMale;
         this.Name = name;
         this.HeadIndex = headIndex;
         this.HornIndex = hornsIndex;

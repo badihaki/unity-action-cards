@@ -1,5 +1,11 @@
 # Card Action Game Readme
 
+### 3/29 - Saving and Loading Player (w/ gender)
+- I've redone a lot of the scriptable objects to abstract away whether it's for male or female bodytypes.
+- The logic for handling whether it is m/f is in Game Manager/Character Customization Database
+- Changing equipment/bodyparts works and saves in character creator. Loading worked before when it was just male characters.
+- Make sure the female characters load, and we're done with this part
+
 ## 3/12 - Saving and Loading Player Equipment
 - I'm saving equipment to disk. The goal now is to load the equipment.
 - I think I have the system for saving and loading done, in terms of what the Game Master can do

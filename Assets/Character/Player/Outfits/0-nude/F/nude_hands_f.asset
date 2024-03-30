@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed0b54911f3104fafaf4a855f9dc70, type: 3}
-  m_Name: nude_hands
+  m_Name: nude_hands_f
   m_EditorClassIdentifier: 
   weight: 0
   outfitSlot: 2
-  meshMale: {fileID: -10051296631761200, guid: 60694fceb8acb034aaeddd3052bad7b2, type: 3}
-  materialMale: {fileID: 2100000, guid: 2f5a6b91d5d9f3a45b78671d8a672709, type: 2}
-  meshfemale: {fileID: 0}
-  materialfemale: {fileID: 0}
+  mesh: {fileID: -10051296631761200, guid: 216c5a003a49ebf479178251fd7fac33, type: 3}
+  material: {fileID: 2100000, guid: c8504052ce21fec48a4e52c9d2b40822, type: 2}

@@ -10,12 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fed0b54911f3104fafaf4a855f9dc70, type: 3}
-  m_Name: nude_bottoms
+  m_Name: nude_torso_m
   m_EditorClassIdentifier: 
   weight: 0
-  outfitSlot: 1
-  meshMale: {fileID: -3521397827782226127, guid: 60694fceb8acb034aaeddd3052bad7b2,
-    type: 3}
-  materialMale: {fileID: 2100000, guid: e6272cef03307f242ac42e8ef87e1ec8, type: 2}
-  meshfemale: {fileID: 0}
-  materialfemale: {fileID: 0}
+  outfitSlot: 0
+  mesh: {fileID: 738562970337347187, guid: 60694fceb8acb034aaeddd3052bad7b2, type: 3}
+  material: {fileID: 2100000, guid: 2f5a6b91d5d9f3a45b78671d8a672709, type: 2}

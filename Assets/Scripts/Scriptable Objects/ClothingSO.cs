@@ -17,11 +17,7 @@ public class ClothingSO : ScriptableObject
     [Header("Gear Slot")]
     public outfitSlots outfitSlot;
 
-    [Header("Bodytype: M")]
-    public Mesh meshMale;
-    public Material materialMale;
-    [Header("Bodytype: F")]
-    public Mesh meshfemale;
-    public Material materialfemale;
-    // end
+    [Header("Graphics")]
+    public Mesh mesh;
+    public Material material;
 }

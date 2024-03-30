@@ -3,98 +3,199 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class CreationController : MonoBehaviour
 {
-    [field: SerializeField] private SkinnedMeshRenderer head;
-    [field: SerializeField] private int headIndex = 0;
-    [field: SerializeField] private SkinnedMeshRenderer hair;
-    [field: SerializeField] private int hairIndex = 0;
-    [field: SerializeField] private SkinnedMeshRenderer horns;
-    [field: SerializeField] private int hornsIndex = 0;
-    [field: SerializeField] private SkinnedMeshRenderer top;
-    [field: SerializeField] private int topIndex = 0;
-    [field: SerializeField] private SkinnedMeshRenderer bottom;
-    [field: SerializeField] private int bottomIndex = 0;
-    [field: SerializeField] private SkinnedMeshRenderer hands;
-    [field: SerializeField] private int handsIndex = 0;
+    [Header("Male")]
+    private GameObject mActor;
+    private SkinnedMeshRenderer mHead;
+    [field: SerializeField] private int mHeadIndex = 0;
+    private SkinnedMeshRenderer mHair;
+    [field: SerializeField] private int mHairIndex = 0;
+    private SkinnedMeshRenderer mHorns;
+    [field: SerializeField] private int mHornsIndex = 0;
+    private SkinnedMeshRenderer mTop;
+    [field: SerializeField] private int mTopIndex = 0;
+    private SkinnedMeshRenderer mBottom;
+    [field: SerializeField] private int mBottomIndex = 0;
+    private SkinnedMeshRenderer mHands;
+    [field: SerializeField] private int mHandsIndex = 0;
+
+    [Header("FeMale")]
+    private GameObject fActor;
+    private SkinnedMeshRenderer fHead;
+    [field: SerializeField] private int fHeadIndex = 0;
+    private SkinnedMeshRenderer fHair;
+    [field: SerializeField] private int fHairIndex = 0;
+    private SkinnedMeshRenderer fHorns;
+    [field: SerializeField] private int fHornsIndex = 0;
+    private SkinnedMeshRenderer fTop;
+    [field: SerializeField] private int fTopIndex = 0;
+    private SkinnedMeshRenderer fBottom;
+    [field: SerializeField] private int fBottomIndex = 0;
+    private SkinnedMeshRenderer fHands;
+    [field: SerializeField] private int fHandsIndex = 0;
+
+    [field: SerializeField] private bool isMaleBody;
 
     private CharCustomizationDatabase customizationDatabase;
     // Start is called before the first frame update
     void Start()
     {
         customizationDatabase = GameManagerMaster.GameMaster.CharacterCustomizationDatabase;
-        head.sharedMesh = customizationDatabase.headDatabase[headIndex].mesh;
-        head.material= customizationDatabase.headDatabase[headIndex].material;
 
-        hair.sharedMesh = customizationDatabase.hairDatabase[hairIndex].mesh;
-        hair.material = customizationDatabase.hairDatabase[hairIndex].material;
+        // male
+        mActor = GameObject.Find("Male").gameObject;
 
-        horns.sharedMesh = customizationDatabase.hornsDatabase[hornsIndex].mesh;
-        horns.material = customizationDatabase.hornsDatabase[hornsIndex].material;
+        mHead = mActor.transform.Find("Head").GetComponent<SkinnedMeshRenderer>();
+        mHead.sharedMesh = customizationDatabase.mHeadDatabase[mHeadIndex].mesh;
+        mHead.material= customizationDatabase.mHeadDatabase[mHeadIndex].material;
 
-        top.sharedMesh = customizationDatabase.torsoDatabase[topIndex].meshMale;
-        top.material = customizationDatabase.torsoDatabase[topIndex].materialMale;
-        
-        hands.sharedMesh = customizationDatabase.handsDatabase[handsIndex].meshMale;
-        hands.sharedMaterial = customizationDatabase.handsDatabase[handsIndex].materialMale;
+        mHair = mActor.transform.Find("Hair").GetComponent<SkinnedMeshRenderer>();
+        mHair.sharedMesh = customizationDatabase.mHairDatabase[mHairIndex].mesh;
+        mHair.material = customizationDatabase.mHairDatabase[mHairIndex].material;
 
-        bottom.sharedMesh = customizationDatabase.bottomsDatabase[bottomIndex].meshMale;
-        bottom.material = customizationDatabase.bottomsDatabase[bottomIndex].materialMale;
+        mHorns = mActor.transform.Find("Horns").GetComponent<SkinnedMeshRenderer>();
+        mHorns.sharedMesh = customizationDatabase.mHornsDatabase[mHornsIndex].mesh;
+        mHorns.material = customizationDatabase.mHornsDatabase[mHornsIndex].material;
+
+        mTop = mActor.transform.Find("Top").GetComponent<SkinnedMeshRenderer>();
+        mTop.sharedMesh = customizationDatabase.mTorsoDatabase[mTopIndex].mesh;
+        mTop.material = customizationDatabase.mTorsoDatabase[mTopIndex].material;
+
+        mHands = mActor.transform.Find("Hands").GetComponent<SkinnedMeshRenderer>();
+        mHands.sharedMesh = customizationDatabase.mHandsDatabase[mHandsIndex].mesh;
+        mHands.sharedMaterial = customizationDatabase.mHandsDatabase[mHandsIndex].material;
+
+        mBottom = mActor.transform.Find("Bottom").GetComponent<SkinnedMeshRenderer>();
+        mBottom.sharedMesh = customizationDatabase.mBottomsDatabase[mBottomIndex].mesh;
+        mBottom.material = customizationDatabase.mBottomsDatabase[mBottomIndex].material;
+
+        // female
+        fActor = GameObject.Find("Female").gameObject;
+
+        fHead = fActor.transform.Find("Head").GetComponent<SkinnedMeshRenderer>();
+        fHead.sharedMesh = customizationDatabase.fHeadDatabase[fHeadIndex].mesh;
+        fHead.material = customizationDatabase.fHeadDatabase[fHeadIndex].material;
+
+        fHair = fActor.transform.Find("Hair").GetComponent<SkinnedMeshRenderer>();
+        fHair.sharedMesh = customizationDatabase.fHairDatabase[fHairIndex].mesh;
+        fHair.material = customizationDatabase.fHairDatabase[fHairIndex].material;
+
+        fHorns = fActor.transform.Find("Horns").GetComponent<SkinnedMeshRenderer>();
+        fHorns.sharedMesh = customizationDatabase.fHornsDatabase[fHornsIndex].mesh;
+        fHorns.material = customizationDatabase.fHornsDatabase[fHornsIndex].material;
+
+        fTop = fActor.transform.Find("Top").GetComponent<SkinnedMeshRenderer>();
+        fTop.sharedMesh = customizationDatabase.fTorsoDatabase[fTopIndex].mesh;
+        fTop.material = customizationDatabase.fTorsoDatabase[fTopIndex].material;
+
+        fHands = fActor.transform.Find("Hands").GetComponent<SkinnedMeshRenderer>();
+        fHands.sharedMesh = customizationDatabase.fHandsDatabase[fHandsIndex].mesh;
+        fHands.sharedMaterial = customizationDatabase.fHandsDatabase[fHandsIndex].material;
+
+        fBottom = fActor.transform.Find("Bottom").GetComponent<SkinnedMeshRenderer>();
+        fBottom.sharedMesh = customizationDatabase.fBottomsDatabase[fBottomIndex].mesh;
+        fBottom.material = customizationDatabase.fBottomsDatabase[fBottomIndex].material;
+
+        fActor.SetActive(false);
+        isMaleBody = true;
     }
 
+    private void ChangeBodyPart(string bodyPart, bool isSelectingNext)
+    {
+        if (isMaleBody)
+        {
+            switch (bodyPart)
+            {
+                case "top":
+                    if (customizationDatabase.mTorsoDatabase.Count <= 1) break;
+                    mTopIndex = isSelectingNext ? (mTopIndex + 1) : (mTopIndex - 1);
+                    if (mTopIndex > (customizationDatabase.mTorsoDatabase.Count - 1))
+                    {
+                        mTopIndex = 0;
+                    }
+                    else if (mTopIndex < 0)
+                    {
+                        mTopIndex = (customizationDatabase.mTorsoDatabase.Count - 1);
+                    }
+                    mTop.sharedMesh = customizationDatabase.mTorsoDatabase[mTopIndex].mesh;
+                    mTop.material = customizationDatabase.mTorsoDatabase[mTopIndex].material;
+                    break;
+                case "bottom":
+                    if (customizationDatabase.mBottomsDatabase.Count <= 1) break;
+                    mBottomIndex = isSelectingNext ? (mBottomIndex + 1) : (mBottomIndex - 1);
+                    if (mBottomIndex > (customizationDatabase.mBottomsDatabase.Count - 1))
+                    {
+                        mBottomIndex = 0;
+                    }
+                    else if (mBottomIndex < 0)
+                    {
+                        mBottomIndex = (customizationDatabase.mBottomsDatabase.Count - 1);
+                    }
+                    mBottom.sharedMesh = customizationDatabase.mBottomsDatabase[mBottomIndex].mesh;
+                    mBottom.material = customizationDatabase.mBottomsDatabase[mBottomIndex].material;
+                    break;
+            }
+        }
+        else
+        {
+            switch (bodyPart)
+            {
+                case "top":
+                    if (customizationDatabase.fTorsoDatabase.Count <= 1) break;
+                    fTopIndex = isSelectingNext ? (fTopIndex + 1) : (fTopIndex - 1);
+                    if (fTopIndex > (customizationDatabase.mTorsoDatabase.Count - 1))
+                    {
+                        fTopIndex = 0;
+                    }
+                    else if (fTopIndex < 0)
+                    {
+                        fTopIndex = (customizationDatabase.mTorsoDatabase.Count - 1);
+                    }
+                    fTop.sharedMesh = customizationDatabase.mTorsoDatabase[fTopIndex].mesh;
+                    fTop.material = customizationDatabase.mTorsoDatabase[fTopIndex].material;
+                    break;
+                case "bottom":
+                    if (customizationDatabase.fBottomsDatabase.Count <= 1) break;
+                    fBottomIndex = isSelectingNext ? (fBottomIndex + 1) : (fBottomIndex - 1);
+                    if (fBottomIndex > (customizationDatabase.mBottomsDatabase.Count - 1))
+                    {
+                        fBottomIndex = 0;
+                    }
+                    else if (fBottomIndex < 0)
+                    {
+                        fBottomIndex = (customizationDatabase.mBottomsDatabase.Count - 1);
+                    }
+                    fBottom.sharedMesh = customizationDatabase.mBottomsDatabase[fBottomIndex].mesh;
+                    fBottom.material = customizationDatabase.mBottomsDatabase[fBottomIndex].material;
+                    break;
+            }
+        }
+    }
+
+    public void ChangeCharacterGender()
+    {
+        isMaleBody = !isMaleBody;
+
+        mActor.SetActive(isMaleBody);
+        fActor.SetActive(!isMaleBody);
+    }
     public void SelectNextBodyPart(string bodyPart)
     {
-        switch(bodyPart)
-        {
-            case "top":
-                topIndex++;
-                if(topIndex > (customizationDatabase.torsoDatabase.Count - 1))
-                {
-                    topIndex = 0;
-                }
-                top.sharedMesh = customizationDatabase.torsoDatabase[topIndex].meshMale;
-                top.material = customizationDatabase.torsoDatabase[topIndex].materialMale;
-                break;
-            case "bottom":
-                bottomIndex++;
-                if (bottomIndex > (customizationDatabase.bottomsDatabase.Count - 1))
-                {
-                    bottomIndex = 0;
-                }
-                bottom.sharedMesh = customizationDatabase.bottomsDatabase[bottomIndex].meshMale;
-                bottom.material = customizationDatabase.bottomsDatabase[bottomIndex].materialMale;
-                break;
-        }
+        ChangeBodyPart(bodyPart, true);
     }
     public void SelectPreviousBodyPart(string bodyPart)
     {
-        switch (bodyPart)
-        {
-            case "top":
-                topIndex--;
-                if (topIndex < 0)
-                {
-                    topIndex = (customizationDatabase.torsoDatabase.Count - 1);
-                }
-                top.sharedMesh = customizationDatabase.torsoDatabase[topIndex].meshMale;
-                top.material = customizationDatabase.torsoDatabase[topIndex].materialMale;
-                break;
-            case "bottom":
-                bottomIndex--;
-                if (bottomIndex < 0)
-                {
-                    bottomIndex = (customizationDatabase.bottomsDatabase.Count - 1);
-                }
-                bottom.sharedMesh = customizationDatabase.bottomsDatabase[bottomIndex].meshMale;
-                bottom.material = customizationDatabase.bottomsDatabase[bottomIndex].materialMale;
-                break;
-        }
+        print(bodyPart);
+        print("going down");
+        ChangeBodyPart(bodyPart, false);
     }
     public void SaveChar()
     {
-        CharacterSaveData save = new CharacterSaveData("Player", headIndex, hornsIndex, hairIndex, topIndex, handsIndex, bottomIndex);
+        CharacterSaveData save = new CharacterSaveData(isMaleBody, "Player", mHeadIndex, mHornsIndex, mHairIndex, mTopIndex, mHandsIndex, mBottomIndex);
         GameManagerMaster.GameMaster.SaveLoadManager.SaveCharacterData(save);
     }
 }
