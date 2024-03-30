@@ -195,7 +195,11 @@ public class CreationController : MonoBehaviour
     }
     public void SaveChar()
     {
-        CharacterSaveData save = new CharacterSaveData(isMaleBody, "Player", mHeadIndex, mHornsIndex, mHairIndex, mTopIndex, mHandsIndex, mBottomIndex);
+        CharacterSaveData save;
+        if (isMaleBody)
+            save = new CharacterSaveData(isMaleBody, "Player", mHeadIndex, mHornsIndex, mHairIndex, mTopIndex, mHandsIndex, mBottomIndex);
+        else
+            save = new CharacterSaveData(isMaleBody, "Player", fHeadIndex, fHornsIndex, fHairIndex, fTopIndex, fHandsIndex, fBottomIndex);
         GameManagerMaster.GameMaster.SaveLoadManager.SaveCharacterData(save);
     }
 }

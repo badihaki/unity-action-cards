@@ -30,6 +30,11 @@ public class PlayerCharacter : Character
 
     public override void Initialize()
     {
+        // lets set up the actor
+        if(_LoadNewOnStart)LoadAndBuildActor();
+        actor = GetComponentInChildren<PlayerActor>();
+        actor.InitializePlayerActor(this);
+
         base.Initialize();
         
         // get the inputs
@@ -50,11 +55,6 @@ public class PlayerCharacter : Character
         // give the player the ability to use spells
         _PlayerSpells = GetComponent<PlayerSpell>();
         _PlayerSpells.Initialize(this);
-
-        // lets set up the actor
-        if(_LoadNewOnStart)LoadAndBuildActor();
-        actor = GetComponentInChildren<PlayerActor>();
-        actor.InitializePlayerActor(this);
 
         // ok lets get attacks up
         _AttackController = GetComponent<PlayerAttack>();
@@ -89,12 +89,14 @@ public class PlayerCharacter : Character
 
         if (saveData.isMale)
         {
-            SkinnedMeshRenderer head = transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer hair = transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer horns = transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer top = transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer hands = transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer bottom = transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
+            actor = Instantiate(GameManagerMaster.GameMaster.CharacterCustomizationDatabase.mActorBase, transform).GetComponent<PlayerActor>();
+            
+            SkinnedMeshRenderer head = actor.transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hair = actor.transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer horns = actor.transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer top = actor.transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hands = actor.transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer bottom = actor.transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
 
             head.sharedMesh = parts.mHeadDatabase[saveData.HeadIndex].mesh;
             head.material = parts.mHeadDatabase[saveData.HeadIndex].material;
@@ -114,6 +116,36 @@ public class PlayerCharacter : Character
             bottom.sharedMesh = parts.mBottomsDatabase[saveData.BottomIndex].mesh;
             bottom.material = parts.mBottomsDatabase[saveData.BottomIndex].material;
         }
+        else
+        {
+            actor = Instantiate(GameManagerMaster.GameMaster.CharacterCustomizationDatabase.fActorBase, transform).GetComponent<PlayerActor>();
+
+            SkinnedMeshRenderer head = actor.transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hair = actor.transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer horns = actor.transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer top = actor.transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hands = actor.transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer bottom = actor.transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
+
+            head.sharedMesh = parts.fHeadDatabase[saveData.HeadIndex].mesh;
+            head.material = parts.fHeadDatabase[saveData.HeadIndex].material;
+
+            hair.sharedMesh = parts.fHairDatabase[saveData.HairIndex].mesh;
+            hair.material = parts.fHairDatabase[saveData.HairIndex].material;
+
+            horns.sharedMesh = parts.fHornsDatabase[saveData.HornIndex].mesh;
+            horns.material = parts.fHornsDatabase[saveData.HornIndex].material;
+
+            top.sharedMesh = parts.fTorsoDatabase[saveData.TopIndex].mesh;
+            top.material = parts.fTorsoDatabase[saveData.TopIndex].material;
+
+            hands.sharedMesh = parts.fHandsDatabase[saveData.HandsIndex].mesh;
+            hands.material = parts.fHandsDatabase[saveData.HandsIndex].material;
+
+            bottom.sharedMesh = parts.fBottomsDatabase[saveData.BottomIndex].mesh;
+            bottom.material = parts.fBottomsDatabase[saveData.BottomIndex].material;
+        }
+        actor.name = "Actor";
     }
 
     private void InitializeStateMachine()
