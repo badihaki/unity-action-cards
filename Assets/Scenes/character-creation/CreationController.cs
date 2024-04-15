@@ -72,6 +72,7 @@ public class CreationController : MonoBehaviour
         mBottom = mActor.transform.Find("Bottom").GetComponent<SkinnedMeshRenderer>();
         mBottom.sharedMesh = customizationDatabase.mBottomsDatabase[mBottomIndex].mesh;
         mBottom.material = customizationDatabase.mBottomsDatabase[mBottomIndex].material;
+        mActor.GetComponent<Animator>().SetBool("cinematics", true);
 
         // female
         fActor = GameObject.Find("Female").gameObject;
@@ -99,6 +100,8 @@ public class CreationController : MonoBehaviour
         fBottom = fActor.transform.Find("Bottom").GetComponent<SkinnedMeshRenderer>();
         fBottom.sharedMesh = customizationDatabase.fBottomsDatabase[fBottomIndex].mesh;
         fBottom.material = customizationDatabase.fBottomsDatabase[fBottomIndex].material;
+        fActor.GetComponent<Animator>().SetBool("cinematics", true);
+
 
         fActor.SetActive(false);
         isMaleBody = true;
@@ -182,7 +185,16 @@ public class CreationController : MonoBehaviour
 
         mActor.SetActive(isMaleBody);
         fActor.SetActive(!isMaleBody);
+
+        SetCharacterCinematicAnimation(isMaleBody);
     }
+
+    private void SetCharacterCinematicAnimation(bool animateMale)
+    {
+        if(animateMale) mActor.GetComponent<Animator>().SetBool("cinematics", true);
+        else fActor.GetComponent<Animator>().SetBool("cinematics", true); ;
+    }
+
     public void SelectNextBodyPart(string bodyPart)
     {
         ChangeBodyPart(bodyPart, true);
