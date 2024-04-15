@@ -30,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        print("Speed normalized = " + _Rigidbody.velocity.normalized.x);
-        print("Speed??? = " + targetSpeed/movementSpeed);
+        /*print("Speed normalized = " + _Rigidbody.velocity.normalized.x);
+        print("Speed??? = " + targetSpeed/movementSpeed);*/
     }
 
     public void ApplyGravity()

@@ -20,15 +20,15 @@ public class PlayerJumpState : PlayerState
     {
         base.PhysicsUpdate();
 
-        // _PlayerCharacter._LocomotionController.ApplyGravity();
+        /*_PlayerCharacter._LocomotionController.ApplyGravity();*/
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-        if (Time.time > (_StateEnterTime + 0.980f)) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+        if (_PlayerCharacter._CheckGrounded.IsGrounded() && Time.time > _StateEnterTime + 0.85f) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
     }
 
     // end
