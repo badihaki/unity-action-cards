@@ -115,8 +115,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_Player._CheckGrounded.IsGrounded())
         {
-            // _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity * _Gravity);
-            _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
+            // _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
+            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower);
         }
     }
 
