@@ -46,13 +46,17 @@ public class PlayerCamera : MonoBehaviour
         _PlayerCamController.Follow = cinemachineCamTarget;
         _PlayerCamController.LookAt = cinemachineCamTarget;
         _PlayerCamController.Priority = 10;
+        _PlayerCamController.m_Lens.FieldOfView = 90;
+        // lens fov - 90
 
         Cinemachine3rdPersonFollow body = _PlayerCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
-        body.CameraDistance = 3.270f;
+        body.CameraDistance = 1.850f; // 1.85
         body.VerticalArmLength = 1.55f;
+        body.ShoulderOffset = new Vector3(0, -0.500f, 0);
+        // rig shoulder offset 0, -0.500, 0
         
         CinemachineComposer composer = _PlayerCamController.AddCinemachineComponent<CinemachineComposer>();
-        composer.m_TrackedObjectOffset = new Vector3(0, 1.15f, 0);
+        composer.m_TrackedObjectOffset = new Vector3(0, 0.850f, 0); // 0, 0.850, 0
         cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
     }
     private void InitializeAimCamController()
