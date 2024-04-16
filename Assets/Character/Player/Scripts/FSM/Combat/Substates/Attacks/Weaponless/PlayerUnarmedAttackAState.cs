@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weaponless Attack A", menuName = "Characters/Create Attacks/Weaponless Attack A")]
-public class PlayerWeaponlessAttackAState : PlayerAttackSuperState
+[CreateAssetMenu(fileName = "Unarmed Attack A", menuName = "Characters/Create Attacks/Weaponless Attack A")]
+public class PlayerUnarmedAttackAState : PlayerAttackSuperState
 {
-    public PlayerWeaponlessAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    public PlayerUnarmedAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
 

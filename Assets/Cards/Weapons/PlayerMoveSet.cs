@@ -6,10 +6,9 @@ using UnityEngine;
 public class PlayerMoveSet : MoveSetScriptableObject
 {
     public PlayerAttackSuperState _AttackA;
-    public PlayerAttackSuperState _FinisherA;
     public PlayerAttackSuperState _AttackB;
-    public PlayerAttackSuperState _FinisherB;
     public PlayerAttackSuperState _AttackC;
-    public PlayerAttackSuperState _FinisherC;
-    public PlayerAttackSuperState _Special;
+    public PlayerAttackSuperState _SpecialA;
+    public PlayerAttackSuperState _SpecialB;
+    public PlayerAttackSuperState _SpecialC;
 }

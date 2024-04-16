@@ -7,12 +7,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     public PlayerAttackSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
-    public void ManualSetUp(PlayerCharacter pc, string animName,PlayerStateMachine stateMachine)
-    {
-        _PlayerCharacter = pc;
-        _StateAnimationName = animName;
-        _StateMachine = stateMachine;
-    }
+
     protected bool canCombo;
 
     public override void EnterState()

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52ffd897d08752140802477892473b9e, type: 3}
-  m_Name: Weaponless Attack C
+  m_Script: {fileID: 11500000, guid: 65c5ca171214d02458b369f88c91e2e1, type: 3}
+  m_Name: Unarmed
   m_EditorClassIdentifier: 
-  <_StateAnimationName>k__BackingField: 
-  <_SideEffectTrigger>k__BackingField: 0
+  _Prefab: {fileID: 0}
+  _PlayerMoves: {fileID: 11400000, guid: c26259456b6408c4f9c4140265cdd9e3, type: 2}
