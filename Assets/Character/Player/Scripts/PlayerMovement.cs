@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         print("slowing down");
     }
 
-    public void MoveTowardsCam(Vector2 direction)
+    public void MoveTowardsCamWithGravity(Vector2 direction)
     {
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
