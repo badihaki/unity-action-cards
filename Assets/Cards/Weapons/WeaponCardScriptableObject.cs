@@ -6,7 +6,7 @@ using UnityEngine;
 public class WeaponCardScriptableObject : CardScriptableObj
 {
     [Header("Weapon Game Object")]
-    public WeaponScriptableObject _Weapon;
+    public UnarmedDefaultWeapon _Weapon;
     [Header("Weapon Durability Stats")]
     public float _WeaponDurability;
     public float _WeaponAttackDurabilityCost;

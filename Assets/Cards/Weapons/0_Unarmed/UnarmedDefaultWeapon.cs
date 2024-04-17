@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Create Item/Weapons/New Weapon")]
-public class WeaponScriptableObject : ScriptableObject
+public class UnarmedDefaultWeapon : ScriptableObject
 {
     public GameObject _WeaponGameObjectL;
     public GameObject _WeaponGameObjectR;

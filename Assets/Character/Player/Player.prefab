@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8a23b80ac415f45a0c83ad1a6d7388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
+  unarmed: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
   <_CurrentWeapon>k__BackingField: {fileID: 0}
   <_AttackA>k__BackingField: {fileID: 0}
   <_AttackB>k__BackingField: {fileID: 0}

@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerCharacter player;
-    [SerializeField] private WeaponScriptableObject unArmed;
-    [field: SerializeField] public WeaponScriptableObject _CurrentWeapon { get; private set; }
+    [SerializeField] private UnarmedDefaultWeapon unarmed;
+    [field: SerializeField] public UnarmedDefaultWeapon _CurrentWeapon { get; private set; }
 
     [field: SerializeField] public PlayerAttackSuperState _AttackA { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
@@ -27,10 +27,10 @@ public class PlayerAttack : MonoBehaviour
     public void Initialize(PlayerCharacter newPlayer)
     {
         player = newPlayer;
-        SetWeapon(unArmed);
+        SetWeapon(unarmed);
     }
 
-    public void SwitchWeapon(WeaponScriptableObject weapon)
+    public void SwitchWeapon(UnarmedDefaultWeapon weapon)
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
         DestroyWeaponGameObjects();
@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void SetWeapon(WeaponScriptableObject newWeapon)
+    private void SetWeapon(UnarmedDefaultWeapon newWeapon)
     {
         _CurrentWeapon = newWeapon;
         LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
