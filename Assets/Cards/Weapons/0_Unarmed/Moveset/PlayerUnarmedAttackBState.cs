@@ -13,7 +13,6 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     {
         base.EnterState();
 
-        _PlayerCharacter._AnimationController.SetBool("attackB", true);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AttackController.SetAttackParameters(1, 2, 1.35f);
     }
@@ -21,8 +20,6 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     public override void ExitState()
     {
         base.ExitState();
-
-        _PlayerCharacter._AnimationController.SetBool("attackB", false);
     }
 
     public override void CheckStateTransitions()

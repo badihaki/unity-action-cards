@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Moveset", menuName = "Create Item/Weapons/New Player Moveset")]
-public class PlayerMoveSet : MoveSetScriptableObject
+public class PlayerMoveSetScriptableObj : MoveSetScriptableObject
 {
     public PlayerAttackSuperState _AttackA;
     public PlayerAttackSuperState _AttackB;

@@ -6,8 +6,8 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerCharacter player;
-    [SerializeField] private UnarmedDefaultWeapon unarmed;
-    [field: SerializeField] public UnarmedDefaultWeapon _CurrentWeapon { get; private set; }
+    [SerializeField] private WeaponScriptableObj unarmed;
+    [field: SerializeField] public WeaponScriptableObj _CurrentWeapon { get; private set; }
 
     [field: SerializeField] public PlayerAttackSuperState _AttackA { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
         SetWeapon(unarmed);
     }
 
-    public void SwitchWeapon(UnarmedDefaultWeapon weapon)
+    public void SwitchWeapon(WeaponScriptableObj weapon)
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
         DestroyWeaponGameObjects();
@@ -51,7 +51,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void SetWeapon(UnarmedDefaultWeapon newWeapon)
+    private void SetWeapon(WeaponScriptableObj newWeapon)
     {
         _CurrentWeapon = newWeapon;
         LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
@@ -76,13 +76,13 @@ public class PlayerAttack : MonoBehaviour
     private void LoadMoveset()
     {
         _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
-        _AttackA.InitializeState(player, "attack", player._StateMachine);
+        _AttackA.InitializeState(player, "attackA", player._StateMachine);
         
         _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
-        _AttackB.InitializeState(player, "attack", player._StateMachine);
+        _AttackB.InitializeState(player, "attackB", player._StateMachine);
 
         _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
-        _AttackC.InitializeState(player, "attack", player._StateMachine);
+        _AttackC.InitializeState(player, "attackC", player._StateMachine);
     }
 
     public void SetAttackParameters(int damage, float knockbackForce, float launchForce)

@@ -13,16 +13,19 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
     {
         base.EnterState();
 
-        _PlayerCharacter._AnimationController.SetBool("attackA", true);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AttackController.SetAttackParameters(1, 1.178f, 0.75f);
+
+        Debug.Log("attacking unarmed");
     }
 
     public override void ExitState()
     {
         base.ExitState();
 
-        _PlayerCharacter._AnimationController.SetBool("attackA", false);
+        Debug.Log(_PlayerCharacter._AnimationController.GetBool("attack"));
+        Debug.Log(_PlayerCharacter._AnimationController.GetBool("attackA"));
+        Debug.Log("leaving unarmed");
     }
 
     public override void CheckStateTransitions()
