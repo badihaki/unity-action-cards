@@ -13,25 +13,25 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
     {
         base.EnterState();
 
+        // Debug.Log(_PlayerCharacter._AnimationController.GetBool("attack"));
+        // Debug.Log(_PlayerCharacter._AnimationController.GetBool("attackA"));
+
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AttackController.SetAttackParameters(1, 1.178f, 0.75f);
-
-        Debug.Log("attacking unarmed");
     }
 
     public override void ExitState()
     {
         base.ExitState();
 
-        Debug.Log(_PlayerCharacter._AnimationController.GetBool("attack"));
-        Debug.Log(_PlayerCharacter._AnimationController.GetBool("attackA"));
-        Debug.Log("leaving unarmed");
+        // Debug.Log(_PlayerCharacter._AnimationController.GetBool("attack"));
+        // Debug.Log(_PlayerCharacter._AnimationController.GetBool("attackA"));
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
-     
+
         if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackB);
     }
 
