@@ -7,19 +7,14 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     public PlayerAttackSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
-    public void ManualSetUp(PlayerCharacter pc, string animName,PlayerStateMachine stateMachine)
-    {
-        _PlayerCharacter = pc;
-        _StateAnimationName = animName;
-        _StateMachine = stateMachine;
-    }
-    protected bool canCombo;
 
+    protected bool canCombo;
     public override void EnterState()
     {
         base.EnterState();
 
         canCombo = false;
+        _PlayerCharacter._AnimationController.SetBool("attack", true);
         _PlayerCharacter._Controls.UseAttack();
     }
 
@@ -27,6 +22,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     {
         base.ExitState();
 
+        _PlayerCharacter._AnimationController.SetBool("attack", false);
         _PlayerCharacter._AttackController.ResetAttackParameters();
     }
 
@@ -47,7 +43,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         base.CheckStateTransitions();
 
         if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-        if(_StateEnterTime + 3.5f > _StateEnterTime) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if(Time.time > _StateEnterTime + 3.5f) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
     }
 
     public override void CheckInputs()

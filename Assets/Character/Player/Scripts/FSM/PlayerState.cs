@@ -56,7 +56,10 @@ public class PlayerState : ScriptableObject
     #region Update Functions
     public virtual void LogicUpdate()
     {
-        CheckStateTransitions();
+        if (!_IsExitingState)
+        {
+            CheckStateTransitions();
+        }
         CheckInputs();
     }
     public virtual void PhysicsUpdate()

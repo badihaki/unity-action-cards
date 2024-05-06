@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerState
+public class PlayerLandingState : PlayerState
 {
-    public PlayerJumpState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    public PlayerLandingState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
 
@@ -14,8 +14,7 @@ public class PlayerJumpState : PlayerState
     {
         base.EnterState();
 
-        _PlayerCharacter._Controls.UseJump();
-        _PlayerCharacter._LocomotionController.Jump();
+        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
     }
 
     public override void LogicUpdate()
@@ -36,8 +35,7 @@ public class PlayerJumpState : PlayerState
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished && !_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
-        if (_PlayerCharacter._CheckGrounded.IsGrounded() && _AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
     }
 
     public override void CheckInputs()
@@ -45,6 +43,4 @@ public class PlayerJumpState : PlayerState
         base.CheckInputs();
         aimInput = _PlayerCharacter._Controls._AimInput;
     }
-
-    // end
 }

@@ -30,7 +30,11 @@ public class PlayerGroundedSuperState : PlayerState
         if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
         if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
         if (readySpellInput) _StateMachine.ChangeState(_PlayerCharacter._ReadySpellState);
-        if (attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+        if (attackInput)
+        {
+            _PlayerCharacter._Controls.UseAttack();
+            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+        }
     }
     public override void CheckInputs()
     {

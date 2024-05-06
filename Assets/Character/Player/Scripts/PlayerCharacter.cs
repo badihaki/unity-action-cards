@@ -24,6 +24,7 @@ public class PlayerCharacter : Character
     public PlayerMoveState _MoveState { get; private set; }
     public PlayerFallingState _FallingState { get; private set; }
     public PlayerJumpState _JumpState { get; private set; }
+    public PlayerLandingState _LandingState { get; private set; }
     public PlayerGroundedCardState _GroundedCardState { get; private set; }
     public PlayerInAirCardState _InAirCardState { get; private set; }
     public PlayerReadySpellState _ReadySpellState { get; private set; }
@@ -165,6 +166,9 @@ public class PlayerCharacter : Character
         _JumpState = ScriptableObject.CreateInstance<PlayerJumpState>();
         _JumpState.InitializeState(this, "jump", _StateMachine);
 
+        _LandingState = ScriptableObject.CreateInstance<PlayerLandingState>();
+        _LandingState.InitializeState(this, "land", _StateMachine);
+
         _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
         _GroundedCardState.InitializeState(this, "card", _StateMachine);
 
@@ -173,13 +177,6 @@ public class PlayerCharacter : Character
 
         _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
         _ReadySpellState.InitializeState(this, "range", _StateMachine);
-        /*_IdleState = new PlayerIdleState(this, "idle", _StateMachine);
-        _MoveState = new PlayerMoveState(this, "move", _StateMachine);
-        _FallingState = new PlayerFallingState(this, "air", _StateMachine);
-        _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
-        _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
-        _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
-        _ReadySpellState = new PlayerReadySpellState(this, "range", _StateMachine);*/
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }
