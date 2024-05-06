@@ -141,9 +141,23 @@ public class CreationController : MonoBehaviour
                     mBottom.sharedMesh = customizationDatabase.mBottomsDatabase[mBottomIndex].mesh;
                     mBottom.material = customizationDatabase.mBottomsDatabase[mBottomIndex].material;
                     break;
+                case "horns":
+                    if (customizationDatabase.mHornsDatabase.Count <= 1) break;
+                    mHornsIndex = isSelectingNext ? (mHornsIndex + 1) : (mHornsIndex - 1);
+                    if (mHornsIndex > (customizationDatabase.mHornsDatabase.Count - 1))
+                    {
+                        mHornsIndex = 0;
+                    }
+                    else if (mHornsIndex < 0)
+                    {
+                        mHornsIndex = (customizationDatabase.mHornsDatabase.Count - 1);
+                    }
+                    mHorns.sharedMesh = customizationDatabase.mHornsDatabase[mHornsIndex].mesh;
+                    mHorns.material = customizationDatabase.mHornsDatabase[mHornsIndex].material;
+                    break;
             }
         }
-        else
+        else // is female
         {
             switch (bodyPart)
             {
@@ -174,6 +188,20 @@ public class CreationController : MonoBehaviour
                     }
                     fBottom.sharedMesh = customizationDatabase.mBottomsDatabase[fBottomIndex].mesh;
                     fBottom.material = customizationDatabase.mBottomsDatabase[fBottomIndex].material;
+                    break;
+                case "horns":
+                    if (customizationDatabase.fHornsDatabase.Count <= 1) break;
+                    fHornsIndex = isSelectingNext ? (fHornsIndex + 1) : (fHornsIndex - 1);
+                    if (fHornsIndex > (customizationDatabase.fHornsDatabase.Count - 1))
+                    {
+                        fHornsIndex = 0;
+                    }
+                    else if (fHornsIndex < 0)
+                    {
+                        fHornsIndex = (customizationDatabase.fHornsDatabase.Count - 1);
+                    }
+                    fHorns.sharedMesh = customizationDatabase.fHornsDatabase[fHornsIndex].mesh;
+                    fHorns.material = customizationDatabase.fHornsDatabase[fHornsIndex].material;
                     break;
             }
         }
