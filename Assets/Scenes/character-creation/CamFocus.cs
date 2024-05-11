@@ -32,7 +32,7 @@ public class CamFocus : MonoBehaviour
         aimVector = input.ReadValue<Vector2>();
         if(canMove)
         {
-            Vector3 rotationVector = new Vector3(0, -aimVector.x, 0);
+            Vector3 rotationVector = new Vector3(0, aimVector.x, 0);
             cam.RotateAround(transform.position, rotationVector, angle * Time.deltaTime);
             gameLight.RotateAround(transform.position, rotationVector, angle * Time.deltaTime);
         }
