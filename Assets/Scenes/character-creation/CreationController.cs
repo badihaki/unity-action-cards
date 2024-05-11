@@ -155,6 +155,20 @@ public class CreationController : MonoBehaviour
                     mHorns.sharedMesh = customizationDatabase.mHornsDatabase[mHornsIndex].mesh;
                     mHorns.material = customizationDatabase.mHornsDatabase[mHornsIndex].material;
                     break;
+                case "hair":
+                    if (customizationDatabase.mHairDatabase.Count <= 1) break;
+                    mHairIndex = isSelectingNext ? (mHairIndex + 1) : (mHairIndex - 1);
+                    if (mHairIndex > (customizationDatabase.mHairDatabase.Count - 1))
+                    {
+                        mHairIndex = 0;
+                    }
+                    else if (mHairIndex < 0)
+                    {
+                        mHairIndex = (customizationDatabase.mHairDatabase.Count - 1);
+                    }
+                    mHair.sharedMesh = customizationDatabase.mHairDatabase[mHairIndex].mesh;
+                    mHair.material = customizationDatabase.mHairDatabase[mHairIndex].material;
+                    break;
             }
         }
         else // is female
@@ -202,6 +216,20 @@ public class CreationController : MonoBehaviour
                     }
                     fHorns.sharedMesh = customizationDatabase.fHornsDatabase[fHornsIndex].mesh;
                     fHorns.material = customizationDatabase.fHornsDatabase[fHornsIndex].material;
+                    break;
+                case "hair":
+                    if (customizationDatabase.fHairDatabase.Count <= 1) break;
+                    fHairIndex = isSelectingNext ? (fHairIndex + 1) : (fHairIndex - 1);
+                    if (fHairIndex > (customizationDatabase.fHairDatabase.Count - 1))
+                    {
+                        fHairIndex = 0;
+                    }
+                    else if (fHairIndex < 0)
+                    {
+                        fHairIndex = (customizationDatabase.fHairDatabase.Count - 1);
+                    }
+                    fHair.sharedMesh = customizationDatabase.fHairDatabase[fHairIndex].mesh;
+                    fHair.material = customizationDatabase.fHairDatabase[fHairIndex].material;
                     break;
             }
         }
