@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DefenseAction",
+                    "type": "PassThrough",
+                    "id": "56680a4a-3612-4656-ab23-f897fa369c8c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -289,7 +298,7 @@
                 {
                     "name": "",
                     "id": "47a34796-6019-48c9-98e0-7b4584c94a52",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
@@ -327,6 +336,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "722fa319-7e16-4ba5-9bbc-8b2cbd05bd57",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "DefenseAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

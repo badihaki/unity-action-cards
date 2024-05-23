@@ -56,7 +56,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
     {
         base.CheckInputs();
 
-        interactionInput = _PlayerCharacter._Controls.__InteractInput;
+        interactionInput = _PlayerCharacter._Controls._InteractInput;
     }
 
     // end

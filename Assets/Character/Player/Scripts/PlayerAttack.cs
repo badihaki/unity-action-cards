@@ -9,9 +9,11 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private WeaponScriptableObj unarmed;
     [field: SerializeField] public WeaponScriptableObj _CurrentWeapon { get; private set; }
 
-    [field: SerializeField] public PlayerAttackSuperState _AttackA { get; private set; }
+    [field: SerializeField, Header("Basic Attack States")] public PlayerAttackSuperState _AttackA { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackC { get; private set; }
+
+    [field: SerializeField, Header("Defensive Action")] public PlayerState _DefenseAction { get; private set; }
 
     [field: Header("Attack Stats"), SerializeField]
     public int _Damage { get; private set; }
@@ -83,6 +85,9 @@ public class PlayerAttack : MonoBehaviour
 
         _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
         _AttackC.InitializeState(player, "attackC", player._StateMachine);
+
+        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseAction);
+        _DefenseAction.InitializeState(player, "defense", player._StateMachine);
     }
 
     public void SetAttackParameters(int damage, float knockbackForce, float launchForce)

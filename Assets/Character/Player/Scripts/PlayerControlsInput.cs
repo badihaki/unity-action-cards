@@ -14,7 +14,8 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _CardsInput { get; private set; }
     [field: SerializeField] public bool _ReadySpellInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
-    [field: SerializeField] public bool __InteractInput { get; private set; }
+    [field: SerializeField] public bool _InteractInput { get; private set; }
+    [field: SerializeField] public bool _DefenseInput { get; private set; }
 
 
     public void OnMove(InputValue val)
@@ -98,9 +99,22 @@ public class PlayerControlsInput : MonoBehaviour
     }
     private void ProcessInteract(bool inputState)
     {
-        __InteractInput = inputState;
+        _InteractInput = inputState;
     }
-    public void UseInteract() => __InteractInput = false;
+    public void UseInteract() => _InteractInput = false;
+
+    public void OnDefenseAction(InputValue val)
+    {
+        ProcessDefense(val.isPressed);
+    }
+    private void ProcessDefense(bool inputState)
+    {
+        _DefenseInput = inputState;
+    }
+    public void UseDefense()
+    {
+        _DefenseInput = false;
+    }
 
     // end
 }

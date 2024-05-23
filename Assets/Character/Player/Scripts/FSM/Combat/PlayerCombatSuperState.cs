@@ -14,6 +14,7 @@ public class PlayerCombatSuperState : PlayerState
     public bool jumpInput { get; private set; }
     public bool attackInput { get; private set; }
     public bool readySpellInput { get; private set; }
+    public bool defenseInput { get; private set; }
 
     public override void CheckInputs()
     {
@@ -23,6 +24,6 @@ public class PlayerCombatSuperState : PlayerState
         jumpInput = _PlayerCharacter._Controls._JumpInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
         readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
-
+        defenseInput = _PlayerCharacter._Controls._DefenseInput;
     }
 }

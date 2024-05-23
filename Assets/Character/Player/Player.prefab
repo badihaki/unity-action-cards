@@ -167,7 +167,8 @@ MonoBehaviour:
   <_CardsInput>k__BackingField: 0
   <_ReadySpellInput>k__BackingField: 0
   <_AttackInput>k__BackingField: 0
-  <__InteractInput>k__BackingField: 0
+  <_InteractInput>k__BackingField: 0
+  <_DefenseInput>k__BackingField: 0
 --- !u!114 &7236318575125279018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +367,7 @@ MonoBehaviour:
   <_AttackA>k__BackingField: {fileID: 0}
   <_AttackB>k__BackingField: {fileID: 0}
   <_AttackC>k__BackingField: {fileID: 0}
+  <_DefenseAction>k__BackingField: {fileID: 0}
   <_Damage>k__BackingField: 0
   <_KnockbackForce>k__BackingField: 0
   <_LaunchForce>k__BackingField: 0

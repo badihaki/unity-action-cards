@@ -14,6 +14,7 @@ public class PlayerGroundedSuperState : PlayerState
     public bool cardInput { get; private set; }
     public bool readySpellInput { get; private set; }
     public bool attackInput { get; private set; }
+    public bool defenseInput { get; private set; }
 
     public override void LogicUpdate()
     {
@@ -35,6 +36,10 @@ public class PlayerGroundedSuperState : PlayerState
             _PlayerCharacter._Controls.UseAttack();
             _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
         }
+        if (defenseInput)
+        {
+            _StateMachine.ChangeState(_PlayerCharacter._AttackController._DefenseAction);
+        }
     }
     public override void CheckInputs()
     {
@@ -45,5 +50,6 @@ public class PlayerGroundedSuperState : PlayerState
         cardInput = _PlayerCharacter._Controls._CardsInput;
         readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
+        defenseInput = _PlayerCharacter._Controls._DefenseInput;
     }
 }

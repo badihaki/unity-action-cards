@@ -11,4 +11,5 @@ public class PlayerMoveSetScriptableObj : MoveSetScriptableObject
     public PlayerAttackSuperState _SpecialA;
     public PlayerAttackSuperState _SpecialB;
     public PlayerAttackSuperState _SpecialC;
+    public PlayerDefenseSuperState _DefenseAction;
 }
