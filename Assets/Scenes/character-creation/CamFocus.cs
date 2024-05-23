@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.iOS;
 
 public class CamFocus : MonoBehaviour
 {
@@ -19,12 +21,16 @@ public class CamFocus : MonoBehaviour
 
     [field: Header("Zoom toggle")]
     [field: SerializeField] public bool isZoomed { get; private set; } = false;
+    [field: SerializeField] public Transform originalTransformInfo { get; private set; }
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         cam = GameObject.Find("Camera").transform;
         gameLight = GameObject.Find("Light").transform;
+        originalTransformInfo = gameLight;
     }
 
     public void TurnCamera(InputAction.CallbackContext input)
@@ -32,7 +38,7 @@ public class CamFocus : MonoBehaviour
         aimVector = input.ReadValue<Vector2>();
         if(canMove)
         {
-            Vector3 rotationVector = new Vector3(0, -aimVector.x, 0);
+            Vector3 rotationVector = new Vector3(0, aimVector.x, 0);
             cam.RotateAround(transform.position, rotationVector, angle * Time.deltaTime);
             gameLight.RotateAround(transform.position, rotationVector, angle * Time.deltaTime);
         }
@@ -42,19 +48,7 @@ public class CamFocus : MonoBehaviour
     {
         if (input.performed)
         {
-            isZoomed = !isZoomed;
-            if (isZoomed)
-            {
-                cam.position = zoomedPos.position;
-                cam.rotation = zoomedPos.rotation;
-                print("Zoom");
-            }
-            else
-            {
-                cam.position = regularPos.position;
-                cam.rotation = regularPos.rotation;
-                print("ZoomOAWT");
-            }
+            SetZoom();
         }
     }
 
@@ -73,6 +67,8 @@ public class CamFocus : MonoBehaviour
             cam.rotation = regularPos.rotation;
             print("ZoomOAWT");
         }
+        gameLight.eulerAngles = new Vector3(50.0f, -30.0f, 0); // how you set rotation!!
+        print("finish zoom");
     }
 
     public void HoldToMove(InputAction.CallbackContext input)
