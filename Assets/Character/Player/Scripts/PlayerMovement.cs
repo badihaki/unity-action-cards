@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float lerpSpeedOnMovement = 0.085f;
     private float lerpSpeedOnSlowDown = 0.5f;
 
+
     public void Initialize(PlayerCharacter controller)
     {
         _Player = controller;
@@ -73,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 
         ApplyMovementToVelocity();
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
-        print("slowing down");
+        // print("slowing down");
     }
 
     public void MoveTowardsCamWithGravity(Vector2 direction)

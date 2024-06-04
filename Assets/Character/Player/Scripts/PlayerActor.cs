@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerActor : Actor
 {
@@ -15,9 +16,15 @@ public class PlayerActor : Actor
     public bodyTypes bodyType { get; private set; }
     [field: SerializeField] private Transform rootBone;
 
+    [field: SerializeField, Header("Animator Movement")]
+    public Vector3 animatorMovementVector { get; private set; }
+    [field: SerializeField] public Animator animationController { get; private set; }
+    [field: SerializeField] private bool controlByRootMotion = false;
+
     public void InitializePlayerActor(PlayerCharacter character)
     {
         PCActor = character;
+        animationController = GetComponent<Animator>();
 /*
         if (PCActor._LoadNewOnStart)
         {
@@ -66,6 +73,27 @@ public class PlayerActor : Actor
             bottom.material = parts.mBottomsDatabase[saveData .BottomIndex ].material;
         }
             print("done loading maybe");
+    }
+
+    private void OnAnimatorMove()
+    {
+        print("On animator move");
+        if (animationController && controlByRootMotion)
+        {
+            print("lets goooooo!!!!!!!!!!");
+            animatorMovementVector = animationController.deltaPosition.normalized;
+            PCActor.transform.position += animationController.deltaPosition;
+            PCActor.transform.rotation = animationController.deltaRotation;
+        }
+    }
+
+    public void SetSyncParentMotion(bool value) => controlByRootMotion = value;
+
+    public void SendPositionDataToParent(PlayerCharacter parent)
+    {
+        OnAnimatorMove();
+        // parent.transform.position += animationController.deltaPosition.normalized;
+        parent.transform.position += animationController.deltaPosition;
     }
 
     public void AnimationTrigger()=> PCActor.StateTrigger();
