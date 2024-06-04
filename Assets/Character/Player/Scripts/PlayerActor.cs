@@ -83,7 +83,7 @@ public class PlayerActor : Actor
             print("lets goooooo!!!!!!!!!!");
             animatorMovementVector = animationController.deltaPosition.normalized;
             PCActor.transform.position += animationController.deltaPosition;
-            PCActor.transform.rotation = animationController.deltaRotation;
+            animationController.rootRotation = PCActor.transform.rotation;
         }
     }
 
