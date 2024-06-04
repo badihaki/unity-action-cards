@@ -77,10 +77,8 @@ public class PlayerActor : Actor
 
     private void OnAnimatorMove()
     {
-        print("On animator move");
         if (animationController && controlByRootMotion)
         {
-            print("lets goooooo!!!!!!!!!!");
             animatorMovementVector = animationController.deltaPosition.normalized;
             PCActor.transform.position += animationController.deltaPosition;
             animationController.rootRotation = PCActor.transform.rotation;

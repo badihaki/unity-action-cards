@@ -3606,3 +3606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootBone: {fileID: 1590855197846774002}
+  <animatorMovementVector>k__BackingField: {x: 0, y: 0, z: 0}
+  <animationController>k__BackingField: {fileID: 0}
+  controlByRootMotion: 0
