@@ -18,6 +18,8 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         {
             // print("damaging");
             character._Health.TakeDamage(damage);
+
+            character.transform.LookAt(damageSource);
         }
 
         // send damageSource to character movement controller
