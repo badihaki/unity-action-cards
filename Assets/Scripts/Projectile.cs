@@ -9,19 +9,22 @@ public class Projectile : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private Vector2 damageForces;
     [SerializeField] private float _speed;
+    [SerializeField] private float _lifetime = 5.135f;
 
     private Rigidbody _rigidbody;
 
     [SerializeField] private bool _ready = false;
 
-    public void InitializeProjectile(Character _controller, int _dmg, float _speed)
+    public void InitializeProjectile(Character _controller, int _dmg, float _speed, float _life)
     {
         _rigidbody = GetComponent<Rigidbody>();
 
         _controllingCharacter = _controller;
         _damage = _dmg;
         this._speed = _speed;
-
+        _lifetime = _life;
+        
+        StartCoroutine("StartLifetimeTimer");
         _ready = true;
     }
 
@@ -38,18 +41,28 @@ public class Projectile : MonoBehaviour
         if(_ready)
         {
             Character hitCharacter = trigger.GetComponentInParent<Character>();
-            // gonna have to add props as a secondary thing
-            if (hitCharacter && hitCharacter != _controllingCharacter)
             if (hitCharacter != _controllingCharacter)
             {
                 IDamageable damageableEntity = trigger.GetComponentInParent<IDamageable>();
-                    damageableEntity?.Damage(_damage, this.transform, damageForces.x, damageForces.y);
+                damageableEntity?.Damage(_damage, _controllingCharacter.transform, damageForces.x, damageForces.y);
             
                 print("projectile " + name + " collided with " + hitCharacter.name);
-                Destroy(gameObject);
+                OnImpact();
             }
             // else if prop != null then run IDamageable.Damage()
         }
+    }
+
+    IEnumerator StartLifetimeTimer()
+    {
+        yield return new WaitForSeconds(_lifetime);
+
+        Destroy(gameObject);
+    }
+
+    private void OnImpact()
+    {
+        Destroy(gameObject);
     }
 
     // end

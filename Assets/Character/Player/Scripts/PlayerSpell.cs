@@ -115,7 +115,7 @@ public class PlayerSpell : MonoBehaviour
             Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, _spellTarget.targetRotation).GetComponent<Projectile>();
 
             conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
-            conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed);
+            conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime);
             _spellTimer = timeToAddToTimer;
         
             // remove a charge

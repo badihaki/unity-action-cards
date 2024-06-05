@@ -37,7 +37,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764021959895548567}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9973844, z: -0, w: 0.072279856}
+  m_LocalRotation: {x: 0, y: -0.9973843, z: 0, w: 0.0722809}
   m_LocalPosition: {x: -3.57089, y: 1.541, z: 6.382884}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -263,7 +263,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: bde7a087-7338-49d9-b158-bdffcadff812
     m_ActionName: UI/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1

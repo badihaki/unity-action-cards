@@ -12,7 +12,6 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     public override void EnterState()
     {
         base.EnterState();
-        Debug.Log("entering unarmed attack B state at " + Time.time);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AttackController.SetAttackParameters(1, 2, 1.35f);
     }
@@ -20,7 +19,6 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     public override void ExitState()
     {
         base.ExitState();
-        Debug.Log("exiting attack state b at " + Time.time);
     }
 
     public override void CheckStateTransitions()

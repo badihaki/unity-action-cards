@@ -13,7 +13,12 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 
     public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
     {
-        character._Health.TakeDamage(damage);
+
+        if(damageSource != character.transform)
+        {
+            // print("damaging");
+            character._Health.TakeDamage(damage);
+        }
 
         // send damageSource to character movement controller
     }
