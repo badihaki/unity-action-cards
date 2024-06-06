@@ -1384,6 +1384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2107911110}
   - component: {fileID: 2107911112}
+  - component: {fileID: 2107911114}
   - component: {fileID: 2107911111}
   - component: {fileID: 2107911113}
   m_Layer: 0
@@ -1453,6 +1454,7 @@ MonoBehaviour:
   <_Actor>k__BackingField: {fileID: 0}
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
+  <_MoveController>k__BackingField: {fileID: 0}
 --- !u!114 &2107911113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1467,6 +1469,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_CurrentAetherPoints>k__BackingField: 0
   _MaxAetherPoints: 0
+--- !u!114 &2107911114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107911109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31389fe1bfcaa244fb5cdd2f7e8378f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _PhysicsController: {fileID: 0}
 --- !u!1 &117983156752400089
 GameObject:
   m_ObjectHideFlags: 0

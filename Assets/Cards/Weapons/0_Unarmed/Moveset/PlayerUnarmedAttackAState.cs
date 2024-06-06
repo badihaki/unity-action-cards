@@ -14,7 +14,8 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
         base.EnterState();
         
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        _PlayerCharacter._AttackController.SetAttackParameters(1, 1.178f, 0.75f);
+        // _PlayerCharacter._AttackController.SetAttackParameters(1, 1.178f, 0.75f);
+        _PlayerCharacter._AttackController.SetAttackParameters(1, 2.178f, 0.75f);
     }
 
     public override void ExitState()

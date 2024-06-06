@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: npc
   m_EditorClassIdentifier: 
   _CharacterName: Naked Parker Carter
-  _StartingHealth: 1
+  _StartingHealth: 5
+  _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
   _RushDashSpeed: 15.65

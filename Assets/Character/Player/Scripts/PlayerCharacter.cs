@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerCharacter : Character
+public class PlayerCharacter : Character, IDestroyable
 {
     public PlayerControlsInput _Controls { get; private set; }
     public PlayerCamera _CameraController { get; private set; }
@@ -189,6 +189,11 @@ public class PlayerCharacter : Character
     private void FixedUpdate()
     {
         _StateMachine?._CurrentState.PhysicsUpdate();
+    }
+
+    public void DestroyEntity()
+    {
+        print("Player death");
     }
 
     public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
