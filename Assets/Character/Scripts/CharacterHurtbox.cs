@@ -28,6 +28,11 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         // send damageSource to character movement controller
     }
 
+    public Transform GetControllingEntity()
+    {
+        return character.transform;
+    }
+
 
     // end
 }

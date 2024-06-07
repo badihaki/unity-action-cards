@@ -106,37 +106,109 @@ public class PlayerAttack : MonoBehaviour
 
     public void DetectNearbyTargets()
     {
-        print("searching for targets");
         /*
          * Need to create a collider
          * W/ collider, lets detect anything that's IDamageable
          * Determine the closest IDamageable
          * Face that enemy
          */
-        var allDamageableEntities = GetAllDamageableEntities();
-        print(allDamageableEntities.Count);
+        // UseTargetAquirer();
+        List<Transform> targetList = GetAllDamageableEntities();
+        Transform target = null;
+        foreach (Transform obj in targetList)
+        {
+            if (target == null) target = obj;
+            else if (Vector3.Distance(transform.position, obj.position) < Vector3.Distance(transform.position, target.position)) target = obj;
+        }
+        print(target);
+        TurnToFaceTarget(target);
+    }
+
+    private void TurnToFaceTarget(Transform target)
+    {
+        if (target == null) return;
+        transform.LookAt(target);
+        // Vector3 targetDirection = transform.position - target.position;
     }
 
     private List<Transform> GetAllDamageableEntities()
     {
         List<Transform> entities = new List<Transform>();
+        Vector3 startPos = player._PlayerActor.transform.position;
+        float lineLength = 5.0f;
 
-        float lineLength = 3.0f;
-        // Vector3 forwardLineDirection = new Vector3(player._PlayerActor.transform.forward.x, 0, player._PlayerActor.transform.forward.z).normalized;
-        // Vector3 forwardLineDirection = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized * lineLength;
-        Vector3 forwardLineDirection = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.forward.z * lineLength);
-
-
-        Debug.DrawLine(player._PlayerActor.transform.position, forwardLineDirection * lineLength, Color.red, 1.5f);
-        if(Physics.Linecast(player._PlayerActor.transform.position, forwardLineDirection, out RaycastHit hitInfo))
+        // Below is how to calculate things in front
+        RaycastHit forwardHit;
+        Vector3 forwardLineDirection = (startPos + player._PlayerActor.transform.forward * lineLength);
+        forwardLineDirection.y = 1.0f;
+        if(Physics.Linecast(startPos, forwardLineDirection, out forwardHit))
         {
-            if(hitInfo.transform.gameObject.GetComponent<IDamageable>() != null)
+            IDamageable damageableEntity = forwardHit.collider.GetComponent<IDamageable>();
+            if ( damageableEntity != null)
             {
-                entities.Add(hitInfo.transform);
+                if (!entities.Contains(forwardHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(forwardHit.transform);
             }
         }
 
+        // below is for the right of the player
+        RaycastHit rightHit;
+        Vector3 rightLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x + 0.35f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        if (Physics.Linecast(startPos, rightLineDirection, out rightHit))
+        {
+            IDamageable damageableEntity = rightHit.collider.GetComponent<IDamageable>();
+            if (damageableEntity != null)
+            {
+                if (!entities.Contains(rightHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(rightHit.transform);
+            }
+        }
+        // and far right
+        RaycastHit farRightHit;
+        Vector3 farRightLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x + 0.75f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        if (Physics.Linecast(startPos, farRightLineDirection, out farRightHit))
+        {
+            IDamageable damageableEntity = farRightHit.collider.GetComponent<IDamageable>();
+            if (damageableEntity != null)
+            {
+                if (!entities.Contains(farRightHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(farRightHit.transform);
+            }
+        }
+
+        // now for the left direction
+        RaycastHit leftHit;
+        Vector3 leftLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x - 0.35f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        if (Physics.Linecast(startPos, leftLineDirection, out leftHit))
+        {
+            IDamageable damageableEntity = leftHit.collider.GetComponent<IDamageable>();
+            if (damageableEntity != null)
+            {
+                if (!entities.Contains(leftHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(leftHit.transform);
+            }
+        }
+        // and the far-left
+        RaycastHit farLeftHit;
+        Vector3 farLeftLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x - 0.75f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        if (Physics.Linecast(startPos, farLeftLineDirection, out farLeftHit))
+        {
+            IDamageable damageableEntity = farLeftHit.collider.GetComponent<IDamageable>();
+            if (damageableEntity != null)
+            {
+                if (!entities.Contains(farLeftHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(farLeftHit.transform);
+            }
+        }
+
+        // draw all the stuff
+        DrawTargetDetectionLines(1.5f, startPos, forwardLineDirection, rightLineDirection, farRightLineDirection, leftLineDirection, farLeftLineDirection);
+
         return entities;
+    }
+
+    private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)
+    {
+        Debug.DrawLine(start, forward, Color.white, timeToShow);
+        Debug.DrawLine(start, right, Color.cyan, timeToShow);
+        Debug.DrawLine(start, farRight, Color.blue, timeToShow);
+        Debug.DrawLine(start, left, Color.magenta, timeToShow);
+        Debug.DrawLine(start, farLeft, Color.red, timeToShow);
     }
 
     // end
