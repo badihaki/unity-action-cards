@@ -16,6 +16,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         canCombo = false;
         _PlayerCharacter._AnimationController.SetBool("attack", true);
         _PlayerCharacter._Controls.UseAttack();
+        _PlayerCharacter._AttackController.DetectNearbyTargets();
     }
 
     public override void ExitState()

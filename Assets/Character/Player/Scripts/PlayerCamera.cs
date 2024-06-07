@@ -17,6 +17,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float topLookClamp = 70.0f;
     [Tooltip("How far can the camera look down")]
     [SerializeField] private float bottomLookClamp = -30.0f;
+    [SerializeField] private float lookSensitivity = 1.0f;
 
     [field: SerializeField] public Transform cinemachineCamTarget { get; private set; }
     
@@ -95,7 +96,14 @@ public class PlayerCamera : MonoBehaviour
         cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
         cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomLookClamp, topLookClamp);
 
-        cinemachineCamTarget.rotation = Quaternion.Euler(-cinemachineTargetPitch, cinemachineTargetYaw, 0.0f);
+        LimitSensitivity();
+        cinemachineCamTarget.rotation = Quaternion.Euler(-cinemachineTargetPitch * lookSensitivity, cinemachineTargetYaw * lookSensitivity, 0.0f);
+    }
+
+    private void LimitSensitivity()
+    {
+        if (lookSensitivity < 1.0f) lookSensitivity = 1.0f;
+        else if (lookSensitivity > 3.5f) lookSensitivity = 3.5f;
     }
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {

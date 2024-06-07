@@ -303,6 +303,7 @@ MonoBehaviour:
   currentCameraController: {fileID: 0}
   topLookClamp: 70
   bottomLookClamp: -30
+  lookSensitivity: 2.35
   <cinemachineCamTarget>k__BackingField: {fileID: 0}
 --- !u!114 &952087385969057769
 MonoBehaviour:

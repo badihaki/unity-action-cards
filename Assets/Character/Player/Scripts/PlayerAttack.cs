@@ -104,5 +104,40 @@ public class PlayerAttack : MonoBehaviour
         _LaunchForce = 0.0f;
     }
 
+    public void DetectNearbyTargets()
+    {
+        print("searching for targets");
+        /*
+         * Need to create a collider
+         * W/ collider, lets detect anything that's IDamageable
+         * Determine the closest IDamageable
+         * Face that enemy
+         */
+        var allDamageableEntities = GetAllDamageableEntities();
+        print(allDamageableEntities.Count);
+    }
+
+    private List<Transform> GetAllDamageableEntities()
+    {
+        List<Transform> entities = new List<Transform>();
+
+        float lineLength = 3.0f;
+        // Vector3 forwardLineDirection = new Vector3(player._PlayerActor.transform.forward.x, 0, player._PlayerActor.transform.forward.z).normalized;
+        // Vector3 forwardLineDirection = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z).normalized * lineLength;
+        Vector3 forwardLineDirection = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.forward.z * lineLength);
+
+
+        Debug.DrawLine(player._PlayerActor.transform.position, forwardLineDirection * lineLength, Color.red, 1.5f);
+        if(Physics.Linecast(player._PlayerActor.transform.position, forwardLineDirection, out RaycastHit hitInfo))
+        {
+            if(hitInfo.transform.gameObject.GetComponent<IDamageable>() != null)
+            {
+                entities.Add(hitInfo.transform);
+            }
+        }
+
+        return entities;
+    }
+
     // end
 }
