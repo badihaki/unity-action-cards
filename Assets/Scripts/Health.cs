@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     [field: SerializeField] public float _CurrentHealth { get; private set; }
     [SerializeField] private int _MaxHealth;
+    [SerializeField] private GameObject bloodFX;
 
     public void InitiateHealth(int health)
     {
@@ -21,6 +22,11 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _CurrentHealth -= damage;
+        if (bloodFX != null)
+        {
+            print("bleedin");
+            Instantiate(bloodFX, transform.position, Quaternion.identity, transform);
+        }
         if(_CurrentHealth <= 0)
         {
             GetComponent<IDestroyable>().DestroyEntity();

@@ -1321,6 +1321,7 @@ GameObject:
   - component: {fileID: 238193052}
   - component: {fileID: 238193051}
   - component: {fileID: 238193050}
+  - component: {fileID: 238193054}
   - component: {fileID: 238193049}
   m_Layer: 0
   m_Name: Fred
@@ -1417,6 +1418,21 @@ Transform:
   - {fileID: 1409283104}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &238193054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238193048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a087d10a8d8eaaa4e97c9b622e965397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_CurrentHealth>k__BackingField: 0
+  _MaxHealth: 0
+  bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
 --- !u!1 &242221843
 GameObject:
   m_ObjectHideFlags: 0
@@ -4743,6 +4759,7 @@ GameObject:
   - component: {fileID: 1555788000}
   - component: {fileID: 1555787999}
   - component: {fileID: 1555787998}
+  - component: {fileID: 1555788002}
   - component: {fileID: 1555787997}
   m_Layer: 0
   m_Name: Bob
@@ -4839,6 +4856,21 @@ Transform:
   - {fileID: 210636877}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1555788002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555787996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a087d10a8d8eaaa4e97c9b622e965397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_CurrentHealth>k__BackingField: 0
+  _MaxHealth: 0
+  bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
 --- !u!1 &1558139121
 GameObject:
   m_ObjectHideFlags: 0
@@ -6389,6 +6421,7 @@ GameObject:
   - component: {fileID: 2107911112}
   - component: {fileID: 2107911114}
   - component: {fileID: 2107911111}
+  - component: {fileID: 2107911115}
   - component: {fileID: 2107911113}
   m_Layer: 0
   m_Name: NPC
@@ -6485,6 +6518,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PhysicsController: {fileID: 0}
+--- !u!114 &2107911115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107911109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a087d10a8d8eaaa4e97c9b622e965397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_CurrentHealth>k__BackingField: 0
+  _MaxHealth: 0
+  bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
 --- !u!1 &2111551660
 GameObject:
   m_ObjectHideFlags: 0

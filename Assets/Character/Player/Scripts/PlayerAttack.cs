@@ -120,7 +120,6 @@ public class PlayerAttack : MonoBehaviour
             if (target == null) target = obj;
             else if (Vector3.Distance(transform.position, obj.position) < Vector3.Distance(transform.position, target.position)) target = obj;
         }
-        print(target);
         TurnToFaceTarget(target);
     }
 
