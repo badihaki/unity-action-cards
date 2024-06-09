@@ -22,10 +22,11 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _CurrentHealth -= damage;
+        // Quaternion rotation = transform.rotation;
+        Quaternion rotation = Quaternion.Euler(-transform.forward);
         if (bloodFX != null)
         {
-            print("bleedin");
-            Instantiate(bloodFX, transform.position, Quaternion.identity, transform);
+            Instantiate(bloodFX, transform.position, rotation);
         }
         if(_CurrentHealth <= 0)
         {

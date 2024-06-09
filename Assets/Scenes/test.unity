@@ -1329,7 +1329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &238193049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4767,7 +4767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1555787997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8222,6 +8222,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2985811743604711824, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: lookSensitivity
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8240,22 +8245,22 @@ PrefabInstance:
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.072279856
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9973844
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
@@ -8265,7 +8270,7 @@ PrefabInstance:
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -171.71
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}

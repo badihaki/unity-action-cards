@@ -106,13 +106,6 @@ public class PlayerAttack : MonoBehaviour
 
     public void DetectNearbyTargets()
     {
-        /*
-         * Need to create a collider
-         * W/ collider, lets detect anything that's IDamageable
-         * Determine the closest IDamageable
-         * Face that enemy
-         */
-        // UseTargetAquirer();
         List<Transform> targetList = GetAllDamageableEntities();
         Transform target = null;
         foreach (Transform obj in targetList)
@@ -127,7 +120,6 @@ public class PlayerAttack : MonoBehaviour
     {
         if (target == null) return;
         transform.LookAt(target);
-        // Vector3 targetDirection = transform.position - target.position;
     }
 
     private List<Transform> GetAllDamageableEntities()

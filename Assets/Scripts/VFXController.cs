@@ -15,7 +15,6 @@ public class VFXController : MonoBehaviour
     IEnumerator Death()
     {
         yield return new WaitForSeconds(lifetime);
-        print("done waiting, deleting " + name + " now");
         Destroy(gameObject);
     }
 }
