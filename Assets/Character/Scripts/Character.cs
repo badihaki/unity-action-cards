@@ -13,6 +13,7 @@ public class Character : MonoBehaviour
     [field: SerializeField] public Transform _Actor { get; protected set; }
     [field: SerializeField] public Animator _AnimationController { get; private set; }
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
+    [field: SerializeField] public CharacterUIController _UI { get; protected set; }
 
     // Start is called before the first frame update
     void Start()
@@ -44,7 +45,9 @@ public class Character : MonoBehaviour
         if (_Hurtbox == null) _Hurtbox = transform.Find("Colliders").Find("Hurtbox").AddComponent<CharacterHurtbox>();
         _Hurtbox.InitializeHurtBox(this);
 
-        // start the hitbox
+        // start UI
+        _UI = GetComponent<CharacterUIController>();
+        if (_UI != null) _UI.InitializeUI();
         
 
         _AnimationController = _Actor.GetComponent<Animator>();
