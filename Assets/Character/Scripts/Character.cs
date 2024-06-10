@@ -47,8 +47,6 @@ public class Character : MonoBehaviour
 
         // start UI
         _UI = GetComponent<CharacterUIController>();
-        if (_UI != null) _UI.InitializeUI();
-        
 
         _AnimationController = _Actor.GetComponent<Animator>();
     }

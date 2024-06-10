@@ -12,13 +12,14 @@ public class CharacterUIController : MonoBehaviour
     [SerializeField] private float _TargetHealth;
     private bool canChangeHealth = false;
     [SerializeField] private float _HealthChangeRate = 2.5f;
+    private bool isPlayer;
 
     private void OnEnable()
     {
         if (_HealthController != null) _HealthController.OnHealthChanged += UpdateHealthUI;
     }
 
-    public void InitializeUI()
+    public void InitializeUI(bool isEntityPlayer)
     {
         if(!_ResourceCanvas) _ResourceCanvas = transform.Find("ResourceCanvas").GetComponent<Canvas>();
         if (!_HealthBar) _HealthBar = _ResourceCanvas.transform.Find("HealthBar").GetComponent<Slider>();
@@ -30,9 +31,11 @@ public class CharacterUIController : MonoBehaviour
             canChangeHealth = false;
             _HealthBar.value = _HealthBar.maxValue;
             _HealthController.OnHealthChanged += UpdateHealthUI;
+            
+            isPlayer = isEntityPlayer;
 
             print("closing the rsource");
-            _ResourceCanvas.gameObject.SetActive(false);
+            if (!isPlayer) _ResourceCanvas.gameObject.SetActive(false);
         }
     }
 
@@ -51,7 +54,7 @@ public class CharacterUIController : MonoBehaviour
     {
         if(canChangeHealth)
         {
-            OpenResourceCanvas();
+            if (!isPlayer) OpenResourceCanvas();
             if (_HealthBar.value != _TargetHealth)
             {
                 print("yep, changin health");
@@ -60,7 +63,7 @@ public class CharacterUIController : MonoBehaviour
             else
             {
                 canChangeHealth = false;
-                StartCoroutine(CloseResourceCanvas());
+                if (!isPlayer) StartCoroutine(CloseResourceCanvas());
             }
         }
     }

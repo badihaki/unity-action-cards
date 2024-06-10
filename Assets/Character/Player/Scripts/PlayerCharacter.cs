@@ -69,6 +69,9 @@ public class PlayerCharacter : Character, IDestroyable
 
         // and initialize the attack controller, since it needs the state machine
         _AttackController.Initialize(this);
+
+        // initialize UI
+        if (_UI != null) _UI.InitializeUI(true);
     }
 
     private void LoadAndBuildActor()

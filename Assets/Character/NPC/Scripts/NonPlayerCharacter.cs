@@ -17,5 +17,7 @@ public class NonPlayerCharacter : Character, IDestroyable
 
         _MoveController = GetComponent<NPCMovementController>();
         _MoveController.InitializeNPCMovement(this);
+
+        if (_UI != null) _UI.InitializeUI(false);
     }
 }
