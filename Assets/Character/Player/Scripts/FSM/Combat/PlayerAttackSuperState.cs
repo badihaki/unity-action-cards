@@ -59,5 +59,19 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         _PlayerCharacter._Controls.UseAttack();
     }
 
+    protected void ShowOrHideWeapon(bool showWeapon)
+    {
+        if (showWeapon)
+        {
+            _PlayerCharacter._AttackController._WeaponR?.SetActive(true);
+            _PlayerCharacter._AttackController._WeaponL?.SetActive(true);
+        }
+        else
+        {
+            _PlayerCharacter._AttackController._WeaponR?.SetActive(false);
+            _PlayerCharacter._AttackController._WeaponL?.SetActive(false);
+        }
+    }
+
     // end
 }

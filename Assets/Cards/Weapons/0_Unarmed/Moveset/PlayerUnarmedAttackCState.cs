@@ -15,10 +15,12 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
 
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AttackController.SetAttackParameters(2, 2, 0.75f);
+        ShowOrHideWeapon(true);
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        ShowOrHideWeapon(false);
     }
 }

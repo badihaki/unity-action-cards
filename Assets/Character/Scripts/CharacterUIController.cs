@@ -34,7 +34,6 @@ public class CharacterUIController : MonoBehaviour
             
             isPlayer = isEntityPlayer;
 
-            print("closing the rsource");
             if (!isPlayer) _ResourceCanvas.gameObject.SetActive(false);
         }
     }
@@ -57,7 +56,6 @@ public class CharacterUIController : MonoBehaviour
             if (!isPlayer) OpenResourceCanvas();
             if (_HealthBar.value != _TargetHealth)
             {
-                print("yep, changin health");
                 _HealthBar.value = Mathf.Lerp(_HealthBar.value, _TargetHealth, _HealthChangeRate);
             }
             else
@@ -72,14 +70,12 @@ public class CharacterUIController : MonoBehaviour
     {
         if (_ResourceCanvas.gameObject.activeSelf == false)
         {
-            print("opening the resource");
             _ResourceCanvas.gameObject.SetActive(true);
         }
     }
 
     private void UpdateHealthUI(int health)
     {
-        print("health of " + name + " changing from " + _HealthBar.value + " to " + health);
         _TargetHealth = health;
         canChangeHealth = true;
     }
@@ -87,7 +83,6 @@ public class CharacterUIController : MonoBehaviour
     private IEnumerator CloseResourceCanvas()
     {
         yield return new WaitForSeconds(3.35f);
-        print("close resource");
         _ResourceCanvas.gameObject.SetActive(false);
         
     }

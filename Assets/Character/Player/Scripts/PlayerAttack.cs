@@ -22,14 +22,19 @@ public class PlayerAttack : MonoBehaviour
 
     [field: Header("Where the weapons lie"), SerializeField]
     public Transform _WeaponHolderL { get; private set; }
-    [field: SerializeField] public GameObject _WeaponL;
+    [field: SerializeField] public GameObject _WeaponL { get; private set; }
     [field: SerializeField] public Transform _WeaponHolderR { get; private set; }
-    [field: SerializeField] public GameObject _WeaponR;
+    [field: SerializeField] public GameObject _WeaponR { get; private set; }
 
     public void Initialize(PlayerCharacter newPlayer)
     {
         player = newPlayer;
+        _WeaponHolderR = player._PlayerActor.RightWeapon;
+        _WeaponHolderL = player._PlayerActor.LeftWeapon;
+        _WeaponR = null;
+        _WeaponL = null;
         SetWeapon(unarmed);
+        _WeaponR.gameObject.SetActive(false);
     }
 
     public void SwitchWeapon(WeaponScriptableObj weapon)

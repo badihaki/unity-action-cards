@@ -15,6 +15,8 @@ public class PlayerActor : Actor
     }
     public bodyTypes bodyType { get; private set; }
     [field: SerializeField] private Transform rootBone;
+    [field: SerializeField] public Transform RightWeapon { get; private set; }
+    [field: SerializeField] public Transform LeftWeapon { get; private set; }
 
     [field: SerializeField, Header("Animator Movement")]
     public Vector3 animatorMovementVector { get; private set; }

@@ -320,6 +320,7 @@ Transform:
   - {fileID: 4462004085522701658}
   - {fileID: 6813664974492160446}
   - {fileID: 7763716600765032395}
+  - {fileID: 7001838320843905977}
   m_Father: {fileID: 1388959832159000505}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1824682285498760016
@@ -346,12 +347,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1824682285498760016}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4783561, y: 0.17117292, z: 0.8177739, w: 0.27040932}
-  m_LocalPosition: {x: -0.3785622, y: -0.149521, z: -0.20683502}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0.21854924, y: -0.41168365, z: -0.7478682, w: 0.47270074}
+  m_LocalPosition: {x: 0.0041369675, y: -0.0061113583, z: 0.0031587936}
+  m_LocalScale: {x: 0.010000001, y: 0.010000003, z: 0.010000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2206514819909988254}
+  m_Father: {fileID: 8418118709373120742}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1898276701716910640
 GameObject:
@@ -1137,12 +1138,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3501733165269835837}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17788677, y: -0.3487667, z: -0.83180416, w: -0.3934717}
-  m_LocalPosition: {x: 0.05351212, y: 0.10014069, z: 0.55663157}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.25821072, y: -0.34909394, z: 0.3312566, w: 0.83769315}
+  m_LocalPosition: {x: 0.00053, y: 0.00046, z: -0.00014}
+  m_LocalScale: {x: 0.01, y: 0.010000003, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2206514819909988254}
+  m_Father: {fileID: 1310563538511408657}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3531445091480496933
 GameObject:
@@ -1177,6 +1178,7 @@ Transform:
   - {fileID: 8289192015768231849}
   - {fileID: 3297718969079028814}
   - {fileID: 6211935234749512258}
+  - {fileID: 5076649348636721292}
   m_Father: {fileID: 4095824763699414373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3632303487059470963
@@ -3561,8 +3563,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 45443241110645925}
-  - {fileID: 7001838320843905977}
-  - {fileID: 5076649348636721292}
   - {fileID: 4110318073336051528}
   - {fileID: 6804958603931397906}
   - {fileID: 4739074629645636466}
@@ -3606,6 +3606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rootBone: {fileID: 1590855197846774002}
+  <RightWeapon>k__BackingField: {fileID: 5076649348636721292}
+  <LeftWeapon>k__BackingField: {fileID: 7001838320843905977}
   <animatorMovementVector>k__BackingField: {x: 0, y: 0, z: 0}
   <animationController>k__BackingField: {fileID: 0}
   controlByRootMotion: 0
