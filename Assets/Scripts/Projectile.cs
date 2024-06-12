@@ -36,20 +36,23 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider trigger)
+    private void OnTriggerEnter(Collider collider)
     {
         if(_ready)
         {
-            Character hitCharacter = trigger.GetComponentInParent<Character>();
-            if (hitCharacter != _controllingCharacter)
+            Character hitCharacter = collider.GetComponentInParent<Character>();
+            if(hitCharacter != _controllingCharacter)
             {
-                IDamageable damageableEntity = trigger.GetComponentInParent<IDamageable>();
-                damageableEntity?.Damage(_damage, _controllingCharacter.transform, damageForces.x, damageForces.y);
+                if (collider.name == "Hurtbox")
+                {
+                    IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
+                    damageableEntity?.Damage(_damage, _controllingCharacter.transform, damageForces.x, damageForces.y);
             
-                print("projectile " + name + " collided with " + hitCharacter.name);
-                OnImpact();
+                    print("projectile " + name + " collided with " + hitCharacter.name);
+                    OnImpact();
+                }
+                else OnImpact();
             }
-            // else if prop != null then run IDamageable.Damage()
         }
     }
 

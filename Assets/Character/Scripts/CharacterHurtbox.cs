@@ -18,14 +18,17 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 
         if(damageSource != character.transform)
         {
-            // print("damaging");
             character._Health.TakeDamage(damage);
             character.transform.LookAt(damageSource);
 
+            Quaternion rotation = character.transform.rotation;
+            rotation.x = 0;
+            rotation.z = 0;
+
+            character.transform.rotation = rotation;
+
             knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
         }
-
-        // send damageSource to character movement controller
     }
 
     public Transform GetControllingEntity()
