@@ -201,6 +201,8 @@ public class PlayerCharacter : Character, IDestroyable
 
     public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
     public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
+    public void StateVFXTrigger() => _StateMachine._CurrentState.TriggerVisualEffect();
+    public void StateSFXTrigger() => _StateMachine._CurrentState.TriggerSoundEffect();
 
 
 }

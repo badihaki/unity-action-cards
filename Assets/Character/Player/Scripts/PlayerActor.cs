@@ -96,6 +96,8 @@ public class PlayerActor : Actor
         parent.transform.position += animationController.deltaPosition;
     }
 
-    public void AnimationTrigger()=> PCActor.StateTrigger();
     public void StateAnimationFinished() => PCActor.StateAnimationFinished();
+    public void AnimationTrigger() => PCActor.StateTrigger();
+    public void AnimationVFXTrigger() => PCActor.StateVFXTrigger();
+    public void AnimationSFXTrigger() => PCActor.StateSFXTrigger();
 }

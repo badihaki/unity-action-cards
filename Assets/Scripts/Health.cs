@@ -34,7 +34,8 @@ public class Health : MonoBehaviour
         Quaternion rotation = Quaternion.Euler(-transform.forward);
         if (bloodFX != null)
         {
-            Instantiate(bloodFX, transform.position, rotation);
+            GameObject blood = Instantiate(bloodFX, transform.position, rotation);
+            blood.transform.rotation = transform.rotation;
         }
         if(_CurrentHealth <= 0)
         {

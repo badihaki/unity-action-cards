@@ -77,6 +77,14 @@ public class PlayerState : ScriptableObject
     {
         // trigger any side effect logic during the animation
     }
+    public virtual void TriggerVisualEffect()
+    {
+        // triiger any visual effects we need to trigger
+    }
+    public virtual void TriggerSoundEffect()
+    {
+        // trigger any sound effects we may need
+    }
     public virtual void CheckStateTransitions()
     {
         // check for transitions to other states

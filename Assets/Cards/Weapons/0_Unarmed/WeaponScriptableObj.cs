@@ -16,4 +16,6 @@ public class WeaponScriptableObj : ScriptableObject
         spear
     }
     public WeaponType _WeaponType;
+    public GameObject _WeaponAttackFX;
+    public GameObject _WeaponHitSpark;
 }

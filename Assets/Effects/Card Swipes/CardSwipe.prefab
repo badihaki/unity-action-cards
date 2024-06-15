@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1936793204114973826}
   - component: {fileID: 7867568764024840744}
   - component: {fileID: 5597251589727919721}
+  - component: {fileID: 5269418236939724745}
   m_Layer: 0
-  m_Name: Vfxgraph_Card-swipe
+  m_Name: CardSwipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +61,10 @@ VisualEffect:
     m_Uint:
       m_Array: []
     m_Int:
-      m_Array: []
+      m_Array:
+      - m_Value: 5
+        m_Name: spawnCount
+        m_Overridden: 1
     m_Matrix4x4f:
       m_Array: []
     m_AnimationCurve:
@@ -111,3 +115,16 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5269418236939724745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811664380725345530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b713833a4ab2894893f3748bfcbca73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <lifetime>k__BackingField: 10
