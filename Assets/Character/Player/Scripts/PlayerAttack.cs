@@ -193,7 +193,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         // draw all the stuff
-        DrawTargetDetectionLines(1.5f, startPos, forwardLineDirection, rightLineDirection, farRightLineDirection, leftLineDirection, farLeftLineDirection);
+        DrawTargetDetectionLines(0.5f, startPos, forwardLineDirection, rightLineDirection, farRightLineDirection, leftLineDirection, farLeftLineDirection);
 
         return entities;
     }

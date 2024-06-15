@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5949441482623524420}
   - component: {fileID: 8945065509771977749}
   - component: {fileID: 9044877752036175918}
+  - component: {fileID: 5832339380222172125}
   m_Layer: 0
   m_Name: Hitspark_Card
   m_TagString: Untagged
@@ -111,3 +112,16 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &5832339380222172125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4386779694162415920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b713833a4ab2894893f3748bfcbca73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <lifetime>k__BackingField: 1.5

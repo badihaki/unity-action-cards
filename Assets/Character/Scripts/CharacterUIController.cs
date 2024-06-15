@@ -11,7 +11,7 @@ public class CharacterUIController : MonoBehaviour
     [SerializeField] private Slider _HealthBar;
     [SerializeField] private float _TargetHealth;
     private bool canChangeHealth = false;
-    [SerializeField] private float _HealthChangeRate = 2.5f;
+    [SerializeField] private float _HealthChangeRate = 0.015f;
     private bool isPlayer;
 
     private void OnEnable()

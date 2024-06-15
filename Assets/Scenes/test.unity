@@ -2016,7 +2016,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
-  _HealthChangeRate: 2.5
+  _HealthChangeRate: 0.015
 --- !u!1 &117983156752400089
 GameObject:
   m_ObjectHideFlags: 0
