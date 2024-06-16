@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ff84bec0781c904ebc4e25af6c54ac9, type: 3}
+  m_Name: Horns01_f
+  m_EditorClassIdentifier: 
+  mesh: {fileID: -6958277379837969092, guid: 1bf709b785c93eb469f84b3e6dab3e81, type: 3}
+  material: {fileID: 2100000, guid: acc4943967c1bd24190c5f6d366b8f5d, type: 2}

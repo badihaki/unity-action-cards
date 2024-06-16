@@ -12,6 +12,7 @@ public class SpellCardScriptableObj : CardScriptableObj
     public int _SpellCharges;
     public float _SpellProjectileSpeed;
     public float _SpellAddonTime;
+    public float _SpellLifetime = 5.135f;
 
     public enum spellAnimationType
     {

@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "DefenseAction",
+                    "type": "PassThrough",
+                    "id": "56680a4a-3612-4656-ab23-f897fa369c8c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -289,7 +298,7 @@
                 {
                     "name": "",
                     "id": "47a34796-6019-48c9-98e0-7b4584c94a52",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
@@ -327,6 +336,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LockOn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "722fa319-7e16-4ba5-9bbc-8b2cbd05bd57",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "DefenseAction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -865,6 +885,85 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "TrackedDeviceOrientation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "CharUI",
+            "id": "9e99eb61-fb07-445f-9dcf-27d46b1bdb03",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "9332b267-6c68-49b4-ab0c-5738194d872b",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Active",
+                    "type": "PassThrough",
+                    "id": "53749334-084d-4da4-8bc4-73f7ea9dfd19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.15)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Button",
+                    "id": "98d425c0-7f78-4ee9-8cf7-35f6b687cb76",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0176ca31-5878-4a39-b03a-77e050f26bce",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Active",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9f35d62-e0ac-4bb7-8f54-09596bda08c4",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2f8cef96-2989-43e6-b20b-393393e64f3e",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "284ac6f5-43e7-4e40-8224-f51763f7fbe5",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

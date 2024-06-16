@@ -14,23 +14,39 @@ public class PlayerGroundedSuperState : PlayerState
     public bool cardInput { get; private set; }
     public bool readySpellInput { get; private set; }
     public bool attackInput { get; private set; }
+    public bool defenseInput { get; private set; }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        if (!cardInput)
+        {
+            _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        }
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
-
-        if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
-        if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
-        if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
-        if (readySpellInput) _StateMachine.ChangeState(_PlayerCharacter._ReadySpellState);
-        if (attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+        if (!cardInput)
+        {
+            _PlayerCharacter._PlayerCards.PutAwayHand();
+            if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+            if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
+            // if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
+            if (readySpellInput) _StateMachine.ChangeState(_PlayerCharacter._ReadySpellState);
+            if (attackInput)
+            {
+                _PlayerCharacter._Controls.UseAttack();
+                _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+            }
+            if (defenseInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._DefenseAction);
+        }
+        else
+        {
+            _PlayerCharacter._PlayerCards.ShowHand();
+        }
     }
     public override void CheckInputs()
     {
@@ -41,5 +57,6 @@ public class PlayerGroundedSuperState : PlayerState
         cardInput = _PlayerCharacter._Controls._CardsInput;
         readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
+        defenseInput = _PlayerCharacter._Controls._DefenseInput;
     }
 }

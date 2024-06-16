@@ -17,11 +17,15 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float topLookClamp = 70.0f;
     [Tooltip("How far can the camera look down")]
     [SerializeField] private float bottomLookClamp = -30.0f;
+    [SerializeField] private float lookSensitivity = 1.0f;
 
     [field: SerializeField] public Transform cinemachineCamTarget { get; private set; }
     
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
+
+    private bool cursorLocked;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,7 @@ public class PlayerCamera : MonoBehaviour
         InitializeAimCamController();
         LockCursorKBM();
         currentCameraController = _PlayerAimCamController;
+        cursorLocked = false;
     }
     private void InitializeCinemachineController()
     {
@@ -44,15 +49,19 @@ public class PlayerCamera : MonoBehaviour
         newGameObj.name = "PlayerCamController";
         _PlayerCamController = newGameObj.AddComponent<CinemachineVirtualCamera>();
         _PlayerCamController.Follow = cinemachineCamTarget;
-        _PlayerCamController.LookAt = cinemachineCamTarget;
+        // _PlayerCamController.LookAt = cinemachineCamTarget;
         _PlayerCamController.Priority = 10;
+        _PlayerCamController.m_Lens.FieldOfView = 90;
+        // lens fov - 90
 
         Cinemachine3rdPersonFollow body = _PlayerCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
-        body.CameraDistance = 3.270f;
+        body.CameraDistance = 1.850f; // 1.85
         body.VerticalArmLength = 1.55f;
+        body.ShoulderOffset = new Vector3(0, -0.500f, 0);
+        // rig shoulder offset 0, -0.500, 0
         
         CinemachineComposer composer = _PlayerCamController.AddCinemachineComponent<CinemachineComposer>();
-        composer.m_TrackedObjectOffset = new Vector3(0, 1.15f, 0);
+        composer.m_TrackedObjectOffset = new Vector3(0, 0.850f, 0); // 0, 0.850, 0
         cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
     }
     private void InitializeAimCamController()
@@ -61,7 +70,7 @@ public class PlayerCamera : MonoBehaviour
         newGameObj.name = "PlayerAimCamController";
         _PlayerAimCamController = newGameObj.AddComponent<CinemachineVirtualCamera>();
         _PlayerAimCamController.Follow = cinemachineCamTarget;
-        _PlayerAimCamController.LookAt = cinemachineCamTarget;
+        // _PlayerAimCamController.LookAt = cinemachineCamTarget;
         _PlayerAimCamController.Priority = 0;
 
         _PlayerAimCamController.m_Lens.FieldOfView = 25.5f;
@@ -77,8 +86,22 @@ public class PlayerCamera : MonoBehaviour
         composer.m_ScreenY = 0.45f;
     }
 
-    public void LockCursorKBM() => Cursor.lockState = CursorLockMode.Locked;
-    public void UnlockCursorKBM() => Cursor.lockState = CursorLockMode.None;
+    public void LockCursorKBM()
+    {
+        if (!cursorLocked)
+        {
+            cursorLocked = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+    public void UnlockCursorKBM()
+    {
+        if (cursorLocked)
+        {
+            cursorLocked = false;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
 
     public void ControlCameraRotation(Vector2 aimInput)
     {
@@ -91,7 +114,14 @@ public class PlayerCamera : MonoBehaviour
         cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
         cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomLookClamp, topLookClamp);
 
-        cinemachineCamTarget.rotation = Quaternion.Euler(-cinemachineTargetPitch, cinemachineTargetYaw, 0.0f);
+        LimitSensitivity();
+        cinemachineCamTarget.rotation = Quaternion.Euler(-cinemachineTargetPitch * lookSensitivity, cinemachineTargetYaw * lookSensitivity, 0.0f);
+    }
+
+    private void LimitSensitivity()
+    {
+        if (lookSensitivity < 1.0f) lookSensitivity = 1.0f;
+        else if (lookSensitivity > 3.5f) lookSensitivity = 3.5f;
     }
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {

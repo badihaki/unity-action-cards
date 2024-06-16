@@ -8,6 +8,8 @@ public class PlayerJumpState : PlayerState
     {
     }
 
+    private Vector2 aimInput;
+
     public override void EnterState()
     {
         base.EnterState();
@@ -16,19 +18,32 @@ public class PlayerJumpState : PlayerState
         _PlayerCharacter._LocomotionController.Jump();
     }
 
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+    }
+
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        // _PlayerCharacter._LocomotionController.ApplyGravity();
+        _PlayerCharacter._LocomotionController.ApplyGravity();
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-        if (Time.time > (_StateEnterTime + 0.980f)) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+        if (_AnimationIsFinished && !_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+        if (_PlayerCharacter._CheckGrounded.IsGrounded() && _AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+    }
+
+    public override void CheckInputs()
+    {
+        base.CheckInputs();
+        aimInput = _PlayerCharacter._Controls._AimInput;
     }
 
     // end

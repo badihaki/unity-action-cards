@@ -56,7 +56,10 @@ public class PlayerState : ScriptableObject
     #region Update Functions
     public virtual void LogicUpdate()
     {
-        CheckStateTransitions();
+        if (!_IsExitingState)
+        {
+            CheckStateTransitions();
+        }
         CheckInputs();
     }
     public virtual void PhysicsUpdate()
@@ -73,6 +76,14 @@ public class PlayerState : ScriptableObject
     public virtual void TriggerSideEffect()
     {
         // trigger any side effect logic during the animation
+    }
+    public virtual void TriggerVisualEffect()
+    {
+        // triiger any visual effects we need to trigger
+    }
+    public virtual void TriggerSoundEffect()
+    {
+        // trigger any sound effects we may need
     }
     public virtual void CheckStateTransitions()
     {

@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float lerpSpeedOnMovement = 0.085f;
     private float lerpSpeedOnSlowDown = 0.5f;
 
+
     public void Initialize(PlayerCharacter controller)
     {
         _Player = controller;
@@ -30,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        print("Speed normalized = " + _Rigidbody.velocity.normalized.x);
-        print("Speed??? = " + targetSpeed/movementSpeed);
+        /*print("Speed normalized = " + _Rigidbody.velocity.normalized.x);
+        print("Speed??? = " + targetSpeed/movementSpeed);*/
     }
 
     public void ApplyGravity()
@@ -73,10 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
         ApplyMovementToVelocity();
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
-        print("slowing down");
+        // print("slowing down");
     }
 
-    public void MoveTowardsCam(Vector2 direction)
+    public void MoveTowardsCamWithGravity(Vector2 direction)
     {
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
@@ -115,8 +116,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_Player._CheckGrounded.IsGrounded())
         {
-            // _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity * _Gravity);
-            _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
+            // _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
+            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower);
         }
     }
 

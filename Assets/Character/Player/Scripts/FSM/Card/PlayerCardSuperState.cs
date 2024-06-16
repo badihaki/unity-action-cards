@@ -12,8 +12,8 @@ public class PlayerCardSuperState : PlayerState
     {
         base.EnterState();
 
-        _PlayerCharacter._CameraController.UnlockCursorKBM();
-        _PlayerCharacter._PlayerCards.ShowHand();
+        // _PlayerCharacter._CameraController.UnlockCursorKBM();
+        // _PlayerCharacter._PlayerCards.ShowHand();
     }
 
     public override void ExitState()

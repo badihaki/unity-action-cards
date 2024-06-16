@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerCharacter : Character
+public class PlayerCharacter : Character, IDestroyable
 {
     public PlayerControlsInput _Controls { get; private set; }
     public PlayerCamera _CameraController { get; private set; }
@@ -12,9 +12,9 @@ public class PlayerCharacter : Character
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
-    
+
     // Actor Stuff
-    private PlayerActor actor;
+    [field: SerializeField] public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
     [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
 
@@ -24,16 +24,17 @@ public class PlayerCharacter : Character
     public PlayerMoveState _MoveState { get; private set; }
     public PlayerFallingState _FallingState { get; private set; }
     public PlayerJumpState _JumpState { get; private set; }
-    public PlayerGroundedCardState _GroundedCardState { get; private set; }
-    public PlayerInAirCardState _InAirCardState { get; private set; }
+    public PlayerLandingState _LandingState { get; private set; }
+    // public PlayerGroundedCardState _GroundedCardState { get; private set; }
+    // public PlayerInAirCardState _InAirCardState { get; private set; }
     public PlayerReadySpellState _ReadySpellState { get; private set; }
 
     public override void Initialize()
     {
         // lets set up the actor
         if(_LoadNewOnStart)LoadAndBuildActor();
-        actor = GetComponentInChildren<PlayerActor>();
-        actor.InitializePlayerActor(this);
+        _PlayerActor = GetComponentInChildren<PlayerActor>();
+        _PlayerActor.InitializePlayerActor(this);
 
         base.Initialize();
         
@@ -68,6 +69,9 @@ public class PlayerCharacter : Character
 
         // and initialize the attack controller, since it needs the state machine
         _AttackController.Initialize(this);
+
+        // initialize UI
+        if (_UI != null) _UI.InitializeUI(true);
     }
 
     private void LoadAndBuildActor()
@@ -89,14 +93,14 @@ public class PlayerCharacter : Character
 
         if (saveData.isMale)
         {
-            actor = Instantiate(GameManagerMaster.GameMaster.CharacterCustomizationDatabase.mActorBase, transform).GetComponent<PlayerActor>();
+            _PlayerActor = Instantiate(GameManagerMaster.GameMaster.CharacterCustomizationDatabase.mActorBase, transform).GetComponent<PlayerActor>();
             
-            SkinnedMeshRenderer head = actor.transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer hair = actor.transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer horns = actor.transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer top = actor.transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer hands = actor.transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer bottom = actor.transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer head = _PlayerActor.transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hair = _PlayerActor.transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer horns = _PlayerActor.transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer top = _PlayerActor.transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hands = _PlayerActor.transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer bottom = _PlayerActor.transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
 
             head.sharedMesh = parts.mHeadDatabase[saveData.HeadIndex].mesh;
             head.material = parts.mHeadDatabase[saveData.HeadIndex].material;
@@ -118,14 +122,14 @@ public class PlayerCharacter : Character
         }
         else
         {
-            actor = Instantiate(GameManagerMaster.GameMaster.CharacterCustomizationDatabase.fActorBase, transform).GetComponent<PlayerActor>();
+            _PlayerActor = Instantiate(GameManagerMaster.GameMaster.CharacterCustomizationDatabase.fActorBase, transform).GetComponent<PlayerActor>();
 
-            SkinnedMeshRenderer head = actor.transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer hair = actor.transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer horns = actor.transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer top = actor.transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer hands = actor.transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
-            SkinnedMeshRenderer bottom = actor.transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer head = _PlayerActor.transform.Find("Model.Head").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hair = _PlayerActor.transform.Find("Model.Hair").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer horns = _PlayerActor.transform.Find("Model.Horns").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer top = _PlayerActor.transform.Find("Model.Top").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer hands = _PlayerActor.transform.Find("Model.Hands").GetComponent<SkinnedMeshRenderer>();
+            SkinnedMeshRenderer bottom = _PlayerActor.transform.Find("Model.Bottom").GetComponent<SkinnedMeshRenderer>();
 
             head.sharedMesh = parts.fHeadDatabase[saveData.HeadIndex].mesh;
             head.material = parts.fHeadDatabase[saveData.HeadIndex].material;
@@ -145,7 +149,7 @@ public class PlayerCharacter : Character
             bottom.sharedMesh = parts.fBottomsDatabase[saveData.BottomIndex].mesh;
             bottom.material = parts.fBottomsDatabase[saveData.BottomIndex].material;
         }
-        actor.name = "Actor";
+        _PlayerActor.name = "Actor";
     }
 
     private void InitializeStateMachine()
@@ -165,21 +169,17 @@ public class PlayerCharacter : Character
         _JumpState = ScriptableObject.CreateInstance<PlayerJumpState>();
         _JumpState.InitializeState(this, "jump", _StateMachine);
 
-        _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
-        _GroundedCardState.InitializeState(this, "card", _StateMachine);
+        _LandingState = ScriptableObject.CreateInstance<PlayerLandingState>();
+        _LandingState.InitializeState(this, "land", _StateMachine);
 
-        _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
-        _InAirCardState.InitializeState(this, "airCard", _StateMachine);
+        // _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
+        // _GroundedCardState.InitializeState(this, "card", _StateMachine);
+
+        // _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
+        // _InAirCardState.InitializeState(this, "airCard", _StateMachine);
 
         _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
         _ReadySpellState.InitializeState(this, "range", _StateMachine);
-        /*_IdleState = new PlayerIdleState(this, "idle", _StateMachine);
-        _MoveState = new PlayerMoveState(this, "move", _StateMachine);
-        _FallingState = new PlayerFallingState(this, "air", _StateMachine);
-        _JumpState = new PlayerJumpState(this, "jump", _StateMachine);
-        _GroundedCardState = new PlayerGroundedCardState(this, "card", _StateMachine);
-        _InAirCardState = new PlayerInAirCardState(this, "airCard", _StateMachine);
-        _ReadySpellState = new PlayerReadySpellState(this, "range", _StateMachine);*/
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }
@@ -194,8 +194,15 @@ public class PlayerCharacter : Character
         _StateMachine?._CurrentState.PhysicsUpdate();
     }
 
+    public void DestroyEntity()
+    {
+        print("Player death");
+    }
+
     public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
     public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
+    public void StateVFXTrigger() => _StateMachine._CurrentState.TriggerVisualEffect();
+    public void StateSFXTrigger() => _StateMachine._CurrentState.TriggerSoundEffect();
 
 
 }

@@ -13,11 +13,23 @@ public class Character : MonoBehaviour
     [field: SerializeField] public Transform _Actor { get; protected set; }
     [field: SerializeField] public Animator _AnimationController { get; private set; }
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
+    [field: SerializeField] public CharacterUIController _UI { get; protected set; }
+    [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
 
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
+    }
+
+    private void OnEnable()
+    {
+        if (_Health != null) _Health.OnHit += TriggerhitAnimation;
+    }
+
+    private void OnDisable()
+    {
+        if (_Health != null) _Health.OnHit -= TriggerhitAnimation;
     }
 
     public virtual void Initialize()
@@ -29,6 +41,7 @@ public class Character : MonoBehaviour
         _Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
+        _Health.OnHit += TriggerhitAnimation;
 
         // start aether points (magic points)
         _AetherPoints = GetComponent<Aether>();
@@ -44,10 +57,13 @@ public class Character : MonoBehaviour
         if (_Hurtbox == null) _Hurtbox = transform.Find("Colliders").Find("Hurtbox").AddComponent<CharacterHurtbox>();
         _Hurtbox.InitializeHurtBox(this);
 
-        // start the hitbox
-        
+        // start UI
+        _UI = GetComponent<CharacterUIController>();
 
         _AnimationController = _Actor.GetComponent<Animator>();
+
+        _SoundManager = GetComponent<CharacterSoundManager>();
+        _SoundManager.InitializeSoundManager(this);
     }
     // Update is called once per frame
     void Update()
@@ -58,5 +74,14 @@ public class Character : MonoBehaviour
     public void Damage(int damage, Transform damageSource)
     {
         throw new System.NotImplementedException();
+    }
+
+    protected virtual void TriggerhitAnimation(string hitType)
+    {
+        if (_AnimationController)
+        {
+            // print(hitType);
+            _AnimationController.SetTrigger(hitType);
+        }
     }
 }

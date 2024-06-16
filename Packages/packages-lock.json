@@ -194,7 +194,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.8",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -223,6 +223,15 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.unity.visualeffectgraph": {
+      "version": "14.0.10",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.shadergraph": "14.0.10",
+        "com.unity.render-pipelines.core": "14.0.10"
+      }
+    },
     "com.unity.visualscripting": {
       "version": "1.9.1",
       "depth": 0,
@@ -232,17 +241,6 @@
         "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
-    },
-    "org.khronos.unitygltf": {
-      "version": "https://github.com/KhronosGroup/UnityGLTF.git/#release/2.9.0-rc",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {
-        "com.unity.nuget.newtonsoft-json": "2.0.0",
-        "com.unity.modules.imageconversion": "1.0.0",
-        "com.unity.shadergraph": "10.0.0"
-      },
-      "hash": "4ebe065f276025fcd3f1d873d4da55ff46e8e2c6"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",

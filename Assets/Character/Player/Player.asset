@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   _CharacterName: 
-  _StartingHealth: 10
+  _StartingHealth: 35
   _StartingAetherPool: 100
   _WalkSpeed: 5
   _RunSpeed: 10
   _RushDashSpeed: 15.65
-  _JumpPower: 13
+  _JumpPower: 10

@@ -72,6 +72,7 @@ public class CreationController : MonoBehaviour
         mBottom = mActor.transform.Find("Bottom").GetComponent<SkinnedMeshRenderer>();
         mBottom.sharedMesh = customizationDatabase.mBottomsDatabase[mBottomIndex].mesh;
         mBottom.material = customizationDatabase.mBottomsDatabase[mBottomIndex].material;
+        mActor.GetComponent<Animator>().SetBool("cinematics", true);
 
         // female
         fActor = GameObject.Find("Female").gameObject;
@@ -99,6 +100,8 @@ public class CreationController : MonoBehaviour
         fBottom = fActor.transform.Find("Bottom").GetComponent<SkinnedMeshRenderer>();
         fBottom.sharedMesh = customizationDatabase.fBottomsDatabase[fBottomIndex].mesh;
         fBottom.material = customizationDatabase.fBottomsDatabase[fBottomIndex].material;
+        fActor.GetComponent<Animator>().SetBool("cinematics", true);
+
 
         fActor.SetActive(false);
         isMaleBody = true;
@@ -138,9 +141,37 @@ public class CreationController : MonoBehaviour
                     mBottom.sharedMesh = customizationDatabase.mBottomsDatabase[mBottomIndex].mesh;
                     mBottom.material = customizationDatabase.mBottomsDatabase[mBottomIndex].material;
                     break;
+                case "horns":
+                    if (customizationDatabase.mHornsDatabase.Count <= 1) break;
+                    mHornsIndex = isSelectingNext ? (mHornsIndex + 1) : (mHornsIndex - 1);
+                    if (mHornsIndex > (customizationDatabase.mHornsDatabase.Count - 1))
+                    {
+                        mHornsIndex = 0;
+                    }
+                    else if (mHornsIndex < 0)
+                    {
+                        mHornsIndex = (customizationDatabase.mHornsDatabase.Count - 1);
+                    }
+                    mHorns.sharedMesh = customizationDatabase.mHornsDatabase[mHornsIndex].mesh;
+                    mHorns.material = customizationDatabase.mHornsDatabase[mHornsIndex].material;
+                    break;
+                case "hair":
+                    if (customizationDatabase.mHairDatabase.Count <= 1) break;
+                    mHairIndex = isSelectingNext ? (mHairIndex + 1) : (mHairIndex - 1);
+                    if (mHairIndex > (customizationDatabase.mHairDatabase.Count - 1))
+                    {
+                        mHairIndex = 0;
+                    }
+                    else if (mHairIndex < 0)
+                    {
+                        mHairIndex = (customizationDatabase.mHairDatabase.Count - 1);
+                    }
+                    mHair.sharedMesh = customizationDatabase.mHairDatabase[mHairIndex].mesh;
+                    mHair.material = customizationDatabase.mHairDatabase[mHairIndex].material;
+                    break;
             }
         }
-        else
+        else // is female
         {
             switch (bodyPart)
             {
@@ -172,6 +203,34 @@ public class CreationController : MonoBehaviour
                     fBottom.sharedMesh = customizationDatabase.mBottomsDatabase[fBottomIndex].mesh;
                     fBottom.material = customizationDatabase.mBottomsDatabase[fBottomIndex].material;
                     break;
+                case "horns":
+                    if (customizationDatabase.fHornsDatabase.Count <= 1) break;
+                    fHornsIndex = isSelectingNext ? (fHornsIndex + 1) : (fHornsIndex - 1);
+                    if (fHornsIndex > (customizationDatabase.fHornsDatabase.Count - 1))
+                    {
+                        fHornsIndex = 0;
+                    }
+                    else if (fHornsIndex < 0)
+                    {
+                        fHornsIndex = (customizationDatabase.fHornsDatabase.Count - 1);
+                    }
+                    fHorns.sharedMesh = customizationDatabase.fHornsDatabase[fHornsIndex].mesh;
+                    fHorns.material = customizationDatabase.fHornsDatabase[fHornsIndex].material;
+                    break;
+                case "hair":
+                    if (customizationDatabase.fHairDatabase.Count <= 1) break;
+                    fHairIndex = isSelectingNext ? (fHairIndex + 1) : (fHairIndex - 1);
+                    if (fHairIndex > (customizationDatabase.fHairDatabase.Count - 1))
+                    {
+                        fHairIndex = 0;
+                    }
+                    else if (fHairIndex < 0)
+                    {
+                        fHairIndex = (customizationDatabase.fHairDatabase.Count - 1);
+                    }
+                    fHair.sharedMesh = customizationDatabase.fHairDatabase[fHairIndex].mesh;
+                    fHair.material = customizationDatabase.fHairDatabase[fHairIndex].material;
+                    break;
             }
         }
     }
@@ -182,7 +241,16 @@ public class CreationController : MonoBehaviour
 
         mActor.SetActive(isMaleBody);
         fActor.SetActive(!isMaleBody);
+
+        SetCharacterCinematicAnimation(isMaleBody);
     }
+
+    private void SetCharacterCinematicAnimation(bool animateMale)
+    {
+        if(animateMale) mActor.GetComponent<Animator>().SetBool("cinematics", true);
+        else fActor.GetComponent<Animator>().SetBool("cinematics", true); ;
+    }
+
     public void SelectNextBodyPart(string bodyPart)
     {
         ChangeBodyPart(bodyPart, true);
