@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 4013965585459047465}
   - component: {fileID: 7139961280166402280}
   - component: {fileID: 7982203592454923338}
+  - component: {fileID: 6084333112869182304}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -238,6 +239,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <_CurrentHealth>k__BackingField: 0
+  <_MaxPoise>k__BackingField: 1
+  <_PoiseFortification>k__BackingField: 0
+  <_CurrentPoise>k__BackingField: 0
   bloodFX: {fileID: 0}
 --- !u!114 &358040525570265840
 MonoBehaviour:
@@ -527,9 +531,9 @@ MonoBehaviour:
   <_KnockbackForce>k__BackingField: 0
   <_LaunchForce>k__BackingField: 0
   <_WeaponHolderL>k__BackingField: {fileID: 0}
-  _WeaponL: {fileID: 0}
+  <_WeaponL>k__BackingField: {fileID: 0}
   <_WeaponHolderR>k__BackingField: {fileID: 0}
-  _WeaponR: {fileID: 0}
+  <_WeaponR>k__BackingField: {fileID: 0}
 --- !u!114 &7982203592454923338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,6 +549,18 @@ MonoBehaviour:
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
   _HealthChangeRate: 2.5
+--- !u!114 &6084333112869182304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c425851250e7e214d83ef0144afc3982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2248548325968884771
 GameObject:
   m_ObjectHideFlags: 0

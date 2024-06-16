@@ -28,4 +28,6 @@ public class CharacterSheet : ScriptableObject
     public List<AudioClip> _InteractionClips;
     [Tooltip("The voices for getting hurt")]
     public List<AudioClip> _HurtClips;
+    [Tooltip("These are for getting hurt from larger hits")]
+    public List<AudioClip> _HardHitClips;
 }

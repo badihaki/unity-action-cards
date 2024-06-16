@@ -1891,6 +1891,7 @@ GameObject:
   - component: {fileID: 2107911115}
   - component: {fileID: 2107911113}
   - component: {fileID: 2107911116}
+  - component: {fileID: 2107911117}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -1960,6 +1961,7 @@ MonoBehaviour:
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
+  <_SoundManager>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
 --- !u!114 &2107911113
 MonoBehaviour:
@@ -2020,6 +2022,21 @@ MonoBehaviour:
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
   _HealthChangeRate: 0.015
+--- !u!114 &2107911117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107911109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c425851250e7e214d83ef0144afc3982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionClips: []
+  HurtClips: []
+  HardHitClips: []
 --- !u!1 &144653617531512171
 GameObject:
   m_ObjectHideFlags: 0
