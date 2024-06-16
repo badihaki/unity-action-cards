@@ -22,4 +22,10 @@ public class CharacterSheet : ScriptableObject
     public float _RushDashSpeed = 15.65f;
     [Tooltip("Yep, how far the character can jump??")]
     public float _JumpPower = 13.25f;
+
+    [Header("Voice Settings")]
+    [Tooltip("The voices used for interaction")]
+    public List<AudioClip> _InteractionClips;
+    [Tooltip("The voices for getting hurt")]
+    public List<AudioClip> _HurtClips;
 }

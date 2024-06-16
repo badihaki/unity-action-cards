@@ -76,7 +76,7 @@ public class Character : MonoBehaviour
     {
         if (_AnimationController)
         {
-            print(hitType);
+            // print(hitType);
             _AnimationController.SetTrigger(hitType);
         }
     }
