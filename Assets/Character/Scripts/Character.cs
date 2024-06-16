@@ -21,6 +21,16 @@ public class Character : MonoBehaviour
         Initialize();
     }
 
+    private void OnEnable()
+    {
+        if (_Health != null) _Health.OnHit += TriggerhitAnimation;
+    }
+
+    private void OnDisable()
+    {
+        if (_Health != null) _Health.OnHit -= TriggerhitAnimation;
+    }
+
     public virtual void Initialize()
     {
         // Create the character in the game world
@@ -30,6 +40,7 @@ public class Character : MonoBehaviour
         _Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
+        _Health.OnHit += TriggerhitAnimation;
 
         // start aether points (magic points)
         _AetherPoints = GetComponent<Aether>();
@@ -59,5 +70,14 @@ public class Character : MonoBehaviour
     public void Damage(int damage, Transform damageSource)
     {
         throw new System.NotImplementedException();
+    }
+
+    protected virtual void TriggerhitAnimation(string hitType)
+    {
+        if (_AnimationController)
+        {
+            print(hitType);
+            _AnimationController.SetTrigger(hitType);
+        }
     }
 }

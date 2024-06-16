@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc_proto
   m_EditorClassIdentifier: 
   _CharacterName: NPC
-  _StartingHealth: 15
+  _StartingHealth: 150
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
