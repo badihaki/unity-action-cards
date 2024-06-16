@@ -25,8 +25,8 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerFallingState _FallingState { get; private set; }
     public PlayerJumpState _JumpState { get; private set; }
     public PlayerLandingState _LandingState { get; private set; }
-    public PlayerGroundedCardState _GroundedCardState { get; private set; }
-    public PlayerInAirCardState _InAirCardState { get; private set; }
+    // public PlayerGroundedCardState _GroundedCardState { get; private set; }
+    // public PlayerInAirCardState _InAirCardState { get; private set; }
     public PlayerReadySpellState _ReadySpellState { get; private set; }
 
     public override void Initialize()
@@ -172,11 +172,11 @@ public class PlayerCharacter : Character, IDestroyable
         _LandingState = ScriptableObject.CreateInstance<PlayerLandingState>();
         _LandingState.InitializeState(this, "land", _StateMachine);
 
-        _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
-        _GroundedCardState.InitializeState(this, "card", _StateMachine);
+        // _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
+        // _GroundedCardState.InitializeState(this, "card", _StateMachine);
 
-        _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
-        _InAirCardState.InitializeState(this, "airCard", _StateMachine);
+        // _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
+        // _InAirCardState.InitializeState(this, "airCard", _StateMachine);
 
         _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
         _ReadySpellState.InitializeState(this, "range", _StateMachine);

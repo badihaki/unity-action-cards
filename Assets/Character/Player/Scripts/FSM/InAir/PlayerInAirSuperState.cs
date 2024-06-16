@@ -31,7 +31,7 @@ public class PlayerInAirSuperState : PlayerState
         base.CheckStateTransitions();
 
         if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-        if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._InAirCardState);
+        // if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._InAirCardState);
     }
 
     public override void CheckInputs()

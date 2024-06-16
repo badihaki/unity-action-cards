@@ -19,6 +19,7 @@ public class PlayerCards : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject handOfCards;
     private float radius = 300.00f;
+    private bool isShowingHand;
     
     public void Initialize(PlayerCharacter pl)
     {
@@ -27,34 +28,44 @@ public class PlayerCards : MonoBehaviour
         handOfCards = Instantiate(handOfCards, transform);
         handOfCards.name = "Card-Hand-UI";
         handOfCards.SetActive(false);
+        isShowingHand = false;
     }
 
 
     public void ShowHand()
     {
-        handOfCards.SetActive(true);
-        List<RectTransform> cardGameObjs = new List<RectTransform>();
-
-        for (int cardIndex = 0; cardIndex < _Hand.Count; cardIndex++)
+        if(!isShowingHand)
         {
-            GameObject cardGameObj = CreateCardUIObject(_Hand[cardIndex], cardIndex);
-            cardGameObjs.Add(cardGameObj.GetComponent<RectTransform>());
-            // print("Card Index: " + cardIndex + " || Card Name: " + cardGameObj.name);
-        }
+            player._CameraController.UnlockCursorKBM();
+            handOfCards.SetActive(true);
+            List<RectTransform> cardGameObjs = new List<RectTransform>();
 
-        RearrangeCards(cardGameObjs);
+            for (int cardIndex = 0; cardIndex < _Hand.Count; cardIndex++)
+            {
+                GameObject cardGameObj = CreateCardUIObject(_Hand[cardIndex], cardIndex);
+                cardGameObjs.Add(cardGameObj.GetComponent<RectTransform>());
+                // print("Card Index: " + cardIndex + " || Card Name: " + cardGameObj.name);
+            }
+
+            RearrangeCards(cardGameObjs);
+            isShowingHand = true;
+        }
     }
 
     public void PutAwayHand()
     {
-        Button[] childCards = handOfCards.GetComponentsInChildren<Button>();
-
-        for (int card = 0; card < childCards.Length; card++)
+        if (isShowingHand)
         {
-            Destroy(childCards[card].gameObject);
-        }
+            Button[] childCards = handOfCards.GetComponentsInChildren<Button>();
 
-        handOfCards.SetActive(false);
+            for (int card = 0; card < childCards.Length; card++)
+            {
+                Destroy(childCards[card].gameObject);
+            }
+
+            handOfCards.SetActive(false);
+            isShowingHand = false;
+        }
     }
 
     public void TestUseCard()
