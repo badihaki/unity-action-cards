@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fed0b54911f3104fafaf4a855f9dc70, type: 3}
+  m_Name: rags_torso_f
+  m_EditorClassIdentifier: 
+  weight: 0
+  outfitSlot: 0
+  mesh: {fileID: 738562970337347187, guid: 0a5ca940b4e069542a62713acff44d40, type: 3}
+  material: {fileID: 2100000, guid: c3831866f2888ec4986b4004b301655a, type: 2}
