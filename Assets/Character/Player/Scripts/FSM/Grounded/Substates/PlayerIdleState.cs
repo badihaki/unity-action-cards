@@ -28,6 +28,7 @@ public class PlayerIdleState : PlayerGroundedSuperState
     {
         base.EnterState();
 
-        /*_PlayerCharacter._LocomotionController.ZeroOutVelocity();*/
+        // why did I need to comment this out
+        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
     }
 }
