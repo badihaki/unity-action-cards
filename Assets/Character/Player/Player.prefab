@@ -289,6 +289,7 @@ MonoBehaviour:
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
+  <_SoundManager>k__BackingField: {fileID: 0}
   <_PlayerActor>k__BackingField: {fileID: 0}
   <_LoadNewOnStart>k__BackingField: 1
   <_Hitbox>k__BackingField: {fileID: 0}
@@ -561,6 +562,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c425851250e7e214d83ef0144afc3982, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InteractionClips: []
+  HurtClips: []
+  HardHitClips: []
 --- !u!1 &2248548325968884771
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,7 +791,7 @@ Transform:
   m_GameObject: {fileID: 4845998562480807097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: -1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

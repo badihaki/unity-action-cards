@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a4c6563f51534449b0528545c24e9e, type: 3}
   m_Name: npc_proto
   m_EditorClassIdentifier: 
-  _CharacterName: NPC
-  _StartingHealth: 150
+  _CharacterName: Protoman
+  _StartingHealth: 25
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
