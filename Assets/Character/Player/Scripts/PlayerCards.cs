@@ -19,7 +19,7 @@ public class PlayerCards : MonoBehaviour
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private GameObject handOfCards;
     private float radius = 300.00f;
-    private bool isShowingHand;
+    [SerializeField] private bool isShowingHand;
     
     public void Initialize(PlayerCharacter pl)
     {
@@ -56,6 +56,7 @@ public class PlayerCards : MonoBehaviour
     {
         if (isShowingHand)
         {
+            player._CameraController.LockCursorKBM();
             Button[] childCards = handOfCards.GetComponentsInChildren<Button>();
 
             for (int card = 0; card < childCards.Length; card++)

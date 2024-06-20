@@ -24,7 +24,7 @@ public class PlayerCamera : MonoBehaviour
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
 
-    private bool cursorLocked;
+    [SerializeField] private bool cursorLocked;
 
     // Start is called before the first frame update
     void Start()
