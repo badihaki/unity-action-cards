@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
         // print("slowing down");
     }
 
-    public void MoveTowardsCamWithGravity(Vector2 direction)
+    public void MoveTowardsCamWithGravity(Vector2 direction, bool isAiming)
     {
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
@@ -86,7 +86,8 @@ public class PlayerMovement : MonoBehaviour
             _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
 
-        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        if (!isAiming) targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        else targetSpeed = _Player._CharacterSheet._WalkSpeed * 0.45f;
         movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
 
 
@@ -100,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
         _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
     }
 
-    private void RotateCharacter(Vector2 inputDirection)
+    public void RotateCharacter(Vector2 inputDirection)
     {
         // target rotation is the intended vector we want to rotate to
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)

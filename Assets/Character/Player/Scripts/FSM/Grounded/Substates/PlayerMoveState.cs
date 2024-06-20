@@ -32,7 +32,7 @@ public class PlayerMoveState : PlayerGroundedSuperState
         base.PhysicsUpdate();
 
         if (moveInput != Vector2.zero)
-            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput);
+            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput, false);
         else
             _PlayerCharacter._LocomotionController.SlowDown();
     }

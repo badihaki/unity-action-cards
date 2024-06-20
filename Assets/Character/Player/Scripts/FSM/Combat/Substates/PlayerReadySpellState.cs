@@ -17,6 +17,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
+        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
     }
 
     public override void LogicUpdate()
@@ -30,6 +31,21 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         {
             _PlayerCharacter._Controls.UseInteract();
             _PlayerCharacter._PlayerSpells.ChangeSpellIndex();
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        if(moveInput != Vector2.zero)
+        {
+            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput, true);
+        }
+        else
+        {
+            _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+            _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
         }
     }
 
