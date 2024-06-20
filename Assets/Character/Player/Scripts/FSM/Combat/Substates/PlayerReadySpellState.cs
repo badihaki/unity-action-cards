@@ -18,6 +18,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
     public override void LogicUpdate()
@@ -25,6 +26,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        _PlayerCharacter._PlayerSpells.UpdateCrosshair();
 
         if (attackInput)_PlayerCharacter._PlayerSpells.UseSpell();
         if (interactionInput)
@@ -45,7 +47,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         else
         {
             _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-            _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
+            _PlayerCharacter._LocomotionController.RotateCharacter(aimInput / 2);
         }
     }
 
@@ -55,6 +57,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);
+        _PlayerCharacter._PlayerSpells.HideCrosshair();
     }
 
     public override void CheckStateTransitions()

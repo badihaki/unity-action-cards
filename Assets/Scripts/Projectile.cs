@@ -7,7 +7,7 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Character _controllingCharacter;
     [SerializeField] private int _damage;
-    [SerializeField] private Vector2 damageForces;
+    [SerializeField] private Vector2 _damageForces;
     [SerializeField] private float _speed;
     [SerializeField] private float _lifetime = 5.135f;
 
@@ -15,7 +15,7 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private bool _ready = false;
 
-    public void InitializeProjectile(Character _controller, int _dmg, float _speed, float _life)
+    public void InitializeProjectile(Character _controller, int _dmg, float _speed, float _life, Vector2 _knockAndLaunchForces)
     {
         _rigidbody = GetComponent<Rigidbody>();
 
@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
         _damage = _dmg;
         this._speed = _speed;
         _lifetime = _life;
+        _damageForces = _knockAndLaunchForces;
         
         StartCoroutine("StartLifetimeTimer");
         _ready = true;
@@ -46,7 +47,7 @@ public class Projectile : MonoBehaviour
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
-                    damageableEntity?.Damage(_damage, _controllingCharacter.transform, damageForces.x, damageForces.y);
+                    damageableEntity?.Damage(_damage, _controllingCharacter.transform, _damageForces.x, _damageForces.y);
             
                     print("projectile " + name + " collided with " + hitCharacter.name);
                     OnImpact();

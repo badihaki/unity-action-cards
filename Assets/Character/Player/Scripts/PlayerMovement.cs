@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
         {
-            RotateCharacter(direction);
+            if (!isAiming) RotateCharacter(direction);
             _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
 

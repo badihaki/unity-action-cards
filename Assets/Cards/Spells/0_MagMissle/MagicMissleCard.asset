@@ -21,6 +21,10 @@ MonoBehaviour:
   _SpellDamage: 1
   _SpellCharges: 1
   _SpellProjectileSpeed: 10.5
-  _SpellAddonTime: 0.85
+  _SpellKnockAndLaunchForces: {x: 3, y: 24}
+  _SpellAddonTime: 0.5
   _SpellLifetime: 5.135
+  _StartSound: {fileID: 0}
+  _TravelSound: {fileID: 0}
+  _ImpactSound: {fileID: 0}
   _SpellAnimationBool: 0
