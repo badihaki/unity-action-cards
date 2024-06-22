@@ -53,7 +53,7 @@ public class Projectile : MonoBehaviour
             
                     // print("projectile " + name + " collided with " + hitCharacter.name);
                 }
-                if (_impactVFX) OnImpact(collider.transform.position);
+                if (_impactVFX) OnImpact();
             }
         }
     }
@@ -65,9 +65,9 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnImpact(Vector3 position)
+    private void OnImpact()
     {
-        Instantiate(_impactVFX, position, Quaternion.identity);
+        Instantiate(_impactVFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

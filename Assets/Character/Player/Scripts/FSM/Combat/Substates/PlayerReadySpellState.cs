@@ -42,13 +42,13 @@ public class PlayerReadySpellState : PlayerCombatSuperState
 
         if(moveInput != Vector2.zero)
         {
-            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput, true);
+            _PlayerCharacter._LocomotionController.MoveWhileAiming(moveInput);
         }
         else
         {
             _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-            _PlayerCharacter._LocomotionController.RotateCharacter(aimInput / 2);
         }
+        _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput);
     }
 
     public override void ExitState()
