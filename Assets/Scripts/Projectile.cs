@@ -10,12 +10,13 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Vector2 _damageForces;
     [SerializeField] private float _speed;
     [SerializeField] private float _lifetime = 5.135f;
+    [SerializeField] private GameObject _impactVFX;
 
     private Rigidbody _rigidbody;
 
     [SerializeField] private bool _ready = false;
 
-    public void InitializeProjectile(Character _controller, int _dmg, float _speed, float _life, Vector2 _knockAndLaunchForces)
+    public void InitializeProjectile(Character _controller, int _dmg, float _speed, float _life, Vector2 _knockAndLaunchForces, GameObject impactPrefab)
     {
         _rigidbody = GetComponent<Rigidbody>();
 
@@ -24,6 +25,7 @@ public class Projectile : MonoBehaviour
         this._speed = _speed;
         _lifetime = _life;
         _damageForces = _knockAndLaunchForces;
+        _impactVFX = impactPrefab;
         
         StartCoroutine("StartLifetimeTimer");
         _ready = true;
@@ -49,10 +51,9 @@ public class Projectile : MonoBehaviour
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
                     damageableEntity?.Damage(_damage, _controllingCharacter.transform, _damageForces.x, _damageForces.y);
             
-                    print("projectile " + name + " collided with " + hitCharacter.name);
-                    OnImpact();
+                    // print("projectile " + name + " collided with " + hitCharacter.name);
                 }
-                else OnImpact();
+                if (_impactVFX) OnImpact(collider.transform.position);
             }
         }
     }
@@ -64,8 +65,9 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnImpact()
+    private void OnImpact(Vector3 position)
     {
+        Instantiate(_impactVFX, position, Quaternion.identity);
         Destroy(gameObject);
     }
 

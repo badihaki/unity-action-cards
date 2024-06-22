@@ -18,6 +18,8 @@ MonoBehaviour:
   _CardImage: {fileID: 21300000, guid: c3503013a7e30a04083c45dc4453225c, type: 3}
   _SpellProjectile: {fileID: 580663147463958604, guid: afbce31655bd6804ca8070677e3aaaaf,
     type: 3}
+  _SpellImpactVFX: {fileID: 7847018365067263693, guid: 834e823a8b6fd8045b6cd233e27d5392,
+    type: 3}
   _SpellDamage: 1
   _SpellCharges: 1
   _SpellProjectileSpeed: 10.5

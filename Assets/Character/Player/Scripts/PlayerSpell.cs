@@ -151,7 +151,7 @@ public class PlayerSpell : MonoBehaviour
             // conjuredSpell.transform.rotation = Quaternion.LookRotation(direction);
 
             conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
-            conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces);
+            conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
             _spellTimer = timeToAddToTimer;
         
             // remove a charge
