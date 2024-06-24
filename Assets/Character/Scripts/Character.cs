@@ -84,4 +84,10 @@ public class Character : MonoBehaviour
             _AnimationController.SetTrigger(hitType);
         }
     }
+
+    public virtual void DestroyEntity()
+    {
+        print("goodbye, " + name);
+        Destroy(gameObject);
+    }
 }

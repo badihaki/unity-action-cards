@@ -48,6 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9abe7dc2248caa478b6f3f546d47529, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <animationController>k__BackingField: {fileID: 0}
+  <animatorMovementVector>k__BackingField: {x: 0, y: 0, z: 0}
+  controlByRootMotion: 0
 --- !u!95 &9100884158474125136
 Animator:
   serializedVersion: 5
@@ -695,6 +698,7 @@ GameObject:
   - component: {fileID: 5916562070096258111}
   - component: {fileID: 7167106336545046644}
   - component: {fileID: 8458274122206909391}
+  - component: {fileID: 4240367807110500814}
   - component: {fileID: 5029619010229913786}
   - component: {fileID: 524785220728916397}
   - component: {fileID: 2008041470608043853}
@@ -756,6 +760,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _PhysicsController: {fileID: 0}
+--- !u!114 &4240367807110500814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797102457050523090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5715300c9c5e57945a1921ed7f14be9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &5029619010229913786
 Rigidbody:
   m_ObjectHideFlags: 0
