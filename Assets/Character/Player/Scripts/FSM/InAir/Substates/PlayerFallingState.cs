@@ -9,11 +9,22 @@ public class PlayerFallingState : PlayerInAirSuperState
     {
     }
 
+    private float fallTime;
+
+    public override void EnterState()
+    {
+        base.EnterState();
+
+        fallTime = 0;
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+
+        fallTime += Time.deltaTime;
     }
 
     public override void PhysicsUpdate()
@@ -32,6 +43,10 @@ public class PlayerFallingState : PlayerInAirSuperState
 
     public override void CheckStateTransitions()
     {
-        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._LandingState);
+        if (_PlayerCharacter._CheckGrounded.IsGrounded())
+        {
+            if (fallTime > 2.85f) _StateMachine.ChangeState(_PlayerCharacter._LandingState);
+            else _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        }
     }
 }

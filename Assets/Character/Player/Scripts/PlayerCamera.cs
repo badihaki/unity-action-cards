@@ -24,7 +24,7 @@ public class PlayerCamera : MonoBehaviour
     private float cinemachineTargetYaw;
     private float cinemachineTargetPitch;
 
-    private bool cursorLocked;
+    [SerializeField] private bool cursorLocked;
 
     // Start is called before the first frame update
     void Start()
@@ -55,14 +55,17 @@ public class PlayerCamera : MonoBehaviour
         // lens fov - 90
 
         Cinemachine3rdPersonFollow body = _PlayerCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
-        body.CameraDistance = 1.850f; // 1.85
-        body.VerticalArmLength = 1.55f;
-        body.ShoulderOffset = new Vector3(0, -0.500f, 0);
-        // rig shoulder offset 0, -0.500, 0
-        
-        CinemachineComposer composer = _PlayerCamController.AddCinemachineComponent<CinemachineComposer>();
-        composer.m_TrackedObjectOffset = new Vector3(0, 0.850f, 0); // 0, 0.850, 0
-        cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
+        // body.CameraDistance = 1.850f; // 1.85
+        body.CameraDistance = 2.65f;
+        // body.VerticalArmLength = 1.55f;
+        body.VerticalArmLength = 0.6f;
+        // body.ShoulderOffset = new Vector3(0, -0.500f, 0);
+        body.ShoulderOffset = new Vector3(-0.450f, -0.125f, 0.0f);
+        body.CameraSide = 0.84f;
+
+        // CinemachineComposer composer = _PlayerCamController.AddCinemachineComponent<CinemachineComposer>();
+        // composer.m_TrackedObjectOffset = new Vector3(0, 0.850f, 0); // 0, 0.850, 0
+        // cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
     }
     private void InitializeAimCamController()
     {
@@ -78,12 +81,13 @@ public class PlayerCamera : MonoBehaviour
         Cinemachine3rdPersonFollow body = _PlayerAimCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
         body.CameraDistance = 1.75f;
         body.VerticalArmLength = 1.6f;
-        body.ShoulderOffset = new Vector3(0.0f, 0.75f, 0.0f);
+        body.ShoulderOffset = new Vector3(0.750f, -1.25f, 0.0f);
+        body.CameraSide = 0.84f;
         
-        CinemachineComposer composer = _PlayerAimCamController.AddCinemachineComponent<CinemachineComposer>();
-        composer.m_TrackedObjectOffset = new Vector3(0, 0.775f, 0);
-        cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
-        composer.m_ScreenY = 0.45f;
+        // CinemachineComposer composer = _PlayerAimCamController.AddCinemachineComponent<CinemachineComposer>();
+        // composer.m_TrackedObjectOffset = new Vector3(0, 0.775f, 0);
+        // cinemachineTargetYaw = cinemachineCamTarget.transform.rotation.eulerAngles.y;
+        // composer.m_ScreenY = 0.45f;
     }
 
     public void LockCursorKBM()

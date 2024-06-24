@@ -50,14 +50,14 @@ public class CharacterSoundManager : MonoBehaviour
                 case "hit":
                     if (HurtClips.Count == 0) break;
                     int hitClipIndex = UnityEngine.Random.Range(0, HurtClips.Count);
-                    print("play hit sound: sound-" + hitClipIndex);
+                    // print("play hit sound: sound-" + hitClipIndex);
                     _AudioController.PlayOneShot(HurtClips[hitClipIndex]);
                     break;
                 case "knockBack":
                     if (HardHitClips.Count == 0) break;
                     int knockBackClipIndex = UnityEngine.Random.Range(0, HurtClips.Count);
                     _AudioController.PlayOneShot(HardHitClips[knockBackClipIndex]);
-                    print("play knockback sound-" + knockBackClipIndex);
+                    // print("play knockback sound-" + knockBackClipIndex);
                     break;
             }
         }

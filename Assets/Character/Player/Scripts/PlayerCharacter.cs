@@ -32,7 +32,7 @@ public class PlayerCharacter : Character, IDestroyable
     public override void Initialize()
     {
         // lets set up the actor
-        if(_LoadNewOnStart)LoadAndBuildActor();
+        if (_LoadNewOnStart) LoadAndBuildActor();
         _PlayerActor = GetComponentInChildren<PlayerActor>();
         _PlayerActor.InitializePlayerActor(this);
 

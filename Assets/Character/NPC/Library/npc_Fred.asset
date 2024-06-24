@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16a4c6563f51534449b0528545c24e9e, type: 3}
-  m_Name: npc_proto
+  m_Name: npc_Fred
   m_EditorClassIdentifier: 
-  _CharacterName: NPC
-  _StartingHealth: 150
+  _CharacterName: Fred
+  _StartingHealth: 12
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
   _RushDashSpeed: 15.65
-  _JumpPower: 5.25
+  _JumpPower: 13.25
   _InteractionClips: []
-  _HurtClips:
-  - {fileID: 8300000, guid: 9248e30146daae04b86aba4a8b44df40, type: 3}
-  - {fileID: 8300000, guid: ed1a5ea3f17e6604498831808b2c08bd, type: 3}
-  _HardHitClips:
-  - {fileID: 8300000, guid: 72d9cc9f1bc3879478f2d53afad06922, type: 3}
-  - {fileID: 8300000, guid: 0c40f52c8a8758e4883716a29857e75e, type: 3}
+  _HurtClips: []
+  _HardHitClips: []

@@ -21,12 +21,14 @@ public class PlayerMovement : MonoBehaviour
     private float targetSpeed;
     private float lerpSpeedOnMovement = 0.085f;
     private float lerpSpeedOnSlowDown = 0.5f;
+    private Camera cam;
 
 
     public void Initialize(PlayerCharacter controller)
     {
         _Player = controller;
         _Rigidbody = GetComponent<Rigidbody>();
+        cam = Camera.main;
     }
 
     private void Update()
@@ -95,21 +97,51 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
     }
 
-    private void ApplyMovementToVelocity()
+    public void MoveWhileAiming(Vector2 direction)
     {
-        _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
+        if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
+        else
+        {
+            _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        }
+
+        targetSpeed = _Player._CharacterSheet._WalkSpeed * 0.45f;
+        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
+
+
+        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
+        ApplyMovementToVelocity();
+        ApplyGravity();
     }
 
-    private void RotateCharacter(Vector2 inputDirection)
+    public void RotateCharacter(Vector2 inputDirection)
     {
         // target rotation is the intended vector we want to rotate to
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
             * Mathf.Rad2Deg
-            + Camera.main.transform.eulerAngles.y; // we take the rotation of the camera into consideration
+            + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
         // rotation direction determines which direction we move to reach our intended rotation
         float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
         // actually rotating the transform
         transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+    }
+
+    public void RotateCharacterWhileAiming(Vector2 inputDirection)
+    {
+        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
+            * Mathf.Rad2Deg
+            + cam.transform.eulerAngles.y;
+        // rotation direction determines which direction we move to reach our intended rotation
+        float newRotationVel = rotationVelocity / 2;
+        float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, rotationSmoothingTime * 0.75f);
+        // actually rotating the transform
+        transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+    }
+
+
+    private void ApplyMovementToVelocity()
+    {
+        _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
     }
 
     public void Jump()

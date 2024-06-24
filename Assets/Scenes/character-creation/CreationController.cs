@@ -178,30 +178,30 @@ public class CreationController : MonoBehaviour
                 case "top":
                     if (customizationDatabase.fTorsoDatabase.Count <= 1) break;
                     fTopIndex = isSelectingNext ? (fTopIndex + 1) : (fTopIndex - 1);
-                    if (fTopIndex > (customizationDatabase.mTorsoDatabase.Count - 1))
+                    if (fTopIndex > (customizationDatabase.fTorsoDatabase.Count - 1))
                     {
                         fTopIndex = 0;
                     }
                     else if (fTopIndex < 0)
                     {
-                        fTopIndex = (customizationDatabase.mTorsoDatabase.Count - 1);
+                        fTopIndex = (customizationDatabase.fTorsoDatabase.Count - 1);
                     }
-                    fTop.sharedMesh = customizationDatabase.mTorsoDatabase[fTopIndex].mesh;
-                    fTop.material = customizationDatabase.mTorsoDatabase[fTopIndex].material;
+                    fTop.sharedMesh = customizationDatabase.fTorsoDatabase[fTopIndex].mesh;
+                    fTop.material = customizationDatabase.fTorsoDatabase[fTopIndex].material;
                     break;
                 case "bottom":
                     if (customizationDatabase.fBottomsDatabase.Count <= 1) break;
                     fBottomIndex = isSelectingNext ? (fBottomIndex + 1) : (fBottomIndex - 1);
-                    if (fBottomIndex > (customizationDatabase.mBottomsDatabase.Count - 1))
+                    if (fBottomIndex > (customizationDatabase.fBottomsDatabase.Count - 1))
                     {
                         fBottomIndex = 0;
                     }
                     else if (fBottomIndex < 0)
                     {
-                        fBottomIndex = (customizationDatabase.mBottomsDatabase.Count - 1);
+                        fBottomIndex = (customizationDatabase.fBottomsDatabase.Count - 1);
                     }
-                    fBottom.sharedMesh = customizationDatabase.mBottomsDatabase[fBottomIndex].mesh;
-                    fBottom.material = customizationDatabase.mBottomsDatabase[fBottomIndex].material;
+                    fBottom.sharedMesh = customizationDatabase.fBottomsDatabase[fBottomIndex].mesh;
+                    fBottom.material = customizationDatabase.fBottomsDatabase[fBottomIndex].material;
                     break;
                 case "horns":
                     if (customizationDatabase.fHornsDatabase.Count <= 1) break;
