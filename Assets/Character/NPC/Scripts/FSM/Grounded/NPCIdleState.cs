@@ -31,7 +31,6 @@ public class NPCIdleState : NPCGroundedState
         if(!canMove)
         {
             waitTime -= Time.deltaTime;
-            Debug.Log("wait time: " + waitTime);
             if(waitTime <= 0)
             {
                 waitTime = 0;
@@ -40,6 +39,7 @@ public class NPCIdleState : NPCGroundedState
         }
         else
         {
+            // Debug.Log("trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
             if (Math.Round(_NPC.transform.position.x, 0) == Math.Round(_NPC._NavigationController._TargetLocation.x, 0) && Math.Round(_NPC.transform.position.z) == Math.Round(_NPC._NavigationController._TargetLocation.z))
             {
                 canMove = false;
@@ -51,14 +51,14 @@ public class NPCIdleState : NPCGroundedState
     {
         int roll = GameManagerMaster.GameMaster.Dice.RollD6();
         Debug.Log(_NPC.name + " is Rolling to wait. Need 5+ to ignore. Roll?: " + roll);
-        if (roll >= 4)
+        if (roll >= 5)
         {
             FindPlaceToGo();
             return;
         }
         Debug.Log(_NPC.name + " is making a new wait");
-        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(0.3f, 1.2f);
-        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(2.0f, 5.0f);
+        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(1.3f, 2.0f);
+        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(3.5f, 5.0f);
         CreateNewWait(minWait, maxWait);
     }
 

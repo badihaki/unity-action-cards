@@ -194,7 +194,7 @@ public class PlayerCharacter : Character, IDestroyable
         _StateMachine?._CurrentState.PhysicsUpdate();
     }
 
-    public void DestroyEntity()
+    public override void DestroyEntity()
     {
         print("Player death");
     }
