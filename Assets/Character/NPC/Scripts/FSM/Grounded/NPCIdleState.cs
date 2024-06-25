@@ -20,7 +20,7 @@ public class NPCIdleState : NPCGroundedState
     private void CreateNewWait(float min, float max)
     {
         Debug.Log(_NPC.name + " is creating a new wait time: " + min + ", " + max);
-        waitTime = UnityEngine.Random.Range(min, max);
+        waitTime = GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
         Debug.Log(_NPC.name + "'s new wait time: " + waitTime);
     }
 
@@ -31,26 +31,34 @@ public class NPCIdleState : NPCGroundedState
         if(!canMove)
         {
             waitTime -= Time.deltaTime;
+            Debug.Log("wait time: " + waitTime);
             if(waitTime <= 0)
             {
                 waitTime = 0;
                 FindPlaceToGo();
             }
         }
+        else
+        {
+            if (Math.Round(_NPC.transform.position.x, 0) == Math.Round(_NPC._NavigationController._TargetLocation.x, 0) && Math.Round(_NPC.transform.position.z) == Math.Round(_NPC._NavigationController._TargetLocation.z))
+            {
+                canMove = false;
+            }
+        }
     }
 
     private void RollForWait()
     {
-        int roll = UnityEngine.Random.Range(1, 6);
+        int roll = GameManagerMaster.GameMaster.Dice.RollD6();
         Debug.Log(_NPC.name + " is Rolling to wait. Need 5+ to ignore. Roll?: " + roll);
-        if (roll >= 5)
+        if (roll >= 4)
         {
             FindPlaceToGo();
             return;
         }
         Debug.Log(_NPC.name + " is making a new wait");
-        float minWait = UnityEngine.Random.Range(0.3f, 1.2f);
-        float maxWait = UnityEngine.Random.Range(2.0f, 5.0f);
+        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(0.3f, 1.2f);
+        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(2.0f, 5.0f);
         CreateNewWait(minWait, maxWait);
     }
 

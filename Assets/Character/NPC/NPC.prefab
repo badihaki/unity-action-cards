@@ -878,7 +878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_Target>k__BackingField: {fileID: 0}
   <_TargetLocation>k__BackingField: {x: 0, y: 0, z: 0}
-  <_PatrolRange>k__BackingField: 0
+  <_PatrolRange>k__BackingField: 5
 --- !u!195 &6367915211115722899
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -898,7 +898,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: 1.3
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!1 &2032785797201512922

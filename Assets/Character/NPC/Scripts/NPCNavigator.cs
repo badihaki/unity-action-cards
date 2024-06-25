@@ -19,10 +19,11 @@ public class NPCNavigator : MonoBehaviour
 
     public bool TryFindNewPatrol()
     {
-        Vector3 newPos = new Vector3(_PatrolRange, 0, _PatrolRange);
-        Ray ray = new Ray(newPos, Vector3.forward);
-
-        if(Physics.CheckSphere(newPos,1.0f))
+        float xPos = Random.Range(-_PatrolRange, _PatrolRange);
+        float zPos = Random.Range(-_PatrolRange, _PatrolRange);
+        Vector3 newPos = new Vector3(transform.position.x + xPos, 0, transform.position.z + zPos);
+        print("new position to find for patrol: " + newPos);
+        if (Physics.CheckSphere(newPos, 1.0f))
         {
             _TargetLocation = newPos;
             return true;
