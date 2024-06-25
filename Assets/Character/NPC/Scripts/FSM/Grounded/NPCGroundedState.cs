@@ -4,7 +4,5 @@ using UnityEngine;
 
 public class NPCGroundedState : NPCState
 {
-    public NPCGroundedState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName) : base(npc, stateMachine, animationName)
-    {
-    }
+    
 }

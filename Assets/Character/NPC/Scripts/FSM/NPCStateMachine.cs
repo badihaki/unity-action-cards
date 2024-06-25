@@ -6,11 +6,13 @@ using UnityEngine;
 public class NPCStateMachine : MonoBehaviour
 {
     [field: SerializeField] public NPCState _CurrentState { get; private set; }
+    private bool _Ready = false;
     
     public void InitializeStateMachine(NPCState state)
     {
         _CurrentState = state;
         _CurrentState.EnterState();
+        _Ready = true;
     }
 
     public void ChangeState(NPCState state)
@@ -18,5 +20,21 @@ public class NPCStateMachine : MonoBehaviour
         _CurrentState.ExitState();
         _CurrentState = state;
         _CurrentState.EnterState();
+    }
+
+    public void Update()
+    {
+        if (_Ready)
+        {
+            _CurrentState.LogicUpdate();
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if (_Ready)
+        {
+            _CurrentState.PhysicsUpdate();
+        }
     }
 }

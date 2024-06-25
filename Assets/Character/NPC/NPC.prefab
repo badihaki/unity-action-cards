@@ -704,6 +704,8 @@ GameObject:
   - component: {fileID: 2008041470608043853}
   - component: {fileID: 5845399633305984272}
   - component: {fileID: 9058892206244568203}
+  - component: {fileID: 455657816430404285}
+  - component: {fileID: 6367915211115722899}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -747,6 +749,7 @@ MonoBehaviour:
   <_UI>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
+  <_NavigationController>k__BackingField: {fileID: 0}
 --- !u!114 &8458274122206909391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -772,6 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5715300c9c5e57945a1921ed7f14be9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_CurrentState>k__BackingField: {fileID: 0}
 --- !u!54 &5029619010229913786
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -860,6 +864,43 @@ MonoBehaviour:
   InteractionClips: []
   HurtClips: []
   HardHitClips: []
+--- !u!114 &455657816430404285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797102457050523090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ed8c499b0a1b1442b7263891ec6b0b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_Target>k__BackingField: {fileID: 0}
+  <_TargetLocation>k__BackingField: {x: 0, y: 0, z: 0}
+  <_PatrolRange>k__BackingField: 0
+--- !u!195 &6367915211115722899
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797102457050523090}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &2032785797201512922
 GameObject:
   m_ObjectHideFlags: 0

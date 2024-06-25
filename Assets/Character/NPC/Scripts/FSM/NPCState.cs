@@ -6,7 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class NPCState : ScriptableObject
 {
-    public NPCState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
+    public virtual void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
     {
         _NPC = npc;
         _StateMachine = stateMachine;
