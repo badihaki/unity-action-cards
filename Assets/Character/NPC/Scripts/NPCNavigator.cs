@@ -22,7 +22,7 @@ public class NPCNavigator : MonoBehaviour
         float xPos = Random.Range(-_PatrolRange, _PatrolRange);
         float zPos = Random.Range(-_PatrolRange, _PatrolRange);
         Vector3 newPos = new Vector3(transform.position.x + xPos, 0, transform.position.z + zPos);
-        print("new position to find for patrol: " + newPos);
+        print("new position to find for " + name + "'s patrol: " + newPos);
         if (Physics.CheckSphere(newPos, 1.0f))
         {
             _TargetLocation = newPos;

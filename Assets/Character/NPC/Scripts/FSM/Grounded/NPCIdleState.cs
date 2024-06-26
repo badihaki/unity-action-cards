@@ -39,7 +39,7 @@ public class NPCIdleState : NPCGroundedState
         }
         else
         {
-            // Debug.Log("trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
+            Debug.Log("trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
             if (Math.Round(_NPC.transform.position.x, 0) == Math.Round(_NPC._NavigationController._TargetLocation.x, 0) && Math.Round(_NPC.transform.position.z) == Math.Round(_NPC._NavigationController._TargetLocation.z))
             {
                 canMove = false;
