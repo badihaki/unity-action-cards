@@ -848,6 +848,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
+  canChangeHealth: 0
   _HealthChangeRate: 0.015
 --- !u!114 &9058892206244568203
 MonoBehaviour:
@@ -879,6 +880,7 @@ MonoBehaviour:
   <_Target>k__BackingField: {fileID: 0}
   <_TargetLocation>k__BackingField: {x: 0, y: 0, z: 0}
   <_PatrolRange>k__BackingField: 5
+  _TargetDebugObject: {fileID: 0}
 --- !u!195 &6367915211115722899
 NavMeshAgent:
   m_ObjectHideFlags: 0

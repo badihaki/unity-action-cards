@@ -32,7 +32,7 @@ public class NPCState : ScriptableObject
         _StateEnterTime = Time.time;
         _NPC._AnimationController.SetBool(_StateAnimationName, true);
 
-        Debug.Log(_NPC.name + " is entering state " + this.name + " (animation boolean = " + _NPC + " )");
+        Debug.Log(_NPC.name + " is entering state " + this._StateAnimationName);
     }
     public virtual void ExitState()
     {

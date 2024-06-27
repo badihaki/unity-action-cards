@@ -10,6 +10,7 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField] public Transform _Target { get; private set; }
     [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
     [field: SerializeField] public float _PatrolRange { get; private set; }
+    [SerializeField] private GameObject _TargetDebugObject;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
@@ -26,6 +27,7 @@ public class NPCNavigator : MonoBehaviour
         if (Physics.CheckSphere(newPos, 1.0f))
         {
             _TargetLocation = newPos;
+            CreateDebugObject(newPos);
             return true;
         }
         else
@@ -37,5 +39,17 @@ public class NPCNavigator : MonoBehaviour
     public void MoveToPatrolLocation()
     {
         _Agent.SetDestination(_TargetLocation);
+    }
+
+    private void CreateDebugObject(Vector3 position)
+    {
+        _TargetDebugObject = new GameObject();
+        _TargetDebugObject.transform.position = position;
+        _TargetDebugObject.name = name + "TargetLoc";
+    }
+    public void DestroyDebugObject()
+    {
+        Destroy(_TargetDebugObject);
+        _TargetDebugObject = null;
     }
 }

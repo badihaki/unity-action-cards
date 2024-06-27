@@ -10,6 +10,7 @@ public class NonPlayerCharacter : Character, IDestroyable
     // State Machine
     public NPCStateMachine _StateMachine { get; private set; }
     public NPCIdleState _IdleState { get; private set; }
+    public NPCMoveState _MoveState { get; private set; }
     
     public override void Initialize()
     {
@@ -41,5 +42,11 @@ public class NonPlayerCharacter : Character, IDestroyable
             _IdleState = NPCIdleState.CreateInstance<NPCIdleState>();
         }
         _IdleState.InitState(this, _StateMachine, "idle");
+
+        if (!_MoveState)
+        {
+            _MoveState = NPCMoveState.CreateInstance<NPCMoveState>();
+        }
+        _MoveState.InitState(this, _StateMachine, "move");
     }
 }

@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class NPCIdleState : NPCGroundedState
+public class NPCIdleState : NPCState
 {
     protected float waitTime;
-    protected bool canMove;
 
     public override void EnterState()
     {
         base.EnterState();
 
-        CreateNewWait(0.3f, 2.0f);
-        canMove = false;
+        CreateNewWait(2.5f, 7.0f);
     }
 
     private void CreateNewWait(float min, float max)
@@ -28,22 +26,11 @@ public class NPCIdleState : NPCGroundedState
     {
         base.LogicUpdate();
 
-        if(!canMove)
+        waitTime -= Time.deltaTime;
+        if(waitTime <= 0)
         {
-            waitTime -= Time.deltaTime;
-            if(waitTime <= 0)
-            {
-                waitTime = 0;
-                FindPlaceToGo();
-            }
-        }
-        else
-        {
-            Debug.Log("trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
-            if (Math.Round(_NPC.transform.position.x, 0) == Math.Round(_NPC._NavigationController._TargetLocation.x, 0) && Math.Round(_NPC.transform.position.z) == Math.Round(_NPC._NavigationController._TargetLocation.z))
-            {
-                canMove = false;
-            }
+            waitTime = 0;
+            FindPlaceToGo();
         }
     }
 
@@ -67,8 +54,7 @@ public class NPCIdleState : NPCGroundedState
         Debug.Log(_NPC.name + " is Finding a place to move to");
         if (_NPC._NavigationController.TryFindNewPatrol())
         {
-            canMove = true;
-            _NPC._NavigationController.MoveToPatrolLocation();
+            _NPC._StateMachine.ChangeState(_NPC._MoveState);
         }
         else
         {
