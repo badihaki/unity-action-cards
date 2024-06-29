@@ -16,6 +16,7 @@ public class NPCNavigator : MonoBehaviour
     {
         _NPC = npc;
         _Agent = GetComponent<NavMeshAgent>();
+        _Agent.speed = _NPC._CharacterSheet._WalkSpeed;
     }
 
     public bool TryFindNewPatrol()

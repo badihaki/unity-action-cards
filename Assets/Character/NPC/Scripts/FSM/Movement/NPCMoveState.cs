@@ -10,6 +10,7 @@ public class NPCMoveState : NPCState
     {
         base.EnterState();
         _NPC._NavigationController.MoveToPatrolLocation();
+        Debug.Log(_NPC.name + " is trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
     }
 
     public override void CheckStateTransitions()
@@ -26,9 +27,5 @@ public class NPCMoveState : NPCState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (!_IsExitingState)
-        {
-            Debug.Log("trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
-        }
     }
 }
