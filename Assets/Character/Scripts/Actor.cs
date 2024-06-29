@@ -16,4 +16,10 @@ public class Actor : MonoBehaviour
         Character = character;
         animationController = GetComponent<Animator>();
     }
+
+    // TODO:: Add this to Character ~OR~ Make the methods empty so Derived classes can override
+    // public virtual void StateAnimationFinished() => PCActor.StateAnimationFinished();
+    // public virtual void AnimationTrigger() => PCActor.StateTrigger();
+    // public virtual void AnimationVFXTrigger() => PCActor.StateVFXTrigger();
+    // public virtual void AnimationSFXTrigger() => PCActor.StateSFXTrigger();
 }

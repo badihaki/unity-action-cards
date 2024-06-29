@@ -6,11 +6,14 @@ public class NonPlayerCharacter : Character, IDestroyable
 {
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
+    [field: SerializeField] public NPCAttack _AttackController { get; private set; }
 
     // State Machine
     public NPCStateMachine _StateMachine { get; private set; }
     public NPCIdleState _IdleState { get; private set; }
     public NPCMoveState _MoveState { get; private set; }
+    public NPCHurtSuperState _HurtState { get; private set; }
+    [field: SerializeField] private string hitAnimationString;
     
     public override void Initialize()
     {
@@ -26,6 +29,10 @@ public class NonPlayerCharacter : Character, IDestroyable
         // navigator
         _NavigationController = GetComponent<NPCNavigator>();
         _NavigationController.InitializeNavigator(this);
+
+        // attack controller
+        _AttackController = GetComponent<NPCAttack>();
+        _AttackController.InitiateAttack(this);
 
         // state machine
         _StateMachine = GetComponent<NPCStateMachine>();
@@ -48,5 +55,30 @@ public class NonPlayerCharacter : Character, IDestroyable
             _MoveState = NPCMoveState.CreateInstance<NPCMoveState>();
         }
         _MoveState.InitState(this, _StateMachine, "move");
+
+        if (!_HurtState)
+        {
+            _HurtState = NPCHurtSuperState.CreateInstance<NPCHurtSuperState>();
+        }
+        _HurtState.InitState(this, _StateMachine, "hurt");
     }
+
+    protected override void TriggerhitAnimation(string hitType)
+    {
+        hitAnimationString = hitType;
+        _AnimationController.SetBool(hitAnimationString, true);
+        _StateMachine.ChangeState(_HurtState);
+    }
+    public void EndHurtAnimation()
+    {
+        _AnimationController.SetBool(hitAnimationString, false);
+        hitAnimationString = "";
+    }
+
+    #region State Triggers
+    public void StateSideEffect() => _StateMachine._CurrentState.SideEffectTrigger();
+    public void StateVisFX()=>_StateMachine._CurrentState.VFXTrigger();
+    public void StateSoundFX()=>_StateMachine._CurrentState.SFXTrigger();
+    public void StateAnimEnd()=>_StateMachine._CurrentState.AnimationEndTrigger();
+    #endregion
 }

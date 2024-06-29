@@ -64,5 +64,27 @@ public class NPCState : ScriptableObject
     }
     #endregion
 
+    #region Effect Triggers
+    public virtual void SideEffectTrigger()
+    {
+        // side effect trigger
+    }
+
+    public virtual void VFXTrigger()
+    {
+        // trigger for vis FX
+    }
+
+    public virtual void SFXTrigger()
+    {
+        // trigger for sound fx
+    }
+
+    public virtual void AnimationEndTrigger()
+    {
+        // end of animation
+    }
+    #endregion
+
     // end of the line
 }
