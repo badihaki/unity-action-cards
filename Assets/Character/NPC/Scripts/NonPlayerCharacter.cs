@@ -7,6 +7,7 @@ public class NonPlayerCharacter : Character, IDestroyable
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
     [field: SerializeField] public NPCAttack _AttackController { get; private set; }
+    [field: SerializeField] public NPCActor _NPCActor { get; private set; }
 
     // State Machine
     public NPCStateMachine _StateMachine { get; private set; }
@@ -18,6 +19,9 @@ public class NonPlayerCharacter : Character, IDestroyable
     public override void Initialize()
     {
         base.Initialize();
+
+        _NPCActor = _Actor as NPCActor;
+        _NPCActor.Initialize(this);
 
         // movement
         _MoveController = GetComponent<NPCMovementController>();
@@ -77,8 +81,8 @@ public class NonPlayerCharacter : Character, IDestroyable
 
     #region State Triggers
     public void StateSideEffect() => _StateMachine._CurrentState.SideEffectTrigger();
-    public void StateVisFX()=>_StateMachine._CurrentState.VFXTrigger();
-    public void StateSoundFX()=>_StateMachine._CurrentState.SFXTrigger();
-    public void StateAnimEnd()=>_StateMachine._CurrentState.AnimationEndTrigger();
+    public void StateVisFX() => _StateMachine._CurrentState.VFXTrigger();
+    public void StateSoundFX() => _StateMachine._CurrentState.SFXTrigger();
+    public void StateAnimEnd() => _StateMachine._CurrentState.AnimationEndTrigger();
     #endregion
 }

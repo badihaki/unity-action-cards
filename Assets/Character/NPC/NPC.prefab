@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9061110651927913561}
-  - component: {fileID: 1874146302862013611}
+  - component: {fileID: 8335305494768984300}
   - component: {fileID: 9100884158474125136}
   m_Layer: 0
   m_Name: Actor
@@ -36,7 +36,7 @@ Transform:
   - {fileID: 4480276766116168062}
   m_Father: {fileID: 5916562070096258111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1874146302862013611
+--- !u!114 &8335305494768984300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 201191881382237671}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9abe7dc2248caa478b6f3f546d47529, type: 3}
+  m_Script: {fileID: 11500000, guid: 1825d8f787c884744baf167143da4cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   <animationController>k__BackingField: {fileID: 0}
@@ -751,6 +751,9 @@ MonoBehaviour:
   <_SoundManager>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
   <_NavigationController>k__BackingField: {fileID: 0}
+  <_AttackController>k__BackingField: {fileID: 0}
+  <_NPCActor>k__BackingField: {fileID: 0}
+  hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,6 +919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a2b87e5dcfcd340a60484e424be42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _AttackTicket: 0
 --- !u!1 &2032785797201512922
 GameObject:
   m_ObjectHideFlags: 0

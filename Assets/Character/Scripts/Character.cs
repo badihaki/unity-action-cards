@@ -10,7 +10,7 @@ public class Character : MonoBehaviour
     public Health _Health { get; private set; }
     public Aether _AetherPoints { get; private set; }
     public CheckForGround _CheckGrounded { get; private set; }
-    [field: SerializeField] public Transform _Actor { get; protected set; }
+    [field: SerializeField] public Actor _Actor { get; protected set; }
     [field: SerializeField] public Animator _AnimationController { get; private set; }
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterUIController _UI { get; protected set; }
@@ -35,7 +35,7 @@ public class Character : MonoBehaviour
     public virtual void Initialize()
     {
         // Create the character in the game world
-        _Actor = transform.Find("Actor");
+        _Actor = transform.Find("Actor").GetComponent<Actor>();
 
         // start health
         _Health = GetComponent<Health>();

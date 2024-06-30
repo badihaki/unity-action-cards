@@ -61,7 +61,7 @@ public class PlayerCharacter : Character, IDestroyable
         _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
-        _Hitbox = _Actor.Find("Colliders").Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
+        _Hitbox = _Actor.transform.Find("Colliders").Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
         _Hitbox.Initialize(this);
 
         // initialize the statemachine

@@ -20,8 +20,8 @@ public class PlayerActor : Actor
 
     public void InitializePlayerActor(PlayerCharacter character)
     {
+        base.Initialize(character);
         PCActor = character;
-        animationController = GetComponent<Animator>();
     }
 
     private void OnAnimatorMove()
@@ -43,8 +43,8 @@ public class PlayerActor : Actor
         parent.transform.position += animationController.deltaPosition;
     }
 
-    public void StateAnimationFinished() => PCActor.StateAnimationFinished();
-    public void AnimationTrigger() => PCActor.StateTrigger();
-    public void AnimationVFXTrigger() => PCActor.StateVFXTrigger();
-    public void AnimationSFXTrigger() => PCActor.StateSFXTrigger();
+    public override void StateAnimationFinished() => PCActor.StateAnimationFinished();
+    public override void AnimationTrigger() => PCActor.StateTrigger();
+    public override void AnimationVFXTrigger() => PCActor.StateVFXTrigger();
+    public override void AnimationSFXTrigger() => PCActor.StateSFXTrigger();
 }
