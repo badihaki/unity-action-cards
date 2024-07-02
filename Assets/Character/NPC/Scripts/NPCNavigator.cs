@@ -53,4 +53,6 @@ public class NPCNavigator : MonoBehaviour
         Destroy(_TargetDebugObject);
         _TargetDebugObject = null;
     }
+
+    public void SetTarget(Transform newTarget) => _Target = newTarget;
 }

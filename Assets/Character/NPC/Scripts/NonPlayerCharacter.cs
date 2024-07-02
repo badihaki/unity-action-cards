@@ -12,6 +12,7 @@ public class NonPlayerCharacter : Character, IDestroyable
     // State Machine
     public NPCStateMachine _StateMachine { get; private set; }
     public NPCIdleState _IdleState { get; private set; }
+    public NPCIdleAggressiveState _IdleAggressiveState { get; private set; }
     public NPCMoveState _MoveState { get; private set; }
     public NPCHurtSuperState _HurtState { get; private set; }
     [field: SerializeField] private string hitAnimationString;
@@ -54,6 +55,12 @@ public class NonPlayerCharacter : Character, IDestroyable
         }
         _IdleState.InitState(this, _StateMachine, "idle");
 
+        if (!_IdleAggressiveState)
+        {
+            _IdleAggressiveState = NPCIdleAggressiveState.CreateInstance<NPCIdleAggressiveState>();
+        }
+        _IdleAggressiveState.InitState(this, _StateMachine, "idle");
+
         if (!_MoveState)
         {
             _MoveState = NPCMoveState.CreateInstance<NPCMoveState>();
@@ -72,6 +79,17 @@ public class NonPlayerCharacter : Character, IDestroyable
         hitAnimationString = hitType;
         _AnimationController.SetBool(hitAnimationString, true);
         _StateMachine.ChangeState(_HurtState);
+
+        if (_AttackController && !_AttackController._IsAggressive)
+        {
+            int roll = GameManagerMaster.GameMaster.Dice.RollD6();
+            if (roll > 4)
+            {
+                print("going aggressive");
+                _AttackController.MakeAggressive(transform);
+                _NavigationController.SetTarget(transform);
+            }
+        }
     }
     public void EndHurtAnimation()
     {

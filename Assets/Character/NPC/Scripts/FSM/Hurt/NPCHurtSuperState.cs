@@ -8,7 +8,14 @@ public class NPCHurtSuperState : NPCState
     {
         base.AnimationEndTrigger();
 
-        _StateMachine.ChangeState(_NPC._IdleState);
+        if (!_NPC._AttackController._IsAggressive)
+        {
+            _StateMachine.ChangeState(_NPC._IdleState);
+        }
+        else
+        {
+            _StateMachine.ChangeState(_NPC._IdleAggressiveState);
+        }
     }
 
     public override void ExitState()
