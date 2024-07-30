@@ -12,7 +12,9 @@ public class NPCIdleState : NPCState
     {
         base.EnterState();
 
+        _NPC._NavigationController.StopNavigation();
         CreateNewWait(2.5f, 7.0f);
+        _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
     }
 
     private void CreateNewWait(float min, float max)

@@ -11,6 +11,7 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
     [field: SerializeField] public float _PatrolRange { get; private set; }
     [SerializeField] private GameObject _TargetDebugObject;
+    [field: SerializeField] public float _MaxDistance { get; private set; }
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
@@ -37,10 +38,35 @@ public class NPCNavigator : MonoBehaviour
         }
     }
 
-    public void MoveToPatrolLocation()
+    public void StartMoveToDestination()
     {
-        _Agent.SetDestination(_TargetLocation);
+        if (_TargetDebugObject) DestroyDebugObject();
+        if (_Target)
+        {
+            _Agent.SetDestination(_Target.position);
+            print($"moving to target at {_Agent.destination}");
+            CreateDebugObject(_Target.position);
+        }
+        else
+        {
+            _Agent.SetDestination(_TargetLocation);
+            CreateDebugObject(_TargetLocation);
+        }
+        
     }
+
+    public void StopNavigation()
+    {
+        if (!_Agent.isStopped)
+        {
+            print("~~~Stop nav");
+            _Agent.isStopped = true;
+            _Agent.ResetPath();
+            _NPC._MoveController.ZeroOutMovement();
+        }
+    }
+
+    public bool IsNavStopped() => _Agent.isStopped;
 
     private void CreateDebugObject(Vector3 position)
     {
@@ -55,4 +81,10 @@ public class NPCNavigator : MonoBehaviour
     }
 
     public void SetTarget(Transform newTarget) => _Target = newTarget;
+    public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
+    {
+        _Agent.stoppingDistance = distance;
+        SetMaxAttackDistance(distance + 1.0f);
+    }
+    public void SetMaxAttackDistance(float m_distance = 2.0f) => _MaxDistance = m_distance;
 }

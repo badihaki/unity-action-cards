@@ -7,6 +7,9 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
     [SerializeField] private Character character;
     private IKnockbackable knockInterface;
 
+    public delegate void DetectWhoHurtMe(Transform target);
+    public event DetectWhoHurtMe DetermineWhoWhurtMe;
+
     public void InitializeHurtBox(Character _character)
     {
         character = _character;
@@ -28,6 +31,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
             character.transform.rotation = rotation;
 
             knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
+            DetermineWhoWhurtMe(damageSource);
         }
     }
 
