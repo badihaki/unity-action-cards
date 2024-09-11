@@ -1,5 +1,24 @@
 # Card Action Game Readme
 
+### 9/11 - Animations fixed and set up
+Imported new versions of the models. Had to fix the avatar on import. Animations are working, if a bit ugly. Animators are working. Time for code rewrites. Will merge later.
+Code rewrites (in order of importance):
+	- Character Controller needs a complete rewrite using the CharacterController component. Need to make it possible for states that move the character to follow the following flow:
+		- Get player inputs
+		- Modify desired movement based on external forces
+			- Gravity??
+		- Apply movement
+	- Weapon controller needs a full rewrite, w/ animator restructuring
+		- Animator needs to have sub-states for each animation set
+			- Unarmed sub=state
+			- Sword sub=state
+		- Need to be able to change animation sub-state based on which weapon is being held
+		- Need to separate attack stuff from weapon stuff
+	- Attack controller
+		- Need specific logic separated from weapon stuff
+	- Player Structure
+		- Player does not need to have collider information, nor does the entity really need to move, so no rigidbody.
+
 ### 8/13 - Blender rigify Attempt 2
 Rigify broke for my female player character. Tried using Auto Rig Pro but don't like the workflow. Going back to Rigify. Need to add bones and collections for the following:
 	- Skirt
