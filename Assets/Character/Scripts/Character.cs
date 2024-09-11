@@ -48,13 +48,13 @@ public class Character : MonoBehaviour
         _AetherPoints.InitiateAetherPointPool(_CharacterSheet._StartingAetherPool);
 
         // start checking for ground
-        _CheckGrounded = GetComponent<CheckForGround>();
-        if (_CheckGrounded == null) _CheckGrounded = transform.AddComponent<CheckForGround>();
+        _CheckGrounded = _Actor.GetComponent<CheckForGround>();
+        if (_CheckGrounded == null) _CheckGrounded = _Actor.AddComponent<CheckForGround>();
         _CheckGrounded.Initialize();
 
         // Start the hurtbox
         _Hurtbox = GetComponentInChildren<CharacterHurtbox>();
-        if (_Hurtbox == null) _Hurtbox = transform.Find("Colliders").Find("Hurtbox").AddComponent<CharacterHurtbox>();
+        if (_Hurtbox == null) _Hurtbox = transform.Find("Hurtbox").GetComponent<CharacterHurtbox>();
         _Hurtbox.InitializeHurtBox(this);
 
         // start UI

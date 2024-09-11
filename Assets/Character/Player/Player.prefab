@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4242036913303553902}
   - component: {fileID: 3710469694778071795}
   - component: {fileID: 358040525570265840}
-  - component: {fileID: 5122788272440395801}
   - component: {fileID: 214911195564220138}
   - component: {fileID: 312133789076485268}
   - component: {fileID: 6542911905298348363}
@@ -107,20 +106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_CurrentAetherPoints>k__BackingField: 0
   _MaxAetherPoints: 0
---- !u!114 &5122788272440395801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b28860ea4d9b52542999b89c820443cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 0}
-  GroundRayDistance: 1.105
 --- !u!114 &214911195564220138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +348,7 @@ MonoBehaviour:
   _spellIconPrefab: {fileID: 4196082061840423992, guid: 145d3d7e21ed8144ab2a1671f65702ca,
     type: 3}
   _crosshair: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &7139961280166402280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
+  canChangeHealth: 0
   _HealthChangeRate: 2.5
 --- !u!114 &6084333112869182304
 MonoBehaviour:

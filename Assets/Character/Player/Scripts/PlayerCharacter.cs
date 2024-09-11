@@ -33,7 +33,8 @@ public class PlayerCharacter : Character, IDestroyable
     {
         // lets set up the actor
         if (_LoadNewOnStart) LoadAndBuildActor();
-        _PlayerActor = GetComponentInChildren<PlayerActor>();
+        else LoadActor();
+        // _PlayerActor = GetComponentInChildren<PlayerActor>();
         _PlayerActor.InitializePlayerActor(this);
 
         base.Initialize();
@@ -61,7 +62,7 @@ public class PlayerCharacter : Character, IDestroyable
         _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
-        _Hitbox = _Actor.transform.Find("Colliders").Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
+        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
         _Hitbox.Initialize(this);
 
         // initialize the statemachine
@@ -85,6 +86,11 @@ public class PlayerCharacter : Character, IDestroyable
         {
             Debug.LogError($"Exception was thrown: {err}");
         }
+    }
+
+    private void LoadActor()
+    {
+        _PlayerActor = transform.Find("Actor").GetComponent<PlayerActor>();
     }
 
     private void BuildActorBody(CharacterSaveData saveData)
