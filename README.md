@@ -1,5 +1,12 @@
 # Card Action Game Readme
 
+### 8/13 - Blender rigify Attempt 2
+Rigify broke for my female player character. Tried using Auto Rig Pro but don't like the workflow. Going back to Rigify. Need to add bones and collections for the following:
+	- Skirt
+	- Collar
+	- Hair
+	- Weapons
+
 ### 3/29 - Saving and Loading Player (w/ gender)
 - I've redone a lot of the scriptable objects to abstract away whether it's for male or female bodytypes.
 - The logic for handling whether it is m/f is in Game Manager/Character Customization Database
