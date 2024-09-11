@@ -43,9 +43,15 @@ public class Projectile : MonoBehaviour
     {
         if(_ready)
         {
+            if(collider.gameObject.layer == 9)
+            {
+                if (_impactVFX) OnImpact(true);
+                else OnImpact(false);
+            }
             Character hitCharacter = collider.GetComponentInParent<Character>();
             if(hitCharacter != _controllingCharacter)
             {
+                // print(hitCharacter.name);
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
@@ -53,7 +59,8 @@ public class Projectile : MonoBehaviour
             
                     // print("projectile " + name + " collided with " + hitCharacter.name);
                 }
-                if (_impactVFX) OnImpact();
+                if (_impactVFX) OnImpact(true);
+                else OnImpact(false);
             }
         }
     }
@@ -65,9 +72,9 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnImpact()
+    protected virtual void OnImpact(bool withVfx)
     {
-        Instantiate(_impactVFX, transform.position, Quaternion.identity);
+        if (withVfx) Instantiate(_impactVFX, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

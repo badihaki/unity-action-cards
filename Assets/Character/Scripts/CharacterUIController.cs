@@ -10,7 +10,7 @@ public class CharacterUIController : MonoBehaviour
     private Health _HealthController;
     [SerializeField] private Slider _HealthBar;
     [SerializeField] private float _TargetHealth;
-    private bool canChangeHealth = false;
+    [SerializeField] private bool canChangeHealth = false;
     [SerializeField] private float _HealthChangeRate = 0.015f;
     private bool isPlayer;
 
@@ -31,7 +31,6 @@ public class CharacterUIController : MonoBehaviour
             canChangeHealth = false;
             _HealthBar.value = _HealthBar.maxValue;
             _HealthController.OnHealthChanged += UpdateHealthUI;
-            
             isPlayer = isEntityPlayer;
 
             if (!isPlayer) _ResourceCanvas.gameObject.SetActive(false);
@@ -54,7 +53,7 @@ public class CharacterUIController : MonoBehaviour
         if(canChangeHealth)
         {
             if (!isPlayer) OpenResourceCanvas();
-            if (_HealthBar.value != _TargetHealth)
+            if ((int)_HealthBar.value != _TargetHealth)
             {
                 _HealthBar.value = Mathf.Lerp(_HealthBar.value, _TargetHealth, _HealthChangeRate);
             }

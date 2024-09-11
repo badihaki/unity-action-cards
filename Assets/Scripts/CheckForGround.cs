@@ -9,7 +9,10 @@ public class CheckForGround : MonoBehaviour
 
     public void Initialize()
     {
-        body = transform.Find("Actor").Find("Colliders").Find("Body").GetComponent<Collider>();
+        // body = transform.Find("Actor").Find("Colliders").Find("Body").GetComponent<Collider>();
+        CharacterController controller = GetComponent<CharacterController>();
+        // body = GetComponent<Collider>();
+        body = controller;
     }
 
     public bool IsGrounded()

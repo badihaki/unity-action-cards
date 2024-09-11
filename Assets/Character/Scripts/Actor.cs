@@ -11,9 +11,27 @@ public class Actor : MonoBehaviour
     public Vector3 animatorMovementVector { get; protected set; } = new Vector3();
     [field: SerializeField] protected bool controlByRootMotion = false;
 
-    public void Initialize(Character character)
+    public virtual void Initialize(Character character)
     {
         Character = character;
         animationController = GetComponent<Animator>();
+    }
+
+    // TODO:: Add this to Character ~OR~ Make the methods empty so Derived classes can override
+    public virtual void StateAnimationFinished()
+    {
+        //
+    }
+    public virtual void AnimationTrigger()
+    {
+        //
+    }
+    public virtual void AnimationVFXTrigger()
+    {
+        //
+    }
+    public virtual void AnimationSFXTrigger()
+    {
+        //
     }
 }
