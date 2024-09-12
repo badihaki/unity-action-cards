@@ -35,8 +35,7 @@ public class PlayerCamera : MonoBehaviour
     public void Initialize(PlayerCharacter controller)
     {
         Player = controller;
-        // GameObject newGameObj = Instantiate(new GameObject(), new Vector3(0, 0, 0), Quaternion.identity);
-        cinemachineCamTarget = transform.Find("CamTarget");
+        cinemachineCamTarget = Player._Actor.transform.Find("CamTarget");
         InitializeCinemachineController();
         InitializeAimCamController();
         LockCursorKBM();
