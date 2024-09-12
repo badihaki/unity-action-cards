@@ -10,12 +10,12 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController _Controller;
     private CheckForGround _CheckForGround;
     
-    [SerializeField] private float _Gravity = -15.0f;
+    [SerializeField] private float _Gravity = 6.570f;
     [SerializeField] private float _VerticalVelocity;
     [SerializeField] private float _BaseVerticalVelocity = -2.00f;
     [SerializeField] private float _MaxVertVelocity = -150.00f;
     private float terminalVelocity = 53.00f;
-    [SerializeField]private Vector3 _MoveDirection;
+    [SerializeField] private Vector3 _DesiredMoveDirection;
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.15f;
     private float targetRotation;
@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
          */
     }
 
-    public void MoveTowardsCamWithGravity(Vector2 direction)
+    public void DetectMove(Vector2 moveInput)
     {
         /*
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
@@ -107,15 +107,19 @@ public class PlayerMovement : MonoBehaviour
             RotateCharacter(direction);
             _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
-
-        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
-        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
-
-
-        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
         ApplyMovementToVelocity();
         ApplyGravity();
         */
+        if(moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
+        else
+        {
+            RotateCharacter(moveInput);
+            _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        }
+        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
+
+        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
     }
 
     public void MoveWhileAiming(Vector2 direction)
@@ -167,8 +171,8 @@ public class PlayerMovement : MonoBehaviour
         /*
         _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
          */
-        _MoveDirection.y = _VerticalVelocity;
-        _Controller.Move(_MoveDirection);
+        _DesiredMoveDirection.y = _VerticalVelocity;
+        _Controller.Move(_DesiredMoveDirection);
     }
 
     public void Jump()

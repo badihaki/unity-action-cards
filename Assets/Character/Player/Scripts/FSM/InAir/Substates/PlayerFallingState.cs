@@ -32,7 +32,7 @@ public class PlayerFallingState : PlayerInAirSuperState
         base.PhysicsUpdate();
 
         if (moveInput != Vector2.zero)
-            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput);
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
         else
             {
                 Console.WriteLine(moveInput);

@@ -29,11 +29,11 @@ public class PlayerMoveState : PlayerGroundedSuperState
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
-
         if (moveInput != Vector2.zero)
-            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput);
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
         else
             _PlayerCharacter._LocomotionController.SlowDown();
+
+        base.PhysicsUpdate();
     }
 }
