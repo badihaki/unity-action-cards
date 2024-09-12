@@ -24,6 +24,7 @@ public class PlayerInAirSuperState : PlayerState
         base.PhysicsUpdate();
 
         _PlayerCharacter._LocomotionController.ApplyGravity();
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 
     public override void CheckStateTransitions()

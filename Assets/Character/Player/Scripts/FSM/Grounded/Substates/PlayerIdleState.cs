@@ -17,11 +17,10 @@ public class PlayerIdleState : PlayerGroundedSuperState
 
     public override void PhysicsUpdate()
     {
-        base.PhysicsUpdate();
-        
-        _PlayerCharacter._LocomotionController.ApplyGravity();
         if (_PlayerCharacter._LocomotionController.movementSpeed > 0.15f) _PlayerCharacter._LocomotionController.SlowDown();
         else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        
+        base.PhysicsUpdate();
     }
 
     public override void EnterState()

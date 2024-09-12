@@ -9,10 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7077287328336596980}
-  - component: {fileID: 4242036913303553902}
+  - component: {fileID: 214911195564220138}
   - component: {fileID: 3710469694778071795}
   - component: {fileID: 358040525570265840}
-  - component: {fileID: 214911195564220138}
   - component: {fileID: 312133789076485268}
   - component: {fileID: 6542911905298348363}
   - component: {fileID: 7236318575125279018}
@@ -48,33 +47,28 @@ Transform:
   - {fileID: 8468451348944565276}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -171.71, z: 0}
---- !u!54 &4242036913303553902
-Rigidbody:
+--- !u!114 &214911195564220138
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764021959895548567}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c87c882a14ff148b067770e57cd847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_CharacterSheet>k__BackingField: {fileID: 11400000, guid: 1476ea23c099899478a06d3262f16d50,
+    type: 2}
+  <_Actor>k__BackingField: {fileID: 0}
+  <_AnimationController>k__BackingField: {fileID: 0}
+  <_Hurtbox>k__BackingField: {fileID: 0}
+  <_UI>k__BackingField: {fileID: 0}
+  <_SoundManager>k__BackingField: {fileID: 0}
+  <_PlayerActor>k__BackingField: {fileID: 0}
+  <_LoadNewOnStart>k__BackingField: 1
+  <_Hitbox>k__BackingField: {fileID: 0}
 --- !u!114 &3710469694778071795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,28 +100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_CurrentAetherPoints>k__BackingField: 0
   _MaxAetherPoints: 0
---- !u!114 &214911195564220138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72c87c882a14ff148b067770e57cd847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <_CharacterSheet>k__BackingField: {fileID: 11400000, guid: 1476ea23c099899478a06d3262f16d50,
-    type: 2}
-  <_Actor>k__BackingField: {fileID: 0}
-  <_AnimationController>k__BackingField: {fileID: 0}
-  <_Hurtbox>k__BackingField: {fileID: 0}
-  <_UI>k__BackingField: {fileID: 0}
-  <_SoundManager>k__BackingField: {fileID: 0}
-  <_PlayerActor>k__BackingField: {fileID: 0}
-  <_LoadNewOnStart>k__BackingField: 1
-  <_Hitbox>k__BackingField: {fileID: 0}
 --- !u!114 &312133789076485268
 MonoBehaviour:
   m_ObjectHideFlags: 0

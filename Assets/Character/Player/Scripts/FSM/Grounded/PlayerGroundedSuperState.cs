@@ -26,6 +26,12 @@ public class PlayerGroundedSuperState : PlayerState
         }
     }
 
+    public override void PhysicsUpdate()
+    {
+        _PlayerCharacter._LocomotionController.ApplyGravity();
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+    }
+
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();

@@ -14,9 +14,12 @@ public class PlayerActor : Actor
         female
     }
     public bodyTypes bodyType { get; private set; }
+
+    [Header("Bones and Transforms")]
     [field: SerializeField] private Transform rootBone;
     [field: SerializeField] public Transform RightWeapon { get; private set; }
     [field: SerializeField] public Transform LeftWeapon { get; private set; }
+
 
     public void InitializePlayerActor(PlayerCharacter character)
     {

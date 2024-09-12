@@ -6,7 +6,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerCharacter _Player;
-    private Rigidbody _Rigidbody;
+    // private Rigidbody _Rigidbody;
+    private CharacterController _Controller;
+    private CheckForGround _CheckForGround;
     
     [SerializeField] private float _Gravity = -15.0f;
     [SerializeField] private float _VerticalVelocity;
@@ -24,10 +26,12 @@ public class PlayerMovement : MonoBehaviour
     private Camera cam;
 
 
-    public void Initialize(PlayerCharacter controller)
+    public void Initialize(PlayerCharacter controllingPlayer)
     {
-        _Player = controller;
-        _Rigidbody = GetComponent<Rigidbody>();
+        _Player = controllingPlayer;
+        // _Rigidbody = GetComponent<Rigidbody>();
+        _Controller = _Player._Actor.GetComponent<CharacterController>();
+        _CheckForGround = _Player._PlayerActor.GetComponent<CheckForGround>();
         cam = Camera.main;
     }
 
@@ -39,6 +43,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void ApplyGravity()
     {
+        if (_CheckForGround.IsGrounded())
+        {
+            _VerticalVelocity = -1.0f;
+        }
+        else
+        {
+            _VerticalVelocity -= _Gravity * Time.deltaTime;
+        }
+        /*
         // stop vertical velocity from dropping infinitely when grounded
         if (_Player._CheckGrounded.IsGrounded())
         {
@@ -58,18 +71,23 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _VerticalVelocity, _Rigidbody.velocity.z);
+        */
+        
     }
 
     public void ZeroOutVelocity()
     {
+        /*
         movementSpeed = 0.0f;
         targetSpeed = 0.0f;
         _Rigidbody.velocity = Vector3.zero;
         _Player._AnimationController.SetFloat("speed", 0.0f);
+        */
     }
 
     public void SlowDown()
     {
+        /*
         if (movementSpeed < 0.1f) ZeroOutVelocity();
         targetSpeed = 0;
         movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnSlowDown);
@@ -77,10 +95,12 @@ public class PlayerMovement : MonoBehaviour
         ApplyMovementToVelocity();
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
         // print("slowing down");
+         */
     }
 
     public void MoveTowardsCamWithGravity(Vector2 direction)
     {
+        /*
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
         {
@@ -95,10 +115,12 @@ public class PlayerMovement : MonoBehaviour
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
         ApplyMovementToVelocity();
         ApplyGravity();
+        */
     }
 
     public void MoveWhileAiming(Vector2 direction)
     {
+        /*
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
         else
         {
@@ -112,6 +134,7 @@ public class PlayerMovement : MonoBehaviour
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
         ApplyMovementToVelocity();
         ApplyGravity();
+        */
     }
 
     public void RotateCharacter(Vector2 inputDirection)
@@ -139,18 +162,24 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private void ApplyMovementToVelocity()
+    public void MoveWithVerticalVelocity()
     {
+        /*
         _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
+         */
+        _MoveDirection.y = _VerticalVelocity;
+        _Controller.Move(_MoveDirection);
     }
 
     public void Jump()
     {
+        /*
         if (_Player._CheckGrounded.IsGrounded())
         {
             // _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
             _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower);
         }
+        */
     }
 
     // end
