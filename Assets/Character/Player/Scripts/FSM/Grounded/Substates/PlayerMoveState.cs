@@ -22,16 +22,14 @@ public class PlayerMoveState : PlayerGroundedSuperState
 
     public override void CheckStateTransitions()
     {
-        if(_PlayerCharacter._LocomotionController.movementSpeed < 0.1f || cardInput) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_PlayerCharacter._LocomotionController.movementSpeed <= 0.1f || cardInput) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
 
         base.CheckStateTransitions();
     }
 
     public override void PhysicsUpdate()
     {
-        if (moveInput != Vector2.zero)
-            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-        else
+        if (moveInput == Vector2.zero)
             _PlayerCharacter._LocomotionController.SlowDown();
 
         base.PhysicsUpdate();
