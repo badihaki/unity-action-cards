@@ -12,9 +12,8 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private float _Gravity = 6.570f;
     [SerializeField] private float _VerticalVelocity;
-    [SerializeField] private float _BaseVerticalVelocity = -2.00f;
-    [SerializeField] private float _MaxVertVelocity = -150.00f;
-    private float terminalVelocity = 53.00f;
+    [SerializeField] private float _BaseVerticalVelocity = -1.00f;
+    [SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
     [SerializeField] private Vector3 _DesiredMoveDirection;
     [SerializeField] private Vector3 _Movement = new Vector3();
 
@@ -48,12 +47,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_CheckForGround.IsGrounded())
         {
-            _VerticalVelocity = -1.0f;
+            _VerticalVelocity = _BaseVerticalVelocity;
         }
         else
         {
-            _VerticalVelocity -= _Gravity * Time.deltaTime;
-            if( _VerticalVelocity > _MaxVertVelocity) _VerticalVelocity = _MaxVertVelocity;
+            // _VerticalVelocity -= _Gravity * Time.deltaTime;
+            _VerticalVelocity = (_VerticalVelocity - _Gravity) * Time.deltaTime;
+            if ( _VerticalVelocity > _MaxFallVelocity) _VerticalVelocity = _MaxFallVelocity;
         }
         /*
         // stop vertical velocity from dropping infinitely when grounded
@@ -159,13 +159,18 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
+    public void ApplyDesiredMoveToMovement()
+    {
+        _Movement = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
+        _Movement.y = _VerticalVelocity;
+    }
 
     public void MoveWithVerticalVelocity()
     {
         targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
-        _Movement = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
-        _Movement.y = _VerticalVelocity;
+        ApplyDesiredMoveToMovement();
         _Controller.Move(_Movement * Time.deltaTime);
+        
     }
 
     public void Jump()
@@ -173,7 +178,9 @@ public class PlayerMovement : MonoBehaviour
         if (_Player._CheckGrounded.IsGrounded())
         {
             // _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
-            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower);
+            print(_Gravity);
+            print(Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 2));
+            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 2);
         }
     }
 

@@ -1057,6 +1057,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4506309526122150399, guid: 46b0f865cc7d1db47955698ddc072144,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432705596029626700, guid: 46b0f865cc7d1db47955698ddc072144,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7432705596029626700, guid: 46b0f865cc7d1db47955698ddc072144,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 1.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8057293022161564050, guid: 46b0f865cc7d1db47955698ddc072144,
         type: 3}
       propertyPath: m_Name
@@ -1167,7 +1182,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1.6510707, y: -2.3961227, z: 2.8114119}
-  m_LocalScale: {x: 2060.9426, y: 0.5, z: 770.16235}
+  m_LocalScale: {x: 50, y: 0.5, z: 50}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1106406981}
@@ -1746,7 +1761,27 @@ PrefabInstance:
     - target: {fileID: 2985811743604711824, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: lookSensitivity
-      value: 1.5
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: _Gravity
+      value: 6.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: _MaxFallVelocity
+      value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: _MaxVertVelocity
+      value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: _BaseVerticalVelocity
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5663880103964661845, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}

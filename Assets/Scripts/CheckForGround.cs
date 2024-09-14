@@ -5,7 +5,7 @@ using UnityEngine;
 public class CheckForGround : MonoBehaviour
 {
     [SerializeField] private Collider body;
-    [SerializeField] private float GroundRayDistance = 1.105f;
+    [SerializeField] private float GroundRayDistance = 0.105f;
 
     public void Initialize()
     {
