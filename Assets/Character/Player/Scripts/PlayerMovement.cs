@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _MaxVertVelocity = -150.00f;
     private float terminalVelocity = 53.00f;
     [SerializeField] private Vector3 _DesiredMoveDirection;
+    [SerializeField] private Vector3 _Movement = new Vector3();
+
+
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.15f;
     private float targetRotation;
@@ -50,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _VerticalVelocity -= _Gravity * Time.deltaTime;
+            if( _VerticalVelocity > _MaxVertVelocity) _VerticalVelocity = _MaxVertVelocity;
         }
         /*
         // stop vertical velocity from dropping infinitely when grounded
@@ -88,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         print("slowing down");
         if (movementSpeed < 0.1f) ZeroOutVelocity();
         targetSpeed = 0;
-        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnSlowDown);
+        SetMovementSpeed();
 
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
         // print("slowing down");
@@ -96,15 +100,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void DetectMove(Vector2 moveInput)
     {
-        if(moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
+        if (moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
         else
         {
             RotateCharacter(moveInput);
-            targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
             _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
+        SetMovementSpeed();
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
 
+    }
+
+    private void SetMovementSpeed()
+    {
         movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
     }
 
@@ -154,23 +162,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveWithVerticalVelocity()
     {
-        /*
-        _Rigidbody.velocity = new Vector3(_MoveDirection.x * movementSpeed, _MoveDirection.y, _MoveDirection.z * movementSpeed);
-         */
-        _DesiredMoveDirection.y = _VerticalVelocity;
-        _DesiredMoveDirection *= Time.deltaTime;
-        _Controller.Move(_DesiredMoveDirection);
+        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        _Movement = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
+        _Movement.y = _VerticalVelocity;
+        _Controller.Move(_Movement * Time.deltaTime);
     }
 
     public void Jump()
     {
-        /*
         if (_Player._CheckGrounded.IsGrounded())
         {
             // _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
             _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower);
         }
-        */
     }
 
     // end
