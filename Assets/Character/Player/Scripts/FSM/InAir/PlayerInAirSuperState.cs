@@ -22,8 +22,9 @@ public class PlayerInAirSuperState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        _PlayerCharacter._LocomotionController.ApplyGravity();
+        if (moveInput != Vector2.zero)
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+        _PlayerCharacter._LocomotionController.ApplyGravity(1);
         _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 

@@ -1060,7 +1060,7 @@ PrefabInstance:
     - target: {fileID: 4506309526122150399, guid: 46b0f865cc7d1db47955698ddc072144,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7432705596029626700, guid: 46b0f865cc7d1db47955698ddc072144,
         type: 3}
@@ -1765,13 +1765,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
-      propertyPath: _Gravity
-      value: 6.57
-      objectReference: {fileID: 0}
-    - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
-        type: 3}
       propertyPath: _MaxFallVelocity
-      value: -25
+      value: -70
       objectReference: {fileID: 0}
     - target: {fileID: 3865767190414815257, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}

@@ -28,7 +28,7 @@ public class PlayerLandingState : PlayerState
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity();
+        _PlayerCharacter._LocomotionController.ApplyGravity(1);
     }
 
     public override void CheckStateTransitions()

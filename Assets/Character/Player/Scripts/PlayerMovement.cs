@@ -6,11 +6,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerCharacter _Player;
-    // private Rigidbody _Rigidbody;
     private CharacterController _Controller;
     private CheckForGround _CheckForGround;
     
-    [SerializeField] private float _Gravity = 6.570f;
+    [SerializeField] private float _Gravity = 9.810f;
     [SerializeField] private float _VerticalVelocity;
     [SerializeField] private float _BaseVerticalVelocity = -1.00f;
     [SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
@@ -31,7 +30,6 @@ public class PlayerMovement : MonoBehaviour
     public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
-        // _Rigidbody = GetComponent<Rigidbody>();
         _Controller = _Player._Actor.GetComponent<CharacterController>();
         _CheckForGround = _Player._PlayerActor.GetComponent<CheckForGround>();
         cam = Camera.main;
@@ -39,44 +37,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        /*print("Speed normalized = " + _Rigidbody.velocity.normalized.x);
-        print("Speed??? = " + targetSpeed/movementSpeed);*/
+        
     }
 
-    public void ApplyGravity()
+    public void ApplyGravity(float gravityModifier)
     {
+        gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f);
         if (_CheckForGround.IsGrounded())
         {
             _VerticalVelocity = _BaseVerticalVelocity;
         }
         else
         {
-            // _VerticalVelocity -= _Gravity * Time.deltaTime;
-            _VerticalVelocity = (_VerticalVelocity - _Gravity) * Time.deltaTime;
-            if ( _VerticalVelocity > _MaxFallVelocity) _VerticalVelocity = _MaxFallVelocity;
+            _VerticalVelocity -= (_Gravity * (Time.deltaTime * 2.25f)) * gravityModifier;
+            // _VerticalVelocity -= _Gravity;
+            // _VerticalVelocity *= Time.deltaTime;
+            if ( _VerticalVelocity < _MaxFallVelocity) _VerticalVelocity = _MaxFallVelocity;
         }
-        /*
-        // stop vertical velocity from dropping infinitely when grounded
-        if (_Player._CheckGrounded.IsGrounded())
-        {
-            if(_VerticalVelocity < 0.00f)
-            {
-                _VerticalVelocity = _BaseVerticalVelocity;
-            }
-        }
-        else
-        {
-            // Apply gravity over time if under terminal (max) velocity
-            if (_VerticalVelocity < terminalVelocity)
-            {
-                _VerticalVelocity += _Gravity * Time.deltaTime;
-
-                if (_VerticalVelocity < _MaxVertVelocity) _VerticalVelocity = _MaxVertVelocity;
-            }
-        }
-        _Rigidbody.velocity = new Vector3(_Rigidbody.velocity.x, _Rigidbody.velocity.y + _VerticalVelocity, _Rigidbody.velocity.z);
-        */
-        
     }
 
     public void ZeroOutVelocity()
@@ -177,9 +154,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_Player._CheckGrounded.IsGrounded())
         {
-            // _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * _BaseVerticalVelocity) * _Gravity);
-            print(_Gravity);
-            print(Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 2));
             _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 2);
         }
     }
