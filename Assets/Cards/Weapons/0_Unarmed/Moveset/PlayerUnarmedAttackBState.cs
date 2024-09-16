@@ -32,7 +32,7 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     public override void TriggerVisualEffect()
     {
         base.TriggerVisualEffect();
-        Vector3 position = new Vector3(_PlayerCharacter.transform.position.x, _PlayerCharacter.transform.position.y + 0.75f, _PlayerCharacter.transform.position.z);
+        Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._Actor.transform.position.y + 1.75f, _PlayerCharacter._Actor.transform.position.z + 0.75f);
         Quaternion rotation = Quaternion.Euler(_PlayerCharacter._PlayerActor.transform.forward);
 
         GameObject vfx = Instantiate(_PlayerCharacter._AttackController._CurrentWeapon._WeaponAttackFX, position, rotation);
