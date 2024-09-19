@@ -247,7 +247,7 @@ MonoBehaviour:
   _Gravity: 15
   _VerticalVelocity: 0
   _BaseVerticalVelocity: -2
-  _MaxVertVelocity: -150
+  _MaxFallVelocity: -150
   _DesiredMoveDirection: {x: 0, y: 0, z: 0}
   _Movement: {x: 0, y: 0, z: 0}
   <movementSpeed>k__BackingField: 0
@@ -267,9 +267,9 @@ MonoBehaviour:
   <_PlayerCamController>k__BackingField: {fileID: 0}
   <_PlayerAimCamController>k__BackingField: {fileID: 0}
   currentCameraController: {fileID: 0}
-  topLookClamp: 10
-  bottomLookClamp: -15
-  lookSensitivity: 5.35
+  topLookClamp: 9
+  bottomLookClamp: -13.75
+  lookSensitivity: 4.55
   <cinemachineCamTarget>k__BackingField: {fileID: 0}
   cursorLocked: 0
 --- !u!114 &952087385969057769

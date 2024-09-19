@@ -30,7 +30,7 @@ public class PlayerJumpState : PlayerState
     {
         base.PhysicsUpdate();
 
-        // _PlayerCharacter._LocomotionController.ApplyGravity();
+        // _PlayerCharacter._LocomotionController.ApplyGravity(1);
         _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 
