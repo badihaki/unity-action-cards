@@ -1,5 +1,8 @@
 # Card Action Game Readme
 
+### 9/21 - Character Controller Refractor - Spells
+Reworking how spells work. Will need to change the **controls of shoot** to right mouse button/top face button. Need to have the auto-targeting system work with shooting, then shoot from shootpoint to target's transform
+
 ### 9/11 - Animations fixed and set up
 Imported new versions of the models. Had to fix the avatar on import. Animations are working, if a bit ugly. Animators are working. Time for code rewrites. Will merge later.
 Code rewrites (in order of importance):

@@ -13,7 +13,7 @@ public class PlayerCombatSuperState : PlayerState
     public Vector2 aimInput { get; private set; }
     public bool jumpInput { get; private set; }
     public bool attackInput { get; private set; }
-    public bool readySpellInput { get; private set; }
+    public bool spellslingInput { get; private set; }
     public bool defenseInput { get; private set; }
 
     public override void CheckInputs()
@@ -23,7 +23,7 @@ public class PlayerCombatSuperState : PlayerState
         aimInput = _PlayerCharacter._Controls._AimInput;
         jumpInput = _PlayerCharacter._Controls._JumpInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
-        readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
+        spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
         defenseInput = _PlayerCharacter._Controls._DefenseInput;
     }
 }

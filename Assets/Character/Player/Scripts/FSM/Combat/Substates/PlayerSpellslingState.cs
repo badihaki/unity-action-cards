@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerReadySpellState : PlayerCombatSuperState
+public class PlayerSpellslingState : PlayerCombatSuperState
 {
-    public PlayerReadySpellState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    public PlayerSpellslingState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
 
@@ -18,6 +18,8 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._Controls.UseSpell();
+        _PlayerCharacter._PlayerSpells.UseSpell();
         // _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
@@ -28,7 +30,11 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
         _PlayerCharacter._PlayerSpells.UpdateCrosshair();
 
-        if (attackInput)_PlayerCharacter._PlayerSpells.UseSpell();
+        if (spellslingInput)
+        {
+            _PlayerCharacter._Controls.UseSpell();
+            _PlayerCharacter._PlayerSpells.UseSpell();
+        }
         if (interactionInput)
         {
             _PlayerCharacter._Controls.UseInteract();
@@ -39,7 +45,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        _PlayerCharacter._LocomotionController.ApplyGravity(1);
+        _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
         // _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
 
         /*
@@ -69,7 +75,7 @@ public class PlayerReadySpellState : PlayerCombatSuperState
     {
         base.CheckStateTransitions();
 
-        if (!readySpellInput)
+        if (_AnimationIsFinished)
         {
             if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
             else _StateMachine.ChangeState(_PlayerCharacter._FallingState);

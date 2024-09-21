@@ -12,7 +12,7 @@ public class PlayerGroundedSuperState : PlayerState
     public Vector2 aimInput { get; private set; }
     public bool jumpInput { get; private set; }
     public bool cardInput { get; private set; }
-    public bool readySpellInput { get; private set; }
+    public bool spellInput { get; private set; }
     public bool attackInput { get; private set; }
     public bool defenseInput { get; private set; }
 
@@ -42,7 +42,7 @@ public class PlayerGroundedSuperState : PlayerState
             if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
             if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
             // if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
-            if (readySpellInput) _StateMachine.ChangeState(_PlayerCharacter._ReadySpellState);
+            if (spellInput) _StateMachine.ChangeState(_PlayerCharacter._SpellslingState);
             if (attackInput)
             {
                 _PlayerCharacter._Controls.UseAttack();
@@ -62,7 +62,7 @@ public class PlayerGroundedSuperState : PlayerState
         aimInput = _PlayerCharacter._Controls._AimInput;
         jumpInput = _PlayerCharacter._Controls._JumpInput;
         cardInput = _PlayerCharacter._Controls._CardsInput;
-        readySpellInput = _PlayerCharacter._Controls._ReadySpellInput;
+        spellInput = _PlayerCharacter._Controls._SpellslingInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
         defenseInput = _PlayerCharacter._Controls._DefenseInput;
     }
