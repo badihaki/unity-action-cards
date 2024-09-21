@@ -15,10 +15,10 @@ public class PlayerReadySpellState : PlayerCombatSuperState
         base.EnterState();
 
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
-        _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
+        // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        _PlayerCharacter._PlayerSpells.ShowCrosshair();
+        // _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
     public override void LogicUpdate()
@@ -39,16 +39,21 @@ public class PlayerReadySpellState : PlayerCombatSuperState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        _PlayerCharacter._LocomotionController.ApplyGravity(1);
+        // _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
 
+        /*
+         */
         if(moveInput != Vector2.zero)
         {
-            _PlayerCharacter._LocomotionController.MoveWhileAiming(moveInput);
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+            // _PlayerCharacter._LocomotionController.MoveWhileAiming(); // change this to move based on moveinput
         }
         else
         {
             _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         }
-        _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput);
+        // _PlayerCharacter._LocomotionController.ZeroOutVelocity();
     }
 
     public override void ExitState()

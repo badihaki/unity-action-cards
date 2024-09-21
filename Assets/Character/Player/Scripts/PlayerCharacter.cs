@@ -185,7 +185,7 @@ public class PlayerCharacter : Character, IDestroyable
         // _InAirCardState.InitializeState(this, "airCard", _StateMachine);
 
         _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
-        _ReadySpellState.InitializeState(this, "range", _StateMachine);
+        _ReadySpellState.InitializeState(this, "aim", _StateMachine); // changed animboolname from 'range' to 'aim'
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }

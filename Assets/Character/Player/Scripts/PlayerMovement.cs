@@ -14,11 +14,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _BaseVerticalVelocity = -1.00f;
     [SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
     [SerializeField] private Vector3 _DesiredMoveDirection;
-    [SerializeField] private Vector3 _Movement = new Vector3();
+    [SerializeField] private Vector3 _MovementDirection = new Vector3();
 
 
     private float rotationVelocity;
-    private float rotationSmoothingTime = 0.15f;
+    private float rotationSmoothingTime = 0.35f;
+    [SerializeField] float smoothingTimeOffset = 0.825f;
     private float targetRotation;
     [field: SerializeField] public float movementSpeed { get; private set; }
     [field: SerializeField] private float targetSpeed;
@@ -50,8 +51,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             _VerticalVelocity -= (_Gravity * (Time.deltaTime * 2.25f)) * gravityModifier;
-            // _VerticalVelocity -= _Gravity;
-            // _VerticalVelocity *= Time.deltaTime;
             if ( _VerticalVelocity < _MaxFallVelocity) _VerticalVelocity = _MaxFallVelocity;
         }
     }
@@ -60,7 +59,8 @@ public class PlayerMovement : MonoBehaviour
     {
         movementSpeed = 0.0f;
         targetSpeed = 0.0f;
-        // _Rigidbody.velocity = Vector3.zero;
+        _MovementDirection = Vector3.zero;
+        _DesiredMoveDirection = Vector3.zero;
         _Player._AnimationController.SetFloat("speed", 0.0f);
     }
 
@@ -72,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
         SetMovementSpeed();
 
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
-        // print("slowing down");
     }
 
     public void DetectMove(Vector2 moveInput)
@@ -93,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
     }
 
-    public void MoveWhileAiming(Vector2 direction)
+    public void MoveWhileAiming()
     {
         /*
         if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
@@ -131,22 +130,22 @@ public class PlayerMovement : MonoBehaviour
             + cam.transform.eulerAngles.y;
         // rotation direction determines which direction we move to reach our intended rotation
         float newRotationVel = rotationVelocity / 2;
-        float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, rotationSmoothingTime * 0.75f);
+        float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, rotationSmoothingTime * smoothingTimeOffset);
         // actually rotating the transform
         transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
     public void ApplyDesiredMoveToMovement()
     {
-        _Movement = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
-        _Movement.y = _VerticalVelocity;
+        _MovementDirection = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
+        _MovementDirection.y = _VerticalVelocity;
     }
 
     public void MoveWithVerticalVelocity()
     {
         targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
         ApplyDesiredMoveToMovement();
-        _Controller.Move(_Movement * Time.deltaTime);
+        _Controller.Move(_MovementDirection * Time.deltaTime);
         
     }
 
