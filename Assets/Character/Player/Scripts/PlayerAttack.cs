@@ -130,12 +130,15 @@ public class PlayerAttack : MonoBehaviour
     private List<Transform> GetAllDamageableEntities()
     {
         List<Transform> entities = new List<Transform>();
-        Vector3 startPos = player._PlayerActor.transform.position;
+        // Vector3 startPos = player._PlayerActor.transform.position;
+        Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
         float lineLength = 5.0f;
 
         // Below is how to calculate things in front
         RaycastHit forwardHit;
-        Vector3 forwardLineDirection = (startPos + player._PlayerActor.transform.forward * lineLength);
+
+        // Vector3 forwardLineDirection = (startPos + player._PlayerActor.transform.forward * lineLength);
+        Vector3 forwardLineDirection = (startPos + player._CameraRef.transform.forward * lineLength);
         forwardLineDirection.y = 1.0f;
         if(Physics.Linecast(startPos, forwardLineDirection, out forwardHit))
         {
@@ -148,7 +151,7 @@ public class PlayerAttack : MonoBehaviour
 
         // below is for the right of the player
         RaycastHit rightHit;
-        Vector3 rightLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x + 0.35f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 rightLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x + 0.35f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, rightLineDirection, out rightHit))
         {
             IDamageable damageableEntity = rightHit.collider.GetComponent<IDamageable>();
@@ -159,7 +162,7 @@ public class PlayerAttack : MonoBehaviour
         }
         // and far right
         RaycastHit farRightHit;
-        Vector3 farRightLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x + 0.75f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 farRightLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x + 0.75f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, farRightLineDirection, out farRightHit))
         {
             IDamageable damageableEntity = farRightHit.collider.GetComponent<IDamageable>();
@@ -171,7 +174,7 @@ public class PlayerAttack : MonoBehaviour
 
         // now for the left direction
         RaycastHit leftHit;
-        Vector3 leftLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x - 0.35f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 leftLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x - 0.35f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, leftLineDirection, out leftHit))
         {
             IDamageable damageableEntity = leftHit.collider.GetComponent<IDamageable>();
@@ -182,7 +185,7 @@ public class PlayerAttack : MonoBehaviour
         }
         // and the far-left
         RaycastHit farLeftHit;
-        Vector3 farLeftLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x - 0.75f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 farLeftLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x - 0.75f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, farLeftLineDirection, out farLeftHit))
         {
             IDamageable damageableEntity = farLeftHit.collider.GetComponent<IDamageable>();

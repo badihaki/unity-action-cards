@@ -79,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
         else
         {
-            RotateCharacter(moveInput);
+            // RotateCharacter(moveInput);
             _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
         SetMovementSpeed();

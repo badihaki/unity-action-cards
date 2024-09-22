@@ -24,7 +24,7 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private int _currentSpellIndex;
     [SerializeField] private SpellCardScriptableObj _baseSpell;
 
-    [SerializeField] private LockSpellTargetRotation _spellTarget;
+    [SerializeField] public LockSpellTargetRotation _spellTarget { get; private set; }
 
     private float timeToAddToTimer;
     [SerializeField] private float _spellTimer;

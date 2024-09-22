@@ -14,7 +14,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.EnterState();
 
-        _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
+        // _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
@@ -35,11 +35,13 @@ public class PlayerSpellslingState : PlayerCombatSuperState
             _PlayerCharacter._Controls.UseSpell();
             _PlayerCharacter._PlayerSpells.UseSpell();
         }
+        /*
         if (interactionInput)
         {
             _PlayerCharacter._Controls.UseInteract();
             _PlayerCharacter._PlayerSpells.ChangeSpellIndex();
         }
+         */
     }
 
     public override void PhysicsUpdate()

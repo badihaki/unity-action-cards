@@ -16,7 +16,7 @@ public class PlayerCharacter : Character, IDestroyable
     // Actor Stuff
     [field: SerializeField] public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
-    [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
+    [field: SerializeField] public CharacterHitbox _Hitbox { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -62,7 +62,7 @@ public class PlayerCharacter : Character, IDestroyable
         _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
-        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
+        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>();
         _Hitbox.Initialize(this);
 
         // initialize the statemachine

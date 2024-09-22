@@ -23,7 +23,10 @@ public class PlayerInAirSuperState : PlayerState
     {
         base.PhysicsUpdate();
         if (moveInput != Vector2.zero)
+        {
             _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+            _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
+        }
         _PlayerCharacter._LocomotionController.ApplyGravity(1);
         _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }

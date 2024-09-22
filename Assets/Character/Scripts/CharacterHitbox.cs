@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCharacterHitbox : MonoBehaviour
+public class CharacterHitbox : MonoBehaviour
 {
     [field: SerializeField] public PlayerCharacter _Character { get; private set; }
     
