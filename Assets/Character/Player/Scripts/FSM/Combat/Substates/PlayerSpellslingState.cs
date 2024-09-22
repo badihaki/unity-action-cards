@@ -18,8 +18,9 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        Vector3 target = _PlayerCharacter._AttackController.DetectNearbyTargets();
         _PlayerCharacter._Controls.UseSpell();
-        _PlayerCharacter._PlayerSpells.UseSpell();
+        _PlayerCharacter._PlayerSpells.UseSpell(target);
         // _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
@@ -32,8 +33,9 @@ public class PlayerSpellslingState : PlayerCombatSuperState
 
         if (spellslingInput)
         {
+            Vector3 target = _PlayerCharacter._AttackController.DetectNearbyTargets();
             _PlayerCharacter._Controls.UseSpell();
-            _PlayerCharacter._PlayerSpells.UseSpell();
+            _PlayerCharacter._PlayerSpells.UseSpell(target);
         }
         /*
         if (interactionInput)

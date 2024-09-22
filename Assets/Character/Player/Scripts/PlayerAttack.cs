@@ -109,7 +109,7 @@ public class PlayerAttack : MonoBehaviour
         _LaunchForce = 0.0f;
     }
 
-    public void DetectNearbyTargets()
+    public Vector3 DetectNearbyTargets()
     {
         List<Transform> targetList = GetAllDamageableEntities();
         Transform target = null;
@@ -118,13 +118,19 @@ public class PlayerAttack : MonoBehaviour
             if (target == null) target = obj;
             else if (Vector3.Distance(transform.position, obj.position) < Vector3.Distance(transform.position, target.position)) target = obj;
         }
-        TurnToFaceTarget(target);
+        if(target != null)
+        {
+            TurnToFaceTarget(target);
+            return target.transform.position;
+        }
+        return Vector3.zero;
     }
 
     private void TurnToFaceTarget(Transform target)
     {
         if (target == null) return;
-        transform.LookAt(target);
+        // transform.LookAt(target);
+        player._LocomotionController.RotateCharacter(target.transform.position - target.position);
     }
 
     private List<Transform> GetAllDamageableEntities()
