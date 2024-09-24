@@ -16,6 +16,7 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _AttackInput { get; private set; }
     [field: SerializeField] public bool _InteractInput { get; private set; }
     [field: SerializeField] public bool _DefenseInput { get; private set; }
+    [field: SerializeField] public int _SelectSpellInput { get; private set; }
 
 
     public void OnMove(InputValue val)
@@ -116,6 +117,13 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _DefenseInput = false;
     }
+
+    public void OnSelectSpell(InputValue val)
+    {
+        float value = val.Get<float>();
+        _SelectSpellInput = value > 0 ? 1 : -1;
+    }
+    public void ResetSelectSpell() => _SelectSpellInput = 0;
 
     // end
 }

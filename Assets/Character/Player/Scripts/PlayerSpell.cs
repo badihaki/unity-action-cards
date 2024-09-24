@@ -120,18 +120,32 @@ public class PlayerSpell : MonoBehaviour
         }
     }
 
-    public void ChangeSpellIndex()
+    public void ChangeSpell(int dir)
     {
         if (_activeSpellList.Count > 1)
         {
             int maxIndex = _activeSpellList.Count - 1;
-
-            // change current spell index size to 1x1
-            _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
-            _currentSpellIndex++;
-            if (_currentSpellIndex > maxIndex)
+            if(dir > 0)
             {
-                _currentSpellIndex = 0;
+                print("up");
+                // change current spell index size to 1x1
+                _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
+                _currentSpellIndex++;
+                if (_currentSpellIndex > maxIndex)
+                {
+                    _currentSpellIndex = 0;
+                }
+            }
+            else
+            {
+                print("down");
+                // change current spell index size to 1x1
+                _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
+                _currentSpellIndex--;
+                if (_currentSpellIndex < 0)
+                {
+                    _currentSpellIndex = _activeSpellList.Count -1;
+                }
             }
             _spellTimer = 0.0f;
             timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
@@ -184,7 +198,7 @@ public class PlayerSpell : MonoBehaviour
             if (modifiedSpell.chargesLeft <= 0)
             {
                 int oldSpellIndexNumber = _currentSpellIndex;
-                ChangeSpellIndex();
+                ChangeSpell(-1);
                 Destroy(_activeSpellList[oldSpellIndexNumber].spellIcon.gameObject);
                 _activeSpellList.Remove(_activeSpellList[oldSpellIndexNumber]);
             }

@@ -15,6 +15,7 @@ public class PlayerGroundedSuperState : PlayerState
     public bool spellInput { get; private set; }
     public bool attackInput { get; private set; }
     public bool defenseInput { get; private set; }
+    public int spellSelectDirection { get; private set; }
 
     public override void LogicUpdate()
     {
@@ -23,6 +24,12 @@ public class PlayerGroundedSuperState : PlayerState
         if (!cardInput)
         {
             _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        }
+        if (spellSelectDirection != 0)
+        {
+            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            spellSelectDirection = 0;
+            _PlayerCharacter._Controls.ResetSelectSpell();
         }
     }
 
@@ -66,5 +73,6 @@ public class PlayerGroundedSuperState : PlayerState
         spellInput = _PlayerCharacter._Controls._SpellslingInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
         defenseInput = _PlayerCharacter._Controls._DefenseInput;
+        spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
     }
 }

@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SelectSpell",
+                    "type": "Button",
+                    "id": "bd6b7e44-f367-4b26-9748-9b9ee9b6c664",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -349,6 +358,39 @@
                     "action": "Spell",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "MWheel",
+                    "id": "345e67b4-4927-4ff3-9e2a-eac86c38d7ef",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSpell",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "4a8cb798-b99d-4440-8c6a-6f0eec586564",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2703a644-0079-4d18-b8ac-47da09a9891a",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },

@@ -8,7 +8,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
     }
 
-    bool interactionInput;
+    int spellSelectDirection = 0;
 
     public override void EnterState()
     {
@@ -21,6 +21,8 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         Vector3 target = _PlayerCharacter._AttackController.DetectNearbyTargets();
         _PlayerCharacter._Controls.UseSpell();
         _PlayerCharacter._PlayerSpells.UseSpell(target);
+        spellSelectDirection = 0;
+        _PlayerCharacter._Controls.ResetSelectSpell();
         // _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
@@ -37,6 +39,12 @@ public class PlayerSpellslingState : PlayerCombatSuperState
             _PlayerCharacter._Controls.UseSpell();
             _PlayerCharacter._PlayerSpells.UseSpell(target);
         }
+        if(spellSelectDirection != 0)
+        {
+            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            spellSelectDirection = 0;
+            _PlayerCharacter._Controls.ResetSelectSpell();
+        }
         /*
         if (interactionInput)
         {
@@ -44,6 +52,10 @@ public class PlayerSpellslingState : PlayerCombatSuperState
             _PlayerCharacter._PlayerSpells.ChangeSpellIndex();
         }
          */
+        if(spellSelectDirection != 0)
+        {
+            _PlayerCharacter._Controls.ResetSelectSpell();
+        }
     }
 
     public override void PhysicsUpdate()
@@ -90,7 +102,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.CheckInputs();
 
-        interactionInput = _PlayerCharacter._Controls._InteractInput;
+        spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
     }
 
     // end

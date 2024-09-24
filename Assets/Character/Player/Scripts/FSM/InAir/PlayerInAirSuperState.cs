@@ -11,12 +11,19 @@ public class PlayerInAirSuperState : PlayerState
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }
     public bool cardInput { get; private set; }
+    public int spellSelectDirection { get; private set; }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        if (spellSelectDirection != 0)
+        {
+            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            spellSelectDirection = 0;
+            _PlayerCharacter._Controls.ResetSelectSpell();
+        }
     }
 
     public override void PhysicsUpdate()
@@ -46,5 +53,6 @@ public class PlayerInAirSuperState : PlayerState
         moveInput = _PlayerCharacter._Controls._MoveInput;
         aimInput = _PlayerCharacter._Controls._AimInput;
         cardInput = _PlayerCharacter._Controls._CardsInput;
+        spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
     }
 }
