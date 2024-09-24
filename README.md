@@ -1,5 +1,12 @@
 # Card Action Game Readme
 
+### 9/23 - Target Refractor
+When targeting an enemy, the rays do not shoot towards the correct place. This needs a fix, either with the starting position's height or the angle at which these rays shoot.
+
+### 9/21 - Character Controller Refractor - Spells
+Reworking how spells work. Will need to change the **controls of shoot** to right mouse button/top face button. Need to have the auto-targeting system work with shooting, then shoot from shootpoint to target's transform.
+Need to be able to switch spells. Add **spell switch** controls and +1 = up && -1 = down
+
 ### 9/11 - Animations fixed and set up
 Imported new versions of the models. Had to fix the avatar on import. Animations are working, if a bit ugly. Animators are working. Time for code rewrites. Will merge later.
 Code rewrites (in order of importance):

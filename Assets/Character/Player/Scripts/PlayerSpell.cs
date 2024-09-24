@@ -24,7 +24,7 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private int _currentSpellIndex;
     [SerializeField] private SpellCardScriptableObj _baseSpell;
 
-    [SerializeField] private LockSpellTargetRotation _spellTarget;
+    [SerializeField] public LockSpellTargetRotation _spellTarget { get; private set; }
 
     private float timeToAddToTimer;
     [SerializeField] private float _spellTimer;
@@ -120,18 +120,32 @@ public class PlayerSpell : MonoBehaviour
         }
     }
 
-    public void ChangeSpellIndex()
+    public void ChangeSpell(int dir)
     {
         if (_activeSpellList.Count > 1)
         {
             int maxIndex = _activeSpellList.Count - 1;
-
-            // change current spell index size to 1x1
-            _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
-            _currentSpellIndex++;
-            if (_currentSpellIndex > maxIndex)
+            if(dir > 0)
             {
-                _currentSpellIndex = 0;
+                print("up");
+                // change current spell index size to 1x1
+                _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
+                _currentSpellIndex++;
+                if (_currentSpellIndex > maxIndex)
+                {
+                    _currentSpellIndex = 0;
+                }
+            }
+            else
+            {
+                print("down");
+                // change current spell index size to 1x1
+                _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
+                _currentSpellIndex--;
+                if (_currentSpellIndex < 0)
+                {
+                    _currentSpellIndex = _activeSpellList.Count -1;
+                }
             }
             _spellTimer = 0.0f;
             timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
@@ -140,39 +154,56 @@ public class PlayerSpell : MonoBehaviour
         }
     }
 
-    public void UseSpell()
+    public void UseSpell(Vector3 targetPos)
     {
         if(_spellTimer <= 0)
         {
-            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
-            Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, _spellTarget.targetRotation).GetComponent<Projectile>();
-            
-            // Vector3 direction = targetPos - transform.position;
-            // conjuredSpell.transform.rotation = Quaternion.LookRotation(direction);
-
-            conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
-            conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
-            _spellTimer = timeToAddToTimer;
-        
-            // remove a charge
-            if (_currentSpellIndex != 0)
-            {
-                storedSpell modifiedSpell = _activeSpellList[_currentSpellIndex];
-                modifiedSpell.chargesLeft -= 1;
-                modifiedSpell.spellChargeText.text = modifiedSpell.chargesLeft.ToString();
-
-                // yo, if there's no charges left, lets delete this
-                if (modifiedSpell.chargesLeft <= 0)
-                {
-                    int oldSpellIndexNumber = _currentSpellIndex;
-                    ChangeSpellIndex();
-                    Destroy(_activeSpellList[oldSpellIndexNumber].spellIcon.gameObject);
-                    _activeSpellList.Remove(_activeSpellList[oldSpellIndexNumber]);
-                }
-                else _activeSpellList[_currentSpellIndex] = modifiedSpell;
-            }
+            ShootSpell(targetPos);
         }
     }
 
+    private void ShootSpell(Vector3 targetPos)
+    {
+        Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
+        if(targetPos !=  Vector3.zero)
+        {
+            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
+            Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
+            conjuredSpell.transform.rotation = targetDir;
+            // player._LocomotionController.SetAttackRotationTime();
+            // StartCoroutine(player._LocomotionController.RotateCharacterWhileAttacking(targetPos));
+        }
+        else
+        {
+            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
+            Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - _spellTarget.transform.position);
+            conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
+        }
+
+        conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
+        conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
+        _spellTimer = timeToAddToTimer;
+        RemoveSpellCharge();
+    }
+
+    private void RemoveSpellCharge()
+    {
+        if (_currentSpellIndex != 0)
+        {
+            storedSpell modifiedSpell = _activeSpellList[_currentSpellIndex];
+            modifiedSpell.chargesLeft -= 1;
+            modifiedSpell.spellChargeText.text = modifiedSpell.chargesLeft.ToString();
+
+            // yo, if there's no charges left, lets delete this
+            if (modifiedSpell.chargesLeft <= 0)
+            {
+                int oldSpellIndexNumber = _currentSpellIndex;
+                ChangeSpell(-1);
+                Destroy(_activeSpellList[oldSpellIndexNumber].spellIcon.gameObject);
+                _activeSpellList.Remove(_activeSpellList[oldSpellIndexNumber]);
+            }
+            else _activeSpellList[_currentSpellIndex] = modifiedSpell;
+        }
+    }
     // end
 }

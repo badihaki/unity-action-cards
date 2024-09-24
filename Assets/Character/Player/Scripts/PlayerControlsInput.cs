@@ -12,10 +12,11 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _JumpInput { get; private set; }
     [field: SerializeField] public bool _RunInput { get; private set; }
     [field: SerializeField] public bool _CardsInput { get; private set; }
-    [field: SerializeField] public bool _ReadySpellInput { get; private set; }
+    [field: SerializeField] public bool _SpellslingInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
     [field: SerializeField] public bool _InteractInput { get; private set; }
     [field: SerializeField] public bool _DefenseInput { get; private set; }
+    [field: SerializeField] public int _SelectSpellInput { get; private set; }
 
 
     public void OnMove(InputValue val)
@@ -84,14 +85,15 @@ public class PlayerControlsInput : MonoBehaviour
     }
     public void UseAttack() => _AttackInput = false;
 
-    public void OnReadySpell(InputValue val)
+    public void OnSpell(InputValue val)
     {
-        ProcessReadySpell(val.isPressed);
+        ProcessSpellsling(val.isPressed);
     }
-    private void ProcessReadySpell(bool inputState)
+    private void ProcessSpellsling(bool inputState)
     {
-        _ReadySpellInput = inputState;
+        _SpellslingInput = inputState;
     }
+    public void UseSpell() => _SpellslingInput = false;
     
     public void OnInteract(InputValue val)
     {
@@ -115,6 +117,13 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _DefenseInput = false;
     }
+
+    public void OnSelectSpell(InputValue val)
+    {
+        float value = val.Get<float>();
+        _SelectSpellInput = value > 0 ? 1 : -1;
+    }
+    public void ResetSelectSpell() => _SelectSpellInput = 0;
 
     // end
 }

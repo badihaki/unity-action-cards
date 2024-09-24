@@ -16,7 +16,7 @@ public class PlayerCharacter : Character, IDestroyable
     // Actor Stuff
     [field: SerializeField] public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
-    [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
+    [field: SerializeField] public CharacterHitbox _Hitbox { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -27,7 +27,7 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerLandingState _LandingState { get; private set; }
     // public PlayerGroundedCardState _GroundedCardState { get; private set; }
     // public PlayerInAirCardState _InAirCardState { get; private set; }
-    public PlayerReadySpellState _ReadySpellState { get; private set; }
+    public PlayerSpellslingState _SpellslingState { get; private set; }
 
     public override void Initialize()
     {
@@ -62,7 +62,7 @@ public class PlayerCharacter : Character, IDestroyable
         _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
-        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
+        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>();
         _Hitbox.Initialize(this);
 
         // initialize the statemachine
@@ -184,8 +184,8 @@ public class PlayerCharacter : Character, IDestroyable
         // _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
         // _InAirCardState.InitializeState(this, "airCard", _StateMachine);
 
-        _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
-        _ReadySpellState.InitializeState(this, "aim", _StateMachine); // changed animboolname from 'range' to 'aim'
+        _SpellslingState = ScriptableObject.CreateInstance<PlayerSpellslingState>();
+        _SpellslingState.InitializeState(this, "aim", _StateMachine); // changed animboolname from 'range' to 'aim'
 
         _StateMachine.InitializeStateMachine(_IdleState);
     }

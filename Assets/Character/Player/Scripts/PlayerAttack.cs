@@ -109,7 +109,7 @@ public class PlayerAttack : MonoBehaviour
         _LaunchForce = 0.0f;
     }
 
-    public void DetectNearbyTargets()
+    public Vector3 DetectNearbyTargets()
     {
         List<Transform> targetList = GetAllDamageableEntities();
         Transform target = null;
@@ -118,24 +118,39 @@ public class PlayerAttack : MonoBehaviour
             if (target == null) target = obj;
             else if (Vector3.Distance(transform.position, obj.position) < Vector3.Distance(transform.position, target.position)) target = obj;
         }
-        TurnToFaceTarget(target);
+        if(target != null)
+        {
+            TurnToFaceTarget(target);
+            return target.transform.position;
+        }
+        return Vector3.zero;
     }
 
     private void TurnToFaceTarget(Transform target)
     {
         if (target == null) return;
-        transform.LookAt(target);
+        Vector3 lookatTarget = new Vector3(target.position.x, player._PlayerActor.transform.position.y, target.position.z);
+        // transform.LookAt(target);
+        // player._LocomotionController.RotateCharacter(target.transform.position - target.position);
+        player._PlayerActor.transform.LookAt(lookatTarget);
     }
 
     private List<Transform> GetAllDamageableEntities()
     {
         List<Transform> entities = new List<Transform>();
-        Vector3 startPos = player._PlayerActor.transform.position;
-        float lineLength = 5.0f;
-
+        // Vector3 startPos = player._PlayerActor.transform.position;
+        // Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
+        Vector3 startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + 0.75f, player._PlayerActor.transform.position.z);
+        float lineLength = 12.35f;
+        
+        ShootRays(5, 7, lineLength, startPos, 0.5f);
+       
+        /*
         // Below is how to calculate things in front
         RaycastHit forwardHit;
-        Vector3 forwardLineDirection = (startPos + player._PlayerActor.transform.forward * lineLength);
+
+        // Vector3 forwardLineDirection = (startPos + player._PlayerActor.transform.forward * lineLength);
+        Vector3 forwardLineDirection = (startPos + player._CameraRef.transform.forward * lineLength);
         forwardLineDirection.y = 1.0f;
         if(Physics.Linecast(startPos, forwardLineDirection, out forwardHit))
         {
@@ -148,7 +163,7 @@ public class PlayerAttack : MonoBehaviour
 
         // below is for the right of the player
         RaycastHit rightHit;
-        Vector3 rightLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x + 0.35f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 rightLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x + 0.35f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, rightLineDirection, out rightHit))
         {
             IDamageable damageableEntity = rightHit.collider.GetComponent<IDamageable>();
@@ -159,7 +174,7 @@ public class PlayerAttack : MonoBehaviour
         }
         // and far right
         RaycastHit farRightHit;
-        Vector3 farRightLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x + 0.75f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 farRightLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x + 0.75f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, farRightLineDirection, out farRightHit))
         {
             IDamageable damageableEntity = farRightHit.collider.GetComponent<IDamageable>();
@@ -171,7 +186,7 @@ public class PlayerAttack : MonoBehaviour
 
         // now for the left direction
         RaycastHit leftHit;
-        Vector3 leftLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x - 0.35f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 leftLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x - 0.35f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, leftLineDirection, out leftHit))
         {
             IDamageable damageableEntity = leftHit.collider.GetComponent<IDamageable>();
@@ -182,7 +197,7 @@ public class PlayerAttack : MonoBehaviour
         }
         // and the far-left
         RaycastHit farLeftHit;
-        Vector3 farLeftLineDirection = (startPos + new Vector3(player._PlayerActor.transform.forward.x - 0.75f, player._PlayerActor.transform.forward.y, player._PlayerActor.transform.forward.z) * lineLength);
+        Vector3 farLeftLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x - 0.75f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
         if (Physics.Linecast(startPos, farLeftLineDirection, out farLeftHit))
         {
             IDamageable damageableEntity = farLeftHit.collider.GetComponent<IDamageable>();
@@ -191,11 +206,43 @@ public class PlayerAttack : MonoBehaviour
                 if (!entities.Contains(farLeftHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(farLeftHit.transform);
             }
         }
-
         // draw all the stuff
         DrawTargetDetectionLines(0.5f, startPos, forwardLineDirection, rightLineDirection, farRightLineDirection, leftLineDirection, farLeftLineDirection);
-
+        */
         return entities;
+    }
+
+    private void ShootRays(int columns, int rows, float rayLength, Vector3 startingPos, float lineDrawTime)
+    {
+        List<Transform> entities = new List<Transform>();
+
+        Vector2 offset = new Vector2(-20,-10);
+        Color color = Color.red;
+        //
+        for (int iRow = 0; iRow < rows; iRow++)
+        {
+            // for each row, do...
+            for (int iCol = 0; iCol < columns; iCol++)
+            {
+                print($"row {iRow+1} and column {iCol+1}");
+                print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
+                // create a ray, add offset
+                RaycastHit hit;
+                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * rayLength);
+                Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, offset.y, player._CameraRef.transform.forward.z) * rayLength);
+                if(Physics.Linecast(startingPos, dir, out hit))
+                {
+                    if (!entities.Contains(hit.transform)) entities.Add(hit.transform);
+                }
+                Debug.DrawLine(startingPos, dir, color, lineDrawTime);
+                offset.x += 5;
+            }
+            // print(color.r);
+            color.r += -0.25f;
+            color.b += 0.35f;
+            color.g += -0.15f;
+            offset.y += 5;
+        }
     }
 
     private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)

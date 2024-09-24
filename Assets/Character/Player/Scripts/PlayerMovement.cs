@@ -19,8 +19,9 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.35f;
-    [SerializeField] float smoothingTimeOffset = 0.825f;
+    [SerializeField] float attackRotationSmoothTime = 0.825f;
     private float targetRotation;
+    private float attackRotationTimer;
     [field: SerializeField] public float movementSpeed { get; private set; }
     [field: SerializeField] private float targetSpeed;
     private float lerpSpeedOnMovement = 0.085f;
@@ -79,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if (moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
         else
         {
-            RotateCharacter(moveInput);
+            // RotateCharacter(moveInput);
             _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
         }
         SetMovementSpeed();
@@ -123,16 +124,23 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
-    public void RotateCharacterWhileAiming(Vector2 inputDirection)
+    public void SetAttackRotationTime() => attackRotationTimer = attackRotationSmoothTime;
+    public IEnumerator RotateCharacterWhileAttacking(Vector2 inputDirection)
     {
-        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
-            * Mathf.Rad2Deg
-            + cam.transform.eulerAngles.y;
-        // rotation direction determines which direction we move to reach our intended rotation
-        float newRotationVel = rotationVelocity / 2;
-        float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, rotationSmoothingTime * smoothingTimeOffset);
-        // actually rotating the transform
-        transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+        while(attackRotationTimer > 0.0f)
+        {
+            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
+                * Mathf.Rad2Deg
+                + cam.transform.eulerAngles.y;
+            // rotation direction determines which direction we move to reach our intended rotation
+            float newRotationVel = rotationVelocity / 2;
+            float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, attackRotationSmoothTime);
+            // actually rotating the transform
+            // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+            _Player._PlayerActor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+            attackRotationTimer -= Time.deltaTime;
+            yield return null;
+        }
     }
 
     public void ApplyDesiredMoveToMovement()
