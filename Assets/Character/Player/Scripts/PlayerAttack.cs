@@ -26,6 +26,24 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public Transform _WeaponHolderR { get; private set; }
     [field: SerializeField] public GameObject _WeaponR { get; private set; }
 
+    [Header("Ray stuff, delete later")]
+    public Vector3 offset = new Vector3(0, 0, 1);
+    public float offsetAddX = 5.0f;
+    public float offsetAddY = 5.0f;
+    public Vector3 startPos;
+    public float lineLength = 12.35f;
+    public float rayStartOffsetY = 1.50f;
+    // public List<Color> colors = [Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white];
+    public List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white };
+
+    // delete later
+    private void Update()
+    {
+        startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + rayStartOffsetY, player._PlayerActor.transform.position.z);
+        ShootRays(5, 7, lineLength, startPos, 0.085f);
+    }
+    // delete later
+
     public void Initialize(PlayerCharacter newPlayer)
     {
         player = newPlayer;
@@ -35,6 +53,7 @@ public class PlayerAttack : MonoBehaviour
         _WeaponL = null;
         SetWeapon(unarmed);
         _WeaponR.gameObject.SetActive(false);
+
     }
 
     public void SwitchWeapon(WeaponScriptableObj weapon)
@@ -140,10 +159,16 @@ public class PlayerAttack : MonoBehaviour
         List<Transform> entities = new List<Transform>();
         // Vector3 startPos = player._PlayerActor.transform.position;
         // Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
-        Vector3 startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + 0.75f, player._PlayerActor.transform.position.z);
-        float lineLength = 12.35f;
         
+        
+        /*
+         * TODO
+         * The rays do not shoot the right direction, and this needs to be fixed
+         * v
+         * v
+         * v
         ShootRays(5, 7, lineLength, startPos, 0.5f);
+         */
        
         /*
         // Below is how to calculate things in front
@@ -215,37 +240,35 @@ public class PlayerAttack : MonoBehaviour
     private void ShootRays(int columns, int rows, float rayLength, Vector3 startingPos, float lineDrawTime)
     {
         List<Transform> entities = new List<Transform>();
-
-        Vector2 offset = new Vector2(-20,-10);
-        Color color = Color.red;
+        print("shooting");
+        
+        Vector3 rayOffset = offset;
         //
         for (int iRow = 0; iRow < rows; iRow++)
         {
             // for each row, do...
             for (int iCol = 0; iCol < columns; iCol++)
             {
-                print($"row {iRow+1} and column {iCol+1}");
-                print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
+                // print($"row {iRow+1} and column {iCol+1}");
+                // print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
                 // create a ray, add offset
                 RaycastHit hit;
                 // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * rayLength);
-                Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, offset.y, player._CameraRef.transform.forward.z) * rayLength);
-                if(Physics.Linecast(startingPos, dir, out hit))
+                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x * 0.1f, rayOffset.y, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
+                Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x * 0.1f, player._CameraRef.transform.forward.y + rayOffset.y * 0.1f, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
+
+                if (Physics.Linecast(startingPos, dir, out hit))
                 {
                     if (!entities.Contains(hit.transform)) entities.Add(hit.transform);
                 }
-                Debug.DrawLine(startingPos, dir, color, lineDrawTime);
-                offset.x += 5;
+                Debug.DrawLine(startingPos, dir, colors[iCol], lineDrawTime);
+                rayOffset.x += offsetAddX;
             }
-            // print(color.r);
-            color.r += -0.25f;
-            color.b += 0.35f;
-            color.g += -0.15f;
-            offset.y += 5;
+            rayOffset.y += offsetAddY;
         }
-    }
+}
 
-    private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)
+private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)
     {
         Debug.DrawLine(start, forward, Color.white, timeToShow);
         Debug.DrawLine(start, right, Color.cyan, timeToShow);
