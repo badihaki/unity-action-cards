@@ -129,17 +129,23 @@ public class PlayerAttack : MonoBehaviour
     private void TurnToFaceTarget(Transform target)
     {
         if (target == null) return;
+        Vector3 lookatTarget = new Vector3(target.position.x, player._PlayerActor.transform.position.y, target.position.z);
         // transform.LookAt(target);
-        player._LocomotionController.RotateCharacter(target.transform.position - target.position);
+        // player._LocomotionController.RotateCharacter(target.transform.position - target.position);
+        player._PlayerActor.transform.LookAt(lookatTarget);
     }
 
     private List<Transform> GetAllDamageableEntities()
     {
         List<Transform> entities = new List<Transform>();
         // Vector3 startPos = player._PlayerActor.transform.position;
-        Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
-        float lineLength = 5.0f;
-
+        // Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
+        Vector3 startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + 0.75f, player._PlayerActor.transform.position.z);
+        float lineLength = 12.35f;
+        
+        ShootRays(5, 7, lineLength, startPos, 0.5f);
+       
+        /*
         // Below is how to calculate things in front
         RaycastHit forwardHit;
 
@@ -200,11 +206,43 @@ public class PlayerAttack : MonoBehaviour
                 if (!entities.Contains(farLeftHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(farLeftHit.transform);
             }
         }
-
         // draw all the stuff
         DrawTargetDetectionLines(0.5f, startPos, forwardLineDirection, rightLineDirection, farRightLineDirection, leftLineDirection, farLeftLineDirection);
-
+        */
         return entities;
+    }
+
+    private void ShootRays(int columns, int rows, float rayLength, Vector3 startingPos, float lineDrawTime)
+    {
+        List<Transform> entities = new List<Transform>();
+
+        Vector2 offset = new Vector2(-20,-10);
+        Color color = Color.red;
+        //
+        for (int iRow = 0; iRow < rows; iRow++)
+        {
+            // for each row, do...
+            for (int iCol = 0; iCol < columns; iCol++)
+            {
+                print($"row {iRow+1} and column {iCol+1}");
+                print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
+                // create a ray, add offset
+                RaycastHit hit;
+                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * rayLength);
+                Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, offset.y, player._CameraRef.transform.forward.z) * rayLength);
+                if(Physics.Linecast(startingPos, dir, out hit))
+                {
+                    if (!entities.Contains(hit.transform)) entities.Add(hit.transform);
+                }
+                Debug.DrawLine(startingPos, dir, color, lineDrawTime);
+                offset.x += 5;
+            }
+            // print(color.r);
+            color.r += -0.25f;
+            color.b += 0.35f;
+            color.g += -0.15f;
+            offset.y += 5;
+        }
     }
 
     private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)

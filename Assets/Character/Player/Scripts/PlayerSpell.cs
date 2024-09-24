@@ -156,9 +156,8 @@ public class PlayerSpell : MonoBehaviour
             player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
             Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
             conjuredSpell.transform.rotation = targetDir;
-
-            player._LocomotionController.SetAttackRotationTime();
-            StartCoroutine(player._LocomotionController.RotateCharacterWhileAttacking(targetPos));
+            // player._LocomotionController.SetAttackRotationTime();
+            // StartCoroutine(player._LocomotionController.RotateCharacterWhileAttacking(targetPos));
         }
         else
         {
