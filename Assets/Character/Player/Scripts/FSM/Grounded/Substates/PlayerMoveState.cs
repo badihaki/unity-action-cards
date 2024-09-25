@@ -33,5 +33,8 @@ public class PlayerMoveState : PlayerGroundedSuperState
             _PlayerCharacter._LocomotionController.SlowDown();
 
         base.PhysicsUpdate();
+        _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+        _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 }

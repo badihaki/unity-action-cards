@@ -27,20 +27,21 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public GameObject _WeaponR { get; private set; }
 
     [Header("Ray stuff, delete later")]
-    public Vector3 offset = new Vector3(0, 0, 1);
-    public float offsetAddX = 5.0f;
-    public float offsetAddY = 5.0f;
+    public Vector2 offset = new Vector2(0, 0);
+    public float offsetAddX = 0.0f;
+    public float offsetAddY = 0.5f;
     public Vector3 startPos;
     public float lineLength = 12.35f;
     public float rayStartOffsetY = 1.50f;
+    public Vector3 camForward;
     // public List<Color> colors = [Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white];
     public List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white };
 
     // delete later
     private void Update()
     {
-        startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + rayStartOffsetY, player._PlayerActor.transform.position.z);
-        ShootRays(5, 7, lineLength, startPos, 0.085f);
+        // startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + rayStartOffsetY, player._PlayerActor.transform.position.z);
+        // ShootRays(5, 7, lineLength, startPos, 0.085f);
     }
     // delete later
 
@@ -254,9 +255,10 @@ public class PlayerAttack : MonoBehaviour
                 // create a ray, add offset
                 RaycastHit hit;
                 // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * rayLength);
-                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x * 0.1f, rayOffset.y, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
-                Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x * 0.1f, player._CameraRef.transform.forward.y + rayOffset.y * 0.1f, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
+                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x, rayOffset.y, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
+                Vector3 dir = startingPos + ((player._CameraRef.transform.forward + rayOffset) * rayLength);
 
+                // if (Physics.Linecast(startingPos, dir, out hit))
                 if (Physics.Linecast(startingPos, dir, out hit))
                 {
                     if (!entities.Contains(hit.transform)) entities.Add(hit.transform);
@@ -267,15 +269,6 @@ public class PlayerAttack : MonoBehaviour
             rayOffset.y += offsetAddY;
         }
 }
-
-private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)
-    {
-        Debug.DrawLine(start, forward, Color.white, timeToShow);
-        Debug.DrawLine(start, right, Color.cyan, timeToShow);
-        Debug.DrawLine(start, farRight, Color.blue, timeToShow);
-        Debug.DrawLine(start, left, Color.magenta, timeToShow);
-        Debug.DrawLine(start, farLeft, Color.red, timeToShow);
-    }
 
     // end
 }

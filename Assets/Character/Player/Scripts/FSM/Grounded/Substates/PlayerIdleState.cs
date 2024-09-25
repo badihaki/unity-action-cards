@@ -19,8 +19,10 @@ public class PlayerIdleState : PlayerGroundedSuperState
     {
         if (_PlayerCharacter._LocomotionController.movementSpeed > 0.05f) _PlayerCharacter._LocomotionController.SlowDown();
         else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        
+
         base.PhysicsUpdate();
+        _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 
     public override void EnterState()
