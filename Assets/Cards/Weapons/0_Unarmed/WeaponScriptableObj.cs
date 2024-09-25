@@ -11,9 +11,8 @@ public class WeaponScriptableObj : ScriptableObject
     public enum WeaponType
     {
         unarmed,
-        singleHandNormal,
-        twoHandedBiggies,
-        spear
+        sword,
+        bigSword
     }
     public WeaponType _WeaponType;
     public GameObject _WeaponAttackFX;

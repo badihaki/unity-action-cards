@@ -74,6 +74,7 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _CardsInput = inputState;
     }
+    public void CardSelected() => _CardsInput = false;
 
     public void OnAttack(InputValue val)
     {

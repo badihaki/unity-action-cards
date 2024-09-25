@@ -61,6 +61,7 @@ public class PlayerAttack : MonoBehaviour
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
         DestroyWeaponGameObjects();
+        UnloadMoveSet();
         SetWeapon(weapon);
     }
 
@@ -83,7 +84,6 @@ public class PlayerAttack : MonoBehaviour
         _CurrentWeapon = newWeapon;
         LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
         LoadMoveset();
-        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true);
     }
 
     private void LoadWeaponGameObjects(GameObject weaponL = null, GameObject weaponR = null)
@@ -102,17 +102,32 @@ public class PlayerAttack : MonoBehaviour
 
     private void LoadMoveset()
     {
+        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true); // set our weapon type
         _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
         _AttackA.InitializeState(player, "attackA", player._StateMachine);
-        
-        _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
-        _AttackB.InitializeState(player, "attackB", player._StateMachine);
 
-        _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
-        _AttackC.InitializeState(player, "attackC", player._StateMachine);
+        if (_CurrentWeapon._PlayerMoves._AttackB)
+        {
+            _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
+            _AttackB.InitializeState(player, "attackB", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AttackC)
+        {
+            _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
+            _AttackC.InitializeState(player, "attackC", player._StateMachine);
+        }
 
         _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseAction);
         _DefenseAction.InitializeState(player, "defense", player._StateMachine);
+    }
+
+    private void UnloadMoveSet()
+    {
+        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false); // reset our weapon type
+        if (_AttackA != null) Destroy(_AttackA);
+        if (_AttackB != null) Destroy(_AttackB);
+        if (_AttackC != null) Destroy(_AttackC);
+        Destroy(_DefenseAction);
     }
 
     public void SetAttackParameters(int damage, float knockbackForce, float launchForce)

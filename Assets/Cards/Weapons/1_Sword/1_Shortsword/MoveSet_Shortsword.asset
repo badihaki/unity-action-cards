@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5195d51890571e144a7ad87da1c05bc8, type: 3}
   m_Name: MoveSet_Shortsword
   m_EditorClassIdentifier: 
-  _AttackA: {fileID: 11400000, guid: 130c092793e9aac45925f0ac4034ed15, type: 2}
-  _AttackB: {fileID: 11400000, guid: c99a4f7e484867a47aaa8337c4b6b7f5, type: 2}
+  _AttackA: {fileID: 11400000, guid: 18209b545febc7046bbfc20527ae67aa, type: 2}
+  _AttackB: {fileID: 11400000, guid: 5538dc80bdd18c944b69d37277413ced, type: 2}
   _AttackC: {fileID: 0}
   _SpecialA: {fileID: 0}
   _SpecialB: {fileID: 0}
