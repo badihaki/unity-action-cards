@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,8 +39,22 @@ public class PlayerJumpState : PlayerState
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished && !_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
-        if (_PlayerCharacter._CheckGrounded.IsGrounded() && _AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished)
+        {
+			_PlayerCharacter.LogFromState("animation is finished");
+
+			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
+            {
+                _PlayerCharacter.LogFromState("finishing, not on ground");
+                _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+            }
+            else
+			{
+				_PlayerCharacter.LogFromState("finishing, grounded");
+				_StateMachine.ChangeState(_PlayerCharacter._IdleState);
+			}
+		}
+        
     }
 
     public override void CheckInputs()

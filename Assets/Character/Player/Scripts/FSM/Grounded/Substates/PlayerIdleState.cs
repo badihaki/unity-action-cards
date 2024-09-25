@@ -17,12 +17,15 @@ public class PlayerIdleState : PlayerGroundedSuperState
 
     public override void PhysicsUpdate()
     {
-        if (_PlayerCharacter._LocomotionController.movementSpeed > 0.05f) _PlayerCharacter._LocomotionController.SlowDown();
-        else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        if(!_IsExitingState)
+        {
+            if (_PlayerCharacter._LocomotionController.movementSpeed > 0.05f) _PlayerCharacter._LocomotionController.SlowDown();
+            else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
 
-        base.PhysicsUpdate();
-        _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+            base.PhysicsUpdate();
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+            _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        }
     }
 
     public override void EnterState()

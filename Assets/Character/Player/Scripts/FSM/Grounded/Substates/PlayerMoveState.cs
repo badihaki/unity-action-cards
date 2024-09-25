@@ -29,12 +29,15 @@ public class PlayerMoveState : PlayerGroundedSuperState
 
     public override void PhysicsUpdate()
     {
-        if (moveInput == Vector2.zero)
-            _PlayerCharacter._LocomotionController.SlowDown();
+        if (!_IsExitingState)
+        {
+            if (moveInput == Vector2.zero)
+                _PlayerCharacter._LocomotionController.SlowDown();
 
-        base.PhysicsUpdate();
-        _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-        _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+            base.PhysicsUpdate();
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+            _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
+            _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        }
     }
 }
