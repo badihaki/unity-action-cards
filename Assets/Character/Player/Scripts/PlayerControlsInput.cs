@@ -14,6 +14,7 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _CardsInput { get; private set; }
     [field: SerializeField] public bool _SpellslingInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
+    [field: SerializeField] public bool _SpecialAttackInput { get; private set; }
     [field: SerializeField] public bool _InteractInput { get; private set; }
     [field: SerializeField] public bool _DefenseInput { get; private set; }
     [field: SerializeField] public int _SelectSpellInput { get; private set; }
@@ -85,6 +86,16 @@ public class PlayerControlsInput : MonoBehaviour
         _AttackInput = inputState;
     }
     public void UseAttack() => _AttackInput = false;
+    public void OnSpecialAttack(InputValue val)
+    {
+        ProcessSpecial(val.isPressed);
+    }
+    private void ProcessSpecial(bool inputState)
+    {
+        _SpecialAttackInput = inputState;
+        if (_SpecialAttackInput) _AttackInput = false;
+    }
+    public void UseSpecialAttack() => _SpecialAttackInput = false;
 
     public void OnSpell(InputValue val)
     {
