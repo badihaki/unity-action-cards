@@ -20,19 +20,19 @@ public class PlayerCombatSuperState : PlayerState
     public override void EnterState()
     {
         base.EnterState();
-        _PlayerCharacter._AttackController.SetRootMotion(true);
+        // _PlayerCharacter._AttackController.SetRootMotion(true);
     }
 
     public override void ExitState()
     {
         base.ExitState();
-        _PlayerCharacter._AttackController.SetRootMotion(false);
+        // _PlayerCharacter._AttackController.SetRootMotion(false);
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        _PlayerCharacter._PlayerActor.ApplyRootMotion();
+        // _PlayerCharacter._PlayerActor.ApplyRootMotion();
     }
 
     public override void CheckInputs()

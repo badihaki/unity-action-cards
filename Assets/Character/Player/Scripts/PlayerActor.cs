@@ -36,17 +36,6 @@ public class PlayerActor : Actor
     /*
     private void OnAnimatorMove()
     {
-        if (animationController && controlByRootMotion)
-        {
-            animatorMovementVector = animationController.deltaPosition.normalized;
-            PCActor.transform.position += animationController.deltaPosition;
-            animationController.rootRotation = PCActor.transform.rotation;
-        }
-    }
-    */
-
-    public void ApplyRootMotion()
-    {
         PCActor.transform.position += animationController.deltaPosition.normalized;
         transform.position += animationController.deltaPosition.normalized;
         PCActor.transform.position += animationController.deltaPosition;
@@ -55,7 +44,7 @@ public class PlayerActor : Actor
         transform.rotation = animationController.deltaRotation * transform.rotation;
         // OnAnimatorMove();
     }
-
+    */
     public override void StateAnimationFinished() => PCActor.StateAnimationFinished();
     public override void AnimationTrigger() => PCActor.StateTrigger();
     public override void AnimationVFXTrigger() => PCActor.StateVFXTrigger();
