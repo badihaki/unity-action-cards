@@ -31,6 +31,6 @@ public class PlayerDodgeState : PlayerDefenseSuperState
     {
         base.AnimationFinished();
 
-        _PlayerCharacter._StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        _PlayerCharacter._StateMachine.ChangeState(_StateMachine._IdleState);
     }
 }

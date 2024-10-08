@@ -14,6 +14,7 @@ public class PlayerGroundedSuperState : PlayerState
     public bool cardInput { get; private set; }
     public bool spellInput { get; private set; }
     public bool attackInput { get; private set; }
+    public bool specialInput { get; private set; }
     public bool defenseInput { get; private set; }
     public int spellSelectDirection { get; private set; }
 
@@ -44,10 +45,10 @@ public class PlayerGroundedSuperState : PlayerState
         if (!cardInput)
         {
             _PlayerCharacter._PlayerCards.PutAwayHand();
-            if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
-            if (jumpInput) _StateMachine.ChangeState(_PlayerCharacter._JumpState);
+            if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._FallingState);
+            if (jumpInput) _StateMachine.ChangeState(_StateMachine._JumpState);
             // if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
-            if (spellInput) _StateMachine.ChangeState(_PlayerCharacter._SpellslingState);
+            if (spellInput) _StateMachine.ChangeState(_StateMachine._SpellslingState);
             if (attackInput)
             {
                 _PlayerCharacter._Controls.UseAttack();
@@ -69,6 +70,7 @@ public class PlayerGroundedSuperState : PlayerState
         cardInput = _PlayerCharacter._Controls._CardsInput;
         spellInput = _PlayerCharacter._Controls._SpellslingInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
+        specialInput = _PlayerCharacter._Controls._SpecialAttackInput;
         defenseInput = _PlayerCharacter._Controls._DefenseInput;
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
     }

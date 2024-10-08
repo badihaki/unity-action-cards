@@ -46,12 +46,12 @@ public class PlayerJumpState : PlayerState
 			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
             {
                 _PlayerCharacter.LogFromState("finishing, not on ground");
-                _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+                _StateMachine.ChangeState(_StateMachine._FallingState);
             }
             else
 			{
 				_PlayerCharacter.LogFromState("finishing, grounded");
-				_StateMachine.ChangeState(_PlayerCharacter._IdleState);
+				_StateMachine.ChangeState(_StateMachine._IdleState);
 			}
 		}
         

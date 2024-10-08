@@ -20,21 +20,12 @@ public class PlayerCharacter : Character, IDestroyable
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
-    public PlayerIdleState _IdleState { get; private set; }
-    public PlayerMoveState _MoveState { get; private set; }
-    public PlayerFallingState _FallingState { get; private set; }
-    public PlayerJumpState _JumpState { get; private set; }
-    public PlayerLandingState _LandingState { get; private set; }
-    // public PlayerGroundedCardState _GroundedCardState { get; private set; }
-    // public PlayerInAirCardState _InAirCardState { get; private set; }
-    public PlayerSpellslingState _SpellslingState { get; private set; }
 
     public override void Initialize()
     {
         // lets set up the actor
         if (_LoadNewOnStart) LoadAndBuildActor();
         else LoadActor();
-        // _PlayerActor = GetComponentInChildren<PlayerActor>();
         _PlayerActor.InitializePlayerActor(this);
 
         base.Initialize();
@@ -160,34 +151,9 @@ public class PlayerCharacter : Character, IDestroyable
 
     private void InitializeStateMachine()
     {
-        // _StateMachine = new PlayerStateMachine();
         _StateMachine = GetComponent<PlayerStateMachine>();
-
-        _IdleState = ScriptableObject.CreateInstance<PlayerIdleState>();
-        _IdleState.InitializeState(this, "idle", _StateMachine);
-
-        _MoveState = ScriptableObject.CreateInstance<PlayerMoveState>();
-        _MoveState.InitializeState(this, "move", _StateMachine);
-
-        _FallingState = ScriptableObject.CreateInstance<PlayerFallingState>();
-        _FallingState.InitializeState(this, "air", _StateMachine);
-
-        _JumpState = ScriptableObject.CreateInstance<PlayerJumpState>();
-        _JumpState.InitializeState(this, "jump", _StateMachine);
-
-        _LandingState = ScriptableObject.CreateInstance<PlayerLandingState>();
-        _LandingState.InitializeState(this, "land", _StateMachine);
-
-        // _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
-        // _GroundedCardState.InitializeState(this, "card", _StateMachine);
-
-        // _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
-        // _InAirCardState.InitializeState(this, "airCard", _StateMachine);
-
-        _SpellslingState = ScriptableObject.CreateInstance<PlayerSpellslingState>();
-        _SpellslingState.InitializeState(this, "aim", _StateMachine); // changed animboolname from 'range' to 'aim'
-
-        _StateMachine.InitializeStateMachine(_IdleState);
+        if (!_StateMachine) _StateMachine = transform.AddComponent<PlayerStateMachine>();
+        _StateMachine.InitializeStateMachine(this);
     }
 
     // Update is called once per frame

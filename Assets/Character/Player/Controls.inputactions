@@ -70,12 +70,12 @@
                 },
                 {
                     "name": "SpecialAttack",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "a5112107-6c60-407e-8ee5-6d574f43cfc3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Spell",

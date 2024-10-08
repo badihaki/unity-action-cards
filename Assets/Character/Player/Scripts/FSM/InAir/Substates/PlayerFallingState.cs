@@ -36,8 +36,8 @@ public class PlayerFallingState : PlayerInAirSuperState
     {
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
-            if (fallTime > 2.85f) _StateMachine.ChangeState(_PlayerCharacter._LandingState);
-            else _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+            if (fallTime > 2.85f) _StateMachine.ChangeState(_StateMachine._LandingState);
+            else _StateMachine.ChangeState(_StateMachine._IdleState);
         }
     }
 }

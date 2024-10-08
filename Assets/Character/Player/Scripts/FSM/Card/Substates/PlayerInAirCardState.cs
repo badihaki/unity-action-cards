@@ -12,7 +12,7 @@ public class PlayerInAirCardState : PlayerCardSuperState
     {
         base.CheckStateTransitions();
 
-        if (!cardInput) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
-        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (!cardInput) _StateMachine.ChangeState(_StateMachine._FallingState);
+        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
     }
 }

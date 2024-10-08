@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void SlowDown()
     {
-        print("slowing down");
+        // print("slowing down");
         if (movementSpeed < 0.1f) ZeroOutVelocity();
         targetSpeed = 0;
         SetMovementSpeed();

@@ -5,11 +5,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Moveset", menuName = "Create Item/Weapons/New Player Moveset")]
 public class PlayerMoveSetScriptableObj : MoveSetScriptableObject
 {
+    [Header("Light Attack Strings")]
     public PlayerAttackSuperState _AttackA;
     public PlayerAttackSuperState _AttackB;
     public PlayerAttackSuperState _AttackC;
-    public PlayerAttackSuperState _SpecialA;
-    public PlayerAttackSuperState _SpecialB;
-    public PlayerAttackSuperState _SpecialC;
-    public PlayerDefenseSuperState _DefenseAction;
+    
+    [Header("Special and Special Finishers")]
+    public PlayerSpecialSuperState _Special;
+    public PlayerSpecialSuperState _SpecialFinisherA;
+    public PlayerSpecialSuperState _SpecialFinisherB;
+    public PlayerSpecialSuperState _SpecialFinisherC;
+
+    [Header("Universal Attacks")]
+    public PlayerRushAttackSuperState _RushAttack;
+    public PlayerLauncherAttackSuperState _LauncherAttack;
+
+    [Header("Defensive Action")]
+    public PlayerDefenseSuperState _DefenseDash;
 }

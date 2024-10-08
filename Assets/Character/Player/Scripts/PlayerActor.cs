@@ -31,6 +31,9 @@ public class PlayerActor : Actor
         LeftWeapon = chestBone.Find("DEF-shoulder.L").Find("DEF-upper_arm.L").Find("DEF-upper_arm.L.001").Find("DEF-forearm.L").Find("DEF-forearm.L.001").Find("DEF-hand.L").Find("DEF-weapon.L").transform;
     }
 
+    public void SetSyncParentMotion(bool value) => controlByRootMotion = value;
+
+    /*
     private void OnAnimatorMove()
     {
         if (animationController && controlByRootMotion)
@@ -40,14 +43,17 @@ public class PlayerActor : Actor
             animationController.rootRotation = PCActor.transform.rotation;
         }
     }
+    */
 
-    public void SetSyncParentMotion(bool value) => controlByRootMotion = value;
-
-    public void SendPositionDataToParent(PlayerCharacter parent)
+    public void ApplyRootMotion()
     {
-        OnAnimatorMove();
-        // parent.transform.position += animationController.deltaPosition.normalized;
-        parent.transform.position += animationController.deltaPosition;
+        PCActor.transform.position += animationController.deltaPosition.normalized;
+        transform.position += animationController.deltaPosition.normalized;
+        PCActor.transform.position += animationController.deltaPosition;
+        transform.position += animationController.deltaPosition;
+        PCActor.transform.rotation = animationController.deltaRotation * PCActor.transform.rotation;
+        transform.rotation = animationController.deltaRotation * transform.rotation;
+        // OnAnimatorMove();
     }
 
     public override void StateAnimationFinished() => PCActor.StateAnimationFinished();

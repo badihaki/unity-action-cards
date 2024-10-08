@@ -13,6 +13,14 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackC { get; private set; }
 
+    [field: SerializeField, Header("Special Attack States")] public PlayerSpecialSuperState _Special { get; private set; }
+    [field: SerializeField] public PlayerSpecialSuperState _FinisherA { get; private set; }
+    [field: SerializeField] public PlayerSpecialSuperState _FinisherB { get; private set; }
+    [field: SerializeField] public PlayerSpecialSuperState _FinisherC { get; private set; }
+
+    [field: SerializeField, Header("Universal Attack States")] public PlayerRushAttackSuperState _RushAttack { get; private set; }
+    [field: SerializeField] public PlayerLauncherAttackSuperState _LauncherAttack { get; private set; }
+
     [field: SerializeField, Header("Defensive Action")] public PlayerState _DefenseAction { get; private set; }
 
     [field: Header("Attack Stats"), SerializeField]
@@ -106,6 +114,17 @@ public class PlayerAttack : MonoBehaviour
         _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
         _AttackA.InitializeState(player, "attackA", player._StateMachine);
 
+        LoadAttackStrings();
+        LoadSpecialAttacks();
+        LoadUniversalAttacks();
+
+        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseDash);
+        _DefenseAction.InitializeState(player, "defense", player._StateMachine);
+    }
+
+    private void LoadAttackStrings()
+    {
+        // basic attacks
         if (_CurrentWeapon._PlayerMoves._AttackB)
         {
             _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
@@ -116,17 +135,59 @@ public class PlayerAttack : MonoBehaviour
             _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
             _AttackC.InitializeState(player, "attackC", player._StateMachine);
         }
+    }
+    
+    private void LoadSpecialAttacks()
+    {
+        if (_CurrentWeapon._PlayerMoves._Special)
+        {
+            _Special = Instantiate(_CurrentWeapon._PlayerMoves._Special);
+            _Special.InitializeState(player, "special", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._SpecialFinisherA)
+        {
+            _FinisherA = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherA);
+            _FinisherA.InitializeState(player, "finisherA", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._SpecialFinisherB)
+        {
+            _FinisherB = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherB);
+            _FinisherB.InitializeState(player, "finisherB", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._SpecialFinisherC)
+        {
+            _FinisherC = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherC);
+            _FinisherC.InitializeState(player, "finisherC", player._StateMachine);
+        }
+    }
 
-        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseAction);
-        _DefenseAction.InitializeState(player, "defense", player._StateMachine);
+    private void LoadUniversalAttacks()
+    {
+        if (_CurrentWeapon._PlayerMoves._RushAttack)
+        {
+            _RushAttack = Instantiate(_CurrentWeapon._PlayerMoves._RushAttack);
+            _RushAttack.InitializeState(player, "special", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._LauncherAttack)
+        {
+            _LauncherAttack = Instantiate(_CurrentWeapon._PlayerMoves._LauncherAttack);
+            _LauncherAttack.InitializeState(player, "special", player._StateMachine);
+        }
     }
 
     private void UnloadMoveSet()
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false); // reset our weapon type
+        // attacks
         if (_AttackA != null) Destroy(_AttackA);
         if (_AttackB != null) Destroy(_AttackB);
         if (_AttackC != null) Destroy(_AttackC);
+        // specials
+        if (_Special != null) Destroy(_Special);
+        if (_FinisherA != null) Destroy(_FinisherA);
+        if (_FinisherB != null) Destroy(_FinisherB);
+        if (_FinisherC != null) Destroy(_FinisherC);
+        // universals
         Destroy(_DefenseAction);
     }
 
@@ -142,6 +203,12 @@ public class PlayerAttack : MonoBehaviour
         _Damage = 0;
         _KnockbackForce = 0.0f;
         _LaunchForce = 0.0f;
+    }
+
+    public void SetRootMotion(bool value)
+    {
+        player._PlayerActor.animationController.applyRootMotion = value;
+        print($"we have root motion?? {player._PlayerActor.animationController.hasRootMotion}");
     }
 
     public Vector3 DetectNearbyTargets()

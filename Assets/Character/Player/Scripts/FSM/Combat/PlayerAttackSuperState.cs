@@ -43,8 +43,8 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-        if(Time.time > _StateEnterTime + 3.5f) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
+        if(Time.time > _StateEnterTime + 3.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
     }
 
     public override void CheckInputs()
@@ -59,19 +59,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         _PlayerCharacter._Controls.UseAttack();
     }
 
-    protected void ShowOrHideWeapon(bool showWeapon)
-    {
-        if (showWeapon)
-        {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(true);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(true);
-        }
-        else
-        {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(false);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(false);
-        }
-    }
+
 
     // end
 }

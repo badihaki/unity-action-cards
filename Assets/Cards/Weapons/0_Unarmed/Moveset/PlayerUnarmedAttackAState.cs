@@ -14,7 +14,6 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
         base.EnterState();
         
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        // _PlayerCharacter._AttackController.SetAttackParameters(1, 1.178f, 0.75f);
         _PlayerCharacter._AttackController.SetAttackParameters(1, 0.78f, 1.75f);
         ShowOrHideWeapon(true);
     }
@@ -28,6 +27,7 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
     public override void CheckStateTransitions()
     {
         if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackB);
+        if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
 
         base.CheckStateTransitions();
     }
