@@ -19,7 +19,7 @@ public class NPCMovementController : MonoBehaviour, IKnockbackable
         
     }
 
-    public void ZeroOutMovement() => _PhysicsController.velocity = Vector3.zero;
+    public void ZeroOutMovement() => _PhysicsController.linearVelocity = Vector3.zero;
 
     public void ApplyKnockback(Transform forceSource, float knockforce, float launchForce)
     {
