@@ -10,7 +10,7 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public Vector2 _AimInput { get; private set; }
     [field: SerializeField] public bool _LockOnInput { get; private set; }
     [field: SerializeField] public bool _JumpInput { get; private set; }
-    [field: SerializeField] public bool _RunInput { get; private set; }
+    [field: SerializeField] public bool _RushInput { get; private set; }
     [field: SerializeField] public bool _CardsInput { get; private set; }
     [field: SerializeField] public bool _SpellslingInput { get; private set; }
     [field: SerializeField] public bool _AttackInput { get; private set; }
@@ -65,7 +65,7 @@ public class PlayerControlsInput : MonoBehaviour
 
     private void ProcessRunInput(bool inputState)
     {
-        _RunInput = inputState;
+        _RushInput = inputState;
     }
     public void OnCards(InputValue val)
     {

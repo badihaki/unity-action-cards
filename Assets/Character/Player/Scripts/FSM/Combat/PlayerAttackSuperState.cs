@@ -39,14 +39,6 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         canCombo = true;
     }
 
-    public override void CheckStateTransitions()
-    {
-        base.CheckStateTransitions();
-
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
-        if(Time.time > _StateEnterTime + 3.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
-    }
-
     public override void CheckInputs()
     {
         base.CheckInputs();

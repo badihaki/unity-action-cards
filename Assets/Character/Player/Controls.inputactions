@@ -70,12 +70,12 @@
                 },
                 {
                     "name": "SpecialAttack",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "a5112107-6c60-407e-8ee5-6d574f43cfc3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
-                    "initialStateCheck": true
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Spell",
@@ -360,7 +360,7 @@
                 {
                     "name": "",
                     "id": "632e2494-49a7-4b0a-b51d-4dcbc66d8637",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -404,7 +404,7 @@
                 {
                     "name": "",
                     "id": "3a4998be-c6b7-4821-bdb4-3f6daa15a8ab",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
@@ -415,7 +415,7 @@
                 {
                     "name": "",
                     "id": "3c515524-c596-4621-82e9-978ad2f2f723",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",

@@ -166,12 +166,12 @@ public class PlayerAttack : MonoBehaviour
         if (_CurrentWeapon._PlayerMoves._RushAttack)
         {
             _RushAttack = Instantiate(_CurrentWeapon._PlayerMoves._RushAttack);
-            _RushAttack.InitializeState(player, "special", player._StateMachine);
+            _RushAttack.InitializeState(player, "rush", player._StateMachine);
         }
         if (_CurrentWeapon._PlayerMoves._LauncherAttack)
         {
             _LauncherAttack = Instantiate(_CurrentWeapon._PlayerMoves._LauncherAttack);
-            _LauncherAttack.InitializeState(player, "special", player._StateMachine);
+            _LauncherAttack.InitializeState(player, "launcher", player._StateMachine);
         }
     }
 

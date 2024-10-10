@@ -10,6 +10,7 @@ public class PlayerGroundedSuperState : PlayerState
 
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }
+    public bool rushInput { get; private set; }
     public bool jumpInput { get; private set; }
     public bool cardInput { get; private set; }
     public bool spellInput { get; private set; }
@@ -45,16 +46,50 @@ public class PlayerGroundedSuperState : PlayerState
         if (!cardInput)
         {
             _PlayerCharacter._PlayerCards.PutAwayHand();
-            if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._FallingState);
-            if (jumpInput) _StateMachine.ChangeState(_StateMachine._JumpState);
-            // if (cardInput) _StateMachine.ChangeState(_PlayerCharacter._GroundedCardState);
-            if (spellInput) _StateMachine.ChangeState(_StateMachine._SpellslingState);
-            if (attackInput)
+            if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._FallingState); // if not grounded, fall
+            if (jumpInput) _StateMachine.ChangeState(_StateMachine._JumpState); // if jump input is detected, go to jump
+            if (spellInput) _StateMachine.ChangeState(_StateMachine._SpellslingState); // if spell input detected, go to spell
+            if (defenseInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._DefenseAction); // if def input detected, go to def
+
+            // attacks
+            if (rushInput)
             {
-                _PlayerCharacter._Controls.UseAttack();
-                _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+                if(_PlayerCharacter._LocomotionController.movementSpeed > 10.0f)
+                {
+                    if (attackInput || specialInput)
+                    {
+                        _PlayerCharacter._Controls.UseAttack();
+                        _PlayerCharacter._Controls.UseSpecialAttack();
+                        _StateMachine.ChangeState(_PlayerCharacter._AttackController._RushAttack);
+                    }
+                }
+                else
+                {
+                    if (attackInput)
+                    {
+                        _PlayerCharacter._Controls.UseAttack();
+                        _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+                    }
+                    if (specialInput)
+                    {
+                        _PlayerCharacter._Controls.UseSpecialAttack();
+                        _StateMachine.ChangeState(_PlayerCharacter._AttackController._Special);
+                    }
+                }
             }
-            if (defenseInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._DefenseAction);
+            else
+            {
+                if (attackInput)
+                {
+                    _PlayerCharacter._Controls.UseAttack();
+                    _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+                }
+                if (specialInput)
+                {
+                    _PlayerCharacter._Controls.UseSpecialAttack();
+                    _StateMachine.ChangeState(_PlayerCharacter._AttackController._Special);
+                }
+            }
         }
         else
         {
@@ -66,6 +101,7 @@ public class PlayerGroundedSuperState : PlayerState
         base.CheckInputs();
         moveInput = _PlayerCharacter._Controls._MoveInput;
         aimInput = _PlayerCharacter._Controls._AimInput;
+        rushInput = _PlayerCharacter._Controls._RushInput;
         jumpInput = _PlayerCharacter._Controls._JumpInput;
         cardInput = _PlayerCharacter._Controls._CardsInput;
         spellInput = _PlayerCharacter._Controls._SpellslingInput;

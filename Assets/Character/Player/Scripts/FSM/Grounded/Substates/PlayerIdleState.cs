@@ -13,6 +13,7 @@ public class PlayerIdleState : PlayerGroundedSuperState
         base.CheckStateTransitions();
 
         if (moveInput != Vector2.zero && !cardInput) _StateMachine.ChangeState(_StateMachine._MoveState);
+
     }
 
     public override void PhysicsUpdate()

@@ -6,6 +6,7 @@ public class PlayerStateMachine : MonoBehaviour
 {
     [field: SerializeField] public PlayerState _CurrentState { get; private set; }
 
+    // states
     #region States
     public PlayerIdleState _IdleState { get; private set; }
     public PlayerMoveState _MoveState { get; private set; }

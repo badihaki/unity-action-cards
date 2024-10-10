@@ -151,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveWithVerticalVelocity()
     {
-        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        targetSpeed = _Player._Controls._RushInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
         ApplyDesiredMoveToMovement();
         _Controller.Move(_MovementDirection * Time.deltaTime);
         
