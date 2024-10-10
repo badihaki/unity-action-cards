@@ -58,12 +58,12 @@ public class PlayerControlsInput : MonoBehaviour
     }
     public void UseJump() => _JumpInput = false;
 
-    public void OnRun(InputValue val)
+    public void OnRush(InputValue val)
     {
-        ProcessRunInput(val.isPressed);
+        ProcessRushInput(val.isPressed);
     }
 
-    private void ProcessRunInput(bool inputState)
+    private void ProcessRushInput(bool inputState)
     {
         _RushInput = inputState;
     }

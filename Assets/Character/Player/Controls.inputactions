@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Rush",
                     "type": "PassThrough",
                     "id": "ccb94c7d-c2e9-4f65-be69-8e7329987d6f",
                     "expectedControlType": "Button",
@@ -232,18 +232,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "Run",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "121eed58-bede-46b0-adbd-a86d25bed79e",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Run",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -261,7 +261,7 @@
                 {
                     "name": "",
                     "id": "c5bbb3d0-5e53-4111-bf21-d886abb231c7",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
