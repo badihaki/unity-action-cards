@@ -1,5 +1,10 @@
 # Card Action Game Readme
 
+### 10/9 - Finishing Card Moveset
+I only need the air attacks. Once I get the air attacks working, I can move onto logic, hitboxes and invul. Once all attacks have logic, hitboxes and invul, I can move to contextual interactions and move character AI.
+
+Had to reimport rigs with root bone, and reimport animations.
+
 ### 9/23 - Target Refractor
 When targeting an enemy, the rays do not shoot towards the correct place. This needs a fix, either with the starting position's height or the angle at which these rays shoot.
 New plan - see JIRA

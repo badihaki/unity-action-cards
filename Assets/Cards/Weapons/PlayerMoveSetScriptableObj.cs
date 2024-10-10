@@ -16,6 +16,13 @@ public class PlayerMoveSetScriptableObj : MoveSetScriptableObject
     public PlayerSpecialSuperState _SpecialFinisherB;
     public PlayerSpecialSuperState _SpecialFinisherC;
 
+    [Header("Air Attacks")]
+    public PlayerAttackSuperState _AirAttackA;
+    public PlayerAttackSuperState _AirAttackB;
+    public PlayerAttackSuperState _AirAttackC;
+    public PlayerAttackSuperState _AirSpecial;
+
+
     [Header("Universal Attacks")]
     public PlayerRushAttackSuperState _RushAttack;
     public PlayerLauncherAttackSuperState _LauncherAttack;
