@@ -20,7 +20,7 @@ public class PlayerIdleState : PlayerGroundedSuperState
     {
         if(!_IsExitingState)
         {
-            if (_PlayerCharacter._LocomotionController.movementSpeed > 0.05f) _PlayerCharacter._LocomotionController.SlowDown();
+            if (_PlayerCharacter._LocomotionController.targetSpeed > 0.1f) _PlayerCharacter._LocomotionController.SlowDown();
             else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
 
             base.PhysicsUpdate();

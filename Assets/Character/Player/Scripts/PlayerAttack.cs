@@ -21,6 +21,11 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField, Header("Universal Attack States")] public PlayerRushAttackSuperState _RushAttack { get; private set; }
     [field: SerializeField] public PlayerLauncherAttackSuperState _LauncherAttack { get; private set; }
 
+    [field: SerializeField, Header("Air Attacks")] public PlayerAttackSuperState _AirSpecial { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AirAttackA { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AirAttackB { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AirAttackC { get; private set; }
+
     [field: SerializeField, Header("Defensive Action")] public PlayerState _DefenseAction { get; private set; }
 
     [field: Header("Attack Stats"), SerializeField]
@@ -117,6 +122,7 @@ public class PlayerAttack : MonoBehaviour
         LoadAttackStrings();
         LoadSpecialAttacks();
         LoadUniversalAttacks();
+        LoadAirAttacks();
 
         _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseDash);
         _DefenseAction.InitializeState(player, "defense", player._StateMachine);
@@ -172,6 +178,30 @@ public class PlayerAttack : MonoBehaviour
         {
             _LauncherAttack = Instantiate(_CurrentWeapon._PlayerMoves._LauncherAttack);
             _LauncherAttack.InitializeState(player, "launcher", player._StateMachine);
+        }
+    }
+
+    private void LoadAirAttacks()
+    {
+        if (_CurrentWeapon._PlayerMoves._AirSpecial)
+        {
+            _AirSpecial = _CurrentWeapon._PlayerMoves._AirSpecial;
+            _AirSpecial.InitializeState(player, "airSpecial", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AirAttackA)
+        {
+            _AirAttackA = _CurrentWeapon._PlayerMoves._AirAttackA;
+            _AirAttackA.InitializeState(player, "airA", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AirAttackB)
+        {
+            _AirAttackB = _CurrentWeapon._PlayerMoves._AirAttackB;
+            _AirAttackB.InitializeState(player, "airB", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AirAttackC)
+        {
+            _AirAttackC = _CurrentWeapon._PlayerMoves._AirAttackC;
+            _AirAttackC.InitializeState(player, "airC", player._StateMachine);
         }
     }
 

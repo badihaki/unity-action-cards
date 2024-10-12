@@ -11,6 +11,7 @@ public class PlayerCombatSuperState : PlayerState
 
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }
+    public int spellSelectDirection { get; protected set; }
     public bool jumpInput { get; private set; }
     public bool attackInput { get; private set; }
     public bool specialInput { get; private set; }
@@ -30,9 +31,29 @@ public class PlayerCombatSuperState : PlayerState
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
+        if (_PlayerCharacter._CheckGrounded.IsGrounded())
+        {
+            if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
+            if (Time.time > _StateEnterTime + 1.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
+        }
+        else
+        {
+            if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._FallingState);
+            if (Time.time > _StateEnterTime + 1.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
+        }
+    }
 
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
-        if (Time.time > _StateEnterTime + 1.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        if (spellSelectDirection != 0)
+        {
+            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            spellSelectDirection = 0;
+            _PlayerCharacter._Controls.ResetSelectSpell();
+        }
     }
 
     public override void PhysicsUpdate()
@@ -50,6 +71,7 @@ public class PlayerCombatSuperState : PlayerState
         specialInput = _PlayerCharacter._Controls._SpecialAttackInput;
         spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
         defenseInput = _PlayerCharacter._Controls._DefenseInput;
+        spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
     }
 
     protected void ShowOrHideWeapon(bool showWeapon)

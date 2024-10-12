@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,9 @@ public class PlayerInAirSuperState : PlayerState
 
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }
-    public bool cardInput { get; private set; }
     public int spellSelectDirection { get; private set; }
+    public bool attackInput { get; private set; }
+    public bool specialInput { get; private set; }
 
     public override void LogicUpdate()
     {
@@ -43,6 +45,20 @@ public class PlayerInAirSuperState : PlayerState
         base.CheckStateTransitions();
 
         if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
+        if (attackInput)
+        {
+            _PlayerCharacter.LogFromState("attackin");
+            _PlayerCharacter._Controls.UseAttack();
+            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirAttackA);
+        }
+        if (specialInput)
+        {
+            /*
+             * uncomment when ready with special input
+            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirSpecial);
+            */
+            _PlayerCharacter._Controls.UseSpecialAttack();
+        }
     }
 
     public override void CheckInputs()
@@ -51,7 +67,8 @@ public class PlayerInAirSuperState : PlayerState
 
         moveInput = _PlayerCharacter._Controls._MoveInput;
         aimInput = _PlayerCharacter._Controls._AimInput;
-        cardInput = _PlayerCharacter._Controls._CardsInput;
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
+        attackInput = _PlayerCharacter._Controls._AttackInput;
+        specialInput = _PlayerCharacter._Controls._SpecialAttackInput;
     }
 }
