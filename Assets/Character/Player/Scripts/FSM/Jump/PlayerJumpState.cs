@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class PlayerJumpState : PlayerState
 
         _PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._LocomotionController.Jump();
+        _PlayerCharacter._LocomotionController.ApplyDesiredMoveToMovement();
     }
 
     public override void LogicUpdate()
@@ -29,15 +31,30 @@ public class PlayerJumpState : PlayerState
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity();
+        // _PlayerCharacter._LocomotionController.ApplyGravity(1);
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished && !_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._FallingState);
-        if (_PlayerCharacter._CheckGrounded.IsGrounded() && _AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished)
+        {
+			_PlayerCharacter.LogFromState("animation is finished");
+
+			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
+            {
+                _PlayerCharacter.LogFromState("finishing, not on ground");
+                _StateMachine.ChangeState(_StateMachine._FallingState);
+            }
+            else
+			{
+				_PlayerCharacter.LogFromState("finishing, grounded");
+				_StateMachine.ChangeState(_StateMachine._IdleState);
+			}
+		}
+        
     }
 
     public override void CheckInputs()

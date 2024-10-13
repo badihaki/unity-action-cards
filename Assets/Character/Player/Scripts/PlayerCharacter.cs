@@ -16,25 +16,16 @@ public class PlayerCharacter : Character, IDestroyable
     // Actor Stuff
     [field: SerializeField] public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
-    [field: SerializeField] public PlayerCharacterHitbox _Hitbox { get; private set; }
+    [field: SerializeField] public CharacterHitbox _Hitbox { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
-    public PlayerIdleState _IdleState { get; private set; }
-    public PlayerMoveState _MoveState { get; private set; }
-    public PlayerFallingState _FallingState { get; private set; }
-    public PlayerJumpState _JumpState { get; private set; }
-    public PlayerLandingState _LandingState { get; private set; }
-    // public PlayerGroundedCardState _GroundedCardState { get; private set; }
-    // public PlayerInAirCardState _InAirCardState { get; private set; }
-    public PlayerReadySpellState _ReadySpellState { get; private set; }
 
     public override void Initialize()
     {
         // lets set up the actor
         if (_LoadNewOnStart) LoadAndBuildActor();
         else LoadActor();
-        // _PlayerActor = GetComponentInChildren<PlayerActor>();
         _PlayerActor.InitializePlayerActor(this);
 
         base.Initialize();
@@ -62,7 +53,7 @@ public class PlayerCharacter : Character, IDestroyable
         _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
-        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<PlayerCharacterHitbox>();
+        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>();
         _Hitbox.Initialize(this);
 
         // initialize the statemachine
@@ -160,34 +151,9 @@ public class PlayerCharacter : Character, IDestroyable
 
     private void InitializeStateMachine()
     {
-        // _StateMachine = new PlayerStateMachine();
         _StateMachine = GetComponent<PlayerStateMachine>();
-
-        _IdleState = ScriptableObject.CreateInstance<PlayerIdleState>();
-        _IdleState.InitializeState(this, "idle", _StateMachine);
-
-        _MoveState = ScriptableObject.CreateInstance<PlayerMoveState>();
-        _MoveState.InitializeState(this, "move", _StateMachine);
-
-        _FallingState = ScriptableObject.CreateInstance<PlayerFallingState>();
-        _FallingState.InitializeState(this, "air", _StateMachine);
-
-        _JumpState = ScriptableObject.CreateInstance<PlayerJumpState>();
-        _JumpState.InitializeState(this, "jump", _StateMachine);
-
-        _LandingState = ScriptableObject.CreateInstance<PlayerLandingState>();
-        _LandingState.InitializeState(this, "land", _StateMachine);
-
-        // _GroundedCardState = ScriptableObject.CreateInstance<PlayerGroundedCardState>();
-        // _GroundedCardState.InitializeState(this, "card", _StateMachine);
-
-        // _InAirCardState = ScriptableObject.CreateInstance<PlayerInAirCardState>();
-        // _InAirCardState.InitializeState(this, "airCard", _StateMachine);
-
-        _ReadySpellState = ScriptableObject.CreateInstance<PlayerReadySpellState>();
-        _ReadySpellState.InitializeState(this, "range", _StateMachine);
-
-        _StateMachine.InitializeStateMachine(_IdleState);
+        if (!_StateMachine) _StateMachine = transform.AddComponent<PlayerStateMachine>();
+        _StateMachine.InitializeStateMachine(this);
     }
 
     // Update is called once per frame
@@ -209,6 +175,6 @@ public class PlayerCharacter : Character, IDestroyable
     public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
     public void StateVFXTrigger() => _StateMachine._CurrentState.TriggerVisualEffect();
     public void StateSFXTrigger() => _StateMachine._CurrentState.TriggerSoundEffect();
-
+    public void LogFromState(string input, string stateName = "state") => print($"{stateName} logs: >> {input} <<");
 
 }

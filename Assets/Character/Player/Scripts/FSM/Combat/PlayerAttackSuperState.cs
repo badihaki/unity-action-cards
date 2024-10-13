@@ -8,12 +8,10 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     {
     }
 
-    protected bool canCombo;
     public override void EnterState()
     {
         base.EnterState();
 
-        canCombo = false;
         _PlayerCharacter._AnimationController.SetBool("attack", true);
         _PlayerCharacter._Controls.UseAttack();
         _PlayerCharacter._AttackController.DetectNearbyTargets();
@@ -32,21 +30,6 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         base.LogicUpdate();
     }
 
-    public override void TriggerSideEffect()
-    {
-        base.TriggerSideEffect();
-
-        canCombo = true;
-    }
-
-    public override void CheckStateTransitions()
-    {
-        base.CheckStateTransitions();
-
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-        if(Time.time > _StateEnterTime + 3.5f) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-    }
-
     public override void CheckInputs()
     {
         base.CheckInputs();
@@ -59,19 +42,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         _PlayerCharacter._Controls.UseAttack();
     }
 
-    protected void ShowOrHideWeapon(bool showWeapon)
-    {
-        if (showWeapon)
-        {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(true);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(true);
-        }
-        else
-        {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(false);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(false);
-        }
-    }
+
 
     // end
 }

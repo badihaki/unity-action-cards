@@ -28,14 +28,14 @@ public class PlayerLandingState : PlayerState
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity();
+        _PlayerCharacter._LocomotionController.ApplyGravity(1);
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
     }
 
     public override void CheckInputs()

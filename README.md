@@ -1,5 +1,31 @@
 # Card Action Game Readme
 
+### 10-12 - Card set done
+Card moveset is finished. Need hitboxes and VFX. Ready to merge into main. Next up:
+* Attacks
+- Attack hitboxes and invulnerability
+- Auto Aim for melee and range (need new component for this) << Milestone
+- Sword Attacks (create a New Sword)
+* Mechanics
+- Conversation system
+- NPC aggression AI
+- Rewrite character customization
+- First town blockout
+- First Enemy - Ghost
+
+### 10/9 - Finishing Card Moveset
+I only need the air attacks. Once I get the air attacks working, I can move onto logic, hitboxes and invul. Once all attacks have logic, hitboxes and invul, I can move to contextual interactions and move character AI.
+
+Had to reimport rigs with root bone, and reimport animations.
+
+### 9/23 - Target Refractor
+When targeting an enemy, the rays do not shoot towards the correct place. This needs a fix, either with the starting position's height or the angle at which these rays shoot.
+New plan - see JIRA
+
+### 9/21 - Character Controller Refractor - Spells
+Reworking how spells work. Will need to change the **controls of shoot** to right mouse button/top face button. Need to have the auto-targeting system work with shooting, then shoot from shootpoint to target's transform.
+Need to be able to switch spells. Add **spell switch** controls and +1 = up && -1 = down
+
 ### 9/11 - Animations fixed and set up
 Imported new versions of the models. Had to fix the avatar on import. Animations are working, if a bit ugly. Animators are working. Time for code rewrites. Will merge later.
 Code rewrites (in order of importance):

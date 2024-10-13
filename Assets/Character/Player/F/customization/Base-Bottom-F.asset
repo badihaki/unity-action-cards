@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1a12290af6a3924d9a193bd2f62a0c2, type: 3}
+  m_Name: Base-Bottom-F
+  m_EditorClassIdentifier: 
+  PartName: Basic Bottom
+  isMaleBodyType: 0
+  CustomizationSlot: 5
+  Mesh: {fileID: -1860830571226224958, guid: 450b5d4a5044483478564404b7ded176, type: 3}
+  Material: {fileID: 2100000, guid: 6cd887dc5e16ccc4e957c24c83f6a595, type: 2}

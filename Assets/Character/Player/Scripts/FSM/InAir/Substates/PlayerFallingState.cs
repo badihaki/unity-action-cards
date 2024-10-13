@@ -30,23 +30,15 @@ public class PlayerFallingState : PlayerInAirSuperState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        if (moveInput != Vector2.zero)
-            _PlayerCharacter._LocomotionController.MoveTowardsCamWithGravity(moveInput);
-        else
-            {
-                Console.WriteLine(moveInput);
-                _PlayerCharacter._LocomotionController.SlowDown();
-                _PlayerCharacter._LocomotionController.ApplyGravity();
-            }
     }
 
     public override void CheckStateTransitions()
     {
+        base.CheckStateTransitions();
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
-            if (fallTime > 2.85f) _StateMachine.ChangeState(_PlayerCharacter._LandingState);
-            else _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+            if (fallTime > 2.85f) _StateMachine.ChangeState(_StateMachine._LandingState);
+            else _StateMachine.ChangeState(_StateMachine._IdleState);
         }
     }
 }

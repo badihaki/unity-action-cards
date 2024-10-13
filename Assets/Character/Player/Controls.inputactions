@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Rush",
                     "type": "PassThrough",
                     "id": "ccb94c7d-c2e9-4f65-be69-8e7329987d6f",
                     "expectedControlType": "Button",
@@ -69,9 +69,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReadySpell",
+                    "name": "SpecialAttack",
                     "type": "PassThrough",
-                    "id": "e48f128e-6241-440e-b523-feb0e989d47d",
+                    "id": "a5112107-6c60-407e-8ee5-6d574f43cfc3",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Spell",
+                    "type": "PassThrough",
+                    "id": "23f08471-ea51-4f6a-9153-ee237ddd93b8",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -90,6 +99,15 @@
                     "name": "DefenseAction",
                     "type": "PassThrough",
                     "id": "56680a4a-3612-4656-ab23-f897fa369c8c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectSpell",
+                    "type": "Button",
+                    "id": "bd6b7e44-f367-4b26-9748-9b9ee9b6c664",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -214,18 +232,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "Run",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "121eed58-bede-46b0-adbd-a86d25bed79e",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Run",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -243,7 +261,7 @@
                 {
                     "name": "",
                     "id": "c5bbb3d0-5e53-4111-bf21-d886abb231c7",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -265,33 +283,11 @@
                 {
                     "name": "",
                     "id": "cc6d60d6-27db-4c10-bab6-e48f7f8e6f24",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0d3c84d1-134f-4832-a2af-d08d9f6f9dca",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KBM",
-                    "action": "ReadySpell",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1dde5f1b-f987-4098-b8b3-5f63294f5bfb",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "ReadySpell",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -347,6 +343,83 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "DefenseAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5e11ba90-aa02-47ff-8d40-44c27efd6547",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Spell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "632e2494-49a7-4b0a-b51d-4dcbc66d8637",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Spell",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "MWheel",
+                    "id": "345e67b4-4927-4ff3-9e2a-eac86c38d7ef",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSpell",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "4a8cb798-b99d-4440-8c6a-6f0eec586564",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "2703a644-0079-4d18-b8ac-47da09a9891a",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3a4998be-c6b7-4821-bdb4-3f6daa15a8ab",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SpecialAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c515524-c596-4621-82e9-978ad2f2f723",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SpecialAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

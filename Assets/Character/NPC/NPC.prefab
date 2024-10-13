@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 9061110651927913561}
   - component: {fileID: 8335305494768984300}
   - component: {fileID: 9100884158474125136}
+  - component: {fileID: 8252887889842472553}
+  - component: {fileID: 5791786326312031044}
   m_Layer: 0
   m_Name: Actor
   m_TagString: Untagged
@@ -51,6 +53,7 @@ MonoBehaviour:
   <animationController>k__BackingField: {fileID: 0}
   <animatorMovementVector>k__BackingField: {x: 0, y: 0, z: 0}
   controlByRootMotion: 0
+  <CheckGrounded>k__BackingField: {fileID: 0}
 --- !u!95 &9100884158474125136
 Animator:
   serializedVersion: 5
@@ -72,6 +75,46 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!143 &8252887889842472553
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201191881382237671}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5791786326312031044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201191881382237671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b28860ea4d9b52542999b89c820443cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 0}
+  GroundRayDistance: 1.105
 --- !u!1 &335038940194216973
 GameObject:
   m_ObjectHideFlags: 0

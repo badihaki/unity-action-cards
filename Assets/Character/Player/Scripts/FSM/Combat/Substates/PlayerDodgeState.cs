@@ -13,8 +13,6 @@ public class PlayerDodgeState : PlayerDefenseSuperState
     {
         base.EnterState();
         _PlayerCharacter._AnimationController.SetBool("dodge", true);
-        _PlayerCharacter._AnimationController.applyRootMotion = true;
-        _PlayerCharacter._PlayerActor.SetSyncParentMotion(true);
         
         _PlayerCharacter._Controls.UseDefense();
     }
@@ -23,14 +21,12 @@ public class PlayerDodgeState : PlayerDefenseSuperState
     {
         base.ExitState();
         _PlayerCharacter._AnimationController.SetBool("dodge", false);
-        _PlayerCharacter._AnimationController.applyRootMotion = false;
-        _PlayerCharacter._PlayerActor.SetSyncParentMotion(false);
     }
 
     public override void AnimationFinished()
     {
         base.AnimationFinished();
 
-        _PlayerCharacter._StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        _PlayerCharacter._StateMachine.ChangeState(_StateMachine._IdleState);
     }
 }
