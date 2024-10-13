@@ -8,8 +8,6 @@ public class PlayerSpecialSuperState : PlayerCombatSuperState
     {
     }
     
-    protected bool canCombo;
-
     public override void EnterState()
     {
         base.EnterState();

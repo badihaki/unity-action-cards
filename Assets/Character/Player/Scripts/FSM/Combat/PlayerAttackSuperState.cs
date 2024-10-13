@@ -8,12 +8,10 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     {
     }
 
-    protected bool canCombo;
     public override void EnterState()
     {
         base.EnterState();
 
-        canCombo = false;
         _PlayerCharacter._AnimationController.SetBool("attack", true);
         _PlayerCharacter._Controls.UseAttack();
         _PlayerCharacter._AttackController.DetectNearbyTargets();
@@ -30,13 +28,6 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-    }
-
-    public override void TriggerSideEffect()
-    {
-        base.TriggerSideEffect();
-
-        canCombo = true;
     }
 
     public override void CheckInputs()

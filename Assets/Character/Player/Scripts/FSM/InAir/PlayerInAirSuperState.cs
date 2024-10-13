@@ -53,10 +53,7 @@ public class PlayerInAirSuperState : PlayerState
         }
         if (specialInput)
         {
-            /*
-             * uncomment when ready with special input
             _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirSpecial);
-            */
             _PlayerCharacter._Controls.UseSpecialAttack();
         }
     }

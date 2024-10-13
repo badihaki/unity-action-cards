@@ -18,6 +18,14 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
         ShowOrHideWeapon(true);
     }
 
+    public override void CheckStateTransitions()
+    {
+        base.CheckStateTransitions();
+
+        if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
+        if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
+    }
+
     public override void ExitState()
     {
         base.ExitState();

@@ -18,14 +18,20 @@ public class PlayerCombatSuperState : PlayerState
     public bool spellslingInput { get; private set; }
     public bool defenseInput { get; private set; }
 
+    protected bool canCombo;
+
     public override void EnterState()
     {
         base.EnterState();
+
+        canCombo = false;
     }
 
     public override void ExitState()
     {
         base.ExitState();
+
+        canCombo = false;
     }
 
     public override void CheckStateTransitions()
@@ -34,13 +40,12 @@ public class PlayerCombatSuperState : PlayerState
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
             if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
-            if (Time.time > _StateEnterTime + 1.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
         }
         else
         {
             if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._FallingState);
-            if (Time.time > _StateEnterTime + 1.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
         }
+        if (Time.time > _StateEnterTime + 1.5f) _StateMachine.ChangeState(_StateMachine._IdleState);
     }
 
     public override void LogicUpdate()
@@ -72,6 +77,13 @@ public class PlayerCombatSuperState : PlayerState
         spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
         defenseInput = _PlayerCharacter._Controls._DefenseInput;
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
+    }
+
+    public override void TriggerSideEffect()
+    {
+        base.TriggerSideEffect();
+
+        canCombo = true;
     }
 
     protected void ShowOrHideWeapon(bool showWeapon)

@@ -26,6 +26,8 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     public override void CheckStateTransitions()
     {
         if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackC);
+        if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
+        if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
 
         base.CheckStateTransitions();
     }
