@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerCards : MonoBehaviour
 {
@@ -105,6 +106,7 @@ public class PlayerCards : MonoBehaviour
         _Hand[cardIndex].PlayCard(player);
         _Abyss.Add(_Hand[cardIndex]);
         _Hand.RemoveAt(cardIndex);
+        player._Controls.CardSelected();
     }
 
 }

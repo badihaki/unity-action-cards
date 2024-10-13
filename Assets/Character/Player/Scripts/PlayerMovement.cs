@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float targetRotation;
     private float attackRotationTimer;
     [field: SerializeField] public float movementSpeed { get; private set; }
-    [field: SerializeField] private float targetSpeed;
+    [field: SerializeField] public float targetSpeed { get; private set; }
     private float lerpSpeedOnMovement = 0.085f;
     private float lerpSpeedOnSlowDown = 0.5f;
     private Camera cam;
@@ -65,9 +65,15 @@ public class PlayerMovement : MonoBehaviour
         _Player._AnimationController.SetFloat("speed", 0.0f);
     }
 
+    public void ZeroOutVertVelocity()
+    {
+        ZeroOutVelocity();
+        _Controller.Move(Vector3.zero);
+    }
+
     public void SlowDown()
     {
-        print("slowing down");
+        // print("slowing down");
         if (movementSpeed < 0.1f) ZeroOutVelocity();
         targetSpeed = 0;
         SetMovementSpeed();
@@ -151,7 +157,10 @@ public class PlayerMovement : MonoBehaviour
 
     public void MoveWithVerticalVelocity()
     {
-        targetSpeed = _Player._Controls._RunInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        if (_Player._CheckGrounded.IsGrounded())
+            targetSpeed = _Player._Controls._RushInput ? _Player._CharacterSheet._RunSpeed : _Player._CharacterSheet._WalkSpeed;
+        else
+            targetSpeed = _Player._CharacterSheet._RunSpeed;
         ApplyDesiredMoveToMovement();
         _Controller.Move(_MovementDirection * Time.deltaTime);
         

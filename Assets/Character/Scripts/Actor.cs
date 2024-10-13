@@ -18,6 +18,8 @@ public class Actor : MonoBehaviour
     {
         Character = character;
         animationController = GetComponent<Animator>();
+        animationController.ApplyBuiltinRootMotion();
+        animationController.applyRootMotion = true;
         CheckGrounded = GetComponent<CheckForGround>();
         CheckGrounded.Initialize();
     }

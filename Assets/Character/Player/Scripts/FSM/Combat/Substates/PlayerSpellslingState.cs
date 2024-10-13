@@ -93,8 +93,8 @@ public class PlayerSpellslingState : PlayerCombatSuperState
 
         if (_AnimationIsFinished)
         {
-            if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
-            else _StateMachine.ChangeState(_PlayerCharacter._FallingState);
+            if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
+            else _StateMachine.ChangeState(_StateMachine._FallingState);
         }
     }
 

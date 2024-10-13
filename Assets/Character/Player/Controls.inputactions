@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Run",
+                    "name": "Rush",
                     "type": "PassThrough",
                     "id": "ccb94c7d-c2e9-4f65-be69-8e7329987d6f",
                     "expectedControlType": "Button",
@@ -63,6 +63,15 @@
                     "name": "Attack",
                     "type": "PassThrough",
                     "id": "fc5f607e-7a37-416e-9d62-b099345a29f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SpecialAttack",
+                    "type": "PassThrough",
+                    "id": "a5112107-6c60-407e-8ee5-6d574f43cfc3",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -223,18 +232,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "Run",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "121eed58-bede-46b0-adbd-a86d25bed79e",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Run",
+                    "action": "Rush",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -252,7 +261,7 @@
                 {
                     "name": "",
                     "id": "c5bbb3d0-5e53-4111-bf21-d886abb231c7",
-                    "path": "<Gamepad>/rightShoulder",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -351,7 +360,7 @@
                 {
                     "name": "",
                     "id": "632e2494-49a7-4b0a-b51d-4dcbc66d8637",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
@@ -391,6 +400,28 @@
                     "action": "SelectSpell",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3a4998be-c6b7-4821-bdb4-3f6daa15a8ab",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SpecialAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3c515524-c596-4621-82e9-978ad2f2f723",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "SpecialAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

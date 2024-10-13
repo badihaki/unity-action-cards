@@ -25,27 +25,26 @@ public class PlayerActor : Actor
     {
         base.Initialize(character);
         PCActor = character;
-    }
-
-    private void OnAnimatorMove()
-    {
-        if (animationController && controlByRootMotion)
-        {
-            animatorMovementVector = animationController.deltaPosition.normalized;
-            PCActor.transform.position += animationController.deltaPosition;
-            animationController.rootRotation = PCActor.transform.rotation;
-        }
+        rootBone = transform.Find("rig").Find("root");
+        Transform chestBone = rootBone.Find("DEF-spine").Find("DEF-spine.001").Find("DEF-spine.002").Find("DEF-chest").transform;
+        RightWeapon = chestBone.Find("DEF-shoulder.R").Find("DEF-upper_arm.R").Find("DEF-upper_arm.R.001").Find("DEF-forearm.R").Find("DEF-forearm.R.001").Find("DEF-hand.R").Find("DEF-weapon.R").transform;
+        LeftWeapon = chestBone.Find("DEF-shoulder.L").Find("DEF-upper_arm.L").Find("DEF-upper_arm.L.001").Find("DEF-forearm.L").Find("DEF-forearm.L.001").Find("DEF-hand.L").Find("DEF-weapon.L").transform;
     }
 
     public void SetSyncParentMotion(bool value) => controlByRootMotion = value;
 
-    public void SendPositionDataToParent(PlayerCharacter parent)
+    /*
+    private void OnAnimatorMove()
     {
-        OnAnimatorMove();
-        // parent.transform.position += animationController.deltaPosition.normalized;
-        parent.transform.position += animationController.deltaPosition;
+        PCActor.transform.position += animationController.deltaPosition.normalized;
+        transform.position += animationController.deltaPosition.normalized;
+        PCActor.transform.position += animationController.deltaPosition;
+        transform.position += animationController.deltaPosition;
+        PCActor.transform.rotation = animationController.deltaRotation * PCActor.transform.rotation;
+        transform.rotation = animationController.deltaRotation * transform.rotation;
+        // OnAnimatorMove();
     }
-
+    */
     public override void StateAnimationFinished() => PCActor.StateAnimationFinished();
     public override void AnimationTrigger() => PCActor.StateTrigger();
     public override void AnimationVFXTrigger() => PCActor.StateVFXTrigger();

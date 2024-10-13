@@ -12,15 +12,21 @@ public class PlayerIdleState : PlayerGroundedSuperState
     {
         base.CheckStateTransitions();
 
-        if (moveInput != Vector2.zero && !cardInput) _StateMachine.ChangeState(_PlayerCharacter._MoveState);
+        if (moveInput != Vector2.zero && !cardInput) _StateMachine.ChangeState(_StateMachine._MoveState);
+
     }
 
     public override void PhysicsUpdate()
     {
-        if (_PlayerCharacter._LocomotionController.movementSpeed > 0.05f) _PlayerCharacter._LocomotionController.SlowDown();
-        else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        
-        base.PhysicsUpdate();
+        if(!_IsExitingState)
+        {
+            if (_PlayerCharacter._LocomotionController.targetSpeed > 0.1f) _PlayerCharacter._LocomotionController.SlowDown();
+            else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+
+            base.PhysicsUpdate();
+            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+            _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        }
     }
 
     public override void EnterState()

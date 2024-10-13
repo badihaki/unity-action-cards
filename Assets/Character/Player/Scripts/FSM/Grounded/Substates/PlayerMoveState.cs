@@ -8,30 +8,26 @@ public class PlayerMoveState : PlayerGroundedSuperState
     {
     }
 
-    public override void EnterState()
-    {
-        base.EnterState();
-        // _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);  // why we doin this/?
-    }
-
-    public override void ExitState()
-    {
-        base.ExitState();
-        // _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);  // why we do this??
-    }
-
     public override void CheckStateTransitions()
     {
-        if (_PlayerCharacter._LocomotionController.movementSpeed <= 0.1f && moveInput == Vector2.zero || cardInput) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_PlayerCharacter._LocomotionController.movementSpeed <= 0.1f && moveInput == Vector2.zero || cardInput) _StateMachine.ChangeState(_StateMachine._IdleState);
 
         base.CheckStateTransitions();
     }
 
     public override void PhysicsUpdate()
     {
-        if (moveInput == Vector2.zero)
-            _PlayerCharacter._LocomotionController.SlowDown();
-
         base.PhysicsUpdate();
+        if (!_IsExitingState)
+        {
+            if (moveInput == Vector2.zero)
+                _PlayerCharacter._LocomotionController.SlowDown();
+            else
+            {
+                _PlayerCharacter._LocomotionController.DetectMove(moveInput);
+                _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
+                _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+            }
+        }
     }
 }

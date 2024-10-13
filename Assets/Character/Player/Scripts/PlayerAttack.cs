@@ -13,6 +13,19 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackC { get; private set; }
 
+    [field: SerializeField, Header("Special Attack States")] public PlayerSpecialSuperState _Special { get; private set; }
+    [field: SerializeField] public PlayerSpecialSuperState _FinisherA { get; private set; }
+    [field: SerializeField] public PlayerSpecialSuperState _FinisherB { get; private set; }
+    [field: SerializeField] public PlayerSpecialSuperState _FinisherC { get; private set; }
+
+    [field: SerializeField, Header("Universal Attack States")] public PlayerRushAttackSuperState _RushAttack { get; private set; }
+    [field: SerializeField] public PlayerLauncherAttackSuperState _LauncherAttack { get; private set; }
+
+    [field: SerializeField, Header("Air Attacks")] public PlayerAttackSuperState _AirSpecial { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AirAttackA { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AirAttackB { get; private set; }
+    [field: SerializeField] public PlayerAttackSuperState _AirAttackC { get; private set; }
+
     [field: SerializeField, Header("Defensive Action")] public PlayerState _DefenseAction { get; private set; }
 
     [field: Header("Attack Stats"), SerializeField]
@@ -26,6 +39,25 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public Transform _WeaponHolderR { get; private set; }
     [field: SerializeField] public GameObject _WeaponR { get; private set; }
 
+    [Header("Ray stuff, delete later")]
+    public Vector2 offset = new Vector2(0, 0);
+    public float offsetAddX = 0.0f;
+    public float offsetAddY = 0.5f;
+    public Vector3 startPos;
+    public float lineLength = 12.35f;
+    public float rayStartOffsetY = 1.50f;
+    public Vector3 camForward;
+    // public List<Color> colors = [Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white];
+    public List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white };
+
+    // delete later
+    private void Update()
+    {
+        // startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + rayStartOffsetY, player._PlayerActor.transform.position.z);
+        // ShootRays(5, 7, lineLength, startPos, 0.085f);
+    }
+    // delete later
+
     public void Initialize(PlayerCharacter newPlayer)
     {
         player = newPlayer;
@@ -35,12 +67,14 @@ public class PlayerAttack : MonoBehaviour
         _WeaponL = null;
         SetWeapon(unarmed);
         _WeaponR.gameObject.SetActive(false);
+
     }
 
     public void SwitchWeapon(WeaponScriptableObj weapon)
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
         DestroyWeaponGameObjects();
+        UnloadMoveSet();
         SetWeapon(weapon);
     }
 
@@ -63,7 +97,6 @@ public class PlayerAttack : MonoBehaviour
         _CurrentWeapon = newWeapon;
         LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
         LoadMoveset();
-        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true);
     }
 
     private void LoadWeaponGameObjects(GameObject weaponL = null, GameObject weaponR = null)
@@ -82,17 +115,110 @@ public class PlayerAttack : MonoBehaviour
 
     private void LoadMoveset()
     {
+        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true); // set our weapon type
         _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
         _AttackA.InitializeState(player, "attackA", player._StateMachine);
-        
-        _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
-        _AttackB.InitializeState(player, "attackB", player._StateMachine);
 
-        _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
-        _AttackC.InitializeState(player, "attackC", player._StateMachine);
+        LoadAttackStrings();
+        LoadSpecialAttacks();
+        LoadUniversalAttacks();
+        LoadAirAttacks();
 
-        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseAction);
+        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseDash);
         _DefenseAction.InitializeState(player, "defense", player._StateMachine);
+    }
+
+    private void LoadAttackStrings()
+    {
+        // basic attacks
+        if (_CurrentWeapon._PlayerMoves._AttackB)
+        {
+            _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
+            _AttackB.InitializeState(player, "attackB", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AttackC)
+        {
+            _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
+            _AttackC.InitializeState(player, "attackC", player._StateMachine);
+        }
+    }
+    
+    private void LoadSpecialAttacks()
+    {
+        if (_CurrentWeapon._PlayerMoves._Special)
+        {
+            _Special = Instantiate(_CurrentWeapon._PlayerMoves._Special);
+            _Special.InitializeState(player, "special", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._SpecialFinisherA)
+        {
+            _FinisherA = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherA);
+            _FinisherA.InitializeState(player, "finisherA", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._SpecialFinisherB)
+        {
+            _FinisherB = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherB);
+            _FinisherB.InitializeState(player, "finisherB", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._SpecialFinisherC)
+        {
+            _FinisherC = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherC);
+            _FinisherC.InitializeState(player, "finisherC", player._StateMachine);
+        }
+    }
+
+    private void LoadUniversalAttacks()
+    {
+        if (_CurrentWeapon._PlayerMoves._RushAttack)
+        {
+            _RushAttack = Instantiate(_CurrentWeapon._PlayerMoves._RushAttack);
+            _RushAttack.InitializeState(player, "rush", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._LauncherAttack)
+        {
+            _LauncherAttack = Instantiate(_CurrentWeapon._PlayerMoves._LauncherAttack);
+            _LauncherAttack.InitializeState(player, "launcher", player._StateMachine);
+        }
+    }
+
+    private void LoadAirAttacks()
+    {
+        if (_CurrentWeapon._PlayerMoves._AirSpecial)
+        {
+            _AirSpecial = _CurrentWeapon._PlayerMoves._AirSpecial;
+            _AirSpecial.InitializeState(player, "airSpecial", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AirAttackA)
+        {
+            _AirAttackA = _CurrentWeapon._PlayerMoves._AirAttackA;
+            _AirAttackA.InitializeState(player, "airA", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AirAttackB)
+        {
+            _AirAttackB = _CurrentWeapon._PlayerMoves._AirAttackB;
+            _AirAttackB.InitializeState(player, "airB", player._StateMachine);
+        }
+        if (_CurrentWeapon._PlayerMoves._AirAttackC)
+        {
+            _AirAttackC = _CurrentWeapon._PlayerMoves._AirAttackC;
+            _AirAttackC.InitializeState(player, "airC", player._StateMachine);
+        }
+    }
+
+    private void UnloadMoveSet()
+    {
+        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false); // reset our weapon type
+        // attacks
+        if (_AttackA != null) Destroy(_AttackA);
+        if (_AttackB != null) Destroy(_AttackB);
+        if (_AttackC != null) Destroy(_AttackC);
+        // specials
+        if (_Special != null) Destroy(_Special);
+        if (_FinisherA != null) Destroy(_FinisherA);
+        if (_FinisherB != null) Destroy(_FinisherB);
+        if (_FinisherC != null) Destroy(_FinisherC);
+        // universals
+        Destroy(_DefenseAction);
     }
 
     public void SetAttackParameters(int damage, float knockbackForce, float launchForce)
@@ -107,6 +233,12 @@ public class PlayerAttack : MonoBehaviour
         _Damage = 0;
         _KnockbackForce = 0.0f;
         _LaunchForce = 0.0f;
+    }
+
+    public void SetRootMotion(bool value)
+    {
+        player._PlayerActor.animationController.applyRootMotion = value;
+        print($"we have root motion?? {player._PlayerActor.animationController.hasRootMotion}");
     }
 
     public Vector3 DetectNearbyTargets()
@@ -140,10 +272,16 @@ public class PlayerAttack : MonoBehaviour
         List<Transform> entities = new List<Transform>();
         // Vector3 startPos = player._PlayerActor.transform.position;
         // Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
-        Vector3 startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + 0.75f, player._PlayerActor.transform.position.z);
-        float lineLength = 12.35f;
         
+        
+        /*
+         * TODO
+         * The rays do not shoot the right direction, and this needs to be fixed
+         * v
+         * v
+         * v
         ShootRays(5, 7, lineLength, startPos, 0.5f);
+         */
        
         /*
         // Below is how to calculate things in front
@@ -215,44 +353,34 @@ public class PlayerAttack : MonoBehaviour
     private void ShootRays(int columns, int rows, float rayLength, Vector3 startingPos, float lineDrawTime)
     {
         List<Transform> entities = new List<Transform>();
-
-        Vector2 offset = new Vector2(-20,-10);
-        Color color = Color.red;
+        print("shooting");
+        
+        Vector3 rayOffset = offset;
         //
         for (int iRow = 0; iRow < rows; iRow++)
         {
             // for each row, do...
             for (int iCol = 0; iCol < columns; iCol++)
             {
-                print($"row {iRow+1} and column {iCol+1}");
-                print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
+                // print($"row {iRow+1} and column {iCol+1}");
+                // print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
                 // create a ray, add offset
                 RaycastHit hit;
                 // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * rayLength);
-                Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, offset.y, player._CameraRef.transform.forward.z) * rayLength);
-                if(Physics.Linecast(startingPos, dir, out hit))
+                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x, rayOffset.y, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
+                Vector3 dir = startingPos + ((player._CameraRef.transform.forward + rayOffset) * rayLength);
+
+                // if (Physics.Linecast(startingPos, dir, out hit))
+                if (Physics.Linecast(startingPos, dir, out hit))
                 {
                     if (!entities.Contains(hit.transform)) entities.Add(hit.transform);
                 }
-                Debug.DrawLine(startingPos, dir, color, lineDrawTime);
-                offset.x += 5;
+                Debug.DrawLine(startingPos, dir, colors[iCol], lineDrawTime);
+                rayOffset.x += offsetAddX;
             }
-            // print(color.r);
-            color.r += -0.25f;
-            color.b += 0.35f;
-            color.g += -0.15f;
-            offset.y += 5;
+            rayOffset.y += offsetAddY;
         }
-    }
-
-    private void DrawTargetDetectionLines(float timeToShow, Vector3 start, Vector3 forward, Vector3 right, Vector3 farRight, Vector3 left, Vector3 farLeft)
-    {
-        Debug.DrawLine(start, forward, Color.white, timeToShow);
-        Debug.DrawLine(start, right, Color.cyan, timeToShow);
-        Debug.DrawLine(start, farRight, Color.blue, timeToShow);
-        Debug.DrawLine(start, left, Color.magenta, timeToShow);
-        Debug.DrawLine(start, farLeft, Color.red, timeToShow);
-    }
+}
 
     // end
 }

@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
-using Cinemachine.Editor;
+// using Cinemachine;
+// using Cinemachine.Editor;
 using System;
+using Unity.Cinemachine;
+using Unity.VisualScripting;
 
 public class PlayerCamera : MonoBehaviour
 {
     private PlayerCharacter Player;
 
-    [field: SerializeField] public CinemachineVirtualCamera _PlayerCamController { get; private set; }
-    [field: SerializeField] public CinemachineVirtualCamera _PlayerAimCamController { get; private set; }
-    [SerializeField] private CinemachineVirtualCamera currentCameraController;
-    
+    [Header("Cinemachine Cameras")]
+    [field: SerializeField] public CinemachineCamera _PlayerCamController { get; private set; }
+    [field: SerializeField] public CinemachineCamera _PlayerAimCamController { get; private set; }
+    [SerializeField] private CinemachineCamera currentCameraController;
+
+    [Header("Camera Settings")]
     [Tooltip("How far can the camera look up")]
     [SerializeField] private float topLookClamp = 10.0f;
     [Tooltip("How far can the camera look down")]
@@ -46,12 +50,12 @@ public class PlayerCamera : MonoBehaviour
     {
         GameObject newGameObj = new GameObject();
         newGameObj.name = "PlayerCamController";
-        _PlayerCamController = newGameObj.AddComponent<CinemachineVirtualCamera>();
+        _PlayerCamController = newGameObj.AddComponent<CinemachineCamera>();
         _PlayerCamController.Follow = cinemachineCamTarget;
         _PlayerCamController.Priority = 10;
-        _PlayerCamController.m_Lens.FieldOfView = 90;
+        _PlayerCamController.Lens.FieldOfView = 90;
 
-        Cinemachine3rdPersonFollow body = _PlayerCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
+        CinemachineThirdPersonFollow body = _PlayerCamController.AddComponent<CinemachineThirdPersonFollow>();
         body.CameraDistance = 2.65f;
         body.VerticalArmLength = 0.6f;
         body.ShoulderOffset = new Vector3(-0.450f, -0.125f, 0.0f);
@@ -61,13 +65,13 @@ public class PlayerCamera : MonoBehaviour
     {
         GameObject newGameObj = new GameObject();
         newGameObj.name = "PlayerAimCamController";
-        _PlayerAimCamController = newGameObj.AddComponent<CinemachineVirtualCamera>();
+        _PlayerAimCamController = newGameObj.AddComponent<CinemachineCamera>();
         _PlayerAimCamController.Follow = cinemachineCamTarget;
         _PlayerAimCamController.Priority = 0;
 
-        _PlayerAimCamController.m_Lens.FieldOfView = 25.5f;
+        _PlayerAimCamController.Lens.FieldOfView = 25.5f;
 
-        Cinemachine3rdPersonFollow body = _PlayerAimCamController.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
+        CinemachineThirdPersonFollow body = _PlayerAimCamController.AddComponent<CinemachineThirdPersonFollow>();
         body.CameraDistance = 1.75f;
         body.VerticalArmLength = 1.6f;
         body.ShoulderOffset = new Vector3(0.750f, -1.25f, 0.0f);
@@ -122,7 +126,7 @@ public class PlayerCamera : MonoBehaviour
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
-    public void SwitchCam(CinemachineVirtualCamera vCam)
+    public void SwitchCam(CinemachineCamera vCam)
     {
         currentCameraController.Priority = 0;
         currentCameraController = vCam;

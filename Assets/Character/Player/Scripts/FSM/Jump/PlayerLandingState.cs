@@ -35,7 +35,7 @@ public class PlayerLandingState : PlayerState
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished) _StateMachine.ChangeState(_PlayerCharacter._IdleState);
+        if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._IdleState);
     }
 
     public override void CheckInputs()

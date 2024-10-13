@@ -35,7 +35,7 @@ public class Projectile : MonoBehaviour
     {
         if (_ready)
         {
-            _rigidbody.velocity = transform.forward * _speed;
+            _rigidbody.linearVelocity = transform.forward * _speed;
         }
     }
 

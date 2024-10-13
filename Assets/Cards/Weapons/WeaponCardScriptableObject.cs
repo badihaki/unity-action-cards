@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Weapon", menuName = "Create Card/New Weapon Card")]
 public class WeaponCardScriptableObject : CardScriptableObj
 {
-    [Header("Weapon Game Object")]
+    [Header("Weapon Scriptable Obj")]
     public WeaponScriptableObj _Weapon;
     [Header("Weapon Durability Stats")]
     public float _WeaponDurability;
