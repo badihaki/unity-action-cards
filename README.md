@@ -1,7 +1,17 @@
 # Card Action Game Readme
 
-### 10-11 - New card animations
-Card air attacks are done.
+### 10-12 - Card set done
+Card moveset is finished. Need hitboxes and VFX. Ready to merge into main. Next up:
+* Attacks
+- Attack hitboxes and invulnerability
+- Auto Aim for melee and range (need new component for this) << Milestone
+- Sword Attacks (create a New Sword)
+* Mechanics
+- Conversation system
+- NPC aggression AI
+- Rewrite character customization
+- First town blockout
+- First Enemy - Ghost
 
 ### 10/9 - Finishing Card Moveset
 I only need the air attacks. Once I get the air attacks working, I can move onto logic, hitboxes and invul. Once all attacks have logic, hitboxes and invul, I can move to contextual interactions and move character AI.
