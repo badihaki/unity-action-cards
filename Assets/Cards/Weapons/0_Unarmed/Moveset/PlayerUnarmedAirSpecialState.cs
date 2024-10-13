@@ -22,11 +22,23 @@ public class PlayerUnarmedAirSpecialState : PlayerAirCombatSuperState
     {
         base.LogicUpdate();
 
-        if (!continued && _PlayerCharacter._CheckGrounded.IsGrounded())
+        if (!continued && _PlayerCharacter._CheckGrounded.IsGrounded(0.5f))
         {
             continued = true;
             _PlayerCharacter._AnimationController.SetBool("continue", true);
             _PlayerCharacter._AnimationController.SetBool("continue2", true);
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        if (canCombo)
+        {
+            _PlayerCharacter._LocomotionController.ApplyGravity(1.35f);
+            _PlayerCharacter._LocomotionController.DetectMove(_PlayerCharacter._PlayerActor.transform.forward);
+            _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
         }
     }
 
