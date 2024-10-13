@@ -20,7 +20,7 @@ public class NPCIdleState : NPCState
     private void CreateNewWait(float min, float max)
     {
         Debug.Log(_NPC.name + " is creating a new wait time: " + min + ", " + max);
-        waitTime = GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
+        if (GameManagerMaster.GameMaster) waitTime = GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
         Debug.Log(_NPC.name + "'s new wait time: " + waitTime);
     }
 
