@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    public void ApplyGravity(float gravityModifier)
+    public void ApplyGravity(float gravityModifier = 1.0f)
     {
         gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f);
         if (_CheckForGround.IsGrounded())

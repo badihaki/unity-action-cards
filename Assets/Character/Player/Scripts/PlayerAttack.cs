@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public PlayerAttackSuperState _AirAttackB { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AirAttackC { get; private set; }
 
-    [field: SerializeField, Header("Defensive Action")] public PlayerState _DefenseAction { get; private set; }
+    [field: SerializeField, Header("Defensive Action")] public PlayerDefenseSuperState _DefenseAction { get; private set; }
 
     [field: Header("Attack Stats"), SerializeField]
     public int _Damage { get; private set; }
@@ -124,7 +124,7 @@ public class PlayerAttack : MonoBehaviour
         LoadUniversalAttacks();
         LoadAirAttacks();
 
-        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._DefenseDash);
+        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._Defense);
         _DefenseAction.InitializeState(player, "defense", player._StateMachine);
     }
 
