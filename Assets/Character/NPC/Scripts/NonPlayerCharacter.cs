@@ -83,7 +83,7 @@ public class NonPlayerCharacter : Character, IDestroyable
         if (_AttackController && !_AttackController._IsAggressive)
         {
             int roll = GameManagerMaster.GameMaster.Dice.RollD6();
-            print($"aggression rol = {roll}");
+            // print($"aggression rol = {roll}");
             if (roll >= 4)
             {
                 print("going aggressive");

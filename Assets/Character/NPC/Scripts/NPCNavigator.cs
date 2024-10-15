@@ -25,7 +25,7 @@ public class NPCNavigator : MonoBehaviour
         float xPos = Random.Range(-_PatrolRange, _PatrolRange);
         float zPos = Random.Range(-_PatrolRange, _PatrolRange);
         Vector3 newPos = new Vector3(transform.position.x + xPos, 0, transform.position.z + zPos);
-        print("new position to find for " + name + "'s patrol: " + newPos);
+        // print("new position to find for " + name + "'s patrol: " + newPos);
         if (Physics.CheckSphere(newPos, 1.0f))
         {
             _TargetLocation = newPos;
@@ -44,7 +44,7 @@ public class NPCNavigator : MonoBehaviour
         if (_Target)
         {
             _Agent.SetDestination(_Target.position);
-            print($"moving to target at {_Agent.destination}");
+            // print($"moving to target at {_Agent.destination}");
             CreateDebugObject(_Target.position);
         }
         else
@@ -59,7 +59,7 @@ public class NPCNavigator : MonoBehaviour
     {
         if (!_Agent.isStopped)
         {
-            print("~~~Stop nav");
+            // print("~~~Stop nav");
             _Agent.isStopped = true;
             _Agent.ResetPath();
             _NPC._MoveController.ZeroOutMovement();

@@ -189,17 +189,20 @@ public class PlayerSpell : MonoBehaviour
     public Vector3 DetectRangedTargets()
     {
         Vector3 targetPos = Vector3.zero;
+        // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
         if (player._LockOnTargeter.rangeTargets.Count > 0)
         {
             player._LockOnTargeter.rangeTargets.ForEach(t =>
             {
-                print($"targetable object is {t.name}");
-                if(Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
+                // print($"targetable object is {t.name} with a position of {t.position}");
+                if (targetPos == Vector3.zero) targetPos = t.position;
+                else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
                 {
                     targetPos = t.position;
                 }
             });
         }
+        // print($"targetting {targetPos}");
         return targetPos;
     }
 

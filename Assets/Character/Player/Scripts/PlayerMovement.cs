@@ -143,11 +143,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void RotateTowardsTarget(Vector3 targetPos)
     {
-        Vector3 rotation = Vector3.RotateTowards(_Actor.transform.position, targetPos - _Actor.transform.position, Time.deltaTime, 0.0f);
-        rotation.x = 0;
-        rotation.z = 0;
-        // player._PlayerActor.transform.localRotation = Quaternion.LookRotation(rotation);
-        _Actor.transform.localRotation = Quaternion.Euler(rotation);
+        // Vector3 rotation = Vector3.RotateTowards(_Actor.transform.position, targetPos - _Actor.transform.position, Time.deltaTime, 0.0f);
+        Vector3 direction = targetPos - _Actor.transform.position;
+
+        // Vector3 rotation = Vector3.RotateTowards(_Player._PlayerSpells._spellTarget.transform.position, direction, Time.deltaTime, 0.0f);
+        // rotation.x = 0;
+        // rotation.z = 0;
+        // _Actor.transform.localRotation = Quaternion.LookRotation(rotation); // this causes the x to get rotated.
+        // _Actor.transform.eulerAngles = rotation;
+        // _Actor.transform.localRotation = Quaternion.Euler(rotation);
+        print($"target to look at {direction}");
+        _Actor.transform.LookAt(direction);
+        _Actor.transform.eulerAngles = new Vector3(0.0f, _Actor.transform.rotation.y, 0.0f);
     }
 
     public void SetAttackRotationTime() => attackRotationTimer = attackRotationSmoothTime;

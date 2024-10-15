@@ -36,7 +36,7 @@ public class PlayerInAirSuperState : PlayerState
             _PlayerCharacter._LocomotionController.DetectMove(moveInput);
             _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
         }
-        _PlayerCharacter._LocomotionController.ApplyGravity(1);
+        _PlayerCharacter._LocomotionController.ApplyGravity();
         _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 

@@ -17,7 +17,8 @@ public class PlayerJumpState : PlayerState
 
         _PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._LocomotionController.Jump();
-        _PlayerCharacter._LocomotionController.ApplyDesiredMoveToMovement();
+        // _PlayerCharacter._LocomotionController.ApplyGravity(0.1f);
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 
     public override void LogicUpdate()
