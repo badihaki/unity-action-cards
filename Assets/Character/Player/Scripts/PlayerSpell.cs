@@ -24,7 +24,7 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private int _currentSpellIndex;
     [SerializeField] private SpellCardScriptableObj _baseSpell;
 
-    [SerializeField] public LockSpellTargetRotation _spellTarget { get; private set; }
+    [field: SerializeField] public Transform _spellTarget { get; private set; }
 
     private float timeToAddToTimer;
     [SerializeField] private float _spellTimer;
@@ -47,7 +47,7 @@ public class PlayerSpell : MonoBehaviour
 
         _activeSpellList = new List<storedSpell>();
         AddSpellToList(_baseSpell);
-        _spellTarget = GetComponentInChildren<LockSpellTargetRotation>();
+        _spellTarget = player._PlayerActor.transform.Find("SpellTarget");
         _spellTimer = 0.0f;
         timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
     }
@@ -73,7 +73,7 @@ public class PlayerSpell : MonoBehaviour
             _spellTimer -= Time.deltaTime;
         }
     }
-
+    /*
     #region Crosshair Functions
     public void ShowCrosshair() => _crosshair.gameObject.SetActive(true);
 
@@ -95,6 +95,7 @@ public class PlayerSpell : MonoBehaviour
         _crosshair.transform.position = desiredCrosshairPos;
     }
     #endregion
+    */
     public void AddSpellToList(SpellCardScriptableObj spellCard)
     {
         if (_activeSpellList.Count < _maxSpellList)
@@ -164,16 +165,11 @@ public class PlayerSpell : MonoBehaviour
 
     private void ShootSpell(Vector3 targetPos)
     {
-        Vector3 rotation = Vector3.RotateTowards(player._PlayerActor.transform.position, targetPos - player._PlayerActor.transform.position, Time.deltaTime, 0.0f);
-        rotation.x = 0;
-        rotation.z = 0;
-        // player._PlayerActor.transform.localRotation = Quaternion.LookRotation(rotation);
-        // player._PlayerActor.transform.localRotation = Quaternion.Euler(rotation);
-        transform.localRotation = Quaternion.Euler(rotation);
+        player._LocomotionController.RotateTowardsTarget(targetPos);
         Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
+        player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
         if(targetPos !=  Vector3.zero)
         {
-            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
             Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
             conjuredSpell.transform.rotation = targetDir;
             // player._LocomotionController.SetAttackRotationTime();
@@ -181,8 +177,6 @@ public class PlayerSpell : MonoBehaviour
         }
         else
         {
-            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
-            Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - _spellTarget.transform.position);
             conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
         }
 

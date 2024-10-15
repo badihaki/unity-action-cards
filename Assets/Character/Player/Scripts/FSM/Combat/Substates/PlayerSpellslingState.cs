@@ -17,6 +17,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
+        if (target == Vector3.zero) target = _PlayerCharacter._PlayerActor.transform.forward;
         _PlayerCharacter._Controls.UseSpell();
         _PlayerCharacter._PlayerSpells.UseSpell(target);
         spellSelectDirection = 0;
@@ -82,7 +83,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);
-        _PlayerCharacter._PlayerSpells.HideCrosshair();
+        // _PlayerCharacter._PlayerSpells.HideCrosshair();
     }
 
     public override void CheckStateTransitions()

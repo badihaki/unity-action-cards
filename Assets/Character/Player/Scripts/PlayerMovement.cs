@@ -141,6 +141,15 @@ public class PlayerMovement : MonoBehaviour
         _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
+    public void RotateTowardsTarget(Vector3 targetPos)
+    {
+        Vector3 rotation = Vector3.RotateTowards(_Actor.transform.position, targetPos - _Actor.transform.position, Time.deltaTime, 0.0f);
+        rotation.x = 0;
+        rotation.z = 0;
+        // player._PlayerActor.transform.localRotation = Quaternion.LookRotation(rotation);
+        _Actor.transform.localRotation = Quaternion.Euler(rotation);
+    }
+
     public void SetAttackRotationTime() => attackRotationTimer = attackRotationSmoothTime;
     public IEnumerator RotateCharacterWhileAttacking(Vector2 inputDirection)
     {

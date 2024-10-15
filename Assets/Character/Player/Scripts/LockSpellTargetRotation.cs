@@ -17,11 +17,6 @@ public class LockSpellTargetRotation : MonoBehaviour
     void Update()
     {
         // transform.rotation = Camera.main.transform.rotation * Quaternion.Euler(rotationCorrectionVector);
-    }
-
-    public void UpdateRotation()
-    {
-        //
         targetRotation = cam.transform.rotation * Quaternion.Euler(rotationCorrectionVector);
     }
 }
