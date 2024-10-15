@@ -16,7 +16,12 @@ public class LockSpellTargetRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        targetRotation = cam.transform.rotation * Quaternion.Euler(rotationCorrectionVector);
         // transform.rotation = Camera.main.transform.rotation * Quaternion.Euler(rotationCorrectionVector);
+    }
+
+    public void UpdateRotation()
+    {
+        //
+        targetRotation = cam.transform.rotation * Quaternion.Euler(rotationCorrectionVector);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerCharacter _Player;
+    private PlayerActor _Actor;
     private CharacterController _Controller;
     private CheckForGround _CheckForGround;
     
@@ -32,8 +33,9 @@ public class PlayerMovement : MonoBehaviour
     public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
+        _Actor = controllingPlayer._PlayerActor;
         _Controller = _Player._Actor.GetComponent<CharacterController>();
-        _CheckForGround = _Player._PlayerActor.GetComponent<CheckForGround>();
+        _CheckForGround = _Actor.GetComponent<CheckForGround>();
         cam = Camera.main;
     }
 
@@ -125,9 +127,18 @@ public class PlayerMovement : MonoBehaviour
             * Mathf.Rad2Deg
             + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
         // rotation direction determines which direction we move to reach our intended rotation
-        float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
+        if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
+        {
+            rotationSmoothingTime = 0.15f; 
+        }
+        else if(!_CheckForGround.IsGrounded())
+        {
+            rotationSmoothingTime = 0.45f;
+        }
+        float rotationDirection = Mathf.SmoothDampAngle(_Actor.transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
         // actually rotating the transform
-        transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+        // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+        _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
     public void SetAttackRotationTime() => attackRotationTimer = attackRotationSmoothTime;
@@ -143,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
             float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, attackRotationSmoothTime);
             // actually rotating the transform
             // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
-            _Player._PlayerActor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+            _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
             attackRotationTimer -= Time.deltaTime;
             yield return null;
         }
@@ -163,7 +174,6 @@ public class PlayerMovement : MonoBehaviour
             targetSpeed = _Player._CharacterSheet._RunSpeed;
         ApplyDesiredMoveToMovement();
         _Controller.Move(_MovementDirection * Time.deltaTime);
-        
     }
 
     public void Jump()

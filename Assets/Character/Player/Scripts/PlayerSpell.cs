@@ -165,7 +165,11 @@ public class PlayerSpell : MonoBehaviour
     private void ShootSpell(Vector3 targetPos)
     {
         Vector3 rotation = Vector3.RotateTowards(player._PlayerActor.transform.position, targetPos - player._PlayerActor.transform.position, Time.deltaTime, 0.0f);
-        // player._PlayerActor.transform.rotation = Quaternion.LookRotation(rotation);
+        rotation.x = 0;
+        rotation.z = 0;
+        // player._PlayerActor.transform.localRotation = Quaternion.LookRotation(rotation);
+        // player._PlayerActor.transform.localRotation = Quaternion.Euler(rotation);
+        transform.localRotation = Quaternion.Euler(rotation);
         Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
         if(targetPos !=  Vector3.zero)
         {
