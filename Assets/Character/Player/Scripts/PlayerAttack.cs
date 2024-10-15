@@ -241,7 +241,7 @@ public class PlayerAttack : MonoBehaviour
         print($"we have root motion?? {player._PlayerActor.animationController.hasRootMotion}");
     }
 
-    public Vector3 DetectNearbyTargets()
+    public Vector3 DetectMeleeTargets()
     {
         List<Transform> targetList = GetAllDamageableEntities();
         Transform target = null;

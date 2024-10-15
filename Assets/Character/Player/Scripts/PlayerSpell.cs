@@ -186,6 +186,23 @@ public class PlayerSpell : MonoBehaviour
         RemoveSpellCharge();
     }
 
+    public Vector3 DetectRangedTargets()
+    {
+        Vector3 targetPos = Vector3.zero;
+        if (player._LockOnTargeter.rangeTargets.Count > 0)
+        {
+            player._LockOnTargeter.rangeTargets.ForEach(t =>
+            {
+                print($"targetable object is {t.name}");
+                if(Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
+                {
+                    targetPos = t.position;
+                }
+            });
+        }
+        return targetPos;
+    }
+
     private void RemoveSpellCharge()
     {
         if (_currentSpellIndex != 0)

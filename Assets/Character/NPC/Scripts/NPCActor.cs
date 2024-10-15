@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCActor : Actor
+public class NPCActor : Actor, ITargetable
 {
     private NonPlayerCharacter NPC;
 
@@ -40,4 +40,6 @@ public class NPCActor : Actor
 
         NPC.StateSideEffect();
     }
+
+    public Transform GetTargetable() => transform;
 }

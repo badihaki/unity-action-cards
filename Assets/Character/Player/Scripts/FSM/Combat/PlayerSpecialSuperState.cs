@@ -13,7 +13,7 @@ public class PlayerSpecialSuperState : PlayerCombatSuperState
         base.EnterState();
         // _PlayerCharacter._AnimationController.SetBool("special", true);
         _PlayerCharacter._Controls.UseAttack();
-        _PlayerCharacter._AttackController.DetectNearbyTargets();
+        _PlayerCharacter._AttackController.DetectMeleeTargets();
     }
 
     public override void ExitState()

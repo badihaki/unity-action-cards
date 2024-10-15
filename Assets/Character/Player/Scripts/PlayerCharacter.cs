@@ -12,6 +12,7 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
+    [field: SerializeField] public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
 
     // Actor Stuff
     [field: SerializeField] public PlayerActor _PlayerActor { get; private set; }
@@ -58,6 +59,10 @@ public class PlayerCharacter : Character, IDestroyable
 
         // initialize the statemachine
         InitializeStateMachine();
+
+        // combat stuff below, first the lock on
+        _LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
+        _LockOnTargeter.Initialize(this);
 
         // and initialize the attack controller, since it needs the state machine
         _AttackController.Initialize(this);

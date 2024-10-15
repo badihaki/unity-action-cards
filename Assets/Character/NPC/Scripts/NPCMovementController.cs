@@ -26,6 +26,6 @@ public class NPCMovementController : MonoBehaviour, IKnockbackable
         Vector3 direction = (transform.position - forceSource.position).normalized;
         // Vector3 force = new Vector3(0, launchForce, knockforce);
         Vector3 force = new Vector3(direction.x, direction.y * launchForce, direction.z * knockforce);
-        _PhysicsController.Move(-direction * knockforce);
+        _PhysicsController.Move(direction * knockforce);
     }
 }
