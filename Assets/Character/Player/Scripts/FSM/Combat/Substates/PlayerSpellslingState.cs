@@ -25,8 +25,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     protected void AttemptShootSpell()
     {
         Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-        _PlayerCharacter.LogFromState(target == Vector3.zero ? "No target" : $"Target found!! >>{target}");
-        if (target == Vector3.zero) target = _PlayerCharacter._CameraController._Camera.transform.forward;
+        _PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
         _PlayerCharacter._Controls.UseSpell();
         _PlayerCharacter._PlayerSpells.UseSpell(target);
     }
@@ -40,9 +39,6 @@ public class PlayerSpellslingState : PlayerCombatSuperState
 
         if (spellslingInput)
         {
-            /*Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-            _PlayerCharacter._Controls.UseSpell();
-            _PlayerCharacter._PlayerSpells.UseSpell(target);*/
             AttemptShootSpell();
         }
         if(spellSelectDirection != 0)
@@ -51,13 +47,6 @@ public class PlayerSpellslingState : PlayerCombatSuperState
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
-        /*
-        if (interactionInput)
-        {
-            _PlayerCharacter._Controls.UseInteract();
-            _PlayerCharacter._PlayerSpells.ChangeSpellIndex();
-        }
-         */
         if(spellSelectDirection != 0)
         {
             _PlayerCharacter._Controls.ResetSelectSpell();

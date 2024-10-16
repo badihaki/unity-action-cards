@@ -20,15 +20,12 @@ public class PlayerMovement : MonoBehaviour
 
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.35f;
-    [SerializeField] float attackRotationSmoothTime = 0.825f;
     private float targetRotation;
-    private float attackRotationTimer;
     [field: SerializeField] public float movementSpeed { get; private set; }
     [field: SerializeField] public float targetSpeed { get; private set; }
     private float lerpSpeedOnMovement = 0.085f;
     private float lerpSpeedOnSlowDown = 0.5f;
     private Camera cam;
-
 
     public void Initialize(PlayerCharacter controllingPlayer)
     {
@@ -41,7 +38,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        
     }
 
     public void ApplyGravity(float gravityModifier = 1.0f)
@@ -143,35 +139,32 @@ public class PlayerMovement : MonoBehaviour
 
     public void RotateTowardsTarget(Vector3 targetPos)
     {
+        print($"rotating towards target position {targetPos} || playerMovement.rotateTowardsTarget");
         // Vector3 rotation = Vector3.RotateTowards(_Actor.transform.position, targetPos - _Actor.transform.position, Time.deltaTime, 0.0f);
-        Vector3 direction = targetPos - _Actor.transform.position;
+        // Vector3 direction = targetPos - _Player._PlayerSpells._spellOrigin.transform.position;
 
-        // Vector3 rotation = Vector3.RotateTowards(_Player._PlayerSpells._spellTarget.transform.position, direction, Time.deltaTime, 0.0f);
-        // rotation.x = 0;
-        // rotation.z = 0;
         // _Actor.transform.localRotation = Quaternion.LookRotation(rotation); // this causes the x to get rotated.
-        // _Actor.transform.eulerAngles = rotation;
+        // _Actor.transform.eulerAngles = new Vector3(0, rotation.y, 0);
         // _Actor.transform.localRotation = Quaternion.Euler(rotation);
-        print($"target to look at {direction}");
-        _Actor.transform.LookAt(direction);
-        _Actor.transform.eulerAngles = new Vector3(0.0f, _Actor.transform.rotation.y, 0.0f);
+        // print($"target to look at {direction}");
+        
+        // _Actor.transform.LookAt(targetPos);
+        // _Player._PlayerSpells._spellOrigin.LookAt(targetPos);
+        
+        // _Actor.transform.eulerAngles = new Vector3(0.0f, _Actor.transform.rotation.y, 0.0f);
+        
+        StartCoroutine(RotateTowards(targetPos, 12));
     }
 
-    public void SetAttackRotationTime() => attackRotationTimer = attackRotationSmoothTime;
-    public IEnumerator RotateCharacterWhileAttacking(Vector2 inputDirection)
+    private IEnumerator RotateTowards(Vector3 targetPos, float deg)
     {
-        while(attackRotationTimer > 0.0f)
+        Vector3 dirToLookAt = (targetPos - _Actor.transform.position).normalized;
+        float targetAngle = Mathf.Atan2(dirToLookAt.x, dirToLookAt.z) * Mathf.Rad2Deg;
+
+        while(Mathf.Abs(Mathf.DeltaAngle(_Actor.transform.eulerAngles.y, targetAngle)) > Mathf.Epsilon)
         {
-            targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
-                * Mathf.Rad2Deg
-                + cam.transform.eulerAngles.y;
-            // rotation direction determines which direction we move to reach our intended rotation
-            float newRotationVel = rotationVelocity / 2;
-            float rotationDirection = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref newRotationVel, attackRotationSmoothTime);
-            // actually rotating the transform
-            // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
-            _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
-            attackRotationTimer -= Time.deltaTime;
+            float angle = Mathf.MoveTowardsAngle(_Actor.transform.eulerAngles.y, targetAngle, deg);
+            _Actor.transform.eulerAngles = Vector3.up * angle;
             yield return null;
         }
     }
