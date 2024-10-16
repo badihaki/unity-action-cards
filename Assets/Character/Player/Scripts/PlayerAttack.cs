@@ -241,146 +241,24 @@ public class PlayerAttack : MonoBehaviour
         print($"we have root motion?? {player._PlayerActor.animationController.hasRootMotion}");
     }
 
-    public Vector3 DetectMeleeTargets()
+    public void DetectMeleeTargets()
     {
-        List<Transform> targetList = GetAllDamageableEntities();
-        Transform target = null;
-        foreach (Transform obj in targetList)
+        Vector3 targetPos = Vector3.zero;
+        // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
+        if (player._LockOnTargeter.meleeTargets.Count > 0)
         {
-            if (target == null) target = obj;
-            else if (Vector3.Distance(transform.position, obj.position) < Vector3.Distance(transform.position, target.position)) target = obj;
-        }
-        if(target != null)
-        {
-            TurnToFaceTarget(target);
-            return target.transform.position;
-        }
-        return Vector3.zero;
-    }
-
-    private void TurnToFaceTarget(Transform target)
-    {
-        if (target == null) return;
-        Vector3 lookatTarget = new Vector3(target.position.x, player._PlayerActor.transform.position.y, target.position.z);
-        // transform.LookAt(target);
-        // player._LocomotionController.RotateCharacter(target.transform.position - target.position);
-        player._PlayerActor.transform.LookAt(lookatTarget);
-    }
-
-    private List<Transform> GetAllDamageableEntities()
-    {
-        List<Transform> entities = new List<Transform>();
-        // Vector3 startPos = player._PlayerActor.transform.position;
-        // Vector3 startPos = player._PlayerSpells._spellTarget.transform.position;
-        
-        
-        /*
-         * TODO
-         * The rays do not shoot the right direction, and this needs to be fixed
-         * v
-         * v
-         * v
-        ShootRays(5, 7, lineLength, startPos, 0.5f);
-         */
-       
-        /*
-        // Below is how to calculate things in front
-        RaycastHit forwardHit;
-
-        // Vector3 forwardLineDirection = (startPos + player._PlayerActor.transform.forward * lineLength);
-        Vector3 forwardLineDirection = (startPos + player._CameraRef.transform.forward * lineLength);
-        forwardLineDirection.y = 1.0f;
-        if(Physics.Linecast(startPos, forwardLineDirection, out forwardHit))
-        {
-            IDamageable damageableEntity = forwardHit.collider.GetComponent<IDamageable>();
-            if ( damageableEntity != null)
+            player._LockOnTargeter.rangeTargets.ForEach(t =>
             {
-                if (!entities.Contains(forwardHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(forwardHit.transform);
-            }
-        }
-
-        // below is for the right of the player
-        RaycastHit rightHit;
-        Vector3 rightLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x + 0.35f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
-        if (Physics.Linecast(startPos, rightLineDirection, out rightHit))
-        {
-            IDamageable damageableEntity = rightHit.collider.GetComponent<IDamageable>();
-            if (damageableEntity != null)
-            {
-                if (!entities.Contains(rightHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(rightHit.transform);
-            }
-        }
-        // and far right
-        RaycastHit farRightHit;
-        Vector3 farRightLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x + 0.75f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
-        if (Physics.Linecast(startPos, farRightLineDirection, out farRightHit))
-        {
-            IDamageable damageableEntity = farRightHit.collider.GetComponent<IDamageable>();
-            if (damageableEntity != null)
-            {
-                if (!entities.Contains(farRightHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(farRightHit.transform);
-            }
-        }
-
-        // now for the left direction
-        RaycastHit leftHit;
-        Vector3 leftLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x - 0.35f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
-        if (Physics.Linecast(startPos, leftLineDirection, out leftHit))
-        {
-            IDamageable damageableEntity = leftHit.collider.GetComponent<IDamageable>();
-            if (damageableEntity != null)
-            {
-                if (!entities.Contains(leftHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(leftHit.transform);
-            }
-        }
-        // and the far-left
-        RaycastHit farLeftHit;
-        Vector3 farLeftLineDirection = (startPos + new Vector3(player._CameraRef.transform.forward.x - 0.75f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * lineLength);
-        if (Physics.Linecast(startPos, farLeftLineDirection, out farLeftHit))
-        {
-            IDamageable damageableEntity = farLeftHit.collider.GetComponent<IDamageable>();
-            if (damageableEntity != null)
-            {
-                if (!entities.Contains(farLeftHit.transform) && damageableEntity.GetControllingEntity() != player) entities.Add(farLeftHit.transform);
-            }
-        }
-        // draw all the stuff
-        DrawTargetDetectionLines(0.5f, startPos, forwardLineDirection, rightLineDirection, farRightLineDirection, leftLineDirection, farLeftLineDirection);
-        */
-        return entities;
-    }
-
-    private void ShootRays(int columns, int rows, float rayLength, Vector3 startingPos, float lineDrawTime)
-    {
-        List<Transform> entities = new List<Transform>();
-        print("shooting");
-        
-        Vector3 rayOffset = offset;
-        //
-        for (int iRow = 0; iRow < rows; iRow++)
-        {
-            // for each row, do...
-            for (int iCol = 0; iCol < columns; iCol++)
-            {
-                // print($"row {iRow+1} and column {iCol+1}");
-                // print($"offset {offset.x * 0.1f} - x || {offset.y * 1.0f} - y");
-                // create a ray, add offset
-                RaycastHit hit;
-                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + offset.x * 0.1f, player._CameraRef.transform.forward.y, player._CameraRef.transform.forward.z) * rayLength);
-                // Vector3 dir = (startingPos + new Vector3(player._CameraRef.transform.forward.x + rayOffset.x, rayOffset.y, player._CameraRef.transform.forward.z * rayOffset.z) * rayLength);
-                Vector3 dir = startingPos + ((player._CameraRef.transform.forward + rayOffset) * rayLength);
-
-                // if (Physics.Linecast(startingPos, dir, out hit))
-                if (Physics.Linecast(startingPos, dir, out hit))
+                print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
+                if (targetPos == Vector3.zero) targetPos = t.position;
+                else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
                 {
-                    if (!entities.Contains(hit.transform)) entities.Add(hit.transform);
+                    targetPos = t.position;
                 }
-                Debug.DrawLine(startingPos, dir, colors[iCol], lineDrawTime);
-                rayOffset.x += offsetAddX;
-            }
-            rayOffset.y += offsetAddY;
-        }
-}
+            });
 
+            player._LocomotionController.RotateTowardsTarget(targetPos);
+        }
+    }
     // end
 }
