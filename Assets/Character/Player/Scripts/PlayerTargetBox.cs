@@ -28,7 +28,7 @@ public class PlayerTargetBox : MonoBehaviour
                 /*if (!targeter.Contains(target.GetTargetable()))
                 {
                 }*/
-                print($">>>>>>>>>>>> adding target {target.GetTargetable().name} to list of targetables");
+                // print($">>>>>>>>>>>> adding target {target.GetTargetable().name} to list of targetables");
                 if (!DoesContainInAnyList(transform))
                 {
                     targeter.AddTargetToList(type, target.GetTargetable());
