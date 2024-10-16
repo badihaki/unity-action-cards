@@ -60,7 +60,6 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         // _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
 
         /*
-         */
         if(moveInput != Vector2.zero)
         {
             _PlayerCharacter._LocomotionController.DetectMove(moveInput);
@@ -70,7 +69,8 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         {
             _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         }
-        // _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+         */
+        _PlayerCharacter._LocomotionController.SlowDown();
     }
 
     public override void ExitState()
