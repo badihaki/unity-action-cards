@@ -257,7 +257,9 @@ public class PlayerAttack : MonoBehaviour
                 }
             });
 
-            player._LocomotionController.RotateTowardsTarget(targetPos);
+            // player._LocomotionController.RotateTowardsTarget(targetPos);
+            if(player._Controls._MoveInput != Vector2.zero)
+                player._LocomotionController.RotateInstantly(player._Controls._MoveInput);
         }
     }
     // end
