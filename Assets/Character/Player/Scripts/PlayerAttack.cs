@@ -244,6 +244,7 @@ public class PlayerAttack : MonoBehaviour
     public void DetectMeleeTargets()
     {
         Vector3 targetPos = Vector3.zero;
+        Vector2 moveInput = player._Controls._MoveInput;
         // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
         if (player._LockOnTargeter.meleeTargets.Count > 0)
         {
@@ -258,9 +259,10 @@ public class PlayerAttack : MonoBehaviour
             });
 
             // player._LocomotionController.RotateTowardsTarget(targetPos);
-            if(player._Controls._MoveInput != Vector2.zero)
-                player._LocomotionController.RotateInstantly(player._Controls._MoveInput);
         }
+        print($"Move direction at time of attack - {moveInput}");
+        if(moveInput != Vector2.zero)
+            player._LocomotionController.RotateInstantly(moveInput);
     }
     // end
 }
