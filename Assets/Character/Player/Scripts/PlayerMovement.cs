@@ -136,6 +136,25 @@ public class PlayerMovement : MonoBehaviour
         // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
         _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
+    public void RotateInstantly(Vector2 inputDirection)
+    {
+        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
+    * Mathf.Rad2Deg
+    + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
+        // rotation direction determines which direction we move to reach our intended rotation
+        if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
+        {
+            rotationSmoothingTime = 0.15f;
+        }
+        else if (!_CheckForGround.IsGrounded())
+        {
+            rotationSmoothingTime = 0.45f;
+        }
+        float rotationDirection = Mathf.SmoothDampAngle(_Actor.transform.eulerAngles.y, targetRotation, ref rotationVelocity, 0);
+        // actually rotating the transform
+        // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+        _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+    }
 
     public void RotateTowardsTarget(Vector3 targetPos)
     {
