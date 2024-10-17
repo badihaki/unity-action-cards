@@ -192,8 +192,10 @@ public class PlayerSpell : MonoBehaviour
     {
         Vector3 targetPos = Vector3.zero;
         // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
+        /*
         if (player._Controls._MoveInput != Vector2.zero)
             player._LocomotionController.RotateInstantly(player._Controls._MoveInput);
+         */
         if (player._LockOnTargeter.rangeTargets.Count > 0)
         {
             player._LockOnTargeter.rangeTargets.ForEach(t =>
