@@ -3295,7 +3295,7 @@ PrefabInstance:
     - target: {fileID: 3199765473817346156, guid: 0519e41da14b0d243af456fa25a51085,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3206850892622244332, guid: 0519e41da14b0d243af456fa25a51085,
         type: 3}
@@ -5281,7 +5281,7 @@ PrefabInstance:
     - target: {fileID: 1205653679986260219, guid: 307db9086e87dcf47937c98b9bd0d19f,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1283612781641769751, guid: 307db9086e87dcf47937c98b9bd0d19f,
         type: 3}
@@ -7403,11 +7403,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 968991257733725471}
+      addedObject: {fileID: 7905505764180080348}
     - targetCorrespondingSourceObject: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7905505764180080348}
+      addedObject: {fileID: 968991257733725471}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d274e6b2e7f3a53438f1184377199161, type: 3}
 --- !u!4 &7905505764180080348 stripped
