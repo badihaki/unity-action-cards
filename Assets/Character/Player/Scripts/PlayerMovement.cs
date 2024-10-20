@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Rotation")]
     private float rotationVelocity;
-    private float rotationSmoothingTime = 0.35f;
+    private float rotationSmoothingTime = 0.082f;
     private float targetRotation;
     private float lerpSpeedOnSlowDown = 0.5f;
     private Camera cam;
