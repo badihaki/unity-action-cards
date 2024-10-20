@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,24 +11,28 @@ public class PlayerMovement : MonoBehaviour
     private PlayerActor _Actor;
     private CharacterController _Controller;
     private CheckForGround _CheckForGround;
-    
+
+    [Header("Movement")]
     [SerializeField] private float _Gravity = 9.810f;
     [SerializeField] private float _VerticalVelocity;
     [SerializeField] private float _BaseVerticalVelocity = -1.00f;
     [SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
     [SerializeField] private Vector3 _DesiredMoveDirection;
     [SerializeField] private Vector3 _MovementDirection = new Vector3();
-
-
-    private float rotationVelocity;
-    private float rotationSmoothingTime = 0.35f;
-    private float targetRotation;
     [field: SerializeField] public float movementSpeed { get; private set; }
     [field: SerializeField] public float targetSpeed { get; private set; }
     private float lerpSpeedOnMovement = 0.085f;
+
+    [Header("Rotation")]
+    private float rotationVelocity;
+    private float rotationSmoothingTime = 0.35f;
+    private float targetRotation;
     private float lerpSpeedOnSlowDown = 0.5f;
     private Camera cam;
 
+    [Header("In Air Schmoovement")]
+    [field: SerializeField] public bool canDoubleJump { get; private set; }
+    [field: SerializeField] public bool canAirDash { get; private set; }
     public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
@@ -34,6 +40,9 @@ public class PlayerMovement : MonoBehaviour
         _Controller = _Player._Actor.GetComponent<CharacterController>();
         _CheckForGround = _Actor.GetComponent<CheckForGround>();
         cam = Camera.main;
+
+        canAirDash = true;
+        canDoubleJump = true;
     }
 
     private void Update()
@@ -211,7 +220,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 2);
         }
+        else
+        {
+            print("air jumping");
+            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 3.245f);
+        }
     }
+    public void SetDoubleJump(bool value) => canDoubleJump = value;
+    public void SetAirDash(bool value) => canAirDash = value;
 
     // end
 }

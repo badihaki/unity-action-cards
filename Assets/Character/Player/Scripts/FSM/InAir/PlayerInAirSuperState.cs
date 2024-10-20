@@ -14,6 +14,8 @@ public class PlayerInAirSuperState : PlayerState
     public int spellSelectDirection { get; private set; }
     public bool attackInput { get; private set; }
     public bool specialInput { get; private set; }
+    public bool jumpInput { get; private set; }
+    public bool rushInput { get; private set; }
 
     public override void LogicUpdate()
     {
@@ -44,7 +46,12 @@ public class PlayerInAirSuperState : PlayerState
     {
         base.CheckStateTransitions();
 
-        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
+        if (_PlayerCharacter._CheckGrounded.IsGrounded())
+        {
+            _StateMachine.ChangeState(_StateMachine._IdleState);
+            _PlayerCharacter._LocomotionController.SetDoubleJump(true);
+            _PlayerCharacter._LocomotionController.SetAirDash(true);
+        }
         if (attackInput)
         {
             _PlayerCharacter.LogFromState("attackin");
@@ -67,5 +74,7 @@ public class PlayerInAirSuperState : PlayerState
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
         specialInput = _PlayerCharacter._Controls._SpecialAttackInput;
+        jumpInput = _PlayerCharacter._Controls._JumpInput;
+        rushInput = _PlayerCharacter._Controls._RushInput;
     }
 }

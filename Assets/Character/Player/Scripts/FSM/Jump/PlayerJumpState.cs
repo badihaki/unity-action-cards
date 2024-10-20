@@ -42,16 +42,18 @@ public class PlayerJumpState : PlayerState
 
         if (_AnimationIsFinished)
         {
-			_PlayerCharacter.LogFromState("animation is finished");
+			// _PlayerCharacter.LogFromState("animation is finished");
 
 			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
             {
-                _PlayerCharacter.LogFromState("finishing, not on ground");
+                // _PlayerCharacter.LogFromState("finishing, not on ground");
                 _StateMachine.ChangeState(_StateMachine._FallingState);
             }
             else
 			{
-				_PlayerCharacter.LogFromState("finishing, grounded");
+				// _PlayerCharacter.LogFromState("finishing, grounded");
+                _PlayerCharacter._LocomotionController.SetDoubleJump(true);
+                _PlayerCharacter._LocomotionController.SetAirDash(true);
 				_StateMachine.ChangeState(_StateMachine._IdleState);
 			}
 		}

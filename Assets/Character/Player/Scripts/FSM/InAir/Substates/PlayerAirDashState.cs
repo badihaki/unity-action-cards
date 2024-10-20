@@ -1,0 +1,39 @@
+using UnityEngine;
+
+public class PlayerAirDashState : PlayerState
+{
+    public PlayerAirDashState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    {
+    }
+
+    public override void EnterState()
+    {
+        base.EnterState();
+
+        _PlayerCharacter._LocomotionController.SetAirDash(false);
+    }
+
+    public override void CheckStateTransitions()
+    {
+        base.CheckStateTransitions();
+
+        if (_AnimationIsFinished)
+        {
+            _StateMachine.ChangeState(_StateMachine._FallingState);
+        }
+    }
+
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+    }
+
+    public override void AnimationFinished()
+    {
+        base.AnimationFinished();
+
+        _PlayerCharacter._StateMachine.ChangeState(_StateMachine._FallingState);
+    }
+}
