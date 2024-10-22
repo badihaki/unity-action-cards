@@ -4,7 +4,21 @@ using UnityEngine;
 
 public class NPCHurtSuperState : NPCState
 {
-    public override void AnimationEndTrigger()
+	public override void EnterState()
+	{
+		base.EnterState();
+
+        _NPC._NavigationController.StopNavigation();
+	}
+
+	public override void PhysicsUpdate()
+	{
+		base.PhysicsUpdate();
+
+        _NPC._MoveController.ApplyExternalForces();
+	}
+
+	public override void AnimationEndTrigger()
     {
         base.AnimationEndTrigger();
 

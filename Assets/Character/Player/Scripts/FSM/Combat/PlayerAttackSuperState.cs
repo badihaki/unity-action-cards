@@ -14,7 +14,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
 
         _PlayerCharacter._AnimationController.SetBool("attack", true);
         _PlayerCharacter._Controls.UseAttack();
-        _PlayerCharacter._AttackController.DetectMeleeTargets();
+        //_PlayerCharacter._AttackController.DetectMeleeTargets();
     }
 
     public override void ExitState()

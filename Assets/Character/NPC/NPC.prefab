@@ -763,7 +763,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31389fe1bfcaa244fb5cdd2f7e8378f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _PhysicsController: {fileID: 0}
+  _CharacterController: {fileID: 0}
+  <externalForces>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!114 &4240367807110500814
 MonoBehaviour:
   m_ObjectHideFlags: 0

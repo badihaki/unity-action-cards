@@ -250,7 +250,7 @@ public class PlayerAttack : MonoBehaviour
         {
             player._LockOnTargeter.rangeTargets.ForEach(t =>
             {
-                print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
+                // print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
                 if (targetPos == Vector3.zero) targetPos = t.position;
                 else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
                 {
@@ -258,9 +258,8 @@ public class PlayerAttack : MonoBehaviour
                 }
             });
 
-            // player._LocomotionController.RotateTowardsTarget(targetPos);
+            player._LocomotionController.RotateTowardsTarget(targetPos);
         }
-        print($"Move direction at time of attack - {moveInput}");
         if(moveInput != Vector2.zero)
             player._LocomotionController.RotateInstantly(moveInput);
     }
