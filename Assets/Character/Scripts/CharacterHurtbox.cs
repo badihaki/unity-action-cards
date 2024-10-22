@@ -19,7 +19,6 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 
     public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
     {
-
         if(damageSource != character.transform)
         {
             character._Health.TakeDamage(damage);

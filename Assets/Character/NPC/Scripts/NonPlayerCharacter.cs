@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NonPlayerCharacter : Character, IDestroyable
 {
+    [field: SerializeField, Header("~> Nonplayer Character <~")] public NPCActor _NPCActor { get; private set; }
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
     [field: SerializeField] public NPCAttack _AttackController { get; private set; }
-    [field: SerializeField] public NPCActor _NPCActor { get; private set; }
 
     // State Machine
     public NPCStateMachine _StateMachine { get; private set; }

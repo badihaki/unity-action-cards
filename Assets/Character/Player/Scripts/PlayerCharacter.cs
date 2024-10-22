@@ -12,10 +12,11 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
-    [field: SerializeField] public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
+    public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
 
     // Actor Stuff
-    [field: SerializeField] public PlayerActor _PlayerActor { get; private set; }
+    [field:SerializeField, Header("~> Player Character <~")]
+    public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
     [field: SerializeField] public CharacterHitbox _Hitbox { get; private set; }
 
