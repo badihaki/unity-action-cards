@@ -1,5 +1,12 @@
 # Card Action Game Readme
 
+### 10-22 - Hit feedback
+I'm rehauling my hit feedback into 2 main points of contention
+- Hit VFX
+- Hit responses
+	- Launching
+	- Knockback
+
 ### 10-12 - Card set done
 Card moveset is finished. Need hitboxes and VFX. Ready to merge into main. Next up:
 * Attacks

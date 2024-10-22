@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -93,4 +94,26 @@ public class Character : MonoBehaviour
         print("goodbye, " + name);
         Destroy(gameObject);
     }
+
+	public virtual void CalculateHitResponse(float knockForce, float launchForce, float damage = 1.0f)
+	{
+		float randomHit = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
+        float poise = _Health.ChangePoise(randomHit);
+
+        if (launchForce > 50)
+        {
+			_Health.EmitOnHit("launch");
+		}
+        else
+        {
+		    if (poise < 0 && poise > -0.5f)
+		    {
+                _Health.EmitOnHit("hit");
+		    }
+		    else if (poise < -0.5f)
+		    {
+			    _Health.EmitOnHit("knockBack");
+		    }
+        }
+	}
 }

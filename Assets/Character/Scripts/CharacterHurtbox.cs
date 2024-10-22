@@ -31,6 +31,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 
             character._Actor.transform.rotation = rotation;
 
+            character.CalculateHitResponse(knockForce, launchForce, damage);
             knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
             DetermineWhoWhurtMe(damageSource);
         }

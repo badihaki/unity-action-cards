@@ -77,7 +77,8 @@ public class NonPlayerCharacter : Character, IDestroyable
     protected override void TriggerhitAnimation(string hitType)
     {
         hitAnimationString = hitType;
-        _AnimationController.SetBool(hitAnimationString, true);
+        //_AnimationController.SetBool(hitAnimationString, true);
+        _AnimationController.SetTrigger(hitAnimationString);
         _StateMachine.ChangeState(_HurtState);
 
         if (_AttackController && !_AttackController._IsAggressive)
