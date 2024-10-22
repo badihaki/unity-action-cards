@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour
+public class Actor : MonoBehaviour, IKnockbackable
 {
-    private Character Character;
+    private Character _Character;
     [field: SerializeField] public Animator animationController { get; protected set; }
 
     [field: SerializeField, Header("Animator Movement")]
@@ -16,7 +16,7 @@ public class Actor : MonoBehaviour
 
     public virtual void Initialize(Character character)
     {
-        Character = character;
+        _Character = character;
         animationController = GetComponent<Animator>();
         animationController.ApplyBuiltinRootMotion();
         animationController.applyRootMotion = true;
@@ -41,4 +41,9 @@ public class Actor : MonoBehaviour
     {
         //
     }
+
+	public virtual void ApplyKnockback(Transform forceSource, float knockforce, float launchForce)
+	{
+        print($"applying knockback to actor {name} controlled by {_Character}");
+	}
 }

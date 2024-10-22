@@ -14,6 +14,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
     {
         character = _character;
         knockInterface = GetComponentInParent<IKnockbackable>();
+        print($"{character.name} has knock interface {knockInterface}");
     }
 
     public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)

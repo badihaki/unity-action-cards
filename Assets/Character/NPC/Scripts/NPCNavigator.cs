@@ -16,7 +16,7 @@ public class NPCNavigator : MonoBehaviour
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
         _NPC = npc;
-        _Agent = GetComponent<NavMeshAgent>();
+        _Agent = _NPC._NPCActor.GetComponent<NavMeshAgent>();
         _Agent.speed = _NPC._CharacterSheet._WalkSpeed;
     }
 
