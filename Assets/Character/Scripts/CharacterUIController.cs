@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,9 +20,10 @@ public class CharacterUIController : MonoBehaviour
         if (_HealthController != null) _HealthController.OnHealthChanged += UpdateHealthUI;
     }
 
-    public void InitializeUI(bool isEntityPlayer)
+    public void InitializeUI(bool isEntityPlayer, Character character)
     {
-        if(!_ResourceCanvas) _ResourceCanvas = transform.Find("ResourceCanvas").GetComponent<Canvas>();
+        transform.Find("ResourceCanvas").GetComponent<Canvas>();
+		if (!_ResourceCanvas) _ResourceCanvas = transform.Find("ResourceCanvas").GetComponent<Canvas>();
         if (!_HealthBar) _HealthBar = _ResourceCanvas.transform.Find("HealthBar").GetComponent<Slider>();
         if (_HealthController == null)
         {
@@ -33,7 +35,12 @@ public class CharacterUIController : MonoBehaviour
             _HealthController.OnHealthChanged += UpdateHealthUI;
             isPlayer = isEntityPlayer;
 
-            if (!isPlayer) _ResourceCanvas.gameObject.SetActive(false);
+            if (!isPlayer)
+            {
+                UpdatePositionMatchActor posUpdater = _ResourceCanvas.transform.AddComponent<UpdatePositionMatchActor>();
+                posUpdater.Initialize(character._Actor);
+                _ResourceCanvas.gameObject.SetActive(false);
+            }
         }
     }
 

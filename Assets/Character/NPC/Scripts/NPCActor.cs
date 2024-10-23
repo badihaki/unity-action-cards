@@ -47,6 +47,6 @@ public class NPCActor : Actor, ITargetable
 	{
 		base.ApplyKnockback(forceSource, knockforce, launchForce);
 
-		NPC._MoveController.SetKnockforce(forceSource, knockforce, launchForce);
+		NPC._MoveController.SetExternalForces(forceSource, knockforce, launchForce);
 	}
 }

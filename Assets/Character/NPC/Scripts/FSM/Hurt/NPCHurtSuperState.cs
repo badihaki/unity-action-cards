@@ -36,6 +36,6 @@ public class NPCHurtSuperState : NPCState
     {
         base.ExitState();
 
-        _NPC.EndHurtAnimation();
+        _NPC._MoveController.SetExternalForces(_NPC.transform, 0.0f, 0.0f);
     }
 }

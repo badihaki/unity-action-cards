@@ -20,7 +20,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
     {
         _Character = character;
         animationController = GetComponent<Animator>();
-        animationController.ApplyBuiltinRootMotion();
+        // animationController.ApplyBuiltinRootMotion();
         animationController.applyRootMotion = true;
         CheckGrounded = GetComponent<CheckForGround>();
         CheckGrounded.Initialize();
@@ -46,7 +46,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 
 	public virtual void ApplyKnockback(Transform forceSource, float knockforce, float launchForce)
 	{
-        print($"applying knockback to actor {name} controlled by {_Character}");
+        //print($"applying knockback to actor {name} controlled by {_Character}");
 	}
 
 	public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)

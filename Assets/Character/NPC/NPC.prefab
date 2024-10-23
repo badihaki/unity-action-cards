@@ -744,10 +744,10 @@ MonoBehaviour:
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
+  <_NPCActor>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
   <_NavigationController>k__BackingField: {fileID: 0}
   <_AttackController>k__BackingField: {fileID: 0}
-  <_NPCActor>k__BackingField: {fileID: 0}
   hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
@@ -762,7 +762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _CharacterController: {fileID: 0}
-  <externalForces>k__BackingField: {x: 0, y: 0, z: 0}
+  <_ExternalForces>k__BackingField: {x: 0, y: 0, z: 0}
 --- !u!114 &4240367807110500814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2935,7 +2935,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8319501397296655287}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0

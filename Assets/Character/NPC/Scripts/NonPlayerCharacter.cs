@@ -29,7 +29,7 @@ public class NonPlayerCharacter : Character, IDestroyable
         _MoveController.InitializeNPCMovement(this);
 
         // ui
-        if (_UI != null) _UI.InitializeUI(false);
+        if (_UI != null) _UI.InitializeUI(false, this);
 
         // navigator
         _NavigationController = GetComponent<NPCNavigator>();

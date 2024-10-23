@@ -69,7 +69,7 @@ public class PlayerCharacter : Character, IDestroyable
         _AttackController.Initialize(this);
 
         // initialize UI
-        if (_UI != null) _UI.InitializeUI(true);
+        if (_UI != null) _UI.InitializeUI(true, this);
     }
 
     private void LoadAndBuildActor()

@@ -82,7 +82,7 @@ public class NPCState : ScriptableObject
 
     public virtual void AnimationEndTrigger()
     {
-        Debug.Log("ending animation");
+        //Debug.Log("ending animation");
         // end of animation
     }
     #endregion
