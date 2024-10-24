@@ -171,8 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1706b46bae9b6419af8a3ef30486ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_CurrentAetherPoints>k__BackingField: 0
-  _MaxAetherPoints: 0
+  <_CurrentAether>k__BackingField: 0
+  <_MaxAether>k__BackingField: 0
+  canRecoverAether: 0
+  <_RecoveryRate>k__BackingField: 0
+  <_RecoveryTimeNeeded>k__BackingField: 1.3
+  <_RecoveryAmount>k__BackingField: 3
 --- !u!114 &312133789076485268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,10 +466,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c411249c3e78f4fa4c3696291998a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _HealthController: {fileID: 0}
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
   canChangeHealth: 0
-  _HealthChangeRate: 2.5
+  _UIChangeRate: 0.015
+  _AetherController: {fileID: 0}
+  _AetherBar: {fileID: 0}
+  _TargetAether: 0
+  canChangeAether: 0
 --- !u!114 &6084333112869182304
 MonoBehaviour:
   m_ObjectHideFlags: 0

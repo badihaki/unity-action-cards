@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class Aether : MonoBehaviour
 {
-    [field: SerializeField] public int _CurrentAether { get; private set; }
+    [field: SerializeField, Header("Values")] public int _CurrentAether { get; private set; }
     [field: SerializeField] public int _MaxAether { get; private set; }
 
-    public delegate void ChangeAether(int aether);
+	[field: SerializeField, Header("Recovery values")] private bool canRecoverAether;
+	[field: SerializeField] public float _RecoveryRate { get; private set; }
+	[field: SerializeField] public float _RecoveryTimeNeeded { get; private set; } = 1.3f;
+	[field: SerializeField] public int _RecoveryAmount { get; private set; } = 3;
+	[field: SerializeField] public WaitForSeconds _RecoveryWaitTime { get; private set; } = new WaitForSeconds(1.5f);
+
+	public delegate void ChangeAether(int aether);
     public event ChangeAether OnAetherChanged;
 
     public void InitiateAetherPointPool(int aetherPoints)
@@ -28,12 +34,46 @@ public class Aether : MonoBehaviour
     {
         _CurrentAether -= value;
 		EmitAetherValue();
+
+		if (!canRecoverAether)
+		{
+			canRecoverAether = true;
+			print($"starting aether recover (?={canRecoverAether}) at {Time.time}");
+			StartCoroutine(StartAetherRecovery());
+		}
 	}
 
 	public void RestoreAether(int value)
 	{
 		_CurrentAether += value;
 		EmitAetherValue();
+	}
+
+	private IEnumerator StartAetherRecovery()
+	{
+		yield return _RecoveryWaitTime;
+		print($"recovering aether at {Time.time}");
+		StartCoroutine(RecoverAether());
+	}
+
+	private IEnumerator RecoverAether()
+	{
+		while(canRecoverAether)
+		{
+			print($"recovering aether << {transform.name}.Aether.RecoverAether()");
+			_RecoveryRate += Time.deltaTime;
+			if(_RecoveryRate >= _RecoveryTimeNeeded)
+			{
+				_RecoveryRate = 0.00f;
+				RestoreAether(_RecoveryAmount);
+				if(_CurrentAether  >= _MaxAether)
+				{
+					_CurrentAether = _MaxAether;
+					canRecoverAether = false;
+				}
+			}
+			yield return null;
+		}
 	}
 
 	private void EmitAetherValue()
