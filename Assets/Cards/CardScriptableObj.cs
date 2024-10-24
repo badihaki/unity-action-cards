@@ -22,7 +22,7 @@ public class CardScriptableObj : ScriptableObject
 
     public void PlayCard(Character controllingCharacter)
     {
-        if (AetherCheck(controllingCharacter._AetherPoints._CurrentAetherPoints, controllingCharacter._AetherPoints))
+        if (AetherCheck(controllingCharacter._AetherPoints._CurrentAether, controllingCharacter._AetherPoints))
         {
             UseCardAbility(controllingCharacter);
 

@@ -5,7 +5,11 @@ I'm rehauling my hit feedback into 2 main points of contention
 - Hit VFX
 - Hit responses
 	- Launching
+		- Working
 	- Knockback
+		- Going in the wrong direction
+	- Hitstun
+		- Not implemented
 
 ### 10-12 - Card set done
 Card moveset is finished. Need hitboxes and VFX. Ready to merge into main. Next up:
