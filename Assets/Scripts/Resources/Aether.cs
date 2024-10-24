@@ -40,7 +40,4 @@ public class Aether : MonoBehaviour
 	{
 		if (OnAetherChanged != null) OnAetherChanged(_CurrentAether);
 	}
-
-	public void UseAetherPoints(int aetherPoints) => _CurrentAether -= aetherPoints;
-    public void GainAetherPoints(int aetherPoints) => _CurrentAether += aetherPoints;
 }

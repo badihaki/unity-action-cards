@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
 {
     [field: SerializeField, Header(">> Character <<")] public CharacterSheet _CharacterSheet { get; protected set; }
     public Health _Health { get; private set; }
-    public Aether _AetherPoints { get; private set; }
+    public Aether _Aether { get; private set; }
     public CheckForGround _CheckGrounded { get; private set; }
     [field: SerializeField] public Actor _Actor { get; protected set; }
     [field: SerializeField, Header("Character Components")] public Animator _AnimationController { get; private set; }
@@ -46,8 +46,8 @@ public class Character : MonoBehaviour
         _Health.OnHit += TriggerhitAnimation;
 
         // start aether points (magic points)
-        _AetherPoints = GetComponent<Aether>();
-        _AetherPoints.InitiateAetherPointPool(_CharacterSheet._StartingAetherPool);
+        _Aether = GetComponent<Aether>();
+        _Aether.InitiateAetherPointPool(_CharacterSheet._StartingAetherPool);
 
         // start checking for ground
         _CheckGrounded = _Actor.GetComponent<CheckForGround>();

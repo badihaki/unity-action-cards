@@ -14,11 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CardName: Fireball
   _TypeOfCard: 2
-  _CardCost: 6
+  _CardCost: 5
   _CardImage: {fileID: 21300000, guid: a94f24e3ec7256541aced6d573fd9e79, type: 3}
   _SpellProjectile: {fileID: 5110936282929510790, guid: 75229f5f90797a44a99fc79ab206a2ae,
     type: 3}
-  _SpellDamage: 2
-  _SpellCharges: 10
+  _SpellImpactVFX: {fileID: 0}
+  _SpellDamage: 3
+  _SpellCharges: 5
   _SpellProjectileSpeed: 10
+  _SpellKnockAndLaunchForces: {x: 0, y: 0}
   _SpellAddonTime: 2.5
+  _SpellLifetime: 5.135
+  _StartSound: {fileID: 0}
+  _TravelSound: {fileID: 0}
+  _ImpactSound: {fileID: 0}
+  _SpellAnimationBool: 0
