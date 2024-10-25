@@ -10,7 +10,7 @@ using Unity.VisualScripting;
 public class PlayerCamera : MonoBehaviour
 {
     private PlayerCharacter Player;
-
+    [field: SerializeField] public Camera _Camera { get; private set; }
     [Header("Cinemachine Cameras")]
     [field: SerializeField] public CinemachineCamera _PlayerCamController { get; private set; }
     [field: SerializeField] public CinemachineCamera _PlayerAimCamController { get; private set; }
@@ -33,7 +33,6 @@ public class PlayerCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     public void Initialize(PlayerCharacter controller)
@@ -45,6 +44,7 @@ public class PlayerCamera : MonoBehaviour
         LockCursorKBM();
         currentCameraController = _PlayerAimCamController;
         cursorLocked = false;
+        _Camera = Camera.main;
     }
     private void InitializeCinemachineController()
     {

@@ -70,11 +70,6 @@ public class PlayerCards : MonoBehaviour
         }
     }
 
-    public void TestUseCard()
-    {
-        _Hand[0].PlayCard(player);
-    }
-
     private GameObject CreateCardUIObject(CardScriptableObj cardSO, int index)
     {
         GameObject newCard = Instantiate(cardPrefab, handOfCards.transform);

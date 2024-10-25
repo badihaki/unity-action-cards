@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using Unity.Mathematics;
 
 public class PlayerSpell : MonoBehaviour
 {
@@ -24,7 +26,7 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private int _currentSpellIndex;
     [SerializeField] private SpellCardScriptableObj _baseSpell;
 
-    [SerializeField] public LockSpellTargetRotation _spellTarget { get; private set; }
+    [field: SerializeField] public Transform _spellOrigin { get; private set; }
 
     private float timeToAddToTimer;
     [SerializeField] private float _spellTimer;
@@ -47,7 +49,7 @@ public class PlayerSpell : MonoBehaviour
 
         _activeSpellList = new List<storedSpell>();
         AddSpellToList(_baseSpell);
-        _spellTarget = GetComponentInChildren<LockSpellTargetRotation>();
+        _spellOrigin = player._PlayerActor.transform.Find("SpellTarget");
         _spellTimer = 0.0f;
         timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
     }
@@ -73,7 +75,7 @@ public class PlayerSpell : MonoBehaviour
             _spellTimer -= Time.deltaTime;
         }
     }
-
+    /*
     #region Crosshair Functions
     public void ShowCrosshair() => _crosshair.gameObject.SetActive(true);
 
@@ -95,6 +97,7 @@ public class PlayerSpell : MonoBehaviour
         _crosshair.transform.position = desiredCrosshairPos;
     }
     #endregion
+    */
     public void AddSpellToList(SpellCardScriptableObj spellCard)
     {
         if (_activeSpellList.Count < _maxSpellList)
@@ -164,26 +167,49 @@ public class PlayerSpell : MonoBehaviour
 
     private void ShootSpell(Vector3 targetPos)
     {
-        Projectile conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
+        player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
+        
+        Projectile conjuredSpell;
         if(targetPos !=  Vector3.zero)
         {
-            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
+            player._LocomotionController.RotateTowardsTarget(targetPos);
+            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellOrigin.transform.position, Quaternion.identity).GetComponent<Projectile>();
             Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
-            conjuredSpell.transform.rotation = targetDir;
-            // player._LocomotionController.SetAttackRotationTime();
-            // StartCoroutine(player._LocomotionController.RotateCharacterWhileAttacking(targetPos));
         }
         else
         {
-            player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
-            Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - _spellTarget.transform.position);
-            conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
+            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellOrigin.transform.position, Quaternion.identity).GetComponent<Projectile>();
         }
+        conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
 
         conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
         conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
         _spellTimer = timeToAddToTimer;
         RemoveSpellCharge();
+    }
+
+    public Vector3 DetectRangedTargets()
+    {
+        Vector3 targetPos = Vector3.zero;
+        // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
+        /*
+        if (player._Controls._MoveInput != Vector2.zero)
+            player._LocomotionController.RotateInstantly(player._Controls._MoveInput);
+         */
+        if (player._LockOnTargeter.rangeTargets.Count > 0)
+        {
+            player._LockOnTargeter.rangeTargets.ForEach(t =>
+            {
+                print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
+                if (targetPos == Vector3.zero) targetPos = t.position;
+                else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
+                {
+                    targetPos = t.position;
+                }
+            });
+        }
+        // print($"targetting {targetPos}");
+        return targetPos;
     }
 
     private void RemoveSpellCharge()

@@ -22,7 +22,7 @@ public class CardScriptableObj : ScriptableObject
 
     public void PlayCard(Character controllingCharacter)
     {
-        if (AetherCheck(controllingCharacter._AetherPoints._CurrentAetherPoints, controllingCharacter._AetherPoints))
+        if (AetherCheck(controllingCharacter._Aether._CurrentAether, controllingCharacter._Aether))
         {
             UseCardAbility(controllingCharacter);
 
@@ -39,7 +39,7 @@ public class CardScriptableObj : ScriptableObject
     {
         if (aetherPoints >= _CardCost)
         {
-            _AetherPool.UseAetherPoints(_CardCost);
+            _AetherPool.UseAether(_CardCost);
             return true;
         }
         else return false;

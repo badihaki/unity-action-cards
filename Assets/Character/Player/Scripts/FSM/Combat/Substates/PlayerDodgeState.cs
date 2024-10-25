@@ -23,6 +23,14 @@ public class PlayerDodgeState : PlayerDefenseSuperState
         _PlayerCharacter._AnimationController.SetBool("dodge", false);
     }
 
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
+
+        _PlayerCharacter._LocomotionController.ApplyGravity();
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+    }
+
     public override void AnimationFinished()
     {
         base.AnimationFinished();

@@ -24,7 +24,7 @@ public class NPCStateMachine : MonoBehaviour
 
     public void Update()
     {
-        if (_Ready)
+        if (_Ready && GameManagerMaster.GameMaster)
         {
             _CurrentState.LogicUpdate();
         }
@@ -32,7 +32,7 @@ public class NPCStateMachine : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (_Ready)
+        if (_Ready && GameManagerMaster.GameMaster)
         {
             _CurrentState.PhysicsUpdate();
         }

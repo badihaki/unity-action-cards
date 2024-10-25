@@ -26,8 +26,15 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        player._PlayerCards.PlayCard(indexNumberReference);
-        Destroy(gameObject);
+        if(player._Aether._CurrentAether >= card._CardCost)
+        {
+            player._PlayerCards.PlayCard(indexNumberReference);
+            Destroy(gameObject);
+        }
+        else
+        {
+            print($"cant play {card._CardName} because cost ({card._CardCost.ToString()}) is greater than current aether ({player._Aether._CurrentAether.ToString()})");
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

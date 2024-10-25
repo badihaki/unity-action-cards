@@ -7,6 +7,13 @@ public class PlayerUnarmedAirAttackAState : PlayerAirCombatSuperState
     {
     }
 
+    public override void EnterState()
+    {
+        base.EnterState();
+
+        _PlayerCharacter._AttackController.SetAttackParameters(1, 0.15f, 1.75f);
+    }
+
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();

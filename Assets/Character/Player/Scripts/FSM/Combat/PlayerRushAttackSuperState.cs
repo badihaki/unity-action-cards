@@ -7,4 +7,10 @@ public class PlayerRushAttackSuperState : PlayerCombatSuperState
     public PlayerRushAttackSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+
+    public override void ExitState()
+    {
+        base.ExitState();
+        _PlayerCharacter._AttackController.ResetAttackParameters();
+    }
 }

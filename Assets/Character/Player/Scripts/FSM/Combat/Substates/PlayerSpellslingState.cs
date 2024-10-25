@@ -8,22 +8,26 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
     }
 
-    int spellSelectDirection = 0;
-
     public override void EnterState()
     {
         base.EnterState();
 
         // _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
-        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        Vector3 target = _PlayerCharacter._AttackController.DetectNearbyTargets();
-        _PlayerCharacter._Controls.UseSpell();
-        _PlayerCharacter._PlayerSpells.UseSpell(target);
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
+        AttemptShootSpell();
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
         // _PlayerCharacter._PlayerSpells.ShowCrosshair();
+    }
+
+    protected void AttemptShootSpell()
+    {
+        Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
+        _PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
+        _PlayerCharacter._Controls.UseSpell();
+        _PlayerCharacter._PlayerSpells.UseSpell(target);
     }
 
     public override void LogicUpdate()
@@ -31,13 +35,11 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-        _PlayerCharacter._PlayerSpells.UpdateCrosshair();
+        // _PlayerCharacter._PlayerSpells.UpdateCrosshair();
 
         if (spellslingInput)
         {
-            Vector3 target = _PlayerCharacter._AttackController.DetectNearbyTargets();
-            _PlayerCharacter._Controls.UseSpell();
-            _PlayerCharacter._PlayerSpells.UseSpell(target);
+            AttemptShootSpell();
         }
         if(spellSelectDirection != 0)
         {
@@ -45,13 +47,6 @@ public class PlayerSpellslingState : PlayerCombatSuperState
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
-        /*
-        if (interactionInput)
-        {
-            _PlayerCharacter._Controls.UseInteract();
-            _PlayerCharacter._PlayerSpells.ChangeSpellIndex();
-        }
-         */
         if(spellSelectDirection != 0)
         {
             _PlayerCharacter._Controls.ResetSelectSpell();
@@ -65,7 +60,6 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         // _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
 
         /*
-         */
         if(moveInput != Vector2.zero)
         {
             _PlayerCharacter._LocomotionController.DetectMove(moveInput);
@@ -75,7 +69,8 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         {
             _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         }
-        // _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+         */
+        _PlayerCharacter._LocomotionController.SlowDown();
     }
 
     public override void ExitState()
@@ -84,7 +79,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);
-        _PlayerCharacter._PlayerSpells.HideCrosshair();
+        // _PlayerCharacter._PlayerSpells.HideCrosshair();
     }
 
     public override void CheckStateTransitions()

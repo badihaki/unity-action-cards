@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,12 +7,12 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [field: SerializeField] public CharacterSheet _CharacterSheet { get; protected set; }
+    [field: SerializeField, Header(">> Character <<")] public CharacterSheet _CharacterSheet { get; protected set; }
     public Health _Health { get; private set; }
-    public Aether _AetherPoints { get; private set; }
+    public Aether _Aether { get; private set; }
     public CheckForGround _CheckGrounded { get; private set; }
     [field: SerializeField] public Actor _Actor { get; protected set; }
-    [field: SerializeField] public Animator _AnimationController { get; private set; }
+    [field: SerializeField, Header("Character Components")] public Animator _AnimationController { get; private set; }
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterUIController _UI { get; protected set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
@@ -45,8 +46,8 @@ public class Character : MonoBehaviour
         _Health.OnHit += TriggerhitAnimation;
 
         // start aether points (magic points)
-        _AetherPoints = GetComponent<Aether>();
-        _AetherPoints.InitiateAetherPointPool(_CharacterSheet._StartingAetherPool);
+        _Aether = GetComponent<Aether>();
+        _Aether.InitiateAetherPointPool(_CharacterSheet._StartingAetherPool);
 
         // start checking for ground
         _CheckGrounded = _Actor.GetComponent<CheckForGround>();
@@ -74,11 +75,6 @@ public class Character : MonoBehaviour
         
     }
 
-    public void Damage(int damage, Transform damageSource)
-    {
-        throw new System.NotImplementedException();
-    }
-
     protected virtual void TriggerhitAnimation(string hitType)
     {
         if (_AnimationController)
@@ -93,4 +89,27 @@ public class Character : MonoBehaviour
         print("goodbye, " + name);
         Destroy(gameObject);
     }
+
+	public virtual void CalculateHitResponse(float knockForce, float launchForce, float damage = 1.0f)
+	{
+		float randomHit = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
+        float poise = _Health.ChangePoise(randomHit);
+
+		//  if (launchForce > 50)
+		//  {
+		//      _Health.EmitOnHit("launch");
+		//  }
+		//  else
+		//  {
+		//if (poise < 0 && poise > -0.5f)
+		//{
+		//          _Health.EmitOnHit("hit");
+		//}
+		//else if (poise < -0.5f)
+		//{
+		// _Health.EmitOnHit("knockBack");
+		//}
+		//  }
+		_Health.EmitOnHit("hit");
+	}
 }

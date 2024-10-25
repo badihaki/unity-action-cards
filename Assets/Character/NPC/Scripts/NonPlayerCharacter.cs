@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class NonPlayerCharacter : Character, IDestroyable
 {
+    [field: SerializeField, Header("~> Nonplayer Character <~")] public NPCActor _NPCActor { get; private set; }
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
     [field: SerializeField] public NPCAttack _AttackController { get; private set; }
-    [field: SerializeField] public NPCActor _NPCActor { get; private set; }
 
     // State Machine
     public NPCStateMachine _StateMachine { get; private set; }
@@ -29,7 +29,7 @@ public class NonPlayerCharacter : Character, IDestroyable
         _MoveController.InitializeNPCMovement(this);
 
         // ui
-        if (_UI != null) _UI.InitializeUI(false);
+        if (_UI != null) _UI.InitializeUI(false, this);
 
         // navigator
         _NavigationController = GetComponent<NPCNavigator>();
@@ -77,13 +77,14 @@ public class NonPlayerCharacter : Character, IDestroyable
     protected override void TriggerhitAnimation(string hitType)
     {
         hitAnimationString = hitType;
-        _AnimationController.SetBool(hitAnimationString, true);
+        //_AnimationController.SetBool(hitAnimationString, true);
+        _AnimationController.SetTrigger(hitAnimationString);
         _StateMachine.ChangeState(_HurtState);
 
         if (_AttackController && !_AttackController._IsAggressive)
         {
             int roll = GameManagerMaster.GameMaster.Dice.RollD6();
-            print($"aggression rol = {roll}");
+            // print($"aggression rol = {roll}");
             if (roll >= 4)
             {
                 print("going aggressive");

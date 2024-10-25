@@ -13,8 +13,8 @@ public class NPCIdleAggressiveState : NPCState
 
         _NPC._NavigationController.StopNavigation();
         waitTime = CreateNewWait(1.2f, 3.2f);
-        Debug.Log($"aggression wait time = {waitTime}");
-        Debug.Log($"{_NPC._NavigationController.IsNavStopped()}");
+        // Debug.Log($"aggression wait time = {waitTime}");
+        // Debug.Log($"{_NPC._NavigationController.IsNavStopped()}");
     }
 
     public override void LogicUpdate()
@@ -32,7 +32,7 @@ public class NPCIdleAggressiveState : NPCState
         base.CheckStateTransitions();
         if (distanceFromPlayer > _NPC._NavigationController._MaxDistance)
         {
-            Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
+            // Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
             _StateMachine.ChangeState(_NPC._MoveState);
         }
     }

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _CardName: Shortsword
   _TypeOfCard: 1
-  _CardCost: 10
+  _CardCost: 12
   _CardImage: {fileID: 21300000, guid: d5617c199356d9445aea91878a781843, type: 3}
   _Weapon: {fileID: 11400000, guid: 3992626b1f4786243ab6c4f3f0ad668f, type: 2}
-  _WeaponDurability: 35
+  _WeaponDurability: 45
   _WeaponAttackDurabilityCost: 3
   _NoDurabilityTimer: 0

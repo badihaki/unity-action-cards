@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
-public class Actor : MonoBehaviour
+public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 {
-    private Character Character;
+    private Character _Character;
     [field: SerializeField] public Animator animationController { get; protected set; }
 
     [field: SerializeField, Header("Animator Movement")]
@@ -16,9 +18,9 @@ public class Actor : MonoBehaviour
 
     public virtual void Initialize(Character character)
     {
-        Character = character;
+        _Character = character;
         animationController = GetComponent<Animator>();
-        animationController.ApplyBuiltinRootMotion();
+        // animationController.ApplyBuiltinRootMotion();
         animationController.applyRootMotion = true;
         CheckGrounded = GetComponent<CheckForGround>();
         CheckGrounded.Initialize();
@@ -41,4 +43,33 @@ public class Actor : MonoBehaviour
     {
         //
     }
+
+	public virtual void ApplyKnockback(Transform forceSource, float knockforce, float launchForce)
+	{
+        //print($"applying knockback to actor {name} controlled by {_Character}");
+	}
+
+	public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
+	{
+		if (damageSource != _Character.transform)
+		{
+			_Character._Health.TakeDamage(damage);
+			_Character._Actor.transform.LookAt(damageSource);
+
+			Quaternion rotation = _Character._Actor.transform.rotation;
+			rotation.x = 0;
+			rotation.z = 0;
+
+			_Character._Actor.transform.rotation = rotation;
+
+			_Character.CalculateHitResponse(knockForce, launchForce, damage);
+			ApplyKnockback(damageSource, knockForce, launchForce);
+			//DetermineWhoWhurtMe(damageSource);
+		}
+	}
+
+	public Transform GetControllingEntity()
+	{
+		return _Character.transform;
+	}
 }

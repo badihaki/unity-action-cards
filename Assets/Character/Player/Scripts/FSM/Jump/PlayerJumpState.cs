@@ -15,9 +15,11 @@ public class PlayerJumpState : PlayerState
     {
         base.EnterState();
 
-        _PlayerCharacter._Controls.UseJump();
+		_PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
+		_PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._LocomotionController.Jump();
-        _PlayerCharacter._LocomotionController.ApplyDesiredMoveToMovement();
+        // _PlayerCharacter._LocomotionController.ApplyGravity(0.1f);
+        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }
 
     public override void LogicUpdate()
@@ -41,16 +43,18 @@ public class PlayerJumpState : PlayerState
 
         if (_AnimationIsFinished)
         {
-			_PlayerCharacter.LogFromState("animation is finished");
+			// _PlayerCharacter.LogFromState("animation is finished");
 
 			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
             {
-                _PlayerCharacter.LogFromState("finishing, not on ground");
+                // _PlayerCharacter.LogFromState("finishing, not on ground");
                 _StateMachine.ChangeState(_StateMachine._FallingState);
             }
             else
 			{
-				_PlayerCharacter.LogFromState("finishing, grounded");
+				// _PlayerCharacter.LogFromState("finishing, grounded");
+                _PlayerCharacter._LocomotionController.SetDoubleJump(true);
+                _PlayerCharacter._LocomotionController.SetAirDash(true);
 				_StateMachine.ChangeState(_StateMachine._IdleState);
 			}
 		}

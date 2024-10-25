@@ -26,7 +26,12 @@ public class PlayerAirCombatSuperState : PlayerAttackSuperState
     {
         base.CheckStateTransitions();
 
-        if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
+        if (_PlayerCharacter._CheckGrounded.IsGrounded())
+        {
+            _PlayerCharacter._LocomotionController.SetDoubleJump(true);
+            _PlayerCharacter._LocomotionController.SetAirDash(true);
+            _StateMachine.ChangeState(_StateMachine._IdleState);
+        }
         if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._FallingState);
     }
 }

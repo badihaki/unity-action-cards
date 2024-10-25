@@ -1,5 +1,22 @@
 # Card Action Game Readme
 
+### 10-24 - UI / Cinematography
+- Need to show when you have a weapon equipped and how much durability that weapon has.
+- Need to have card cost show when showing your hand.
+- Need to have an animation for showing your hand, as well as reintroducing the state.
+- need to have a camera zoom into your character's hand using cinemachine for way better cinematography
+
+### 10-22 - Hit feedback
+I'm rehauling my hit feedback into 2 main points of contention
+- Hit VFX
+- Hit responses
+	- Launching
+		- Working
+	- Knockback
+		- Going in the wrong direction
+	- Hitstun
+		- Not implemented
+
 ### 10-12 - Card set done
 Card moveset is finished. Need hitboxes and VFX. Ready to merge into main. Next up:
 * Attacks

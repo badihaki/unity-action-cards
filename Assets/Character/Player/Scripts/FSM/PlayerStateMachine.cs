@@ -14,6 +14,8 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerJumpState _JumpState { get; private set; }
     public PlayerLandingState _LandingState { get; private set; }
     public PlayerSpellslingState _SpellslingState { get; private set; }
+    public PlayerAirDashState _AirDashState { get; private set; }
+    public PlayerAirJumpState _AirJumpState { get; private set; }
     #endregion
     public void InitializeStateMachine(PlayerCharacter player)
     {
@@ -34,6 +36,13 @@ public class PlayerStateMachine : MonoBehaviour
 
         _SpellslingState = ScriptableObject.CreateInstance<PlayerSpellslingState>();
         _SpellslingState.InitializeState(player, "aim", this);
+
+        _AirDashState = ScriptableObject.CreateInstance<PlayerAirDashState>();
+        _AirDashState.InitializeState(player, "airDash", this);
+
+        _AirJumpState = ScriptableObject.CreateInstance<PlayerAirJumpState>();
+        _AirJumpState.InitializeState(player, "airJump", this);
+
         _CurrentState = _IdleState;
         // Debug.Log("Starting state machine with " + state._StateAnimationName);
         _CurrentState.EnterState();

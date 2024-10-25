@@ -28,5 +28,5 @@ public class PlayerMoveSetScriptableObj : MoveSetScriptableObject
     public PlayerLauncherAttackSuperState _LauncherAttack;
 
     [Header("Defensive Action")]
-    public PlayerDefenseSuperState _DefenseDash;
+    public PlayerDefenseSuperState _Defense;
 }

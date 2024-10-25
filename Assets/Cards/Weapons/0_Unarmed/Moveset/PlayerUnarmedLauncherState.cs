@@ -10,7 +10,9 @@ public class PlayerUnarmedLauncherState : PlayerLauncherAttackSuperState
     public override void EnterState()
     {
         base.EnterState();
+        _PlayerCharacter._AttackController.SetAttackParameters(1, 0.78f, 110.75f);
     }
+
 
     public override void CheckStateTransitions()
     {

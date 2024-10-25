@@ -108,7 +108,7 @@
                     "name": "SelectSpell",
                     "type": "Button",
                     "id": "bd6b7e44-f367-4b26-9748-9b9ee9b6c664",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -342,6 +342,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
+                    "action": "DefenseAction",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1a45ca96-32e8-4023-a555-7838368d4b17",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
                     "action": "DefenseAction",
                     "isComposite": false,
                     "isPartOfComposite": false

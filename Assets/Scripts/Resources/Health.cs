@@ -55,7 +55,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _CurrentHealth -= damage;
-        CalculateHitResponse(damage);
+        //CalculateHitResponse(damage);
         if (OnHealthChanged != null) OnHealthChanged(_CurrentHealth);
         
         // TODO: rotate blood
@@ -72,24 +72,12 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void FortifyPoise(float poise)
+    public float ChangePoise(float poise)
     {
         _PoiseFortification += poise;
+        return poise;
     }
 
-    private void CalculateHitResponse(float value)
-    {
-        float randomHit = UnityEngine.Random.Range(MathF.Abs(value) * 0.318f, value * MathF.PI / 2);
-        _CurrentPoise -= randomHit;
-
-        if (_CurrentPoise < 0 && _CurrentPoise > -0.5f)
-        {
-            if (OnHit != null) OnHit("hit");
-        }
-        else if(_CurrentPoise < -0.5f)
-        {
-            if (OnHit != null) OnHit("knockBack");
-        }
-    }
+    public void EmitOnHit(string hitType)=> OnHit?.Invoke(hitType);
     // end
 }

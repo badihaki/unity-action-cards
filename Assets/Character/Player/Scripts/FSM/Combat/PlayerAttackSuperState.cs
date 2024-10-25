@@ -14,7 +14,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
 
         _PlayerCharacter._AnimationController.SetBool("attack", true);
         _PlayerCharacter._Controls.UseAttack();
-        _PlayerCharacter._AttackController.DetectNearbyTargets();
+        //_PlayerCharacter._AttackController.DetectMeleeTargets();
     }
 
     public override void ExitState()
@@ -28,6 +28,10 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+    }
+    public override void PhysicsUpdate()
+    {
+        base.PhysicsUpdate();
     }
 
     public override void CheckInputs()

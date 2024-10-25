@@ -14,22 +14,23 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
     {
         character = _character;
         knockInterface = GetComponentInParent<IKnockbackable>();
+        print($"{character.name} has knock interface {knockInterface}");
     }
 
     public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
     {
-
         if(damageSource != character.transform)
         {
             character._Health.TakeDamage(damage);
-            character.transform.LookAt(damageSource);
+            character._Actor.transform.LookAt(damageSource);
 
-            Quaternion rotation = character.transform.rotation;
+            Quaternion rotation = character._Actor.transform.rotation;
             rotation.x = 0;
             rotation.z = 0;
 
-            character.transform.rotation = rotation;
+            character._Actor.transform.rotation = rotation;
 
+            character.CalculateHitResponse(knockForce, launchForce, damage);
             knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
             DetermineWhoWhurtMe(damageSource);
         }
