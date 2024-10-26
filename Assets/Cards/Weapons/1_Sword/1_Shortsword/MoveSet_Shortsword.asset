@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AttackA: {fileID: 11400000, guid: 18209b545febc7046bbfc20527ae67aa, type: 2}
   _AttackB: {fileID: 11400000, guid: 5538dc80bdd18c944b69d37277413ced, type: 2}
-  _AttackC: {fileID: 0}
+  _AttackC: {fileID: 11400000, guid: 33b8079ff9beed84897d137e80ceea70, type: 2}
   _Special: {fileID: 0}
   _SpecialFinisherA: {fileID: 0}
   _SpecialFinisherB: {fileID: 0}

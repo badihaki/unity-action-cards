@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -6,15 +7,16 @@ using UnityEngine.TextCore.Text;
 
 public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 {
+    [field: SerializeField, Header("Character Basics")]
     private Character _Character;
-    [field: SerializeField] public Animator animationController { get; protected set; }
-
-    [field: SerializeField, Header("Animator Movement")]
-    public Vector3 animatorMovementVector { get; protected set; } = new Vector3();
-    [field: SerializeField] protected bool controlByRootMotion = false;
+    [field: SerializeField]
+    public Animator animationController { get; protected set; }
 
     [field: SerializeField, Header("Components")]
-    public CheckForGround CheckGrounded { get; private set; }
+    public CheckForGround _CheckGrounded { get; private set; }
+	
+    
+	public bool _IsInvuln { get; private set; }
 
     public virtual void Initialize(Character character)
     {
@@ -22,8 +24,8 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
         animationController = GetComponent<Animator>();
         // animationController.ApplyBuiltinRootMotion();
         animationController.applyRootMotion = true;
-        CheckGrounded = GetComponent<CheckForGround>();
-        CheckGrounded.Initialize();
+        _CheckGrounded = GetComponent<CheckForGround>();
+        _CheckGrounded.Initialize();
     }
 
     // TODO:: Add this to Character ~OR~ Make the methods empty so Derived classes can override
@@ -51,7 +53,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 
 	public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
 	{
-		if (damageSource != _Character.transform)
+		if (damageSource != _Character.transform && !_IsInvuln)
 		{
 			_Character._Health.TakeDamage(damage);
 			_Character._Actor.transform.LookAt(damageSource);
@@ -67,6 +69,13 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 			//DetermineWhoWhurtMe(damageSource);
 		}
 	}
+
+    public void SetInvulnerability(int value)
+    {
+        bool res = Convert.ToBoolean(value);
+        print($"value is {res}");
+        if(_IsInvuln != res) _IsInvuln = res;
+    }
 
 	public Transform GetControllingEntity()
 	{

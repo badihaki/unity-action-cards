@@ -21,7 +21,7 @@ public class PlayerActor : Actor
     [field: SerializeField] public Transform LeftWeapon { get; private set; }
 
 
-    public void InitializePlayerActor(PlayerCharacter character)
+	public void InitializePlayerActor(PlayerCharacter character)
     {
         base.Initialize(character);
         PCActor = character;
@@ -31,20 +31,6 @@ public class PlayerActor : Actor
         LeftWeapon = chestBone.Find("DEF-shoulder.L").Find("DEF-upper_arm.L").Find("DEF-upper_arm.L.001").Find("DEF-forearm.L").Find("DEF-forearm.L.001").Find("DEF-hand.L").Find("DEF-weapon.L").transform;
     }
 
-    public void SetSyncParentMotion(bool value) => controlByRootMotion = value;
-
-    /*
-    private void OnAnimatorMove()
-    {
-        PCActor.transform.position += animationController.deltaPosition.normalized;
-        transform.position += animationController.deltaPosition.normalized;
-        PCActor.transform.position += animationController.deltaPosition;
-        transform.position += animationController.deltaPosition;
-        PCActor.transform.rotation = animationController.deltaRotation * PCActor.transform.rotation;
-        transform.rotation = animationController.deltaRotation * transform.rotation;
-        // OnAnimatorMove();
-    }
-    */
     public override void StateAnimationFinished() => PCActor.StateAnimationFinished();
     public override void AnimationTrigger() => PCActor.StateTrigger();
     public override void AnimationVFXTrigger() => PCActor.StateVFXTrigger();
