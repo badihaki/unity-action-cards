@@ -20,7 +20,7 @@ public class SwordAttackBState : PlayerAttackSuperState
 	public override void ExitState()
 	{
 		base.ExitState();
-		ShowOrHideWeapon(false);
+		//ShowOrHideWeapon(true);
 	}
 
 	public override void CheckStateTransitions()
@@ -35,10 +35,10 @@ public class SwordAttackBState : PlayerAttackSuperState
 	{
 		base.TriggerVisualEffect();
 		// Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._Actor.transform.position.y + 1.75f, _PlayerCharacter._Actor.transform.position.z + 0.75f);
-		Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._AttackController._WeaponHolderR.transform.position.y, _PlayerCharacter._Actor.transform.position.z + 0.75f);
-		Quaternion rotation = Quaternion.Euler(_PlayerCharacter._PlayerActor.transform.forward);
+		//Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._AttackController._WeaponHolderR.transform.position.y, _PlayerCharacter._Actor.transform.position.z + 0.75f);
+		//Quaternion rotation = Quaternion.Euler(_PlayerCharacter._PlayerActor.transform.forward);
 
-		GameObject vfx = Instantiate(_PlayerCharacter._AttackController._CurrentWeapon._WeaponAttackFX, position, rotation);
-		vfx.transform.rotation = _PlayerCharacter._PlayerActor.transform.rotation;
+		//GameObject vfx = Instantiate(_PlayerCharacter._AttackController._CurrentWeapon._WeaponAttackFX, position, rotation);
+		//vfx.transform.rotation = _PlayerCharacter._PlayerActor.transform.rotation;
 	}
 }
