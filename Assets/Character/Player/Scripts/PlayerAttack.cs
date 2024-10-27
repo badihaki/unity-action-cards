@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerCharacter player;
-    [SerializeField] private WeaponScriptableObj unarmed;
+    [SerializeField] private WeaponScriptableObj wpnCard;
     [field: SerializeField] public WeaponScriptableObj _CurrentWeapon { get; private set; }
 
     [field: SerializeField, Header("Basic Attack States")] public PlayerAttackSuperState _AttackA { get; private set; }
@@ -61,59 +61,9 @@ public class PlayerAttack : MonoBehaviour
     public void Initialize(PlayerCharacter newPlayer)
     {
         player = newPlayer;
-        _WeaponHolderR = player._PlayerActor.RightWeapon;
-        _WeaponHolderL = player._PlayerActor.LeftWeapon;
-        _WeaponR = null;
-        _WeaponL = null;
-        SetWeapon(unarmed);
-        _WeaponR.gameObject.SetActive(false);
-
     }
 
-    public void SwitchWeapon(WeaponScriptableObj weapon)
-    {
-        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
-        DestroyWeaponGameObjects();
-        UnloadMoveSet();
-        SetWeapon(weapon);
-    }
-
-    private void DestroyWeaponGameObjects()
-    {
-        if (_WeaponL)
-        {
-            Destroy(_WeaponL);
-            _WeaponL = null;
-        }
-        if(_WeaponR)
-        {
-            Destroy(_WeaponR);
-            _WeaponR = null;
-        }
-    }
-
-    private void SetWeapon(WeaponScriptableObj newWeapon)
-    {
-        _CurrentWeapon = newWeapon;
-        LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
-        LoadMoveset();
-    }
-
-    private void LoadWeaponGameObjects(GameObject weaponL = null, GameObject weaponR = null)
-    {
-        if (weaponL != null)
-        {
-            _WeaponL = Instantiate(weaponL, _WeaponHolderL);
-        }
-        else print("no left-hand weapon");
-        if(weaponR != null)
-        {
-            _WeaponR = Instantiate(weaponR, _WeaponHolderR);
-        }
-        else print("no right-hand weapon");
-    }
-
-    private void LoadMoveset()
+    public void LoadMoveset()
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true); // set our weapon type
         _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
@@ -205,7 +155,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void UnloadMoveSet()
+    public void UnloadMoveSet()
     {
         player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false); // reset our weapon type
         // attacks
@@ -233,35 +183,6 @@ public class PlayerAttack : MonoBehaviour
         _Damage = 0;
         _KnockbackForce = 0.0f;
         _LaunchForce = 0.0f;
-    }
-
-    public void SetRootMotion(bool value)
-    {
-        player._PlayerActor.animationController.applyRootMotion = value;
-        print($"we have root motion?? {player._PlayerActor.animationController.hasRootMotion}");
-    }
-
-    public void DetectMeleeTargets()
-    {
-        Vector3 targetPos = Vector3.zero;
-        Vector2 moveInput = player._Controls._MoveInput;
-        // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
-        if (player._LockOnTargeter.meleeTargets.Count > 0)
-        {
-            player._LockOnTargeter.rangeTargets.ForEach(t =>
-            {
-                // print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
-                if (targetPos == Vector3.zero) targetPos = t.position;
-                else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
-                {
-                    targetPos = t.position;
-                }
-            });
-
-            player._LocomotionController.RotateTowardsTarget(targetPos);
-        }
-        if(moveInput != Vector2.zero)
-            player._LocomotionController.RotateInstantly(moveInput);
     }
     // end
 }
