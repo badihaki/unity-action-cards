@@ -4,6 +4,11 @@ public class PlayerWeaponController : MonoBehaviour
 {
 	private PlayerCharacter player;
 	private PlayerAttack attackController;
+	public delegate void ChangeWeaponDurability(int durability);
+	public event ChangeWeaponDurability OnDurabilityChanged;
+
+	[field: SerializeField] private bool infiniteDurability;
+
 	[field: SerializeField, Header("Base Weapon")] private WeaponScriptableObj wpnCard;
 	[field: SerializeField, Header("Current Weapon")] public WeaponScriptableObj _CurrentWeapon { get; private set; }
 

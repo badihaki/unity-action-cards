@@ -6,8 +6,6 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerCharacter player;
-    [SerializeField] private WeaponScriptableObj wpnCard;
-    [field: SerializeField] public WeaponScriptableObj _CurrentWeapon { get; private set; }
 
     [field: SerializeField, Header("Basic Attack States")] public PlayerAttackSuperState _AttackA { get; private set; }
     [field: SerializeField] public PlayerAttackSuperState _AttackB { get; private set; }
@@ -33,28 +31,9 @@ public class PlayerAttack : MonoBehaviour
     [field: SerializeField] public float _KnockbackForce { get; private set; }
     [field: SerializeField] public float _LaunchForce { get; private set; }
 
-    [field: Header("Where the weapons lie"), SerializeField]
-    public Transform _WeaponHolderL { get; private set; }
-    [field: SerializeField] public GameObject _WeaponL { get; private set; }
-    [field: SerializeField] public Transform _WeaponHolderR { get; private set; }
-    [field: SerializeField] public GameObject _WeaponR { get; private set; }
-
-    [Header("Ray stuff, delete later")]
-    public Vector2 offset = new Vector2(0, 0);
-    public float offsetAddX = 0.0f;
-    public float offsetAddY = 0.5f;
-    public Vector3 startPos;
-    public float lineLength = 12.35f;
-    public float rayStartOffsetY = 1.50f;
-    public Vector3 camForward;
-    // public List<Color> colors = [Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white];
-    public List<Color> colors = new List<Color> { Color.red, Color.blue, Color.green, Color.yellow, Color.black, Color.white };
-
     // delete later
     private void Update()
     {
-        // startPos = new Vector3(player._PlayerActor.transform.position.x, player._PlayerActor.transform.position.y + rayStartOffsetY, player._PlayerActor.transform.position.z);
-        // ShootRays(5, 7, lineLength, startPos, 0.085f);
     }
     // delete later
 
@@ -65,8 +44,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void LoadMoveset()
     {
-        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), true); // set our weapon type
-        _AttackA = Instantiate(_CurrentWeapon._PlayerMoves._AttackA);
+        player._AnimationController.SetBool(player._WeaponController._CurrentWeapon._WeaponType.ToString(), true); // set our weapon type
+        _AttackA = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._AttackA);
         _AttackA.InitializeState(player, "attackA", player._StateMachine);
 
         LoadAttackStrings();
@@ -74,90 +53,90 @@ public class PlayerAttack : MonoBehaviour
         LoadUniversalAttacks();
         LoadAirAttacks();
 
-        _DefenseAction = Instantiate(_CurrentWeapon._PlayerMoves._Defense);
+        _DefenseAction = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._Defense);
         _DefenseAction.InitializeState(player, "defense", player._StateMachine);
     }
 
     private void LoadAttackStrings()
     {
         // basic attacks
-        if (_CurrentWeapon._PlayerMoves._AttackB)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._AttackB)
         {
-            _AttackB = Instantiate(_CurrentWeapon._PlayerMoves._AttackB);
+            _AttackB = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._AttackB);
             _AttackB.InitializeState(player, "attackB", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._AttackC)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._AttackC)
         {
-            _AttackC = Instantiate(_CurrentWeapon._PlayerMoves._AttackC);
+            _AttackC = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._AttackC);
             _AttackC.InitializeState(player, "attackC", player._StateMachine);
         }
     }
     
     private void LoadSpecialAttacks()
     {
-        if (_CurrentWeapon._PlayerMoves._Special)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._Special)
         {
-            _Special = Instantiate(_CurrentWeapon._PlayerMoves._Special);
+            _Special = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._Special);
             _Special.InitializeState(player, "special", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._SpecialFinisherA)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._SpecialFinisherA)
         {
-            _FinisherA = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherA);
+            _FinisherA = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._SpecialFinisherA);
             _FinisherA.InitializeState(player, "finisherA", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._SpecialFinisherB)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._SpecialFinisherB)
         {
-            _FinisherB = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherB);
+            _FinisherB = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._SpecialFinisherB);
             _FinisherB.InitializeState(player, "finisherB", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._SpecialFinisherC)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._SpecialFinisherC)
         {
-            _FinisherC = Instantiate(_CurrentWeapon._PlayerMoves._SpecialFinisherC);
+            _FinisherC = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._SpecialFinisherC);
             _FinisherC.InitializeState(player, "finisherC", player._StateMachine);
         }
     }
 
     private void LoadUniversalAttacks()
     {
-        if (_CurrentWeapon._PlayerMoves._RushAttack)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._RushAttack)
         {
-            _RushAttack = Instantiate(_CurrentWeapon._PlayerMoves._RushAttack);
+            _RushAttack = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._RushAttack);
             _RushAttack.InitializeState(player, "rush", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._LauncherAttack)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._LauncherAttack)
         {
-            _LauncherAttack = Instantiate(_CurrentWeapon._PlayerMoves._LauncherAttack);
+            _LauncherAttack = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._LauncherAttack);
             _LauncherAttack.InitializeState(player, "launcher", player._StateMachine);
         }
     }
 
     private void LoadAirAttacks()
     {
-        if (_CurrentWeapon._PlayerMoves._AirSpecial)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._AirSpecial)
         {
-            _AirSpecial = _CurrentWeapon._PlayerMoves._AirSpecial;
+            _AirSpecial = player._WeaponController._CurrentWeapon._PlayerMoves._AirSpecial;
             _AirSpecial.InitializeState(player, "airSpecial", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._AirAttackA)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._AirAttackA)
         {
-            _AirAttackA = _CurrentWeapon._PlayerMoves._AirAttackA;
+            _AirAttackA = player._WeaponController._CurrentWeapon._PlayerMoves._AirAttackA;
             _AirAttackA.InitializeState(player, "airA", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._AirAttackB)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._AirAttackB)
         {
-            _AirAttackB = _CurrentWeapon._PlayerMoves._AirAttackB;
+            _AirAttackB = player._WeaponController._CurrentWeapon._PlayerMoves._AirAttackB;
             _AirAttackB.InitializeState(player, "airB", player._StateMachine);
         }
-        if (_CurrentWeapon._PlayerMoves._AirAttackC)
+        if (player._WeaponController._CurrentWeapon._PlayerMoves._AirAttackC)    
         {
-            _AirAttackC = _CurrentWeapon._PlayerMoves._AirAttackC;
+            _AirAttackC = player._WeaponController._CurrentWeapon._PlayerMoves._AirAttackC;
             _AirAttackC.InitializeState(player, "airC", player._StateMachine);
         }
     }
 
     public void UnloadMoveSet()
     {
-        player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false); // reset our weapon type
+        player._AnimationController.SetBool(player._WeaponController._CurrentWeapon._WeaponType.ToString(), false); // reset our weapon type
         // attacks
         if (_AttackA != null) Destroy(_AttackA);
         if (_AttackB != null) Destroy(_AttackB);

@@ -90,13 +90,13 @@ public class PlayerCombatSuperState : PlayerState
     {
         if (showWeapon)
         {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(true);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(true);
+            _PlayerCharacter._WeaponController._WeaponR?.SetActive(true);
+            _PlayerCharacter._WeaponController._WeaponL?.SetActive(true);
         }
         else
         {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(false);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(false);
+            _PlayerCharacter._WeaponController._WeaponR?.SetActive(false);
+            _PlayerCharacter._WeaponController._WeaponL?.SetActive(false);
         }
     }
 }

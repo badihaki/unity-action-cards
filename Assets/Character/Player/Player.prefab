@@ -418,8 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff8a23b80ac415f45a0c83ad1a6d7388, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unarmed: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
-  <_CurrentWeapon>k__BackingField: {fileID: 0}
   <_AttackA>k__BackingField: {fileID: 0}
   <_AttackB>k__BackingField: {fileID: 0}
   <_AttackC>k__BackingField: {fileID: 0}
@@ -437,24 +435,6 @@ MonoBehaviour:
   <_Damage>k__BackingField: 0
   <_KnockbackForce>k__BackingField: 0
   <_LaunchForce>k__BackingField: 0
-  <_WeaponHolderL>k__BackingField: {fileID: 0}
-  <_WeaponL>k__BackingField: {fileID: 0}
-  <_WeaponHolderR>k__BackingField: {fileID: 0}
-  <_WeaponR>k__BackingField: {fileID: 0}
-  offset: {x: 0, y: 0}
-  offsetAddX: 0
-  offsetAddY: 0.5
-  startPos: {x: 0, y: 0, z: 0}
-  lineLength: 12.35
-  rayStartOffsetY: 1.5
-  camForward: {x: 0, y: 0, z: 0}
-  colors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 0, g: 0, b: 0, a: 1}
-  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &5072868601858473742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +447,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72266532d0b7ee34780b7307e50880b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wpnCard: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
+  <_CurrentWeapon>k__BackingField: {fileID: 0}
+  <_WeaponHolderL>k__BackingField: {fileID: 0}
+  <_WeaponL>k__BackingField: {fileID: 0}
+  <_WeaponHolderR>k__BackingField: {fileID: 0}
+  <_WeaponR>k__BackingField: {fileID: 0}
 --- !u!114 &7982203592454923338
 MonoBehaviour:
   m_ObjectHideFlags: 0

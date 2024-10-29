@@ -15,7 +15,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         // _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), false);
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
         AttemptShootSpell();
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
@@ -78,7 +78,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         base.ExitState();
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
-        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._AttackController._CurrentWeapon._WeaponType.ToString(), true);
+        _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), true);
         // _PlayerCharacter._PlayerSpells.HideCrosshair();
     }
 
