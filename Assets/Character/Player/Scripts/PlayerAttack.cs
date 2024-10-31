@@ -42,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
         player = newPlayer;
     }
 
-    public void LoadMoveset()
+    public void LoadMoveset(MoveSetScriptableObject moves)
     {
         player._AnimationController.SetBool(player._WeaponController._CurrentWeapon._WeaponType.ToString(), true); // set our weapon type
         _AttackA = Instantiate(player._WeaponController._CurrentWeapon._PlayerMoves._AttackA);
