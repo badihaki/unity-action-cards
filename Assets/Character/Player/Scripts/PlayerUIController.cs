@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerUIController : CharacterUIController
 {
+	private PlayerCharacter _Player;
 	[SerializeField, Header("Aether")] private Aether _AetherController;
 	[SerializeField] private Slider _AetherBar;
 	[SerializeField] private float _TargetAether;
@@ -26,6 +27,22 @@ public class PlayerUIController : CharacterUIController
 
 		_WeaponMeter = _ResourceCanvas.transform.Find("WeaponMeter").GetComponent <Slider>();
 		_WeaponMeter.gameObject.SetActive(false);
+		_Player = character as PlayerCharacter;
+		_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI; // sub to the OnDurabilityChanged event
+	}
+
+	private void OnEnable()
+	{
+		if (_AetherController != null)
+		{
+			_AetherController.OnAetherChanged += UpdateAetherUI;
+			_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI;
+		}
+	}
+	private void OnDisable()
+	{
+		_AetherController.OnAetherChanged -= UpdateAetherUI;
+		_Player._WeaponController.OnDurabilityChanged -= UpdateWeaponUI;
 	}
 
 	protected override void Update()
@@ -51,16 +68,16 @@ public class PlayerUIController : CharacterUIController
 		canChangeAether = true;
 	}
 
-	public void ActivateWeaponUI(float durability)
+	public void ActivateWeaponUI(int durability)
 	{
 		_WeaponMeter.gameObject.SetActive(true);
 		_WeaponMeter.maxValue = durability;
 	}
 
-	private void UpdateWeaponUI(float durability)
+	private void UpdateWeaponUI(int durability)
 	{
 		_WeaponMeter.value = durability;
 	}
 
-	public void DisableWeaponUI() => _WeaponMeter.gameObject.SetActive(false)
+	public void DisableWeaponUI() => _WeaponMeter.gameObject.SetActive(false);
 }
