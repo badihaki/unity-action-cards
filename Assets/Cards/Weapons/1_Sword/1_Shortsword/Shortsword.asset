@@ -15,7 +15,11 @@ MonoBehaviour:
   _WeaponGameObjectL: {fileID: 0}
   _WeaponGameObjectR: {fileID: 8720701411225930031, guid: baf0d171cfb8e444f83a6a2247da7847,
     type: 3}
-  _PlayerMoves: {fileID: 11400000, guid: 53975bcbec1ae694eb3592896b3edb6a, type: 2}
+  _MoveSet: {fileID: 11400000, guid: 53975bcbec1ae694eb3592896b3edb6a, type: 2}
   _WeaponType: 1
   _WeaponAttackFX: {fileID: 0}
   _WeaponHitSpark: {fileID: 0}
+  infiniteDurability: 0
+  _Durability: 35
+  _DurabilityAttackCost: 3
+  _DurabilitySpecialCost: 5

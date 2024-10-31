@@ -37,7 +37,7 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
         Vector3 position = new Vector3(_PlayerCharacter.transform.position.x, _PlayerCharacter.transform.position.y + 0.75f, _PlayerCharacter.transform.position.z);
         Quaternion rotation = Quaternion.Euler(_PlayerCharacter._PlayerActor.transform.forward);
 
-        GameObject vfx = Instantiate(_PlayerCharacter._AttackController._CurrentWeapon._WeaponAttackFX, position, rotation);
+        GameObject vfx = Instantiate(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponAttackFX, position, rotation);
         vfx.transform.rotation = _PlayerCharacter._PlayerActor.transform.rotation;
     }
 }

@@ -11,8 +11,10 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerMovement _LocomotionController { get; private set; }
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
+    public PlayerWeaponController _WeaponController { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
+    public PlayerUIController _PlayerUIController { get; private set; }
 
     // Actor Stuff
     [field:SerializeField, Header("~> Player Character <~")]
@@ -52,6 +54,7 @@ public class PlayerCharacter : Character, IDestroyable
         _PlayerSpells.Initialize(this);
 
         // ok lets get attacks up
+        _WeaponController = GetComponent<PlayerWeaponController>();
         _AttackController = GetComponent<PlayerAttack>();
 
         // start the hitbox
@@ -67,9 +70,11 @@ public class PlayerCharacter : Character, IDestroyable
 
         // and initialize the attack controller, since it needs the state machine
         _AttackController.Initialize(this);
+        _WeaponController.Initialize(this);
 
         // initialize UI
-        if (_UI != null) _UI.InitializeUI(true, this);
+        _PlayerUIController = GetComponent<PlayerUIController>();
+        _PlayerUIController.InitializeUI(true, this);
     }
 
     private void LoadAndBuildActor()

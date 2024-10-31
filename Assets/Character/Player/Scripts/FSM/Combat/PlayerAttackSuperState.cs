@@ -23,6 +23,7 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
 
         _PlayerCharacter._AnimationController.SetBool("attack", false);
         _PlayerCharacter._AttackController.ResetAttackParameters();
+        _PlayerCharacter._WeaponController.UseWeaponDurability(_PlayerCharacter._WeaponController._CurrentWeapon._DurabilityAttackCost);
     }
 
     public override void LogicUpdate()
