@@ -38,7 +38,6 @@ public class Aether : MonoBehaviour
 		if (!canRecoverAether)
 		{
 			canRecoverAether = true;
-			print($"starting aether recover (?={canRecoverAether}) at {Time.time}");
 			StartCoroutine(StartAetherRecovery());
 		}
 	}
@@ -52,7 +51,6 @@ public class Aether : MonoBehaviour
 	private IEnumerator StartAetherRecovery()
 	{
 		yield return _RecoveryWaitTime;
-		print($"recovering aether at {Time.time}");
 		StartCoroutine(RecoverAether());
 	}
 
@@ -60,7 +58,6 @@ public class Aether : MonoBehaviour
 	{
 		while(canRecoverAether)
 		{
-			print($"recovering aether << {transform.name}.Aether.RecoverAether()");
 			_RecoveryRate += Time.deltaTime;
 			if(_RecoveryRate >= _RecoveryTimeNeeded)
 			{

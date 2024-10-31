@@ -15,8 +15,8 @@ public class PlayerWeaponController : MonoBehaviour
 	[field: SerializeField] public GameObject _WeaponR { get; private set; }
 
 	[field: Header("Durability"), SerializeField] public int _CurrentWeaponDurability { get; private set; }
-	[field: SerializeField] private float _DurabilityTimer;
 	[field: SerializeField] private bool infiniteDurability;
+	private WaitForSeconds durabilityTimer = new WaitForSeconds(1);
 
 	public delegate void ChangeWeaponDurability(int durability);
 	public event ChangeWeaponDurability OnDurabilityChanged;
@@ -31,7 +31,6 @@ public class PlayerWeaponController : MonoBehaviour
 		_WeaponL = null;
 		SetWeapon(baseWeapon);
 		_WeaponR.gameObject.SetActive(false);
-		_DurabilityTimer = 0;
 	}
 
 	private void SetWeapon(WeaponScriptableObj newWeapon)
@@ -47,6 +46,7 @@ public class PlayerWeaponController : MonoBehaviour
 			_CurrentWeaponDurability = _CurrentWeapon._Durability;
 			OnDurabilityChanged(_CurrentWeaponDurability);
 			player._PlayerUIController.ActivateWeaponUI(_CurrentWeaponDurability);
+			print("starting dur timer coroutine");
 			StartCoroutine(ManageDurabilityTimer());
 		}
 	}
@@ -89,24 +89,20 @@ public class PlayerWeaponController : MonoBehaviour
 
 	private IEnumerator ManageDurabilityTimer()
 	{
-		_DurabilityTimer += Time.deltaTime;
-		if(_DurabilityTimer >= 1)
+		print("raising durability timer");
+		while(_CurrentWeaponDurability > 0)
 		{
-			// remove a durability point
-			// if theres no more durability points, end, else yeild return null
+			yield return durabilityTimer;
 			_CurrentWeaponDurability--;
 			OnDurabilityChanged(_CurrentWeaponDurability);
-			if (_CurrentWeaponDurability <= 0)
-			{
-				player._PlayerUIController.DisableWeaponUI();
-				SwitchWeapon(baseWeapon);
-			}
-			else
-			{
-				_DurabilityTimer = 0;
-				yield return null;
-			}
+			yield return null;
 		}
+	}
+
+	public void UseWeaponDurability(int durability)
+	{
+		_CurrentWeaponDurability -= durability;
+		OnDurabilityChanged(_CurrentWeaponDurability);
 	}
 
 	// end

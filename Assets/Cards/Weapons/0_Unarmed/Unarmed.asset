@@ -21,6 +21,7 @@ MonoBehaviour:
     type: 3}
   _WeaponHitSpark: {fileID: 4386779694162415920, guid: eb8ae56be2538f143835bd372985a11e,
     type: 3}
-  _Durability: 0
+  infiniteDurability: 1
+  _Durability: 100
   _DurabilityAttackCost: 0
   _DurabilitySpecialCost: 0
