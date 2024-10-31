@@ -447,7 +447,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72266532d0b7ee34780b7307e50880b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wpnCard: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
+  infiniteDurability: 0
+  baseWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
   <_CurrentWeapon>k__BackingField: {fileID: 0}
   <_WeaponHolderL>k__BackingField: {fileID: 0}
   <_WeaponL>k__BackingField: {fileID: 0}

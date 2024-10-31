@@ -9,7 +9,7 @@ public class PlayerWeaponController : MonoBehaviour
 
 	[field: SerializeField] private bool infiniteDurability;
 
-	[field: SerializeField, Header("Base Weapon")] private WeaponScriptableObj wpnCard;
+	[field: SerializeField, Header("Base Weapon")] private WeaponScriptableObj baseWeapon;
 	[field: SerializeField, Header("Current Weapon")] public WeaponScriptableObj _CurrentWeapon { get; private set; }
 
 	[field: Header("Weapon Transforms"), SerializeField] public Transform _WeaponHolderL { get; private set; }
@@ -19,11 +19,12 @@ public class PlayerWeaponController : MonoBehaviour
 	public void Initialize(PlayerCharacter newPlayer)
 	{
 		player = newPlayer;
+		attackController = player._AttackController;
 		_WeaponHolderR = player._PlayerActor.RightWeapon;
 		_WeaponHolderL = player._PlayerActor.LeftWeapon;
 		_WeaponR = null;
 		_WeaponL = null;
-		SetWeapon(wpnCard);
+		SetWeapon(baseWeapon);
 		_WeaponR.gameObject.SetActive(false);
 	}
 
@@ -31,7 +32,7 @@ public class PlayerWeaponController : MonoBehaviour
 	{
 		_CurrentWeapon = newWeapon;
 		LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
-		attackController.LoadMoveset();
+		attackController.LoadMoveset(newWeapon._MoveSet);
 	}
 
 	private void LoadWeaponGameObjects(GameObject weaponL = null, GameObject weaponR = null)

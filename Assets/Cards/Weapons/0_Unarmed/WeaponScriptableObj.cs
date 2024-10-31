@@ -10,7 +10,7 @@ public class WeaponScriptableObj : ScriptableObject
     public GameObject _WeaponGameObjectR;
     
     [Header("Moves")]
-    public PlayerMoveSetScriptableObj _PlayerMoves;
+    public PlayerMoveSetScriptableObj _MoveSet;
 	
     //-->type
     public enum WeaponType
