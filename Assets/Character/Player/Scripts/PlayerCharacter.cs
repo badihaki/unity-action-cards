@@ -14,6 +14,7 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerWeaponController _WeaponController { get; private set; }
     public PlayerAttack _AttackController { get; private set; }
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
+    public PlayerUIController _PlayerUIController { get; private set; }
 
     // Actor Stuff
     [field:SerializeField, Header("~> Player Character <~")]
@@ -72,7 +73,8 @@ public class PlayerCharacter : Character, IDestroyable
         _WeaponController.Initialize(this);
 
         // initialize UI
-        if (_UI != null) _UI.InitializeUI(true, this);
+        _PlayerUIController = GetComponent<PlayerUIController>();
+        _PlayerUIController.InitializeUI(true, this);
     }
 
     private void LoadAndBuildActor()

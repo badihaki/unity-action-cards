@@ -14,7 +14,6 @@ public class Character : MonoBehaviour
     [field: SerializeField] public Actor _Actor { get; protected set; }
     [field: SerializeField, Header("Character Components")] public Animator _AnimationController { get; private set; }
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
-    [field: SerializeField] public CharacterUIController _UI { get; protected set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
 
@@ -58,9 +57,6 @@ public class Character : MonoBehaviour
         _Hurtbox = GetComponentInChildren<CharacterHurtbox>();
         if (_Hurtbox == null) _Hurtbox = transform.Find("Hurtbox").GetComponent<CharacterHurtbox>();
         _Hurtbox.InitializeHurtBox(this);
-
-        // start UI
-        _UI = GetComponent<CharacterUIController>();
 
         _AnimationController = _Actor.GetComponent<Animator>();
 
