@@ -33,6 +33,8 @@ public class PlayerWeaponController : MonoBehaviour
 		_CurrentWeapon = newWeapon;
 		LoadWeaponGameObjects(_CurrentWeapon._WeaponGameObjectL, _CurrentWeapon._WeaponGameObjectR);
 		attackController.LoadMoveset(newWeapon._MoveSet);
+
+		infiniteDurability = _CurrentWeapon.infiniteDurability;
 	}
 
 	private void LoadWeaponGameObjects(GameObject weaponL = null, GameObject weaponR = null)

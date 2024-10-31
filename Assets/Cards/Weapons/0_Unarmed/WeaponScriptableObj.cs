@@ -27,6 +27,7 @@ public class WeaponScriptableObj : ScriptableObject
     public GameObject _WeaponHitSpark;
 
     [Header("Weapon Durability")]
+    public bool infiniteDurability;
     public int _Durability;
     public int _DurabilityAttackCost;
     public int _DurabilitySpecialCost;

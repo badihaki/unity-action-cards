@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class PlayerUIController : CharacterUIController
 	[SerializeField] private Slider _AetherBar;
 	[SerializeField] private float _TargetAether;
 	[SerializeField] private bool canChangeAether = false;
+
+	[SerializeField, Header("Weapon Meter")] private Slider _WeaponMeter;
 
 	public override void InitializeUI(bool isEntityPlayer, Character character)
 	{
@@ -19,8 +22,10 @@ public class PlayerUIController : CharacterUIController
 		_AetherBar.maxValue = _AetherController._MaxAether;
 		_AetherBar.value = _AetherController._MaxAether;
 		_TargetAether = _AetherController._MaxAether;
+		_AetherController.OnAetherChanged += UpdateAetherUI; // subscribe to the OnAetherChanged event
 
-		_AetherController.OnAetherChanged += UpdateAetherUI;
+		_WeaponMeter = _ResourceCanvas.transform.Find("WeaponMeter").GetComponent <Slider>();
+		_WeaponMeter.gameObject.SetActive(false);
 	}
 
 	protected override void Update()
@@ -45,4 +50,17 @@ public class PlayerUIController : CharacterUIController
 		_TargetAether = aether;
 		canChangeAether = true;
 	}
+
+	public void ActivateWeaponUI(float durability)
+	{
+		_WeaponMeter.gameObject.SetActive(true);
+		_WeaponMeter.maxValue = durability;
+	}
+
+	private void UpdateWeaponUI(float durability)
+	{
+		_WeaponMeter.value = durability;
+	}
+
+	public void DisableWeaponUI() => _WeaponMeter.gameObject.SetActive(false)
 }
