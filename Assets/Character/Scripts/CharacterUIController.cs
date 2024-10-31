@@ -7,17 +7,12 @@ using UnityEngine.UI;
 
 public class CharacterUIController : MonoBehaviour
 {
-    private Canvas _ResourceCanvas;
+    protected Canvas _ResourceCanvas;
     [SerializeField, Header("Health")]private Health _HealthController;
     [SerializeField] private Slider _HealthBar;
     [SerializeField] private float _TargetHealth;
     [SerializeField] private bool canChangeHealth = false;
-    [SerializeField] private float _UIChangeRate = 0.015f;
-
-	[SerializeField, Header("Aether")] private Aether _AetherController;
-    [SerializeField] private Slider _AetherBar;
-	[SerializeField] private float _TargetAether;
-	[SerializeField] private bool canChangeAether = false;
+    [SerializeField] protected float _UIChangeRate = 0.015f;
 
 	private bool isPlayer;
 
@@ -26,7 +21,7 @@ public class CharacterUIController : MonoBehaviour
         if (_HealthController != null) _HealthController.OnHealthChanged += UpdateHealthUI;
     }
 
-    public void InitializeUI(bool isEntityPlayer, Character character)
+    public virtual void InitializeUI(bool isEntityPlayer, Character character)
     {
         transform.Find("ResourceCanvas").GetComponent<Canvas>();
 		if (!_ResourceCanvas) _ResourceCanvas = transform.Find("ResourceCanvas").GetComponent<Canvas>();
@@ -48,18 +43,6 @@ public class CharacterUIController : MonoBehaviour
                 posUpdater.Initialize(character._Actor);
                 _ResourceCanvas.gameObject.SetActive(false);
             }
-            else
-            {
-                _AetherBar = _ResourceCanvas.transform.Find("AetherBar").GetComponent<Slider>();
-
-				canChangeAether = false;
-				_AetherController = GetComponent<Aether>();
-			    _AetherBar.maxValue = _AetherController._MaxAether;
-                _AetherBar.value = _AetherController._MaxAether;
-			    _TargetAether = _AetherController._MaxAether;
-
-                _AetherController.OnAetherChanged += UpdateAetherUI;
-			}
         }
     }
 
@@ -69,10 +52,10 @@ public class CharacterUIController : MonoBehaviour
     }
 
     // Update is called once per frame
-    private void Update()
+    protected virtual void Update()
     {
         ControlHealthUI();
-        ControlAetherUI();
+        
     }
 
     private void ControlHealthUI()
@@ -92,17 +75,6 @@ public class CharacterUIController : MonoBehaviour
         }
     }
 
-    private void ControlAetherUI()
-    {
-        if (canChangeAether)
-        {
-            if((int)_AetherBar.value != _TargetAether)
-            {
-                _AetherBar.value = Mathf.Lerp(_AetherBar.value, _TargetAether, _UIChangeRate);
-            }
-        }
-    }
-
 	private void OpenResourceCanvas()
     {
         if (_ResourceCanvas.gameObject.activeSelf == false)
@@ -115,12 +87,6 @@ public class CharacterUIController : MonoBehaviour
     {
         _TargetHealth = health;
         canChangeHealth = true;
-    }
-
-    private void UpdateAetherUI(int aether)
-    {
-        _TargetAether = aether;
-        canChangeAether = true;
     }
 
     private IEnumerator CloseResourceCanvas()
