@@ -446,13 +446,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72266532d0b7ee34780b7307e50880b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infiniteDurability: 0
   baseWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
   <_CurrentWeapon>k__BackingField: {fileID: 0}
   <_WeaponHolderL>k__BackingField: {fileID: 0}
   <_WeaponL>k__BackingField: {fileID: 0}
   <_WeaponHolderR>k__BackingField: {fileID: 0}
   <_WeaponR>k__BackingField: {fileID: 0}
+  <_CurrentWeaponDurability>k__BackingField: 0
+  infiniteDurability: 0
 --- !u!114 &3895246229984299987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +475,7 @@ MonoBehaviour:
   _AetherBar: {fileID: 0}
   _TargetAether: 0
   canChangeAether: 0
+  _WeaponMeter: {fileID: 0}
 --- !u!114 &6084333112869182304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1441,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.25, y: 0}
   m_AnchorMax: {x: 0.75, y: 1}
-  m_AnchoredPosition: {x: 0, y: 5}
+  m_AnchoredPosition: {x: 0, y: -5}
   m_SizeDelta: {x: 0, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8441306002997342181
@@ -1477,9 +1479,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 100, y: 40}
+  m_AnchoredPosition: {x: 100, y: 152}
   m_SizeDelta: {x: 85, y: 120}
-  m_Pivot: {x: 0.5, y: 0}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &8042615101014616451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1523,11 +1525,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 5098069402199796132}
   m_HandleRect: {fileID: 0}
-  m_Direction: 3
+  m_Direction: 2
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

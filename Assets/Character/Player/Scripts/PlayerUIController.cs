@@ -71,6 +71,7 @@ public class PlayerUIController : CharacterUIController
 	public void ActivateWeaponUI(int durability)
 	{
 		_WeaponMeter.gameObject.SetActive(true);
+		_WeaponMeter.value = durability;
 		_WeaponMeter.maxValue = durability;
 	}
 
