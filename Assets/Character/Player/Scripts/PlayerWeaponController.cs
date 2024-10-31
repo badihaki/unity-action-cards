@@ -46,7 +46,7 @@ public class PlayerWeaponController : MonoBehaviour
 			_CurrentWeaponDurability = _CurrentWeapon._Durability;
 			player._PlayerUIController.ActivateWeaponUI(_CurrentWeaponDurability);
 			OnDurabilityChanged(_CurrentWeaponDurability);
-			print("starting dur timer coroutine");
+			//print("starting dur timer coroutine");
 			StartCoroutine(ManageDurabilityTimer());
 		}
 	}
@@ -89,7 +89,7 @@ public class PlayerWeaponController : MonoBehaviour
 
 	private IEnumerator ManageDurabilityTimer()
 	{
-		print("raising durability timer");
+		//print("raising durability timer");
 		while(_CurrentWeaponDurability > 0)
 		{
 			yield return durabilityTimer;

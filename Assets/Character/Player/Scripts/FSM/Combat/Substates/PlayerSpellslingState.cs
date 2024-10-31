@@ -12,8 +12,8 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.EnterState();
 
-        // _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
-        // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
+        _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
+        _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
         AttemptShootSpell();
