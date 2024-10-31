@@ -172,7 +172,7 @@ public class PlayerSpell : MonoBehaviour
         Projectile conjuredSpell;
         if(targetPos !=  Vector3.zero)
         {
-            player._LocomotionController.RotateTowardsTarget(targetPos);
+            //player._LocomotionController.RotateTowardsTarget(targetPos);
             conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellOrigin.transform.position, Quaternion.identity).GetComponent<Projectile>();
             Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
         }

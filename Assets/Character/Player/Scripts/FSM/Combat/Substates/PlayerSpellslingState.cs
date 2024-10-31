@@ -57,19 +57,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
-        // _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
-
-        /*
-        if(moveInput != Vector2.zero)
-        {
-            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-            // _PlayerCharacter._LocomotionController.MoveWhileAiming(); // change this to move based on moveinput
-        }
-        else
-        {
-            _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        }
-         */
+         _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
         _PlayerCharacter._LocomotionController.SlowDown();
     }
 

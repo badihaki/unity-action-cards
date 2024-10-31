@@ -28,7 +28,11 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSmoothingTime = 0.082f;
     private float targetRotation;
     private float lerpSpeedOnSlowDown = 0.5f;
-    private Camera cam;
+
+    [Header("Aim Rotation")]
+    private float aimRotationSpeed = 2.0f;
+
+	private Camera cam;
 
     [Header("In Air Schmoovement")]
     [field: SerializeField] public bool canDoubleJump { get; private set; }
@@ -166,36 +170,9 @@ public class PlayerMovement : MonoBehaviour
         _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
-    public void RotateTowardsTarget(Vector3 targetPos)
+    public void RotateWhileAiming(Vector2 aimInput)
     {
-        print($"rotating towards target position {targetPos} || playerMovement.rotateTowardsTarget");
-        // Vector3 rotation = Vector3.RotateTowards(_Actor.transform.position, targetPos - _Actor.transform.position, Time.deltaTime, 0.0f);
-        // Vector3 direction = targetPos - _Player._PlayerSpells._spellOrigin.transform.position;
-
-        // _Actor.transform.localRotation = Quaternion.LookRotation(rotation); // this causes the x to get rotated.
-        // _Actor.transform.eulerAngles = new Vector3(0, rotation.y, 0);
-        // _Actor.transform.localRotation = Quaternion.Euler(rotation);
-        // print($"target to look at {direction}");
-        
-        // _Actor.transform.LookAt(targetPos);
-        // _Player._PlayerSpells._spellOrigin.LookAt(targetPos);
-        
-        // _Actor.transform.eulerAngles = new Vector3(0.0f, _Actor.transform.rotation.y, 0.0f);
-        
-        StartCoroutine(RotateTowards(targetPos, 12));
-    }
-
-    private IEnumerator RotateTowards(Vector3 targetPos, float deg)
-    {
-        Vector3 dirToLookAt = (targetPos - _Actor.transform.position).normalized;
-        float targetAngle = Mathf.Atan2(dirToLookAt.x, dirToLookAt.z) * Mathf.Rad2Deg;
-
-        while(Mathf.Abs(Mathf.DeltaAngle(_Actor.transform.eulerAngles.y, targetAngle)) > Mathf.Epsilon)
-        {
-            float angle = Mathf.MoveTowardsAngle(_Actor.transform.eulerAngles.y, targetAngle, deg);
-            _Actor.transform.eulerAngles = Vector3.up * angle;
-            yield return null;
-        }
+        _Actor.transform.Rotate(0, (aimRotationSpeed * aimInput.x), 0);
     }
 
     public void ApplyDesiredMoveToMovement()
