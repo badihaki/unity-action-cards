@@ -31,7 +31,7 @@ public class PlayerSpellslingingSuperState : PlayerState
     protected void AttemptShootSpell()
     {
         Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-        _PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
+        //_PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
         _PlayerCharacter._Controls.UseSpell();
         _PlayerCharacter._PlayerSpells.UseSpell(target);
     }

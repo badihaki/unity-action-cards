@@ -37,6 +37,9 @@ public class PlayerMovement : MonoBehaviour
     [field: Header("In Air Schmoovement"), SerializeField]
     public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
+    private WaitForSeconds airSchmooveWait = new WaitForSeconds(0.15f);
+
+
     public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
@@ -213,6 +216,15 @@ public class PlayerMovement : MonoBehaviour
     }
     public void SetDoubleJump(bool value) => canDoubleJump = value;
     public void SetAirDash(bool value) => canAirDash = value;
+    public void ResetAllAirSchmoovement() => StartCoroutine(ResetAirSchmoovement());
+    private IEnumerator ResetAirSchmoovement()
+    {
+		canAirDash = false;
+		canDoubleJump = false;
+		yield return airSchmooveWait;
+        canAirDash = true;
+        canDoubleJump = true;
+    }
 
-    // end
+	// end
 }

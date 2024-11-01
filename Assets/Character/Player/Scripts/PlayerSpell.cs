@@ -180,8 +180,9 @@ public class PlayerSpell : MonoBehaviour
         {
             conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
         }
-        conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
-        conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
+		//conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
+		conjuredSpell.transform.eulerAngles = _spellTarget.transform.eulerAngles;
+		conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
         conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
         _spellTimer = timeToAddToTimer;
         RemoveSpellCharge();
@@ -233,8 +234,11 @@ public class PlayerSpell : MonoBehaviour
 
     public void RotateSpellTarget()
     {
-        Quaternion rotation = cam.transform.rotation;
-        _spellTarget.rotation = rotation;
+        //Quaternion rotation = cam.transform.rotation;
+        Vector3 rotation = cam.transform.eulerAngles;
+        //print($"{rotation.x}, {rotation.y}, {rotation.z}, {rotation.w}");
+        _spellTarget.eulerAngles = rotation;
+        //Quaternion.Lerp(_spellTarget.transform.rotation, rotation, 2.0f);
     }
     public void ResetSpellTargetRotation() => _spellTarget.rotation = new Quaternion(0, 0, 0, 0);
 
