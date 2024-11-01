@@ -34,7 +34,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        //_PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
         // _PlayerCharacter._PlayerSpells.UpdateCrosshair();
 
         if (spellslingInput)
@@ -57,7 +57,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
-         _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
+        _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
         _PlayerCharacter._LocomotionController.SlowDown();
     }
 

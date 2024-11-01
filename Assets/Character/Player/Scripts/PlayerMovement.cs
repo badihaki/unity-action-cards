@@ -29,13 +29,13 @@ public class PlayerMovement : MonoBehaviour
     private float targetRotation;
     private float lerpSpeedOnSlowDown = 0.5f;
 
-    [Header("Aim Rotation")]
+    [Header("Aim Rotation"), SerializeField]
     private float aimRotationSpeed = 2.0f;
 
 	private Camera cam;
 
-    [Header("In Air Schmoovement")]
-    [field: SerializeField] public bool canDoubleJump { get; private set; }
+    [field: Header("In Air Schmoovement"), SerializeField]
+    public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
     public void Initialize(PlayerCharacter controllingPlayer)
     {
@@ -172,7 +172,9 @@ public class PlayerMovement : MonoBehaviour
 
     public void RotateWhileAiming(Vector2 aimInput)
     {
-        _Actor.transform.Rotate(0, (aimRotationSpeed * aimInput.x), 0);
+        print("Aim input::");
+        print(aimInput);
+		_Actor.transform.Rotate(0, (aimRotationSpeed * aimInput.x), 0);
     }
 
     public void ApplyDesiredMoveToMovement()
