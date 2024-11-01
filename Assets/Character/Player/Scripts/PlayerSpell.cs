@@ -158,7 +158,7 @@ public class PlayerSpell : MonoBehaviour
 
     public void UseSpell(Vector3 targetPos)
     {
-        if(_spellTimer <= 0)
+        if(_spellTimer <= 0 && player._Aether._CurrentAether > _activeSpellList[_currentSpellIndex].spell._SpellAetherCost)
         {
             ShootSpell(targetPos);
         }
@@ -167,6 +167,7 @@ public class PlayerSpell : MonoBehaviour
     private void ShootSpell(Vector3 targetPos)
     {
         player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
+        player._Aether.UseAether(_activeSpellList[_currentSpellIndex].spell._SpellAetherCost);
         
         Projectile conjuredSpell;
         if(targetPos !=  Vector3.zero)
