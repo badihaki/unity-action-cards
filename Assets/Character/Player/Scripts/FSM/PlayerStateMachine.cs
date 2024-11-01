@@ -13,7 +13,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerFallingState _FallingState { get; private set; }
     public PlayerJumpState _JumpState { get; private set; }
     public PlayerLandingState _LandingState { get; private set; }
-    public PlayerSpellslingState _SpellslingState { get; private set; }
+    public PlayerSpellslingingSuperState _SpellslingState { get; private set; }
     public PlayerAirDashState _AirDashState { get; private set; }
     public PlayerAirJumpState _AirJumpState { get; private set; }
     #endregion
@@ -34,7 +34,7 @@ public class PlayerStateMachine : MonoBehaviour
         _LandingState = ScriptableObject.CreateInstance<PlayerLandingState>();
         _LandingState.InitializeState(player, "land", this);
 
-        _SpellslingState = ScriptableObject.CreateInstance<PlayerSpellslingState>();
+        _SpellslingState = ScriptableObject.CreateInstance<PlayerSpellslingingSuperState>();
         _SpellslingState.InitializeState(player, "aim", this);
 
         _AirDashState = ScriptableObject.CreateInstance<PlayerAirDashState>();

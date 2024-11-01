@@ -2,24 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpellslingState : PlayerCombatSuperState
+public class PlayerSpellslingingSuperState : PlayerState
 {
-    public PlayerSpellslingState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    public PlayerSpellslingingSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+	public int spellSelectDirection { get; protected set; }
+	public bool spellslingInput { get; private set; }
+	public Vector2 aimInput { get; private set; }
 
-    public override void EnterState()
+
+	public override void EnterState()
     {
         base.EnterState();
 
-        _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
-        _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
+
+        _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
+        _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
+        
         AttemptShootSpell();
+        
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
-        // _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
     protected void AttemptShootSpell()
@@ -34,8 +40,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.LogicUpdate();
 
-        //_PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-        // _PlayerCharacter._PlayerSpells.UpdateCrosshair();
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 
         if (spellslingInput)
         {
@@ -86,7 +91,9 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         base.CheckInputs();
 
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
-    }
+        aimInput = _PlayerCharacter._Controls._AimInput;
+		spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
+	}
 
     // end
 }
