@@ -39,7 +39,6 @@ public class PlayerSpell : MonoBehaviour
 
     [Header("UI, targeting stuff")]
     [SerializeField] private Image _crosshair;
-    [SerializeField] private Vector3 targetPos;
 
     public void Initialize(PlayerCharacter pl)
     {

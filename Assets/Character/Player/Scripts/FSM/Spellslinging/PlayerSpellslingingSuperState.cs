@@ -42,6 +42,7 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 
+
         if (spellslingInput)
         {
             AttemptShootSpell();
@@ -62,11 +63,16 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
-        _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
         _PlayerCharacter._LocomotionController.SlowDown();
     }
 
-    public override void ExitState()
+	public override void LateUpdate()
+	{
+		base.LateUpdate();
+        _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
+	}
+
+	public override void ExitState()
     {
         base.ExitState();
 

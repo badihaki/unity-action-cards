@@ -172,10 +172,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void RotateWhileAiming(Vector2 aimInput)
     {
-        print("Aim input::");
-        print(aimInput);
-		_Actor.transform.Rotate(0, (aimRotationSpeed * aimInput.x), 0);
-    }
+        //Vector3 desiredRotation = new Vector3(cam.transform.rotation.x, cam.transform.rotation.y, cam.transform.rotation.z);
+        Quaternion desiredRotation = _Player._CameraController.cinemachineCamTarget.rotation;
+        desiredRotation.x = 0;
+        desiredRotation.z = 0;
+		//_Player._CameraController.cinemachineCamTarget.transform.Rotate(0, (aimRotationSpeed * aimInput.x), 0);
+		//_Actor.transform.rotation = desiredRotation;
+
+		_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, desiredRotation, aimRotationSpeed);
+		//_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, _Player._CameraController.cinemachineCamTarget.rotation, aimRotationSpeed);
+	}
 
     public void ApplyDesiredMoveToMovement()
     {

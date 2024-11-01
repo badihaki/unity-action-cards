@@ -54,5 +54,18 @@ public class PlayerStateMachine : MonoBehaviour
         _CurrentState = state;
         _CurrentState.EnterState();
     }
-    // end
+
+	private void Update()
+	{
+		_CurrentState?.LogicUpdate();
+	}
+	private void FixedUpdate()
+	{
+		_CurrentState?.PhysicsUpdate();
+	}
+	private void LateUpdate()
+	{
+		_CurrentState?.LateUpdate();
+	}
+	// end
 }

@@ -167,16 +167,6 @@ public class PlayerCharacter : Character, IDestroyable
         _StateMachine.InitializeStateMachine(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        _StateMachine?._CurrentState.LogicUpdate();
-    }
-    private void FixedUpdate()
-    {
-        _StateMachine?._CurrentState.PhysicsUpdate();
-    }
-
     public override void DestroyEntity()
     {
         print("Player death");
