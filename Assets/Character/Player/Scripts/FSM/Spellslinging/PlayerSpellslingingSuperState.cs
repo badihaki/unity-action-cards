@@ -41,7 +41,7 @@ public class PlayerSpellslingingSuperState : PlayerState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-
+        _PlayerCharacter._PlayerSpells.RotateSpellTarget();
 
         if (spellslingInput)
         {
@@ -79,6 +79,7 @@ public class PlayerSpellslingingSuperState : PlayerState
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), true);
         // _PlayerCharacter._PlayerSpells.HideCrosshair();
+        _PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
     }
 
     public override void CheckStateTransitions()

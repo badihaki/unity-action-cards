@@ -26,7 +26,7 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private int _currentSpellIndex;
     [SerializeField] private SpellCardScriptableObj _baseSpell;
 
-    [field: SerializeField] public Transform _spellOrigin { get; private set; }
+    [field: SerializeField] public Transform _spellTarget { get; private set; }
 
     private float timeToAddToTimer;
     [SerializeField] private float _spellTimer;
@@ -48,7 +48,7 @@ public class PlayerSpell : MonoBehaviour
 
         _activeSpellList = new List<storedSpell>();
         AddSpellToList(_baseSpell);
-        _spellOrigin = player._PlayerActor.transform.Find("SpellTarget");
+        _spellTarget = player._PlayerActor.transform.Find("SpellTarget");
         _spellTimer = 0.0f;
         timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
     }
@@ -172,12 +172,12 @@ public class PlayerSpell : MonoBehaviour
         if(targetPos !=  Vector3.zero)
         {
             //player._LocomotionController.RotateTowardsTarget(targetPos);
-            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellOrigin.transform.position, Quaternion.identity).GetComponent<Projectile>();
+            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
             Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
         }
         else
         {
-            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellOrigin.transform.position, Quaternion.identity).GetComponent<Projectile>();
+            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
         }
         conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
         conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
@@ -229,5 +229,13 @@ public class PlayerSpell : MonoBehaviour
             else _activeSpellList[_currentSpellIndex] = modifiedSpell;
         }
     }
+
+    public void RotateSpellTarget()
+    {
+        Quaternion rotation = cam.transform.rotation;
+        _spellTarget.rotation = rotation;
+    }
+    public void ResetSpellTargetRotation() => _spellTarget.rotation = new Quaternion(0, 0, 0, 0);
+
     // end
 }
