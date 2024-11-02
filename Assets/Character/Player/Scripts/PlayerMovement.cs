@@ -154,7 +154,6 @@ public class PlayerMovement : MonoBehaviour
     }
     public void RotateInstantly(Vector2 inputDirection)
     {
-        print($"rotating to this input direction {inputDirection}");
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
     * Mathf.Rad2Deg
     + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
@@ -210,7 +209,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            print("air jumping");
             _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 3.245f);
         }
     }
