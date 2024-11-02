@@ -1,5 +1,8 @@
 # Card Action Game Readme
 
+### 10-31 - It's time to redo Spellslinging
+I plan to bring back the spell-slinging state. Include a zoom-in and targeting reticle. We're doing over-the-shoulder targeting again
+
 ### 10-24 - UI / Cinematography
 - Need to show when you have a weapon equipped and how much durability that weapon has.
 - Need to have card cost show when showing your hand.

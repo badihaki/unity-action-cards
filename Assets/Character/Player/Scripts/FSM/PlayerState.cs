@@ -66,6 +66,10 @@ public class PlayerState : ScriptableObject
     {
         //
     }
+    public virtual void LateUpdate()
+    {
+        //
+    }
     #endregion
 
     #region MISC Functions

@@ -2,30 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSpellslingState : PlayerCombatSuperState
+public class PlayerSpellslingingSuperState : PlayerState
 {
-    public PlayerSpellslingState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    public PlayerSpellslingingSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+	public int spellSelectDirection { get; protected set; }
+	public bool spellslingInput { get; private set; }
+	public Vector2 aimInput { get; private set; }
 
-    public override void EnterState()
+
+	public override void EnterState()
     {
         base.EnterState();
 
-        // _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
-        // _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerAimCamController);
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
+
+        _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
+        _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
+        
         AttemptShootSpell();
+        
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
-        // _PlayerCharacter._PlayerSpells.ShowCrosshair();
     }
 
     protected void AttemptShootSpell()
     {
         Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-        _PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
+        //_PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
         _PlayerCharacter._Controls.UseSpell();
         _PlayerCharacter._PlayerSpells.UseSpell(target);
     }
@@ -35,7 +41,7 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-        // _PlayerCharacter._PlayerSpells.UpdateCrosshair();
+        _PlayerCharacter._PlayerSpells.RotateSpellTarget();
 
         if (spellslingInput)
         {
@@ -57,29 +63,23 @@ public class PlayerSpellslingState : PlayerCombatSuperState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
-        // _PlayerCharacter._LocomotionController.RotateCharacterWhileAiming(moveInput); // for some reason I was aiming in accordance to where I was moving. This may be wrong
-
-        /*
-        if(moveInput != Vector2.zero)
-        {
-            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-            // _PlayerCharacter._LocomotionController.MoveWhileAiming(); // change this to move based on moveinput
-        }
-        else
-        {
-            _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        }
-         */
         _PlayerCharacter._LocomotionController.SlowDown();
     }
 
-    public override void ExitState()
+	public override void LateUpdate()
+	{
+		base.LateUpdate();
+        _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
+	}
+
+	public override void ExitState()
     {
         base.ExitState();
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), true);
         // _PlayerCharacter._PlayerSpells.HideCrosshair();
+        _PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
     }
 
     public override void CheckStateTransitions()
@@ -98,7 +98,9 @@ public class PlayerSpellslingState : PlayerCombatSuperState
         base.CheckInputs();
 
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
-    }
+        aimInput = _PlayerCharacter._Controls._AimInput;
+		spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
+	}
 
     // end
 }
