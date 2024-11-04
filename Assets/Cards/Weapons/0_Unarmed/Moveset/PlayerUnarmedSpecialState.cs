@@ -13,6 +13,7 @@ public class PlayerUnarmedSpecialState : PlayerSpecialSuperState
     {
         base.EnterState();
         ShowOrHideWeapon(true);
-    }
+		_PlayerCharacter._AttackController.SetAttackParameters(1, 0.78f, 1.75f);
+	}
 
 }
