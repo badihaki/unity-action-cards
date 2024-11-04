@@ -14,8 +14,10 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 
     [field: SerializeField, Header("Components")]
     public CheckForGround _CheckGrounded { get; private set; }
-	
-    
+
+    [field:SerializeField, Header("FXs")] private GameObject bloodFX;
+
+
 	public bool _IsInvuln { get; private set; }
 
     public virtual void Initialize(Character character)
@@ -67,6 +69,12 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 			_Character.CalculateHitResponse(knockForce, launchForce, damage);
 			ApplyKnockback(damageSource, knockForce, launchForce);
 			//DetermineWhoWhurtMe(damageSource);
+
+			if (bloodFX != null)
+			{
+				GameObject blood = Instantiate(bloodFX, transform.position, rotation);
+				blood.transform.rotation = transform.rotation;
+			}
 		}
 	}
 

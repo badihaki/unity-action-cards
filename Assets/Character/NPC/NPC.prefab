@@ -51,10 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1825d8f787c884744baf167143da4cbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Character: {fileID: 0}
   <animationController>k__BackingField: {fileID: 0}
-  <animatorMovementVector>k__BackingField: {x: 0, y: 0, z: 0}
-  controlByRootMotion: 0
-  <CheckGrounded>k__BackingField: {fileID: 0}
+  <_CheckGrounded>k__BackingField: {fileID: 0}
+  bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
 --- !u!95 &9100884158474125136
 Animator:
   serializedVersion: 7
@@ -742,12 +742,12 @@ MonoBehaviour:
   <_Actor>k__BackingField: {fileID: 0}
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
-  <_UI>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
   <_NPCActor>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
   <_NavigationController>k__BackingField: {fileID: 0}
   <_AttackController>k__BackingField: {fileID: 0}
+  <_UI>k__BackingField: {fileID: 0}
   hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
@@ -792,7 +792,6 @@ MonoBehaviour:
   <_MaxPoise>k__BackingField: 0
   <_PoiseFortification>k__BackingField: 0
   <_CurrentPoise>k__BackingField: 0
-  bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
 --- !u!114 &2008041470608043853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,8 +804,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1706b46bae9b6419af8a3ef30486ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_CurrentAetherPoints>k__BackingField: 0
-  _MaxAetherPoints: 0
+  <_CurrentAether>k__BackingField: 0
+  <_MaxAether>k__BackingField: 0
+  canRecoverAether: 0
+  <_RecoveryRate>k__BackingField: 0
+  <_RecoveryTimeNeeded>k__BackingField: 1.3
+  <_RecoveryAmount>k__BackingField: 3
 --- !u!114 &5845399633305984272
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -819,10 +822,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c411249c3e78f4fa4c3696291998a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _HealthController: {fileID: 0}
   _HealthBar: {fileID: 0}
   _TargetHealth: 0
   canChangeHealth: 0
-  _HealthChangeRate: 0.015
+  _UIChangeRate: 0.015
 --- !u!114 &9058892206244568203
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,7 +19,6 @@ public class Health : MonoBehaviour
     public delegate void GetHit(string hitType);
     public event GetHit OnHit;
 
-    [SerializeField] private GameObject bloodFX;
 
     public void InitiateHealth(int health)
     {
@@ -61,11 +60,7 @@ public class Health : MonoBehaviour
         // TODO: rotate blood
         // Quaternion rotation = transform.rotation;
         Quaternion rotation = Quaternion.Euler(-transform.forward);
-        if (bloodFX != null)
-        {
-            GameObject blood = Instantiate(bloodFX, transform.position, rotation);
-            blood.transform.rotation = transform.rotation;
-        }
+
         if(_CurrentHealth <= 0)
         {
             GetComponent<IDestroyable>().DestroyEntity();

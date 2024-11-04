@@ -1863,10 +1863,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82069fc91702124cb1e843df24e3233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Character: {fileID: 0}
   <animationController>k__BackingField: {fileID: 0}
-  <animatorMovementVector>k__BackingField: {x: 0, y: 0, z: 0}
-  controlByRootMotion: 0
-  <CheckGrounded>k__BackingField: {fileID: 0}
+  <_CheckGrounded>k__BackingField: {fileID: 0}
+  bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
   rootBone: {fileID: 0}
   <RightWeapon>k__BackingField: {fileID: 0}
   <LeftWeapon>k__BackingField: {fileID: 0}
