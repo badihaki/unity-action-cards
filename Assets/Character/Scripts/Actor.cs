@@ -81,4 +81,9 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 	{
 		return _Character.transform;
 	}
+
+	public Transform GetDamagedEntity()
+	{
+        return transform;
+	}
 }

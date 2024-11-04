@@ -41,6 +41,11 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         return character.transform;
     }
 
+	public Transform GetDamagedEntity()
+	{
+        return character._Actor.transform;
+	}
 
-    // end
+
+	// end
 }
