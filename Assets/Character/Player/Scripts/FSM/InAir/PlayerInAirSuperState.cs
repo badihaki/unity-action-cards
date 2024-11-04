@@ -49,8 +49,6 @@ public class PlayerInAirSuperState : PlayerState
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
             _StateMachine.ChangeState(_StateMachine._IdleState);
-			//_PlayerCharacter._LocomotionController.SetDoubleJump(true);
-			//_PlayerCharacter._LocomotionController.SetAirDash(true);
 			_PlayerCharacter._LocomotionController.ResetAllAirSchmoovement();
 		}
         if (attackInput)
