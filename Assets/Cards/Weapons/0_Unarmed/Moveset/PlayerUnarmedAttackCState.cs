@@ -14,7 +14,7 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
         base.EnterState();
 
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        _PlayerCharacter._AttackController.SetAttackParameters(2, 2, 0.75f);
+        _PlayerCharacter._AttackController.SetAttackParameters(2, 0.75f, 1);
         ShowOrHideWeapon(true);
     }
 

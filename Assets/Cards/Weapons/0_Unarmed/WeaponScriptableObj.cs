@@ -8,6 +8,9 @@ public class WeaponScriptableObj : ScriptableObject
     [Header("Game Objects")]
     public GameObject _WeaponGameObjectL;
     public GameObject _WeaponGameObjectR;
+
+    [Header("Stats")]
+    public int _Dmg = 1;
     
     [Header("Moves")]
     public PlayerMoveSetScriptableObj _MoveSet;

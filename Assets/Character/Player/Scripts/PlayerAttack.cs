@@ -150,9 +150,9 @@ public class PlayerAttack : MonoBehaviour
         Destroy(_DefenseAction);
     }
 
-    public void SetAttackParameters(int damage, float knockbackForce, float launchForce)
+    public void SetAttackParameters(float knockbackForce, float launchForce, int damageModifier = 0)
     {
-        _Damage = damage;
+        _Damage = player._WeaponController._CurrentWeapon._Dmg + damageModifier;
         _KnockbackForce = knockbackForce;
         _LaunchForce = launchForce;
     }

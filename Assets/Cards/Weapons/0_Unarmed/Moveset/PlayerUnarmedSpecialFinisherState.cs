@@ -12,8 +12,10 @@ public class PlayerUnarmedSpecialFinisherState : PlayerSpecialSuperState
     public override void EnterState()
     {
         base.EnterState();
-        // _PlayerCharacter._AnimationController.SetBool("finisherA", true);
-    }
+		// _PlayerCharacter._AnimationController.SetBool("finisherA", true);
+
+		_PlayerCharacter._AttackController.SetAttackParameters(0.15f, 1.75f, 2);
+	}
 
     public override void ExitState()
     {

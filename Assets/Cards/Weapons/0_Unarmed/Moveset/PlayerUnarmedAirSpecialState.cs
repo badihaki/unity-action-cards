@@ -16,7 +16,9 @@ public class PlayerUnarmedAirSpecialState : PlayerAirCombatSuperState
         continued = false;
         _PlayerCharacter._AnimationController.SetBool("continue", false);
         _PlayerCharacter._AnimationController.SetBool("continue2", false);
-    }
+
+		_PlayerCharacter._AttackController.SetAttackParameters(0.15f, 1.75f, 1);
+	}
 
     public override void LogicUpdate()
     {
