@@ -20,6 +20,6 @@ MonoBehaviour:
   _WeaponAttackFX: {fileID: 0}
   _WeaponHitSpark: {fileID: 0}
   infiniteDurability: 0
-  _Durability: 35
-  _DurabilityAttackCost: 3
-  _DurabilitySpecialCost: 5
+  _Durability: 100
+  _DurabilityAttackCost: 0
+  _DurabilitySpecialCost: 0

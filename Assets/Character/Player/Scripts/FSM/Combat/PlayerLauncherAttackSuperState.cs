@@ -14,4 +14,11 @@ public class PlayerLauncherAttackSuperState : PlayerCombatSuperState
         _PlayerCharacter._AttackController.ResetAttackParameters();
 		_PlayerCharacter._WeaponController.UseWeaponDurability(_PlayerCharacter._WeaponController._CurrentWeapon._DurabilitySpecialCost);
 	}
+
+	public override void CheckStateTransitions()
+	{
+		base.CheckStateTransitions();
+
+		if (canCombo && jumpInput) _StateMachine.ChangeState(_StateMachine._JumpState);
+	}
 }

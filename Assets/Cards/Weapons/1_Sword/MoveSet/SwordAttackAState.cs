@@ -26,9 +26,9 @@ public class SwordAttackAState : PlayerAttackSuperState
 	public override void CheckStateTransitions()
 	{
 		if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackB);
+		if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
 
 		// if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
-		// if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
 
 		base.CheckStateTransitions();
 	}
