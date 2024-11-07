@@ -37,4 +37,9 @@ public class NPCStateMachine : MonoBehaviour
             _CurrentState.PhysicsUpdate();
         }
     }
+
+    public void LogFromState(string input)
+    {
+        print($"{input} >>> :: <<< Logged from {_CurrentState.name}");
+    }
 }

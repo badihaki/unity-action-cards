@@ -10,9 +10,7 @@ public class NPCMoveState : NPCState
     {
         base.EnterState();
         _NPC._NavigationController.StartMoveToDestination();
-        // Debug.Log(_NPC.name + " is trying to get to position x " + Math.Round(_NPC._NavigationController._TargetLocation.x, 0));
-        // Debug.Log(_NPC.name + " is trying to get to position z " + Math.Round(_NPC._NavigationController._TargetLocation.z, 0));
-        // Debug.Log(_NPC.name + " MIGHT TRY to get to position y " + Math.Round(_NPC._NavigationController._TargetLocation.y, 0));
+        //_StateMachine.LogFromState("");
     }
 
     private float distanceFromPlayer;

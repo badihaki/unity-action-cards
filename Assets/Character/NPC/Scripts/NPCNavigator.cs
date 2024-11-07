@@ -10,7 +10,7 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField] public Transform _Target { get; private set; }
     [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
     [field: SerializeField] public float _PatrolRange { get; private set; }
-    [SerializeField] private GameObject _TargetDebugObject;
+    [field: SerializeField] private GameObject _TargetDebugObject;
     [field: SerializeField] public float _MaxDistance { get; private set; }
 
     public void InitializeNavigator(NonPlayerCharacter npc)
@@ -24,7 +24,7 @@ public class NPCNavigator : MonoBehaviour
     {
         float xPos = Random.Range(-_PatrolRange, _PatrolRange);
         float zPos = Random.Range(-_PatrolRange, _PatrolRange);
-        Vector3 newPos = new Vector3(transform.position.x + xPos, 0, transform.position.z + zPos);
+        Vector3 newPos = new Vector3(_NPC._NPCActor.transform.position.x + xPos, 0, _NPC._NPCActor.transform.position.z + zPos);
         // print("new position to find for " + name + "'s patrol: " + newPos);
         if (Physics.CheckSphere(newPos, 1.0f))
         {
