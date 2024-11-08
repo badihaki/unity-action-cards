@@ -6,11 +6,10 @@ using UnityEngine.AI;
 public class NPCNavigator : MonoBehaviour
 {
     private NonPlayerCharacter _NPC;
-    private NavMeshAgent _Agent;
-    [field: SerializeField] public Transform _Target { get; private set; }
+    [field:SerializeField, Header("Agent")]public NavMeshAgent _Agent {  get; private set; }
+    [field: SerializeField, Header("Target info")] public Transform _Target { get; private set; }
     [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
     [field: SerializeField] public float _PatrolRange { get; private set; }
-    [field: SerializeField] private GameObject _TargetDebugObject;
     [field: SerializeField] public float _MaxDistance { get; private set; }
 
     public void InitializeNavigator(NonPlayerCharacter npc)
@@ -29,7 +28,7 @@ public class NPCNavigator : MonoBehaviour
         if (Physics.CheckSphere(newPos, 1.0f))
         {
             _TargetLocation = newPos;
-            CreateDebugObject(newPos);
+            //CreateDebugObject(newPos);
             return true;
         }
         else
@@ -40,17 +39,14 @@ public class NPCNavigator : MonoBehaviour
 
     public void StartMoveToDestination()
     {
-        if (_TargetDebugObject) DestroyDebugObject();
         if (_Target)
         {
             _Agent.SetDestination(_Target.position);
             // print($"moving to target at {_Agent.destination}");
-            CreateDebugObject(_Target.position);
         }
         else
         {
             _Agent.SetDestination(_TargetLocation);
-            CreateDebugObject(_TargetLocation);
         }
         
     }
@@ -68,18 +64,6 @@ public class NPCNavigator : MonoBehaviour
 
     public bool IsNavStopped() => _Agent.isStopped;
 
-    private void CreateDebugObject(Vector3 position)
-    {
-        _TargetDebugObject = new GameObject();
-        _TargetDebugObject.transform.position = position;
-        _TargetDebugObject.name = name + "TargetLoc";
-    }
-    public void DestroyDebugObject()
-    {
-        Destroy(_TargetDebugObject);
-        _TargetDebugObject = null;
-    }
-
     public void SetTarget(Transform newTarget) => _Target = newTarget;
     public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {
@@ -87,4 +71,9 @@ public class NPCNavigator : MonoBehaviour
         SetMaxAttackDistance(distance + 1.0f);
     }
     public void SetMaxAttackDistance(float m_distance = 2.0f) => _MaxDistance = m_distance;
+    public void MatchVelocityWithCharController()
+    {
+		print(_NPC._MoveController._CharacterController.velocity);
+        //_Agent.velocity = _NPC._MoveController._CharacterController.velocity;
+    }
 }

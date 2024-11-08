@@ -6,16 +6,24 @@ using UnityEngine;
 
 public class NPCMoveState : NPCState
 {
+    private float distanceFromPlayer;
+
     public override void EnterState()
     {
         base.EnterState();
         _NPC._NavigationController.StartMoveToDestination();
         //_StateMachine.LogFromState("");
+        _NPC._MoveController.DisableCharacterController();
     }
 
-    private float distanceFromPlayer;
+	public override void ExitState()
+	{
+		base.ExitState();
 
-    public override void CheckStateTransitions()
+        _NPC._MoveController.EnableCharacterController();
+	}
+
+	public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
         if (_NPC._AttackController._IsAggressive)
@@ -25,7 +33,6 @@ public class NPCMoveState : NPCState
 
         if (Math.Round(_NPC.transform.position.x, 0) == Math.Round(_NPC._NavigationController._TargetLocation.x, 0) && Math.Round(_NPC.transform.position.z) == Math.Round(_NPC._NavigationController._TargetLocation.z))
         {
-            _NPC._NavigationController.DestroyDebugObject();
             if (_NPC._AttackController._IsAggressive) _StateMachine.ChangeState(_NPC._IdleAggressiveState);
             else _StateMachine.ChangeState(_NPC._IdleState);
         }
@@ -48,5 +55,13 @@ public class NPCMoveState : NPCState
         }
     }
 
-    // end of the line
+	public override void PhysicsUpdate()
+	{
+		base.PhysicsUpdate();
+
+        _StateMachine.LogFromState("Matching velocities");
+        //_NPC._NavigationController.MatchVelocityWithCharController();
+	}
+
+	// end of the line
 }

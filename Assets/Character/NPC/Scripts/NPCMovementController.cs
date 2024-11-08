@@ -6,7 +6,7 @@ using UnityEngine;
 public class NPCMovementController : MonoBehaviour
 {
     private NonPlayerCharacter _Character;
-    [SerializeField]private CharacterController _CharacterController;
+    [field: SerializeField] public CharacterController _CharacterController { get; private set; }
 
     [field: Header("Forces"), SerializeField]
     public Vector3 _ExternalForces { get; private set; }
@@ -47,4 +47,7 @@ public class NPCMovementController : MonoBehaviour
     {
         _CharacterController.Move(_ExternalForces * Time.deltaTime);
     }
+
+    public void EnableCharacterController() => _CharacterController.enabled = true;
+    public void DisableCharacterController() => _CharacterController.enabled = false;
 }
