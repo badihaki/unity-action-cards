@@ -9,6 +9,9 @@ public class GameManagerMaster : MonoBehaviour
     public CharCustomizationDatabase CharacterCustomizationDatabase { get; private set; }
     public GMDice Dice { get; private set; }
 
+    [field: Header("Developer Tools"), SerializeField]
+    public bool devMode { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {

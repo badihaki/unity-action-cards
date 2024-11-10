@@ -1,9 +1,14 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class NavigationNode : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [field:SerializeField] private Color _Color =  Color.cyan;
+    [field: SerializeField] private float _Radius = 1.0f;
+    [field: SerializeField] public List<NavigationNode> _Neighbors;
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
         
     }
@@ -13,4 +18,10 @@ public class NavigationNode : MonoBehaviour
     {
         
     }
+
+	private void OnDrawGizmos()
+	{
+        Gizmos.color = _Color;
+        Gizmos.DrawSphere(transform.position, _Radius);
+	}
 }
