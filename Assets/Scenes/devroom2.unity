@@ -7785,6 +7785,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3106788037192389944, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
+      propertyPath: _NeighborDetectionRadius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3106788037192389944, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
       propertyPath: '_Neighbors.Array.data[0]'
       value: 
       objectReference: {fileID: 1977022387}

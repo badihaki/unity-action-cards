@@ -15,6 +15,7 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
     [field: SerializeField] private bool listReseting;
     private WaitForSeconds listWaitTime = new WaitForSeconds(8.75f);
+    private float resetTimer;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
@@ -42,7 +43,6 @@ public class NPCNavigator : MonoBehaviour
 			if (!node)
 			{
 				node = navNode;
-				print($">>>>> starting node is {node}");
             }
             else
             {
@@ -51,7 +51,6 @@ public class NPCNavigator : MonoBehaviour
 				if (distanceFromSavedNode > distanceFromNavNode) 
                 {
 					node = navNode;
-                    print($">>>>> changing saved node to {node}");
                 }
             }
         }
@@ -103,8 +102,10 @@ public class NPCNavigator : MonoBehaviour
     {
         while (_PriorNavNodes.Count > 0)
         {
+            resetTimer = Time.time;
 			yield return listWaitTime;
-            print($"removing {_PriorNavNodes[0]} from list of prior nodes");
+            print($"removing {_PriorNavNodes[0]} from > LIST < of prior nodes");
+            print($" Elapsed Time == {Time.time - resetTimer}");
             _PriorNavNodes.RemoveAt(0);
             yield return null;
         }
