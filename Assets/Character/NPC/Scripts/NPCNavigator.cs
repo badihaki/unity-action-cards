@@ -13,10 +13,13 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField, Header("Nav Node")]
     public NavigationNode _CurrentNavNode { get; private set; }
     [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
+    [field: SerializeField] private bool listReseting;
+    private WaitForSeconds listWaitTime = new WaitForSeconds(8.75f);
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
         _NPC = npc;
+        listReseting = false;
     }
 
     public bool TryFindNewPatrol()
@@ -26,6 +29,7 @@ public class NPCNavigator : MonoBehaviour
             FindNewNavigationNode();
             return false;
         }
+        FindNextNavigationNode();
         return true;
     }
 
@@ -35,7 +39,7 @@ public class NPCNavigator : MonoBehaviour
         NavigationNode node = null;
         foreach (var navNode in nodes)
         {
-            if (!node)
+			if (!node)
 			{
 				node = navNode;
 				print($">>>>> starting node is {node}");
@@ -54,10 +58,56 @@ public class NPCNavigator : MonoBehaviour
         _CurrentNavNode = node;
     }
 
+    private void FindNextNavigationNode()
+    {
+        NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
+        NavigationNode navNode = GetNewNavNode(nodes);        
+        _CurrentNavNode = navNode;
+    }
+    private NavigationNode GetNewNavNode(NavigationNode[] nodes)
+    {
+        NavigationNode navNode = null;
+        foreach (var node in nodes)
+        {
+            if (!_PriorNavNodes.Contains(node))
+            {
+                navNode = node; // just get the first node we haven't been to yet
+                break;
+            }
+        }
+        if(navNode != null)
+            return navNode;
+        else
+            return nodes[UnityEngine.Random.Range(0, nodes.Length - 1)]; // return a random node
+            
+    }
+
 	public void SetTarget(Transform newTarget) => _Target = newTarget;
     public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {
         SetMaxAttackDistance(distance + 1.0f);
     }
     public void SetMaxAttackDistance(float m_distance = 2.0f) => _MaxDistance = m_distance;
+
+    public void AddToPriorNodes()
+    {
+        _PriorNavNodes.Add(_CurrentNavNode);
+        if (!listReseting)
+        {
+            listReseting = true;
+            StartCoroutine(ResetNavNodeList());
+        }
+    }
+
+    public IEnumerator ResetNavNodeList()
+    {
+        while (_PriorNavNodes.Count > 0)
+        {
+			yield return listWaitTime;
+            print($"removing {_PriorNavNodes[0]} from list of prior nodes");
+            _PriorNavNodes.RemoveAt(0);
+            yield return null;
+        }
+        listReseting = false;
+    }
 }
