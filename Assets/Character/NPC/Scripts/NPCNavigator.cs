@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,11 @@ public class NPCNavigator : MonoBehaviour
 {
     private NonPlayerCharacter _NPC;
     [field: SerializeField, Header("Target info")] public Transform _Target { get; private set; }
-    [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
-    [field: SerializeField] public float _PatrolRange { get; private set; }
     [field: SerializeField] public float _MaxDistance { get; private set; }
+
+    [field: SerializeField, Header("Nav Node")]
+    private NavigationNode _CurrentNavNode;
+    [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
@@ -18,24 +21,40 @@ public class NPCNavigator : MonoBehaviour
 
     public bool TryFindNewPatrol()
     {
-        float xPos = Random.Range(-_PatrolRange, _PatrolRange);
-        float zPos = Random.Range(-_PatrolRange, _PatrolRange);
-        Vector3 newPos = new Vector3(_NPC._NPCActor.transform.position.x + xPos, 0, _NPC._NPCActor.transform.position.z + zPos);
-        // print("new position to find for " + name + "'s patrol: " + newPos);
-        if (Physics.CheckSphere(newPos, 1.0f))
+        if (!_CurrentNavNode) // if we dont have a nav node, lets get one and pause for a minute
         {
-            _TargetLocation = newPos;
-            //CreateDebugObject(newPos);
-            return true;
-        }
-        else
-        {
+            FindNewNavigationNode();
             return false;
         }
+        return true;
     }
 
+	private void FindNewNavigationNode()
+	{
+        NavigationNode[] nodes = GameObject.FindObjectsByType<NavigationNode>(FindObjectsSortMode.None);
+        NavigationNode node = null;
+        foreach (var navNode in nodes)
+        {
+            if (!node)
+			{
+				node = navNode;
+				print($">>>>> starting node is {node}");
+            }
+            else
+            {
+                float distanceFromSavedNode = Vector3.Distance(_NPC._NPCActor.transform.position, node.transform.position);
+                float distanceFromNavNode = Vector3.Distance(_NPC._NPCActor.transform.position, navNode.transform.position);
+				if (distanceFromSavedNode > distanceFromNavNode) 
+                {
+					node = navNode;
+                    print($">>>>> changing saved node to {node}");
+                }
+            }
+        }
+        _CurrentNavNode = node;
+    }
 
-    public void SetTarget(Transform newTarget) => _Target = newTarget;
+	public void SetTarget(Transform newTarget) => _Target = newTarget;
     public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {
         SetMaxAttackDistance(distance + 1.0f);
