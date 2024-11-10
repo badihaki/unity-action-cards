@@ -7,8 +7,6 @@ public class NPCHurtSuperState : NPCState
 	public override void EnterState()
 	{
 		base.EnterState();
-
-        _NPC._NavigationController.StopNavigation();
 	}
 
 	public override void PhysicsUpdate()

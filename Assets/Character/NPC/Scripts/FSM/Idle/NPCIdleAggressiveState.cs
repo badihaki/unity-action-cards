@@ -11,7 +11,6 @@ public class NPCIdleAggressiveState : NPCState
     {
         base.EnterState();
 
-        _NPC._NavigationController.StopNavigation();
         waitTime = CreateNewWait(1.2f, 3.2f);
         // Debug.Log($"aggression wait time = {waitTime}");
         // Debug.Log($"{_NPC._NavigationController.IsNavStopped()}");

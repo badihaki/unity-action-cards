@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class NPCNavigator : MonoBehaviour
 {
     private NonPlayerCharacter _NPC;
-    [field:SerializeField, Header("Agent")]public NavMeshAgent _Agent {  get; private set; }
     [field: SerializeField, Header("Target info")] public Transform _Target { get; private set; }
     [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
     [field: SerializeField] public float _PatrolRange { get; private set; }
@@ -15,8 +14,6 @@ public class NPCNavigator : MonoBehaviour
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
         _NPC = npc;
-        _Agent = _NPC._NPCActor.GetComponent<NavMeshAgent>();
-        _Agent.speed = _NPC._CharacterSheet._WalkSpeed;
     }
 
     public bool TryFindNewPatrol()
@@ -37,43 +34,11 @@ public class NPCNavigator : MonoBehaviour
         }
     }
 
-    public void StartMoveToDestination()
-    {
-        if (_Target)
-        {
-            _Agent.SetDestination(_Target.position);
-            // print($"moving to target at {_Agent.destination}");
-        }
-        else
-        {
-            _Agent.SetDestination(_TargetLocation);
-        }
-        
-    }
-
-    public void StopNavigation()
-    {
-        if (!_Agent.isStopped)
-        {
-            // print("~~~Stop nav");
-            _Agent.isStopped = true;
-            _Agent.ResetPath();
-            _NPC._MoveController.ZeroOutMovement();
-        }
-    }
-
-    public bool IsNavStopped() => _Agent.isStopped;
 
     public void SetTarget(Transform newTarget) => _Target = newTarget;
     public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {
-        _Agent.stoppingDistance = distance;
         SetMaxAttackDistance(distance + 1.0f);
     }
     public void SetMaxAttackDistance(float m_distance = 2.0f) => _MaxDistance = m_distance;
-    public void MatchVelocityWithCharController()
-    {
-		print(_NPC._MoveController._CharacterController.linearVelocity);
-        //_Agent.velocity = _NPC._MoveController._CharacterController.velocity;
-    }
 }

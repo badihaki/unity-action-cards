@@ -1,5 +1,13 @@
 # Card Action Game Readme
 
+### 11-9 - NPC Rewrite
+Guess who has to rewrite how NPCs work!? That's right!!
+Right now, NPCs are having issues with 2 key components: CharacterController and NavAgent. The idea is to abandon NavAgents in favor of an NPC-Nav-Node system.
+Navigation will comprise of two main components: NPCNavigator and NavigationNode
+- NPCNavigator will store which NavgiationNode the NPC is trying to get to, the current target, and information related to that. We get rid of everything NavAgent/NavMesh
+- NavigationNode will be a component that holds information relative to itself and it's neighbors (List of Navigation Nodes)
+
+
 ### 10-31 - It's time to redo Spellslinging
 I plan to bring back the spell-slinging state. Include a zoom-in and targeting reticle. We're doing over-the-shoulder targeting again
 
