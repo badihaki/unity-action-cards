@@ -27,6 +27,8 @@ public class NPCMoveState : NPCState
             if (distanceFromPlayer < _NPC._NavigationController._MaxDistance) _StateMachine.ChangeState(_NPC._IdleAggressiveState);
         }
 
+        _NPC._MoveController.MoveToCurrentNavNode();
+
         //if (Math.Round(_NPC.transform.position.x, 0) == Math.Round(_NPC._NavigationController._TargetLocation.x, 0) && Math.Round(_NPC.transform.position.z) == Math.Round(_NPC._NavigationController._TargetLocation.z))
         //if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._TargetLocation) < 0.5f)
         //{

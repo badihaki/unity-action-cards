@@ -6,7 +6,8 @@ using UnityEngine;
 public class NPCMovementController : MonoBehaviour
 {
     private NonPlayerCharacter _Character;
-    [field: SerializeField] public CharacterController _CharacterController { get; private set; }
+    [field: SerializeField, Header("Components")] public CharacterController _CharacterController { get; private set; }
+	[field: SerializeField] private NPCNavigator _Navigator;
 
     [field: Header("Forces"), SerializeField]
     public Vector3 _ExternalForces { get; private set; }
@@ -15,6 +16,7 @@ public class NPCMovementController : MonoBehaviour
     {
         _Character = character;
         _CharacterController = _Character._Actor.GetComponent<CharacterController>();
+		_Navigator = _Character._NavigationController;
         _ExternalForces = Vector3.zero;
     }
 
@@ -46,5 +48,11 @@ public class NPCMovementController : MonoBehaviour
 	public void ApplyExternalForces()
 	{
 		_CharacterController.Move(_ExternalForces * Time.deltaTime);
+	}
+
+	public void MoveToCurrentNavNode()
+	{
+		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _Character._Actor.transform.position);
+		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
 	}
 }

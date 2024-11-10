@@ -11,7 +11,7 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField] public float _MaxDistance { get; private set; }
 
     [field: SerializeField, Header("Nav Node")]
-    private NavigationNode _CurrentNavNode;
+    public NavigationNode _CurrentNavNode { get; private set; }
     [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
 
     public void InitializeNavigator(NonPlayerCharacter npc)

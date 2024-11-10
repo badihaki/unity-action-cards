@@ -26,6 +26,10 @@ public class NonPlayerCharacter : Character, IDestroyable
         _NPCActor = _Actor as NPCActor;
         _NPCActor.Initialize(this);
 
+		// navigator
+		_NavigationController = GetComponent<NPCNavigator>();
+        _NavigationController.InitializeNavigator(this);
+
         // movement
         _MoveController = GetComponent<NPCMovementController>();
         _MoveController.InitializeNPCMovement(this);
@@ -33,10 +37,6 @@ public class NonPlayerCharacter : Character, IDestroyable
 		// start UI
 		_UI = GetComponent<CharacterUIController>();
         _UI.InitializeUI(false, this);
-
-		// navigator
-		_NavigationController = GetComponent<NPCNavigator>();
-        _NavigationController.InitializeNavigator(this);
 
         // attack controller
         _AttackController = GetComponent<NPCAttack>();
