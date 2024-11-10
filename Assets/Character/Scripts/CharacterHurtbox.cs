@@ -19,6 +19,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 
     public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
     {
+        print("damagin from hurtbox");
         if(damageSource != character.transform)
         {
             character._Health.TakeDamage(damage);

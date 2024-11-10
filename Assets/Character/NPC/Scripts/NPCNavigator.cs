@@ -73,7 +73,7 @@ public class NPCNavigator : MonoBehaviour
     public void SetMaxAttackDistance(float m_distance = 2.0f) => _MaxDistance = m_distance;
     public void MatchVelocityWithCharController()
     {
-		print(_NPC._MoveController._CharacterController.velocity);
+		print(_NPC._MoveController._CharacterController.linearVelocity);
         //_Agent.velocity = _NPC._MoveController._CharacterController.velocity;
     }
 }

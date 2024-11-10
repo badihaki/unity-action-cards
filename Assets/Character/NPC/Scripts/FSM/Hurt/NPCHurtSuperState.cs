@@ -15,7 +15,7 @@ public class NPCHurtSuperState : NPCState
 	{
 		base.PhysicsUpdate();
 
-        _NPC._MoveController.ApplyExternalForces();
+        //_NPC._MoveController.ApplyExternalForces();
 	}
 
 	public override void AnimationEndTrigger()
