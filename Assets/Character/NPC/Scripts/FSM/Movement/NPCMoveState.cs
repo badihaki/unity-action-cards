@@ -24,8 +24,6 @@ public class NPCMoveState : NPCState
     {
         base.CheckStateTransitions();
         
-        _NPC._MoveController.MoveToCurrentNavNode();
-        
         if (_NPC._AttackController._IsAggressive)
         {
             if (distanceFromPlayer < _NPC._NavigationController._MaxDistance) _StateMachine.ChangeState(_NPC._IdleAggressiveState);
@@ -46,6 +44,7 @@ public class NPCMoveState : NPCState
 	public override void PhysicsUpdate()
 	{
 		base.PhysicsUpdate();
+        _NPC._MoveController.MoveToCurrentNavNode();
 	}
 
 	// end of the line

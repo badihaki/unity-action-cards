@@ -52,7 +52,7 @@ public class NPCMovementController : MonoBehaviour
 
 	public void MoveToCurrentNavNode()
 	{
-		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _Character._Actor.transform.position);
+		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _Character._Actor.transform.position).normalized;
 		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
 	}
 }

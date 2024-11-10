@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5802022847691065101}
-  - component: {fileID: 3106788037192389944}
   - component: {fileID: 7980320924548682412}
-  - component: {fileID: 3629773059629673469}
+  - component: {fileID: 3106788037192389944}
+  - component: {fileID: 3805388011654496622}
   m_Layer: 10
   m_Name: NavigationNode
   m_TagString: Untagged
@@ -34,22 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3106788037192389944
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4989213716032509200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: beaa2c837034e254a8478de217b7650f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Color: {r: 0, g: 1, b: 1, a: 1}
-  _EditorSphereRadius: 1
-  _NeighborDetectionRadius: 16.8
-  _Neighbors: []
 --- !u!135 &7980320924548682412
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -69,32 +53,35 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1
+  m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3629773059629673469
-Rigidbody:
+--- !u!114 &3106788037192389944
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4989213716032509200}
-  serializedVersion: 4
-  m_Mass: 0.01
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: beaa2c837034e254a8478de217b7650f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Color: {r: 0, g: 1, b: 1, a: 1}
+  _EditorSphereRadius: 0.5
+  _NeighborDetectionRadius: 10
+  _Neighbors: []
+--- !u!114 &3805388011654496622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989213716032509200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201727851b34a2d4d8c4bf888a3e238e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Color: {r: 1, g: 0, b: 0.9810171, a: 0.13725491}
+  _EditorSphereRadius: 10

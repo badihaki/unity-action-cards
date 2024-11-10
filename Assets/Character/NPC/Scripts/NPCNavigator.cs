@@ -14,7 +14,7 @@ public class NPCNavigator : MonoBehaviour
     public NavigationNode _CurrentNavNode { get; private set; }
     [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
     [field: SerializeField] private bool listReseting;
-    private WaitForSeconds listWaitTime = new WaitForSeconds(8.75f);
+    private WaitForSeconds listWaitTime = new WaitForSeconds(12.386f);
     private float resetTimer;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
