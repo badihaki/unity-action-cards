@@ -1,15 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCMovementController : MonoBehaviour
 {
     private NonPlayerCharacter _Character;
-    [field: SerializeField, Header("Components")] public CharacterController _CharacterController { get; private set; }
-	[field: SerializeField] private NPCNavigator _Navigator;
-
-    [field: Header("Forces"), SerializeField]
+    [field: SerializeField, Header("Components")]
+	public CharacterController _CharacterController { get; private set; }
+	
+	[field: SerializeField]
+	private NPCNavigator _Navigator;
+	
+	[field: Header("Forces"), SerializeField]
     public Vector3 _ExternalForces { get; private set; }
 
     public void InitializeNPCMovement(NonPlayerCharacter character)
@@ -54,5 +54,15 @@ public class NPCMovementController : MonoBehaviour
 	{
 		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _Character._Actor.transform.position).normalized;
 		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
+	}
+
+	public void RotateTowardsTarget(Transform target)
+	{
+		float rotationSmoothTime = 5.50f;
+		Vector3 targetRotation = target.position - _Character._NPCActor.transform.position;
+		Quaternion lookRotation = Quaternion.LookRotation(targetRotation);
+		lookRotation.x = 0;
+		lookRotation.z = 0;
+		_Character._NPCActor.transform.rotation = Quaternion.Slerp(_Character._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
 	}
 }

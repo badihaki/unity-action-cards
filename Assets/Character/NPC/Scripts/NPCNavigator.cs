@@ -14,7 +14,7 @@ public class NPCNavigator : MonoBehaviour
     public NavigationNode _CurrentNavNode { get; private set; }
     [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
     [field: SerializeField] private bool listReseting;
-    private WaitForSeconds listWaitTime = new WaitForSeconds(12.386f);
+    private WaitForSeconds listWaitTime = new WaitForSeconds(9.386f);
     private float resetTimer;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
@@ -91,14 +91,15 @@ public class NPCNavigator : MonoBehaviour
     public void AddToPriorNodes()
     {
         _PriorNavNodes.Add(_CurrentNavNode);
+        if (_PriorNavNodes.Count > 5) _PriorNavNodes.RemoveAt(0);
         if (!listReseting)
         {
             listReseting = true;
-            StartCoroutine(ResetNavNodeList());
+            StartCoroutine(ManageNavNodeList());
         }
     }
 
-    public IEnumerator ResetNavNodeList()
+    public IEnumerator ManageNavNodeList()
     {
         while (_PriorNavNodes.Count > 0)
         {

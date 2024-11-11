@@ -18,6 +18,7 @@ public class PlayerJumpState : PlayerState
 		_PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
 		_PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._LocomotionController.Jump();
+        _PlayerCharacter._Controls.UseRush();
         // _PlayerCharacter._LocomotionController.ApplyGravity(0.1f);
         _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
     }

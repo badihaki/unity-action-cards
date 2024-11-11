@@ -8659,6 +8659,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 3.4471993
       objectReference: {fileID: 0}
+    - target: {fileID: 8458274122206909391, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
+        type: 3}
+      propertyPath: rotationSmoothTime
+      value: 5.5
+      objectReference: {fileID: 0}
     - target: {fileID: 8758588703188256753, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

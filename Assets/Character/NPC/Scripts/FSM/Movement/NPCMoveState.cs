@@ -45,6 +45,7 @@ public class NPCMoveState : NPCState
 	{
 		base.PhysicsUpdate();
         _NPC._MoveController.MoveToCurrentNavNode();
+        _NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._CurrentNavNode.transform);
 	}
 
 	// end of the line

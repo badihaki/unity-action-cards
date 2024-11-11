@@ -11,6 +11,7 @@ public class PlayerAirDashState : PlayerState
         base.EnterState();
 
         _PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
+        _PlayerCharacter._Controls.UseRush();
         _PlayerCharacter._LocomotionController.SetAirDash(false);
 		_PlayerCharacter._LocomotionController.Jump();
     }
