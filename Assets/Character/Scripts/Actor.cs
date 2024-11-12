@@ -53,7 +53,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
         //print($"applying knockback to actor {name} controlled by {_Character}");
 	}
 
-	public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
+	public virtual void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
 	{
 		if (damageSource != _Character.transform && !_IsInvuln)
 		{

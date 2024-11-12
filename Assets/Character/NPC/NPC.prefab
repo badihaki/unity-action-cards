@@ -603,6 +603,7 @@ GameObject:
   - component: {fileID: 9058892206244568203}
   - component: {fileID: 455657816430404285}
   - component: {fileID: 3619809736358683585}
+  - component: {fileID: 6753683996963061221}
   m_Layer: 0
   m_Name: NPC
   m_TagString: Untagged
@@ -649,6 +650,7 @@ MonoBehaviour:
   <_NavigationController>k__BackingField: {fileID: 0}
   <_AttackController>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
+  <_AggressionManager>k__BackingField: {fileID: 0}
   hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
@@ -777,6 +779,20 @@ MonoBehaviour:
   _Aggressor: {fileID: 0}
   <_DesiredAttackDistance>k__BackingField: 0
   _AttackTicket: 0
+--- !u!114 &6753683996963061221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797102457050523090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e1b6cd0cc278d42805608c730cdddb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_Aggression>k__BackingField: 0
+  <_LastAggressors>k__BackingField: []
 --- !u!1 &2000793969464477148
 GameObject:
   m_ObjectHideFlags: 0
