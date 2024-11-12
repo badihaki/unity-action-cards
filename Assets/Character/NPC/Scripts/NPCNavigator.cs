@@ -105,8 +105,8 @@ public class NPCNavigator : MonoBehaviour
         {
             resetTimer = Time.time;
 			yield return listWaitTime;
-            print($"removing {_PriorNavNodes[0]} from > LIST < of prior nodes");
-            print($" Elapsed Time == {Time.time - resetTimer}");
+            //print($"removing {_PriorNavNodes[0]} from > LIST < of prior nodes");
+            //print($" Elapsed Time == {Time.time - resetTimer}");
             _PriorNavNodes.RemoveAt(0);
             yield return null;
         }
