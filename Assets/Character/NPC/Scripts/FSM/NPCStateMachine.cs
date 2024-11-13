@@ -5,17 +5,54 @@ using UnityEngine;
 
 public class NPCStateMachine : MonoBehaviour
 {
-    [field: SerializeField] public NPCState _CurrentState { get; private set; }
+	public NPCIdleState _IdleState { get; private set; }
+	public NPCIdleAggressiveState _IdleAggressiveState { get; private set; }
+	public NPCMoveState _MoveState { get; private set; }
+	public NPCHurtSuperState _HurtState { get; private set; }
+
+	[field: SerializeField]
+    public NPCState _CurrentState { get; private set; }
+    
+    
     private bool _Ready = false;
     
-    public void InitializeStateMachine(NPCState state)
+
+    public void InitializeStateMachine(NonPlayerCharacter npc)
     {
-        _CurrentState = state;
+        SetUpStateMachine(npc);
+        _CurrentState = _IdleState;
         _CurrentState.EnterState();
         _Ready = true;
     }
 
-    public void ChangeState(NPCState state)
+	public virtual void SetUpStateMachine(NonPlayerCharacter npc)
+	{
+		if (!_IdleState)
+		{
+			_IdleState = NPCIdleState.CreateInstance<NPCIdleState>();
+		}
+		_IdleState.InitState(npc, this, "idle");
+
+		if (!_IdleAggressiveState)
+		{
+			_IdleAggressiveState = NPCIdleAggressiveState.CreateInstance<NPCIdleAggressiveState>();
+		}
+		_IdleAggressiveState.InitState(npc, this, "idle");
+
+		if (!_MoveState)
+		{
+			_MoveState = NPCMoveState.CreateInstance<NPCMoveState>();
+		}
+		_MoveState.InitState(npc, this, "move");
+
+		if (!_HurtState)
+		{
+			_HurtState = NPCHurtSuperState.CreateInstance<NPCHurtSuperState>();
+		}
+		_HurtState.InitState(npc, this, "hurt");
+	}
+
+	public void ChangeState(NPCState state)
     {
         _CurrentState.ExitState();
         _CurrentState = state;

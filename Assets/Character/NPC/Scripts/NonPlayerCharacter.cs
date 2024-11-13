@@ -13,10 +13,7 @@ public class NonPlayerCharacter : Character, IDestroyable
 
 	// State Machine
 	public NPCStateMachine _StateMachine { get; private set; }
-    public NPCIdleState _IdleState { get; private set; }
-    public NPCIdleAggressiveState _IdleAggressiveState { get; private set; }
-    public NPCMoveState _MoveState { get; private set; }
-    public NPCHurtSuperState _HurtState { get; private set; }
+
     [field: SerializeField] private string hitAnimationString;
     
     public override void Initialize()
@@ -44,37 +41,9 @@ public class NonPlayerCharacter : Character, IDestroyable
 
         // state machine
         _StateMachine = GetComponent<NPCStateMachine>();
-        // set up states
-        SetUpStateMachine();
+        
         // Initialize state machine
-        _StateMachine.InitializeStateMachine(_IdleState);
-    }
-
-    public virtual void SetUpStateMachine()
-    {
-        if (!_IdleState)
-        {
-            _IdleState = NPCIdleState.CreateInstance<NPCIdleState>();
-        }
-        _IdleState.InitState(this, _StateMachine, "idle");
-
-        if (!_IdleAggressiveState)
-        {
-            _IdleAggressiveState = NPCIdleAggressiveState.CreateInstance<NPCIdleAggressiveState>();
-        }
-        _IdleAggressiveState.InitState(this, _StateMachine, "idle");
-
-        if (!_MoveState)
-        {
-            _MoveState = NPCMoveState.CreateInstance<NPCMoveState>();
-        }
-        _MoveState.InitState(this, _StateMachine, "move");
-
-        if (!_HurtState)
-        {
-            _HurtState = NPCHurtSuperState.CreateInstance<NPCHurtSuperState>();
-        }
-        _HurtState.InitState(this, _StateMachine, "hurt");
+        _StateMachine.InitializeStateMachine(this);
     }
 
     protected override void TriggerhitAnimation(string hitType)
@@ -82,7 +51,7 @@ public class NonPlayerCharacter : Character, IDestroyable
         hitAnimationString = hitType;
         //_AnimationController.SetBool(hitAnimationString, true);
         _AnimationController.SetTrigger(hitAnimationString);
-        _StateMachine.ChangeState(_HurtState);
+        _StateMachine.ChangeState(_StateMachine._HurtState);
 
         if (_AttackController && !_AttackController._IsAggressive)
         {
