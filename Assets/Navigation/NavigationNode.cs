@@ -11,20 +11,25 @@ public class NavigationNode : MonoBehaviour
 	[field: SerializeField] public List<NavigationNode> _Neighbors;
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
-    {
-        //if (Physics.SphereCast(transform.position, _NeighborDetectionRadius, transform.forward, out RaycastHit hitInfo, 0.0f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal))
-        Collider[] colliders = (Physics.OverlapSphere(transform.position, _NeighborDetectionRadius, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
-        foreach (var item in colliders)
-        {
-            NavigationNode navNode = item.GetComponent<NavigationNode>();
-            if (navNode && navNode != this) _Neighbors.Add(navNode);
-        }
-        Destroy(gameObject.GetComponent<NavNodeEditorHelper>());
-        Destroy(gameObject.GetComponent<SphereCollider>());
+	{
+		//if (Physics.SphereCast(transform.position, _NeighborDetectionRadius, transform.forward, out RaycastHit hitInfo, 0.0f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal))
+		FindNeightbors();
+		Destroy(gameObject.GetComponent<NavNodeEditorHelper>());
+		//Destroy(gameObject.GetComponent<SphereCollider>());
 	}
 
-    // Update is called once per frame
-    void Update()
+	public void FindNeightbors()
+	{
+		Collider[] colliders = (Physics.OverlapSphere(transform.position, _NeighborDetectionRadius, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
+		foreach (var item in colliders)
+		{
+			NavigationNode navNode = item.GetComponent<NavigationNode>();
+			if (navNode && navNode != this) _Neighbors.Add(navNode);
+		}
+	}
+
+	// Update is called once per frame
+	void Update()
     {
         
     }

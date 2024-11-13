@@ -100,8 +100,15 @@ public class NonPlayerCharacter : Character, IDestroyable
         hitAnimationString = "";
     }
 
-    #region State Triggers
-    public void StateSideEffect() => _StateMachine._CurrentState.SideEffectTrigger();
+	public override void DestroyEntity()
+	{
+        _Actor.Die();
+
+		base.DestroyEntity();
+	}
+
+	#region State Triggers
+	public void StateSideEffect() => _StateMachine._CurrentState.SideEffectTrigger();
     public void StateVisFX() => _StateMachine._CurrentState.VFXTrigger();
     public void StateSoundFX() => _StateMachine._CurrentState.SFXTrigger();
     public void StateAnimEnd() => _StateMachine._CurrentState.AnimationEndTrigger();

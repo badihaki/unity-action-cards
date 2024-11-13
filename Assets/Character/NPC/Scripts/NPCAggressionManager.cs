@@ -15,6 +15,10 @@ public class NPCAggressionManager : MonoBehaviour
     private WaitForSeconds slowWait = new WaitForSeconds(1.35f);
     private WaitForSeconds fastWait = new WaitForSeconds(0.35f);
 
+    // events
+    public delegate void OnAggressed();
+    public event OnAggressed IsAggressed;
+
 	public void Initialize(NonPlayerCharacter npc)
     {
         _Aggression = 0;
@@ -27,7 +31,8 @@ public class NPCAggressionManager : MonoBehaviour
         if (_Aggression >= 50 && !isAggressive)
         {
             isAggressive = true;
-            StartCoroutine(SlowlyLowerAggression());
+            IsAggressed();
+			StartCoroutine(SlowlyLowerAggression());
         }
         if (_Aggression > 100) _Aggression = 100;
 

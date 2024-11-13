@@ -83,4 +83,11 @@ public class NPCActor : Actor, ITargetable, IAggressable
 		print($"final aggression = {aggression}");
 		return aggression;
 	}
+
+	public override void Die()
+	{
+		EntityIsDamaged -= _AggressionManager.AddAggression;
+
+		base.Die();
+	}
 }

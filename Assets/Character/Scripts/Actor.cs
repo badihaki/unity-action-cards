@@ -94,4 +94,9 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 	{
         return transform;
 	}
+
+    public virtual void Die()
+    {
+        //
+    }
 }

@@ -21,6 +21,27 @@ public class NPCNavigator : MonoBehaviour
     {
         _NPC = npc;
         listReseting = false;
+        _NPC._NPCActor._AggressionManager.IsAggressed += ClearNavInfo;
+    }
+
+	private void OnEnable()
+	{
+		if(_NPC != null)
+        {
+			_NPC._NPCActor._AggressionManager.IsAggressed += ClearNavInfo;
+		}
+	}
+
+	private void OnDisable()
+	{
+
+		_NPC._NPCActor._AggressionManager.IsAggressed -= ClearNavInfo;
+	}
+
+	private void ClearNavInfo()
+    {
+        _PriorNavNodes.Clear();
+        _CurrentNavNode = null;
     }
 
     public bool TryFindNewPatrol()
@@ -33,24 +54,28 @@ public class NPCNavigator : MonoBehaviour
         FindNextNavigationNode();
         return true;
     }
-
+	
 	private void FindNewNavigationNode()
 	{
-        NavigationNode[] nodes = GameObject.FindObjectsByType<NavigationNode>(FindObjectsSortMode.None);
-        NavigationNode node = null;
+        //NavigationNode[] nodes = GameObject.FindObjectsByType<NavigationNode>(FindObjectsSortMode.None);
+		Collider[] nodes = (Physics.OverlapSphere(transform.position, 10.5f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
+		NavigationNode node = null;
         foreach (var navNode in nodes)
         {
+            NavigationNode NavNode = navNode.GetComponent<NavigationNode>();
 			if (!node)
 			{
-				node = navNode;
-            }
+				//node = navNode;
+				node = NavNode;
+			}
             else
             {
                 float distanceFromSavedNode = Vector3.Distance(_NPC._NPCActor.transform.position, node.transform.position);
                 float distanceFromNavNode = Vector3.Distance(_NPC._NPCActor.transform.position, navNode.transform.position);
 				if (distanceFromSavedNode > distanceFromNavNode) 
                 {
-					node = navNode;
+					//node = navNode;
+					node = NavNode;
                 }
             }
         }
