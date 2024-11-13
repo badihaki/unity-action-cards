@@ -11,8 +11,12 @@ public class NPCMovementController : MonoBehaviour
 	
 	[field: Header("Forces"), SerializeField]
     public Vector3 _ExternalForces { get; private set; }
+	[SerializeField] private float _Gravity = 9.810f;
+	[SerializeField] private float _VerticalVelocity;
+	[SerializeField] private float _BaseVerticalVelocity = -1.00f;
+	[SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
 
-    public void InitializeNPCMovement(NonPlayerCharacter character)
+	public void InitializeNPCMovement(NonPlayerCharacter character)
     {
         _Character = character;
         _CharacterController = _Character._Actor.GetComponent<CharacterController>();
@@ -20,11 +24,22 @@ public class NPCMovementController : MonoBehaviour
         _ExternalForces = Vector3.zero;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void ApplyGravity(float gravityModifier = 1.0f)
+	{
+		gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f);
+		if (_Character._CheckGrounded.IsGrounded())
+		{
+			_VerticalVelocity = _BaseVerticalVelocity;
+		}
+		else
+		{
+			_VerticalVelocity -= (_Gravity * (Time.deltaTime * 2.25f)) * gravityModifier;
+			if (_VerticalVelocity < _MaxFallVelocity) _VerticalVelocity = _MaxFallVelocity;
+			Vector3 forceModifier = _ExternalForces;
+			forceModifier.y = _VerticalVelocity;
+			_ExternalForces = forceModifier;
+		}
+	}
 
 	public void ZeroOutMovement() => _CharacterController.Move(Vector3.zero);
 
@@ -53,6 +68,8 @@ public class NPCMovementController : MonoBehaviour
 	public void MoveToCurrentNavNode()
 	{
 		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _Character._Actor.transform.position).normalized;
+		ApplyGravity(1);
+		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
 	}
 
