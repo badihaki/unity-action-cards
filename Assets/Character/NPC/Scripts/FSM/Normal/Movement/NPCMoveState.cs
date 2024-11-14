@@ -28,13 +28,13 @@ public class NPCMoveState : NPCState
         {
 			// if aggressive
 			_StateMachine.LogFromState($"player-to-target distance -> {distanceFromPlayer.ToString()}");
-            if (distanceFromPlayer < _NPC._NavigationController._MaxDistance) _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+            if (distanceFromPlayer < _NPC._AttackController._DesiredAttackDistance) _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
         }
         else if (!_NPC._NPCActor._AggressionManager.isAggressive)
         {
             // not aggressive
             // check distance between current node from nav controller and actor
-            if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= 0.5f)
+            if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
             {
                 _StateMachine.ChangeState(_StateMachine._IdleState);
             }
@@ -61,6 +61,7 @@ public class NPCMoveState : NPCState
         if(_NPC._NPCActor._AggressionManager.isAggressive)
         {
             _NPC._MoveController.MoveToTarget();
+            _NPC._MoveController.RotateTowardsTarget(_NPC._AttackController._ActiveTarget);
         }
         else
         {

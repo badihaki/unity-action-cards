@@ -18,18 +18,32 @@ public class NPCIdleAggressiveState : NPCState
 
     public override void LogicUpdate()
     {
-        distanceFromPlayer = Vector3.Distance(_NPC.transform.position, _NPC._NavigationController._Target.position);
-
-        base.LogicUpdate();
+        // distanceFromPlayer = Vector3.Distance(_NPC.transform.position, _NPC._NavigationController._Target.position);
+		if (_NPC._NPCActor._AggressionManager.isAggressive && _NPC._AttackController._ActiveTarget != null)
+		{
+			distanceFromPlayer = _NPC._AttackController.GetDistanceFromTarget();
+		}
+		else
+		{
+			distanceFromPlayer = 1.75f;
+		}
+		base.LogicUpdate();
         
         if (waitTime > 0) RunWaitTimer();
         
     }
 
-    public override void CheckStateTransitions()
+	public override void PhysicsUpdate()
+	{
+		base.PhysicsUpdate();
+
+		_NPC._MoveController.RotateTowardsTarget(_NPC._AttackController._ActiveTarget);
+	}
+
+	public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
-        if (distanceFromPlayer > _NPC._NavigationController._MaxDistance)
+        if (distanceFromPlayer > _NPC._AttackController._DesiredAttackDistance)
         {
             // Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
             _StateMachine.ChangeState(_StateMachine._MoveState);

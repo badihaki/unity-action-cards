@@ -75,6 +75,7 @@ public class NPCMovementController : MonoBehaviour
 
 	public void RotateTowardsTarget(Transform target)
 	{
+		print($"rotating towards {target.name}");
 		float rotationSmoothTime = 5.50f;
 		Vector3 targetRotation = target.position - _Character._NPCActor.transform.position;
 		Quaternion lookRotation = Quaternion.LookRotation(targetRotation);
