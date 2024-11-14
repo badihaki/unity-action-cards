@@ -20,13 +20,13 @@ public class NPCHurtSuperState : NPCState
     {
         base.AnimationEndTrigger();
 
-        if (!_NPC._AttackController._IsAggressive)
+        if (!_NPC._NPCActor._AggressionManager.isAggressive)
         {
-            _StateMachine.ChangeState(_NPC._IdleState);
+            _StateMachine.ChangeState(_StateMachine._IdleState);
         }
         else
         {
-            _StateMachine.ChangeState(_NPC._IdleAggressiveState);
+            _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
         }
     }
 

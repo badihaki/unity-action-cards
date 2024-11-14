@@ -77,6 +77,6 @@ public class NPCStateMachine : MonoBehaviour
 
     public void LogFromState(string input)
     {
-        print($"{input} >>> :: <<< Logged from {_CurrentState.ToString()}");
+        print($">>> : {input} : <<< Logged from {_CurrentState.ToString()}");
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -21,27 +22,29 @@ public class NPCNavigator : MonoBehaviour
     {
         _NPC = npc;
         listReseting = false;
-        _NPC._NPCActor._AggressionManager.IsAggressed += ClearNavInfo;
+        _NPC._NPCActor._AggressionManager.IsAggressed += BecomeAggressed;
     }
 
 	private void OnEnable()
 	{
 		if(_NPC != null)
         {
-			_NPC._NPCActor._AggressionManager.IsAggressed += ClearNavInfo;
+			_NPC._NPCActor._AggressionManager.IsAggressed += BecomeAggressed;
 		}
 	}
 
 	private void OnDisable()
 	{
 
-		_NPC._NPCActor._AggressionManager.IsAggressed -= ClearNavInfo;
+		_NPC._NPCActor._AggressionManager.IsAggressed -= BecomeAggressed;
 	}
 
-	private void ClearNavInfo()
+	private void BecomeAggressed()
     {
+        StopCoroutine(ManageNavNodeList());
         _PriorNavNodes.Clear();
         _CurrentNavNode = null;
+        _Target = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
     }
 
     public bool TryFindNewPatrol()

@@ -6,11 +6,9 @@ using UnityEngine;
 public class NPCAttack : MonoBehaviour
 {
     private NonPlayerCharacter _NPC;
-    [field: SerializeField] public bool _IsAggressive { get; private set; }
-    [SerializeField] private Transform _Aggressor;
 
-    public Transform _MainTarget { get; private set; }
-    public List<Transform> _SideTargets { get; private set; }
+    [field: SerializeField]
+    public Transform _ActiveTarget { get; private set; }
     [field: SerializeField] public float _DesiredAttackDistance { get; private set; }
     [SerializeField] private bool _AttackTicket;
     
@@ -19,7 +17,7 @@ public class NPCAttack : MonoBehaviour
         _NPC = character;
         _AttackTicket = true;
         SetDesiredAttackDistance(3.5f);
-        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewAggressor;
+        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTarget;
     }
 
     public void SetDesiredAttackDistance(float distance = 1.5f)
@@ -28,19 +26,14 @@ public class NPCAttack : MonoBehaviour
         _NPC._NavigationController.SetTargetDesiredDistance(_DesiredAttackDistance);
     }
 
-    private void SetNewAggressor(Transform aggressor)
+    public void SetNewTarget(Transform aggressor)
     {
-        _Aggressor = aggressor;
-        int roll = GameManagerMaster.GameMaster.Dice.RollD10();
-        if (roll < 5) MakeAggressive(aggressor);
+        _ActiveTarget = aggressor;
     }
 
-    public void MakeAggressive(Transform aggressor)
+    public float GetDistanceFromTarget()
     {
-        _IsAggressive = true;
-        if (!_Aggressor) _MainTarget = aggressor;
-        else _MainTarget = _Aggressor;
-        if (!_AttackTicket) _AttackTicket = true;
-        _NPC._NavigationController.SetTarget(_MainTarget);
+        float dist = Vector3.Distance(_NPC._NPCActor.transform.position, _ActiveTarget.position);
+        return dist;
     }
 }

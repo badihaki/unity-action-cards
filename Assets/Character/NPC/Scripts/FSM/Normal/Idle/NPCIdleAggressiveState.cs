@@ -32,7 +32,7 @@ public class NPCIdleAggressiveState : NPCState
         if (distanceFromPlayer > _NPC._NavigationController._MaxDistance)
         {
             // Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
-            _StateMachine.ChangeState(_NPC._MoveState);
+            _StateMachine.ChangeState(_StateMachine._MoveState);
         }
     }
 

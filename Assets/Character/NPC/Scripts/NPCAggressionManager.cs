@@ -9,7 +9,7 @@ public class NPCAggressionManager : MonoBehaviour
     [field: SerializeField]
     public List<Transform> _LastAggressors {  get; private set; }
     [field: SerializeField]
-    private bool isAggressive;
+    public bool isAggressive { get; private set; }
 
     // waits
     private WaitForSeconds slowWait = new WaitForSeconds(1.35f);

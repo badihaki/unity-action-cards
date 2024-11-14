@@ -54,7 +54,7 @@ public class NPCMovementController : MonoBehaviour
 			//_CharacterController.Move(direction * Mathf.Sqrt(knockforce)); // was I using the wrong value all along??
 			//_CharacterController.Move(force);
 
-			print($"{name} is KNOCKBACKED in direction >> {direction} with force {force} resulting in {direction * Mathf.Sqrt(knockforce)} <<");
+			//print($"{name} is KNOCKBACKED in direction >> {direction} with force {force} resulting in {direction * Mathf.Sqrt(knockforce)} <<");
 			_ExternalForces = force;
 		}
 		else _ExternalForces = Vector3.zero;
@@ -81,5 +81,13 @@ public class NPCMovementController : MonoBehaviour
 		lookRotation.x = 0;
 		lookRotation.z = 0;
 		_Character._NPCActor.transform.rotation = Quaternion.Slerp(_Character._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
+	}
+
+	public void MoveToTarget()
+	{
+		Vector3 direction = (_Navigator._Target.transform.position - _Character._Actor.transform.position).normalized;
+		ApplyGravity(1);
+		direction.y = _VerticalVelocity;
+		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
 	}
 }
