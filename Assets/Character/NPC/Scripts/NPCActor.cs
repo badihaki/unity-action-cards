@@ -62,7 +62,7 @@ public class NPCActor : Actor, ITargetable, IAggressable
 		NPC._MoveController.SetExternalForces(forceSource, knockforce, launchForce);
 	}
 
-	public override void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
+	public override void Damage(int damage, Transform damageSource, float knockForce, float launchForce, Character damageSourceController = null)
 	{
 		base.Damage(damage, damageSource, knockForce, launchForce);
         EntityIsDamaged(CalculateAggression(damage, knockForce, launchForce), damageSource);

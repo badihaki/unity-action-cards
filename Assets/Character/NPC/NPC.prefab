@@ -650,7 +650,6 @@ MonoBehaviour:
   <_NavigationController>k__BackingField: {fileID: 0}
   <_AttackController>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
-  <_AggressionManager>k__BackingField: {fileID: 0}
   hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
@@ -667,6 +666,10 @@ MonoBehaviour:
   <_CharacterController>k__BackingField: {fileID: 0}
   _Navigator: {fileID: 0}
   <_ExternalForces>k__BackingField: {x: 0, y: 0, z: 0}
+  _Gravity: 9.81
+  _VerticalVelocity: 0
+  _BaseVerticalVelocity: -1
+  _MaxFallVelocity: -25
 --- !u!114 &4240367807110500814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,8 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a2b87e5dcfcd340a60484e424be42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_IsAggressive>k__BackingField: 0
-  _Aggressor: {fileID: 0}
+  <_ActiveTarget>k__BackingField: {fileID: 0}
   <_DesiredAttackDistance>k__BackingField: 0
   _AttackTicket: 0
 --- !u!114 &6753683996963061221
@@ -793,6 +795,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <_Aggression>k__BackingField: 0
   <_LastAggressors>k__BackingField: []
+  <isAggressive>k__BackingField: 0
 --- !u!1 &2000793969464477148
 GameObject:
   m_ObjectHideFlags: 0
@@ -2360,6 +2363,7 @@ MonoBehaviour:
   <animationController>k__BackingField: {fileID: 0}
   <_CheckGrounded>k__BackingField: {fileID: 0}
   bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
+  <_AggressionManager>k__BackingField: {fileID: 0}
 --- !u!114 &3431827879052736542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3448,6 +3452,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hurtbox
+      objectReference: {fileID: 0}
+    - target: {fileID: 8675831057292959996, guid: 07423d602c5e81a4a84fca35b0f4c4aa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

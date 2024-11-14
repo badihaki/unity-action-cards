@@ -41,6 +41,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        print(collider.name);
         if(_ready)
         {
             if(collider.gameObject.layer == 9)
@@ -51,13 +52,13 @@ public class Projectile : MonoBehaviour
             Character hitCharacter = collider.GetComponentInParent<Character>();
             if(hitCharacter != _controllingCharacter)
             {
-                // print(hitCharacter.name);
+                 //print(hitCharacter.name);
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
-                    damageableEntity?.Damage(_damage, _controllingCharacter.transform, _damageForces.x, _damageForces.y);
+                    damageableEntity?.Damage(_damage, _controllingCharacter._Actor.transform, _damageForces.x, _damageForces.y, _controllingCharacter);
             
-                    // print("projectile " + name + " collided with " + hitCharacter.name);
+                     print("projectile " + name + " collided with " + hitCharacter.name);
                 }
                 if (_impactVFX) OnImpact(true);
                 else OnImpact(false);

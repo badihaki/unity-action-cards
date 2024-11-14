@@ -30,7 +30,7 @@ public class NPCMoveState : NPCState
 			_StateMachine.LogFromState($"player-to-target distance -> {distanceFromPlayer.ToString()}");
             if (distanceFromPlayer < _NPC._NavigationController._MaxDistance) _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
         }
-        else
+        else if (!_NPC._NPCActor._AggressionManager.isAggressive)
         {
             // not aggressive
             // check distance between current node from nav controller and actor

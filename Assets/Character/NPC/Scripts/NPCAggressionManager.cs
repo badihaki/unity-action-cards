@@ -28,6 +28,12 @@ public class NPCAggressionManager : MonoBehaviour
     public void AddAggression(int aggression, Transform aggressor)
     {
         _Aggression += aggression;
+        
+        if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
+        {
+            _LastAggressors.Add(aggressor);
+        }
+
         if (_Aggression >= 50 && !isAggressive)
         {
             isAggressive = true;
@@ -35,11 +41,6 @@ public class NPCAggressionManager : MonoBehaviour
 			StartCoroutine(SlowlyLowerAggression());
         }
         if (_Aggression > 100) _Aggression = 100;
-
-        if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
-        {
-            _LastAggressors.Add(aggressor);
-        }
     }
 
     private IEnumerator SlowlyLowerAggression()

@@ -17,24 +17,25 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         //print($"{character.name} has knock interface {knockInterface}");
     }
 
-    public void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
+    public void Damage(int damage, Transform damageSource, float knockForce, float launchForce, Character damageSourceController = null)
     {
         print("damagin from hurtbox");
-        if(damageSource != character.transform)
-        {
-            character._Health.TakeDamage(damage);
-            character._Actor.transform.LookAt(damageSource);
+        //if(damageSource != character.transform)
+        //{
+        //    character._Health.TakeDamage(damage);
+        //    character._Actor.transform.LookAt(damageSource);
 
-            Quaternion rotation = character._Actor.transform.rotation;
-            rotation.x = 0;
-            rotation.z = 0;
+        //    Quaternion rotation = character._Actor.transform.rotation;
+        //    rotation.x = 0;
+        //    rotation.z = 0;
 
-            character._Actor.transform.rotation = rotation;
+        //    character._Actor.transform.rotation = rotation;
 
-            character.CalculateHitResponse(knockForce, launchForce, damage);
-            knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
-            DetermineWhoWhurtMe(damageSource);
-        }
+        //    character.CalculateHitResponse(knockForce, launchForce, damage);
+        //    knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
+        //    DetermineWhoWhurtMe(damageSource);
+        //}
+        character._Actor.Damage(damage, damageSource, knockForce, launchForce, damageSourceController);
     }
 
     public Transform GetControllingEntity()

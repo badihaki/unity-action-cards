@@ -7,7 +7,7 @@ using UnityEngine.TextCore.Text;
 
 public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 {
-    [field: SerializeField, Header("Character Basics")]
+    [field: SerializeField, Header("Character Actor Basics")]
     private Character _Character;
     [field: SerializeField]
     public Animator animationController { get; protected set; }
@@ -53,7 +53,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
         //print($"applying knockback to actor {name} controlled by {_Character}");
 	}
 
-	public virtual void Damage(int damage, Transform damageSource, float knockForce, float launchForce)
+	public virtual void Damage(int damage, Transform damageSource, float knockForce, float launchForce, Character damageSourceController = null)
 	{
 		if (damageSource != _Character.transform && !_IsInvuln)
 		{
@@ -81,7 +81,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
     public void SetInvulnerability(int value)
     {
         bool res = Convert.ToBoolean(value);
-        print($"value is {res}");
+        //print($"value is {res}");
         if(_IsInvuln != res) _IsInvuln = res;
     }
 

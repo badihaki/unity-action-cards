@@ -42,9 +42,10 @@ public class NPCNavigator : MonoBehaviour
 	private void BecomeAggressed()
     {
         StopCoroutine(ManageNavNodeList());
+        _Target = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
+        _NPC._AttackController.SetNewTarget(_Target);
         _PriorNavNodes.Clear();
         _CurrentNavNode = null;
-        _Target = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
     }
 
     public bool TryFindNewPatrol()
