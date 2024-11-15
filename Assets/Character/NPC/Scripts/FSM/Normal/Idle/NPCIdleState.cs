@@ -45,8 +45,8 @@ public class NPCIdleState : NPCState
             return;
         }
         // Debug.Log(_NPC.name + " is making a new wait");
-        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(1.3f, 2.0f);
-        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(3.5f, 5.0f);
+        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(0.1f, 1.0f);
+        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(1.2f, 5.0f);
         CreateNewWait(minWait, maxWait);
     }
 
