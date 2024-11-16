@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NPCAggressionManager : MonoBehaviour
 {
+    private NonPlayerCharacter _NPC;
     [field: SerializeField, Header("Aggression State")]
     public int _Aggression { get; private set; }
     [field: SerializeField]
@@ -21,6 +22,7 @@ public class NPCAggressionManager : MonoBehaviour
 
 	public void Initialize(NonPlayerCharacter npc)
     {
+        _NPC = npc;
         _Aggression = 0;
         _LastAggressors = new List<Transform>();
     }
@@ -37,7 +39,8 @@ public class NPCAggressionManager : MonoBehaviour
         if (_Aggression >= 50 && !isAggressive)
         {
             isAggressive = true;
-            IsAggressed();
+			_NPC._NPCActor.animationController.SetBool("aggressive", false);
+			IsAggressed();
 			StartCoroutine(SlowlyLowerAggression());
         }
         if (_Aggression > 100) _Aggression = 100;
@@ -65,6 +68,7 @@ public class NPCAggressionManager : MonoBehaviour
             {
                 _LastAggressors.Clear();
                 isAggressive = false;
+                _NPC._NPCActor.animationController.SetBool("aggressive", true);
             }
             else
                 yield return null;
