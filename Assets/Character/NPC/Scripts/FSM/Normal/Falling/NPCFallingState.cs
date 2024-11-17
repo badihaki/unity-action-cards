@@ -2,9 +2,16 @@ using UnityEngine;
 
 public class NPCFallingState : NPCState
 {
+	public override void EnterState()
+	{
+		base.EnterState();
+		
+	}
 	public override void CheckStateTransitions()
 	{
 		base.CheckStateTransitions();
+		
+		_StateMachine.LogFromState(_NPC._CheckGrounded.IsGrounded().ToString()); // delete later!!!!!!!!!!!!!!
 
 		if (_NPC._CheckGrounded.IsGrounded())
 		{

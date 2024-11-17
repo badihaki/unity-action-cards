@@ -8975,11 +8975,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -5.7541065
       objectReference: {fileID: 0}
-    - target: {fileID: 3431827879052736542, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
-        type: 3}
-      propertyPath: GroundRayDistance
-      value: 0.105
-      objectReference: {fileID: 0}
     - target: {fileID: 3733020409397781359, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

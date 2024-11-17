@@ -668,7 +668,7 @@ MonoBehaviour:
   <_ExternalForces>k__BackingField: {x: 0, y: 0, z: 0}
   _Gravity: 9.81
   _VerticalVelocity: 0
-  _BaseVerticalVelocity: -1
+  _BaseVerticalVelocity: -0.1
   _MaxFallVelocity: -25
 --- !u!114 &4240367807110500814
 MonoBehaviour:
@@ -2396,7 +2396,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 2.15
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3

@@ -13,7 +13,7 @@ public class NPCMovementController : MonoBehaviour
     public Vector3 _ExternalForces { get; private set; }
 	[SerializeField] private float _Gravity = 9.810f;
 	[SerializeField] private float _VerticalVelocity;
-	[SerializeField] private float _BaseVerticalVelocity = -1.00f;
+	[SerializeField] private float _BaseVerticalVelocity = -0.1f;
 	[SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
 
 	public void InitializeNPCMovement(NonPlayerCharacter character)
