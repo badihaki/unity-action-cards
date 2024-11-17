@@ -8,6 +8,7 @@ public class NPCStateMachine : MonoBehaviour
 	public NPCIdleState _IdleState { get; private set; }
 	public NPCIdleAggressiveState _IdleAggressiveState { get; private set; }
 	public NPCMoveState _MoveState { get; private set; }
+    public NPCFallingState _FallingState { get; private set; }
 	public NPCHurtSuperState _HurtState { get; private set; }
 
 	[field: SerializeField]
@@ -44,6 +45,12 @@ public class NPCStateMachine : MonoBehaviour
 			_MoveState = NPCMoveState.CreateInstance<NPCMoveState>();
 		}
 		_MoveState.InitState(npc, this, "move");
+
+        if (!_FallingState)
+        {
+            _FallingState = NPCFallingState.CreateInstance<NPCFallingState>();
+        }
+        _FallingState.InitState(npc, this, "falling");
 
 		if (!_HurtState)
 		{

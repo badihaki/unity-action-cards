@@ -35,7 +35,15 @@ public class NPCIdleState : NPCState
         }
     }
 
-    private void RollForWait()
+	public override void PhysicsUpdate()
+	{
+		base.PhysicsUpdate();
+
+        _NPC._MoveController.ApplyGravity();
+        _NPC._MoveController.ApplyExternalForces();
+	}
+
+	private void RollForWait()
     {
         int roll = GameManagerMaster.GameMaster.Dice.RollD6();
         // Debug.Log(_NPC.name + " is Rolling to wait. Need 5+ to ignore. Roll?: " + roll);
@@ -63,13 +71,20 @@ public class NPCIdleState : NPCState
         }
     }
 
-	public override void CheckStateTransitions()
-	{
-		base.CheckStateTransitions();
+    public override void CheckStateTransitions()
+    {
+        base.CheckStateTransitions();
 
+        // if aggressive
         if (_NPC._NPCActor._AggressionManager.isAggressive)
         {
             _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+        }
+
+        // if not on ground
+        if (!_NPC._CheckGrounded.IsGrounded())
+        {
+            _StateMachine.ChangeState(_StateMachine._FallingState);
         }
 	}
 }
