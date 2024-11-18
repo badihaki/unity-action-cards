@@ -52,7 +52,6 @@ public class NPCAggressionManager : MonoBehaviour
         {
             yield return slowWait;
             _Aggression -= 1;
-            print("slowly lose aggression");
             yield return null;
         }
         StartCoroutine(QuicklyLowerAggression());

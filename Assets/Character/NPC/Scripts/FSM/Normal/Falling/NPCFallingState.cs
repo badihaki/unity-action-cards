@@ -11,14 +11,10 @@ public class NPCFallingState : NPCState
 	{
 		base.CheckStateTransitions();
 		
-		_StateMachine.LogFromState(_NPC._CheckGrounded.IsGrounded().ToString()); // delete later!!!!!!!!!!!!!!
-
 		if (_NPC._CheckGrounded.IsGrounded())
 		{
-			_StateMachine.LogFromState("are we grounded?");
 			if (!_NPC._NPCActor._AggressionManager.isAggressive)
 			{
-				_StateMachine.LogFromState("yes, go to idle");
 				_StateMachine.ChangeState(_StateMachine._IdleState);
 			}
 			else

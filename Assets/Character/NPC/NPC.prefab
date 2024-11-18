@@ -2377,7 +2377,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 0}
-  GroundRayDistance: 1.105
+  GroundRayDistance: 0.112
 --- !u!143 &8442074462154110637
 CharacterController:
   m_ObjectHideFlags: 0

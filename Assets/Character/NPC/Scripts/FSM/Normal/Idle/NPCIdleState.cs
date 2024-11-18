@@ -84,7 +84,6 @@ public class NPCIdleState : NPCState
         // if not on ground
         if (!_NPC._CheckGrounded.IsGrounded())
         {
-            _StateMachine.LogFromState("going to falling");
             _StateMachine.ChangeState(_StateMachine._FallingState);
         }
 	}

@@ -11,9 +11,12 @@ public class GameManagerMaster : MonoBehaviour
 
     [field: Header("Developer Tools"), SerializeField]
     public bool devMode { get; private set; }
+    [field:SerializeField]
+	public bool logExtraNPCData { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+
+	// Start is called before the first frame update
+	void Start()
     {
         if (GameMaster != null && GameMaster != this)
         {
