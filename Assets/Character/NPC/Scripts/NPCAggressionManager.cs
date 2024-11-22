@@ -39,7 +39,8 @@ public class NPCAggressionManager : MonoBehaviour
         if (_Aggression >= 50 && !isAggressive)
         {
             isAggressive = true;
-			_NPC._NPCActor.animationController.SetBool("aggressive", false);
+			_NPC._NPCActor.animationController.SetBool("aggressive", true);
+            print("aggressed in animator <<<<<<<<<<<<<<");
 			IsAggressed();
 			StartCoroutine(SlowlyLowerAggression());
         }
@@ -67,7 +68,7 @@ public class NPCAggressionManager : MonoBehaviour
             {
                 _LastAggressors.Clear();
                 isAggressive = false;
-                _NPC._NPCActor.animationController.SetBool("aggressive", true);
+                _NPC._NPCActor.animationController.SetBool("aggressive", false);
             }
             else
                 yield return null;

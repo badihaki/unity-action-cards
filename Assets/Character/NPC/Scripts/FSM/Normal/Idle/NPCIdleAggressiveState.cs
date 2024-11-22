@@ -43,7 +43,7 @@ public class NPCIdleAggressiveState : NPCState
 	public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
-        if (distanceFromPlayer > _NPC._AttackController._DesiredAttackDistance)
+        if (distanceFromPlayer > _NPC._AttackController._MaxAttackDistance)
         {
             // Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
             _StateMachine.ChangeState(_StateMachine._MoveState);

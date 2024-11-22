@@ -10,6 +10,7 @@ public class NPCAttack : MonoBehaviour
     [field: SerializeField]
     public Transform _ActiveTarget { get; private set; }
     [field: SerializeField] public float _DesiredAttackDistance { get; private set; }
+    [field: SerializeField] public float _MaxAttackDistance { get; private set; }
     [SerializeField] private bool _AttackTicket;
     
     public void InitiateAttack(NonPlayerCharacter character)
@@ -23,6 +24,7 @@ public class NPCAttack : MonoBehaviour
     public void SetDesiredAttackDistance(float distance = 1.5f)
     {
         _DesiredAttackDistance = distance;
+        _MaxAttackDistance = distance + 3.25f;
         _NPC._NavigationController.SetTargetDesiredDistance(_DesiredAttackDistance);
     }
 
