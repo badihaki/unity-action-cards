@@ -40,7 +40,7 @@ public class NPCAggressionManager : MonoBehaviour
         {
             isAggressive = true;
 			_NPC._NPCActor.animationController.SetBool("aggressive", true);
-            print("aggressed in animator <<<<<<<<<<<<<<");
+            //print("aggressed in animator <<<<<<<<<<<<<<");
 			IsAggressed();
 			StartCoroutine(SlowlyLowerAggression());
         }

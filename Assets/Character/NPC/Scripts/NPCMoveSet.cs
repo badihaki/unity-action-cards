@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class NPCMoveSet : MonoBehaviour
 {
-	public List<NPCAttackSuperState> shortRangeAttacks;
-	public List<NPCAttackSuperState> longRangeAttacks;
+	[field:SerializeField]
+	public List<NPCAttackActionSO> attackActions {  get; private set; }
+	[field: SerializeField]
+	public int attackIndex { get; private set; }
 }

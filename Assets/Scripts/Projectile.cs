@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        print(collider.name);
+        //print(collider.name);
         if(_ready)
         {
             if(collider.gameObject.layer == 9)

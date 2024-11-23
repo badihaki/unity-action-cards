@@ -53,7 +53,7 @@ public class NPCIdleAggressiveState : NPCState
     private void RunWaitTimer()
     {
         waitTime -= Time.deltaTime;
-        if (waitTime <= 0) Debug.Log($"done with wait");
+        if (waitTime <= 0) _StateMachine.LogFromState($"done with wait");
     }
 
     private float CreateNewWait(float min, float max)
