@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Air Attack A", menuName = "Create Attacks/00_Unarmed/Unarmed Air Attack A")]
+[CreateAssetMenu(fileName = "Unarmed Air Attack A", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Air Attack A")]
 public class PlayerUnarmedAirAttackAState : PlayerAirCombatSuperState
 {
     public PlayerUnarmedAirAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)

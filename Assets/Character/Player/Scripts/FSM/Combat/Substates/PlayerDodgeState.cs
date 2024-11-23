@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="Defense", menuName ="Create Defense Action/Dodge")]
+[CreateAssetMenu(fileName ="Defense", menuName ="Characters/Player/Create Defense Action/Dodge")]
 public class PlayerDodgeState : PlayerDefenseSuperState
 {
     public PlayerDodgeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)

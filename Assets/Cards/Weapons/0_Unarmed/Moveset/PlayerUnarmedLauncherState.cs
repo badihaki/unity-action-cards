@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Launcher", menuName = "Create Attacks/00_Unarmed/Unarmed Launcher")]
+[CreateAssetMenu(fileName = "Unarmed Launcher", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Launcher")]
 public class PlayerUnarmedLauncherState : PlayerLauncherAttackSuperState
 {
     public PlayerUnarmedLauncherState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)

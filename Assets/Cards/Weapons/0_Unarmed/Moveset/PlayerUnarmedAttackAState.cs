@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Attack A", menuName = "Create Attacks/00_Unarmed/Unarmed Attack A")]
+[CreateAssetMenu(fileName = "Unarmed Attack A", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Attack A")]
 public class PlayerUnarmedAttackAState : PlayerAttackSuperState
 {
     public PlayerUnarmedAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
