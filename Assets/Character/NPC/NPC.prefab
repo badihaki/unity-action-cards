@@ -649,6 +649,7 @@ MonoBehaviour:
   <_NPCActor>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
   <_NavigationController>k__BackingField: {fileID: 0}
+  <_MoveSet>k__BackingField: {fileID: 0}
   <_AttackController>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
   hitAnimationString: 
@@ -810,7 +811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884a29c9a0fae8646bc8e240c67793da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <attackActions>k__BackingField: []
+  <attackActions>k__BackingField:
+  - {fileID: 11400000, guid: e50d072760bd7cd4fb26c704db9db29e, type: 2}
   <attackIndex>k__BackingField: 0
 --- !u!1 &2000793969464477148
 GameObject:
