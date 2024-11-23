@@ -8,4 +8,14 @@ public class NPCAttackActionSO : ScriptableObject
 
 	[field: SerializeField]
 	public NPCAttackSuperState attackSuperState { get; private set; }
+	
+	//
+	[field: SerializeField, Header("Distance Variables")]
+	public float mininumDistance { get; private set; }
+	[field: SerializeField]
+	public float maxinumDistance { get; private set; }
+
+	//
+	[field: SerializeField, Header("Wait Time")]
+	public float waitTime { get; private set; }
 }

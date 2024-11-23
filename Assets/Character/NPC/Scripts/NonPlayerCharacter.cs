@@ -7,6 +7,7 @@ public class NonPlayerCharacter : Character, IDestroyable
     [field: SerializeField, Header("~> Nonplayer Character <~")] public NPCActor _NPCActor { get; private set; }
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
+    [field: SerializeField] public NPCMoveSet _MoveSet { get; private set; }
     [field: SerializeField] public NPCAttackController _AttackController { get; private set; }
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
 
@@ -34,6 +35,9 @@ public class NonPlayerCharacter : Character, IDestroyable
 		// start UI
 		_UI = GetComponent<CharacterUIController>();
         _UI.InitializeUI(false, this);
+
+        // move set
+        _MoveSet = GetComponent<NPCMoveSet>();
 
         // attack controller
         _AttackController = GetComponent<NPCAttackController>();

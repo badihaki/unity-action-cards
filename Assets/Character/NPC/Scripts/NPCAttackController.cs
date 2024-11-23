@@ -8,7 +8,7 @@ public class NPCAttackController : MonoBehaviour
     private NonPlayerCharacter _NPC;
 
     [SerializeField] private bool _AttackTicket;
-    [field: SerializeField,Header("Attacking Target")]
+    [field: SerializeField, Header("Attacking Target")]
     public Transform _ActiveTarget { get; private set; }
     
     [field: SerializeField, Header("Distances")]

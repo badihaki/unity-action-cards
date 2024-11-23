@@ -6,7 +6,7 @@ public class NPCAttackSuperState : NPCState
 	{
 	}
 
-	public override void AnimationEndTrigger()
+	public override void AnimationEndTrigger()// you can safely completely override this method
 	{
 		base.AnimationEndTrigger();
 
