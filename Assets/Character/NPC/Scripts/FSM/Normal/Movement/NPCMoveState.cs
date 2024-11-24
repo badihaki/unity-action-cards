@@ -26,9 +26,9 @@ public class NPCMoveState : NPCState
         
         if (_NPC._NPCActor._AggressionManager.isAggressive && _NPC._AttackController._ActiveTarget != null)
         {
-			// if aggressive
-			//_StateMachine.LogFromState($"player-to-target distance -> {distanceFromPlayer.ToString()}");
-            if (distanceFromPlayer < _NPC._AttackController._DesiredAttackDistance)
+            // if aggressive
+            _StateMachine.LogFromState($"player-to-target distance -> {distanceFromPlayer.ToString()}");
+            if (distanceFromPlayer < _NPC._MoveSet.GetCurrentAttack().desiredDistance)
                 _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
         }
         else if (!_NPC._NPCActor._AggressionManager.isAggressive)

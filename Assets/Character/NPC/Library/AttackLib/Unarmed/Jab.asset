@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa68b068c3ccc42b69a7357fcc7349, type: 3}
   m_Name: Jab
   m_EditorClassIdentifier: 
+  <animationName>k__BackingField: jab
   <damage>k__BackingField: 1
   <attackSuperState>k__BackingField: {fileID: 11400000, guid: b1588e5d22baf274fb734c2161dd5dab,
     type: 2}

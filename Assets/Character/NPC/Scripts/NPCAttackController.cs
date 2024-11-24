@@ -12,12 +12,10 @@ public class NPCAttackController : MonoBehaviour
     public Transform _ActiveTarget { get; private set; }
     
     [field: SerializeField, Header("Distances")]
-    public float _DesiredAttackDistance { get; private set; }
-    [field: SerializeField] public float _MaxAttackDistance { get; private set; }
 
-    private WaitForSeconds shortAttackWait = new WaitForSeconds(1.35f);
-    private WaitForSeconds longAttackWait = new WaitForSeconds(3.65f);
-    private WaitForSeconds superLongAttackWait = new WaitForSeconds(7.15f);
+    private WaitForSeconds shortAttackWait = new WaitForSeconds(0.673f);
+    private WaitForSeconds longAttackWait = new WaitForSeconds(1.965f);
+    private WaitForSeconds superLongAttackWait = new WaitForSeconds(5.15f);
     public enum AttackWaitType
     {
         Short,
@@ -29,16 +27,8 @@ public class NPCAttackController : MonoBehaviour
     {
         _NPC = character;
         _AttackTicket = true;
-        SetDesiredAttackDistance(3.5f);
         
         if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTarget;
-    }
-
-    public void SetDesiredAttackDistance(float distance = 1.5f)
-    {
-        _DesiredAttackDistance = distance;
-        _MaxAttackDistance = distance + 3.25f;
-        _NPC._NavigationController.SetTargetDesiredDistance(_DesiredAttackDistance);
     }
 
     public void SetNewTarget(Transform aggressor)
@@ -57,8 +47,12 @@ public class NPCAttackController : MonoBehaviour
         _AttackTicket = false;
     }
 
-    public void EndAttackAddWait(AttackWaitType waitType)
+    public void EndAttackAddWait(float waitTime)
     {
+        AttackWaitType waitType;
+        if (waitTime < 2) waitType = AttackWaitType.Short;
+        else if (waitTime < 3.75f) waitType = AttackWaitType.Long;
+        else waitType = AttackWaitType.SuperLong;
         StartCoroutine(WaitToAttack(waitType));
     }
 

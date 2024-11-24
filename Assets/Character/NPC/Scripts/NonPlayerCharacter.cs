@@ -48,6 +48,9 @@ public class NonPlayerCharacter : Character, IDestroyable
         
         // Initialize state machine
         _StateMachine.InitializeStateMachine(this);
+        
+        // init moveset
+        _MoveSet.Initialize(this);
     }
 
     protected override void TriggerhitAnimation(string hitType)
