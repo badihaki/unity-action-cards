@@ -9,6 +9,7 @@ public class NPCAttackSuperState : NPCState
 	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
 	{
 		base.InitState(npc, stateMachine, animationName);
+		_AttackController = npc._AttackController as NPCAttackController;
 	}
 	public override void EnterState()
 	{
@@ -21,6 +22,7 @@ public class NPCAttackSuperState : NPCState
 		if (GameManagerMaster.GameMaster.logExtraNPCData)
 			Debug.Log(_NPC.name + " is entering state " + _NPC._MoveSet.GetCurrentAttack().animationName);
 
+		_AttackController.SetAttackParameters(0, 0);
 		_AttackController.UseAttackTicket();
 	}
 
@@ -30,6 +32,7 @@ public class NPCAttackSuperState : NPCState
 		_NPC._AnimationController.SetBool(_NPC._MoveSet.GetCurrentAttack().animationName, false);
 
 		_AttackController.EndAttackAddWait(_NPC._MoveSet.GetCurrentAttack().waitTime);
+		_AttackController.ResetAttackParameters();
 	}
 
 	public override void AnimationEndTrigger()// you can safely completely override this method

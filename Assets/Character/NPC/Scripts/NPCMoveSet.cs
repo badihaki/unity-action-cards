@@ -19,6 +19,7 @@ public class NPCMoveSet : MonoBehaviour
         {
 			NPCAttackSuperState addAction = ScriptableObject.CreateInstance<NPCAttackSuperState>();
 			addAction.InitState(npc, npc._StateMachine, action.animationName);
+			addAction.name = action.name;
 			loadedAttackActions.Add(addAction);
         }
     }

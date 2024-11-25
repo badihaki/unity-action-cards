@@ -42,7 +42,13 @@ public class NPCAttackController : CharacterAttackController
         return dist;
     }
 
-    public void UseAttackTicket()
+	public override void SetAttackParameters(float knockbackForce, float launchForce, int damageModifier = 0)
+	{
+        _Damage = _NPC._MoveSet.GetCurrentAttack().damage + damageModifier;
+		base.SetAttackParameters(knockbackForce, launchForce);
+	}
+
+	public void UseAttackTicket()
     {
         _AttackTicket = false;
     }

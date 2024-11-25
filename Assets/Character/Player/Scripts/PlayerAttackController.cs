@@ -149,18 +149,11 @@ public class PlayerAttackController : CharacterAttackController
         Destroy(_DefenseAction);
     }
 
-    public void SetAttackParameters(float knockbackForce, float launchForce, int damageModifier = 0)
+    public override void SetAttackParameters(float knockbackForce, float launchForce, int damageModifier = 0)
     {
         _Damage = player._WeaponController._CurrentWeapon._Dmg + damageModifier;
-        _KnockbackForce = knockbackForce;
-        _LaunchForce = launchForce;
+        base.SetAttackParameters(knockbackForce, launchForce, damageModifier);
     }
 
-    public void ResetAttackParameters()
-    {
-        _Damage = 0;
-        _KnockbackForce = 0.0f;
-        _LaunchForce = 0.0f;
-    }
     // end
 }

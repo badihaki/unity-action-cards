@@ -15,9 +15,16 @@ public class CharacterAttackController : MonoBehaviour
 		_Character = character;
 	}
 
-	// Update is called once per frame
-	void Update()
-    {
-        
-    }
+	public virtual void SetAttackParameters(float knockbackForce, float launchForce, int damageModifier = 0)
+	{
+		_KnockbackForce = knockbackForce;
+		_LaunchForce = launchForce;
+	}
+
+	public void ResetAttackParameters()
+	{
+		_Damage = 0;
+		_KnockbackForce = 0.0f;
+		_LaunchForce = 0.0f;
+	}
 }
