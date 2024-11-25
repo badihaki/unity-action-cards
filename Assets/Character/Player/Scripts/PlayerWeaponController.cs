@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerWeaponController : MonoBehaviour
 {
 	private PlayerCharacter player;
-	private PlayerAttack attackController;
+	private PlayerAttackController attackController;
 
 	[field: SerializeField, Header("Base Weapon")] private WeaponScriptableObj baseWeapon;
 	[field: SerializeField, Header("Current Weapon")] public WeaponScriptableObj _CurrentWeapon { get; private set; }
@@ -24,7 +24,7 @@ public class PlayerWeaponController : MonoBehaviour
 	public void Initialize(PlayerCharacter newPlayer)
 	{
 		player = newPlayer;
-		attackController = player._AttackController;
+		attackController = player._AttackController as PlayerAttackController;
 		_WeaponHolderR = player._PlayerActor.RightWeapon;
 		_WeaponHolderL = player._PlayerActor.LeftWeapon;
 		_WeaponR = null;

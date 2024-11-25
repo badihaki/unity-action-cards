@@ -12,7 +12,6 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerWeaponController _WeaponController { get; private set; }
-    public PlayerAttack _AttackController { get; private set; }
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
     public PlayerUIController _PlayerUIController { get; private set; }
 
@@ -20,7 +19,6 @@ public class PlayerCharacter : Character, IDestroyable
     [field:SerializeField, Header("~> Player Character <~")]
     public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
-    [field: SerializeField] public CharacterHitbox _Hitbox { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -55,11 +53,6 @@ public class PlayerCharacter : Character, IDestroyable
 
         // ok lets get attacks up
         _WeaponController = GetComponent<PlayerWeaponController>();
-        _AttackController = GetComponent<PlayerAttack>();
-
-        // start the hitbox
-        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>();
-        _Hitbox.Initialize(this);
 
         // initialize the statemachine
         InitializeStateMachine();
@@ -68,8 +61,9 @@ public class PlayerCharacter : Character, IDestroyable
         _LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
         _LockOnTargeter.Initialize(this);
 
-        // and initialize the attack controller, since it needs the state machine
-        _AttackController.Initialize(this);
+		// and initialize the attack controller, since it needs the state machine
+		_AttackController.Initialize(this);
+        // init weapon controller directly afterwards
         _WeaponController.Initialize(this);
 
         // initialize UI

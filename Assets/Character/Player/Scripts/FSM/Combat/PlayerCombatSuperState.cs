@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class PlayerCombatSuperState : PlayerState
 {
-    public PlayerCombatSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+	protected PlayerAttackController _AttackController;
+	public PlayerCombatSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+	{
+		base.InitializeState(pc, animationName, stateMachine);
+
+		_AttackController = pc._AttackController as PlayerAttackController;
+	}
 
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }

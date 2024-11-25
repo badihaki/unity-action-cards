@@ -11,7 +11,7 @@ public class PlayerUnarmedAirAttackBState : PlayerAirCombatSuperState
     {
         base.EnterState();
 
-        _PlayerCharacter._AttackController.SetAttackParameters(0.15f, 1.75f);
+        _AttackController.SetAttackParameters(0.15f, 1.75f);
     }
 
     public override void CheckStateTransitions()
@@ -20,7 +20,7 @@ public class PlayerUnarmedAirAttackBState : PlayerAirCombatSuperState
 
         if (canCombo && attackInput)
         {
-            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirAttackA);
+            _StateMachine.ChangeState(_AttackController._AirAttackA);
         }
     }
 }

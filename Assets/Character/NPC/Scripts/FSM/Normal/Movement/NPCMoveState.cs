@@ -7,8 +7,15 @@ using UnityEngine;
 public class NPCMoveState : NPCState
 {
     private float distanceFromPlayer;
+    protected NPCAttackController _AttackController;
 
-    public override void EnterState()
+	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
+	{
+		base.InitState(npc, stateMachine, animationName);
+        _AttackController = npc._AttackController as NPCAttackController;
+	}
+
+	public override void EnterState()
     {
         base.EnterState();
         //_StateMachine.LogFromState("");
@@ -24,10 +31,10 @@ public class NPCMoveState : NPCState
     {
         base.CheckStateTransitions();
         
-        if (_NPC._NPCActor._AggressionManager.isAggressive && _NPC._AttackController._ActiveTarget != null)
+        if (_NPC._NPCActor._AggressionManager.isAggressive && _AttackController._ActiveTarget != null)
         {
             // if aggressive
-            _StateMachine.LogFromState($"player-to-target distance -> {distanceFromPlayer.ToString()}");
+            //_StateMachine.LogFromState($"player-to-target distance -> {distanceFromPlayer.ToString()}");
             if (distanceFromPlayer < _NPC._MoveSet.GetCurrentAttack().desiredDistance)
                 _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
         }
@@ -44,9 +51,9 @@ public class NPCMoveState : NPCState
 
     public override void LogicUpdate()
     {
-        if (_NPC._NPCActor._AggressionManager.isAggressive && _NPC._AttackController._ActiveTarget != null)
+        if (_NPC._NPCActor._AggressionManager.isAggressive && _AttackController._ActiveTarget != null)
         {
-            distanceFromPlayer = _NPC._AttackController.GetDistanceFromTarget();
+            distanceFromPlayer = _AttackController.GetDistanceFromTarget();
         }
         else
         {
@@ -62,7 +69,7 @@ public class NPCMoveState : NPCState
         if(_NPC._NPCActor._AggressionManager.isAggressive)
         {
             _NPC._MoveController.MoveToTarget();
-            _NPC._MoveController.RotateTowardsTarget(_NPC._AttackController._ActiveTarget);
+            _NPC._MoveController.RotateTowardsTarget(_AttackController._ActiveTarget);
         }
         else
         {

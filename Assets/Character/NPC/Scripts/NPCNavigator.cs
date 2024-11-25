@@ -17,11 +17,13 @@ public class NPCNavigator : MonoBehaviour
     [field: SerializeField] private bool listReseting;
     private WaitForSeconds listWaitTime = new WaitForSeconds(9.386f);
     private float resetTimer;
+    private NPCAttackController _AttackController;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
         _NPC = npc;
         listReseting = false;
+        _AttackController = _NPC._AttackController as NPCAttackController;
         _NPC._NPCActor._AggressionManager.IsAggressed += BecomeAggressed;
     }
 
@@ -43,7 +45,7 @@ public class NPCNavigator : MonoBehaviour
     {
         StopCoroutine(ManageNavNodeList());
         _Target = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
-        _NPC._AttackController.SetNewTarget(_Target);
+        _AttackController.SetNewTarget(_Target);
         _PriorNavNodes.Clear();
         _CurrentNavNode = null;
     }

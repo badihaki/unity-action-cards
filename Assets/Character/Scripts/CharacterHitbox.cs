@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class CharacterHitbox : MonoBehaviour
 {
-    [field: SerializeField] public PlayerCharacter _Character { get; private set; }
+    [field: SerializeField] public Character _Character { get; private set; }
     
-    public void Initialize(PlayerCharacter character)
+    public void Initialize(Character character)
     {
         _Character = character;
     }
@@ -19,9 +19,9 @@ public class CharacterHitbox : MonoBehaviour
             if (damageableEntity != null && _Character.transform != damageableEntity.GetControllingEntity())
             {
                 //damageableEntity?.Damage(_Character._AttackController._Damage, _Character.transform, _Character._AttackController._KnockbackForce, _Character._AttackController._LaunchForce);
-				damageableEntity?.Damage(_Character._AttackController._Damage, _Character._Actor.transform, _Character._AttackController._KnockbackForce, _Character._AttackController._LaunchForce, _Character);
+                damageableEntity?.Damage(_Character._AttackController._Damage, _Character._Actor.transform, _Character._AttackController._KnockbackForce, _Character._AttackController._LaunchForce, _Character);
                 Vector3 hitFxPosition = new Vector3(damageableEntity.GetDamagedEntity().position.x, damageableEntity.GetDamagedEntity().position.y + 0.5f, damageableEntity.GetDamagedEntity().position.z);
-                GameObject hitFX = Instantiate(_Character._WeaponController._CurrentWeapon._WeaponHitSpark, hitFxPosition, trigger.transform.parent.rotation);
+                //GameObject hitFX = Instantiate(_Character._WeaponController._CurrentWeapon._WeaponHitSpark, hitFxPosition, trigger.transform.parent.rotation);
             }
         }
     }

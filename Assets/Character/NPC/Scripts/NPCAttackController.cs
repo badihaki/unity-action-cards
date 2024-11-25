@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCAttackController : MonoBehaviour
+public class NPCAttackController : CharacterAttackController
 {
     private NonPlayerCharacter _NPC;
 
@@ -23,9 +23,9 @@ public class NPCAttackController : MonoBehaviour
         SuperLong
     }
 
-	public void InitiateAttack(NonPlayerCharacter character)
-    {
-        _NPC = character;
+	public override void Initialize(Character character)
+	{
+        _NPC = character as NonPlayerCharacter;
         _AttackTicket = true;
         
         if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTarget;

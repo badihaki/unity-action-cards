@@ -7,18 +7,27 @@ public class NPCIdleAggressiveState : NPCState
 {
     private float waitTime;
     private float distanceFromPlayer;
-    public override void EnterState()
+    private NPCAttackController attackController;
+
+	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
+	{
+		base.InitState(npc, stateMachine, animationName);
+
+        attackController = npc._AttackController as NPCAttackController;
+	}
+
+	public override void EnterState()
     {
-        waitTime = CreateNewWait(1.2f, 3.2f);
+        waitTime = CreateNewWait(0.2f, _NPC._MoveSet.GetCurrentAttack().waitTime * 2.15f);
         base.EnterState();
     }
 
     public override void LogicUpdate()
     {
         // distanceFromPlayer = Vector3.Distance(_NPC.transform.position, _NPC._NavigationController._Target.position);
-		if (_NPC._NPCActor._AggressionManager.isAggressive && _NPC._AttackController._ActiveTarget != null)
+		if (_NPC._NPCActor._AggressionManager.isAggressive && attackController._ActiveTarget != null)
 		{
-			distanceFromPlayer = _NPC._AttackController.GetDistanceFromTarget();
+			distanceFromPlayer = attackController.GetDistanceFromTarget();
 		}
 		else
 		{
@@ -35,7 +44,7 @@ public class NPCIdleAggressiveState : NPCState
 	{
 		base.PhysicsUpdate();
 
-		_NPC._MoveController.RotateTowardsTarget(_NPC._AttackController._ActiveTarget);
+		_NPC._MoveController.RotateTowardsTarget(attackController._ActiveTarget);
 	}
 
 	public override void CheckStateTransitions()
@@ -55,7 +64,7 @@ public class NPCIdleAggressiveState : NPCState
     private void RunWaitTimer()
     {
         waitTime -= Time.deltaTime;
-        if (waitTime <= 0) _StateMachine.LogFromState($"done with wait");
+        //if (waitTime <= 0) _StateMachine.LogFromState($"done with wait");
     }
 
     private float CreateNewWait(float min, float max)

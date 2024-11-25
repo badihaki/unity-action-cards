@@ -137,11 +137,11 @@ MonoBehaviour:
     type: 2}
   <_Actor>k__BackingField: {fileID: 0}
   <_AnimationController>k__BackingField: {fileID: 0}
+  <_AttackController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
   <_PlayerActor>k__BackingField: {fileID: 0}
   <_LoadNewOnStart>k__BackingField: 1
-  <_Hitbox>k__BackingField: {fileID: 0}
 --- !u!114 &3710469694778071795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,9 +413,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764021959895548567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff8a23b80ac415f45a0c83ad1a6d7388, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ade214e6798a144b8bfba78c135bfe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_Damage>k__BackingField: 0
+  <_KnockbackForce>k__BackingField: 0
+  <_LaunchForce>k__BackingField: 0
   <_AttackA>k__BackingField: {fileID: 0}
   <_AttackB>k__BackingField: {fileID: 0}
   <_AttackC>k__BackingField: {fileID: 0}
@@ -430,9 +433,6 @@ MonoBehaviour:
   <_AirAttackB>k__BackingField: {fileID: 0}
   <_AirAttackC>k__BackingField: {fileID: 0}
   <_DefenseAction>k__BackingField: {fileID: 0}
-  <_Damage>k__BackingField: 0
-  <_KnockbackForce>k__BackingField: 0
-  <_LaunchForce>k__BackingField: 0
 --- !u!114 &5072868601858473742
 MonoBehaviour:
   m_ObjectHideFlags: 0

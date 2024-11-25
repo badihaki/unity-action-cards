@@ -13,7 +13,7 @@ public class SwordAttackBState : PlayerAttackSuperState
 	{
 		base.EnterState();
 		_PlayerCharacter._LocomotionController.ZeroOutVelocity();
-		_PlayerCharacter._AttackController.SetAttackParameters(1.025f, 1.35f, 1);
+		_AttackController.SetAttackParameters(1.025f, 1.35f, 1);
 		ShowOrHideWeapon(true);
 	}
 
@@ -25,7 +25,7 @@ public class SwordAttackBState : PlayerAttackSuperState
 
 	public override void CheckStateTransitions()
 	{
-		if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackC);
+		if (canCombo && attackInput) _StateMachine.ChangeState(_AttackController._AttackC);
 		// if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
 		// if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
 

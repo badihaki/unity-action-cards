@@ -8,7 +8,6 @@ public class NonPlayerCharacter : Character, IDestroyable
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
     [field: SerializeField] public NPCMoveSet _MoveSet { get; private set; }
-    [field: SerializeField] public NPCAttackController _AttackController { get; private set; }
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
 
 
@@ -41,7 +40,7 @@ public class NonPlayerCharacter : Character, IDestroyable
 
         // attack controller
         _AttackController = GetComponent<NPCAttackController>();
-        _AttackController.InitiateAttack(this);
+        _AttackController.Initialize(this);
 
         // state machine
         _StateMachine = GetComponent<NPCStateMachine>();

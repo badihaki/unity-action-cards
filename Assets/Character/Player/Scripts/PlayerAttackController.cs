@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttackController : CharacterAttackController
 {
     private PlayerCharacter player;
 
@@ -26,10 +26,7 @@ public class PlayerAttack : MonoBehaviour
 
     [field: SerializeField, Header("Defensive Action")] public PlayerDefenseSuperState _DefenseAction { get; private set; }
 
-    [field: Header("Attack Stats"), SerializeField]
-    public int _Damage { get; private set; }
-    [field: SerializeField] public float _KnockbackForce { get; private set; }
-    [field: SerializeField] public float _LaunchForce { get; private set; }
+    
 
     // delete later
     private void Update()
@@ -37,9 +34,11 @@ public class PlayerAttack : MonoBehaviour
     }
     // delete later
 
-    public void Initialize(PlayerCharacter newPlayer)
+    public override void Initialize(Character character)
     {
-        player = newPlayer;
+        base.Initialize(character);
+
+        player = character as PlayerCharacter;
     }
 
     public void LoadMoveset(MoveSetScriptableObject moves)
