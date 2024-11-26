@@ -6,8 +6,8 @@ public class CharacterAttackController : MonoBehaviour
 
 	[field: Header("Attack Stats"), SerializeField]
 	public int _Damage { get; protected set; }
-	[field: SerializeField] public float _KnockbackForce { get; protected set; }
-	[field: SerializeField] public float _LaunchForce { get; protected set; }
+	[field: SerializeField] public bool _KnockedBack { get; protected set; } = false;
+	[field: SerializeField] public bool _Launched { get; protected set; } = false;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	public virtual void Initialize(Character character)
@@ -15,16 +15,16 @@ public class CharacterAttackController : MonoBehaviour
 		_Character = character;
 	}
 
-	public virtual void SetAttackParameters(float knockbackForce, float launchForce, int damageModifier = 0)
+	public virtual void SetAttackParameters(bool knockback, bool launch, int damageModifier = 0)
 	{
-		_KnockbackForce = knockbackForce;
-		_LaunchForce = launchForce;
+		_KnockedBack = knockback;
+		_Launched = launch;
 	}
 
 	public void ResetAttackParameters()
 	{
 		_Damage = 0;
-		_KnockbackForce = 0.0f;
-		_LaunchForce = 0.0f;
+		_KnockedBack = false;
+		_Launched = false;
 	}
 }

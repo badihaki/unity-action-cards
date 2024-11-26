@@ -22,7 +22,7 @@ public class NPCAttackSuperState : NPCState
 		if (GameManagerMaster.GameMaster.logExtraNPCData)
 			Debug.Log(_NPC.name + " is entering state " + _NPC._MoveSet.GetCurrentAttack().animationName);
 
-		_AttackController.SetAttackParameters(0, 0);
+		_AttackController.SetAttackParameters(false, false);
 		_AttackController.UseAttackTicket();
 	}
 

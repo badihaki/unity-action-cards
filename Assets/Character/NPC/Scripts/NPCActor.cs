@@ -62,21 +62,21 @@ public class NPCActor : Actor, ITargetable, IAggressable
 		NPC._MoveController.SetExternalForces(forceSource, knockforce, launchForce);
 	}
 
-	public override void Damage(int damage, Transform damageSource, float knockForce, float launchForce, Character damageSourceController = null)
+	public override void Damage(int damage, Transform damageSource, bool knockback = false, bool launched = false, Character damageSourceController = null)
 	{
-		base.Damage(damage, damageSource, knockForce, launchForce);
-        EntityIsDamaged(CalculateAggression(damage, knockForce, launchForce), damageSource);
+		base.Damage(damage, damageSource, knockback, launched, damageSourceController);
+        EntityIsDamaged(CalculateAggression(damage, knockback, launched), damageSource);
 	}
 
-	private int CalculateAggression(int damage, float knockForce, float launchForce)
+	private int CalculateAggression(int damage, bool knockForce, bool launchForce)
 	{
 		float aggressionCalculation = damage * Mathf.Sqrt(100 - _AggressionManager._Aggression);
 		//print($"first calculation = {aggressionCalculation}");
 
-        if (knockForce < launchForce)
-            aggressionCalculation *= (float)Math.Sqrt(knockForce * launchForce);
-        else
-            aggressionCalculation *= (float)Math.Sqrt(launchForce * knockForce);
+        //if (knockForce < launchForce)
+        //    aggressionCalculation *= (float)Math.Sqrt(knockForce * launchForce);
+        //else
+        //    aggressionCalculation *= (float)Math.Sqrt(launchForce * knockForce);
 		//print($"aggr calculation w/ knock * (health * launch) = {aggressionCalculation}");
 
 		int aggression = (int)Math.Ceiling(aggressionCalculation);

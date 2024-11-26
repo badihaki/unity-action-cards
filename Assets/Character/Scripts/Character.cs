@@ -94,8 +94,9 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
-	public virtual void CalculateHitResponse(float knockForce, float launchForce, float damage = 1.0f)
+	public virtual void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
 	{
+        // this needs to be rewritten to determine which animation plays
 		float randomHit = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
         float poise = _Health.ChangePoise(randomHit);
 

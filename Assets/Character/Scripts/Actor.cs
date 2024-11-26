@@ -64,7 +64,7 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
         //print($"applying knockback to actor {name} controlled by {_Character}");
 	}
 
-	public virtual void Damage(int damage, Transform damageSource, float knockForce, float launchForce, Character damageSourceController = null)
+    public virtual void Damage(int damage, Transform damageSource, bool knockedBack = false, bool launched = false, Character damageSourceController = null)
 	{
 		if (damageSource != _Character.transform && !_IsInvuln)
 		{
@@ -77,8 +77,12 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 
 			_Character._Actor.transform.rotation = rotation;
 
-			_Character.CalculateHitResponse(knockForce, launchForce, damage);
-			ApplyKnockback(damageSource, knockForce, launchForce);
+			_Character.CalculateHitResponse(knockedBack, launched, damage); // need to rewrite thiss
+            if(knockedBack)
+            {
+
+            }
+			//ApplyKnockback(damageSource, knockedBack, launched); // need to rewrite this as well
 			//DetermineWhoWhurtMe(damageSource);
 
 			if (bloodFX != null)
