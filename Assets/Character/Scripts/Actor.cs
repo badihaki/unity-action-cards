@@ -15,7 +15,11 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
     [field: SerializeField, Header("Components")]
     public CheckForGround _CheckGrounded { get; private set; }
 
-    [field:SerializeField, Header("FXs")] private GameObject bloodFX;
+    [field:SerializeField, Header("FXs")]
+    private GameObject bloodFX;
+
+    [field: SerializeField, Header("Transforms")]
+    public Transform hitFxOrigin { get; protected set; }
 
 
 	public bool _IsInvuln { get; private set; }
@@ -28,10 +32,17 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
         animationController.applyRootMotion = true;
         _CheckGrounded = GetComponent<CheckForGround>();
         _CheckGrounded.Initialize();
+
+		FindTransforms();
     }
 
-    // TODO:: Add this to Character ~OR~ Make the methods empty so Derived classes can override
-    public virtual void StateAnimationFinished()
+	private void FindTransforms()
+	{
+        hitFxOrigin = transform.Find("HitOrigin");
+	}
+
+	// TODO:: Add this to Character ~OR~ Make the methods empty so Derived classes can override
+	public virtual void StateAnimationFinished()
     {
         //
     }
@@ -72,8 +83,8 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 
 			if (bloodFX != null)
 			{
-				GameObject blood = Instantiate(bloodFX, transform.position, rotation);
-				blood.transform.rotation = transform.rotation;
+				GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
+				blood.transform.rotation = hitFxOrigin.rotation;
 			}
 		}
 	}
