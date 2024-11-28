@@ -12,9 +12,14 @@ public class Health : MonoBehaviour
     public delegate void ChangeHealth(int health);
     public event ChangeHealth OnHealthChanged;
 
+    /*
+    // >>>>>>>> POISE
+     * Essentially, 
+     */
     [field: SerializeField] public float _MaxPoise { get; private set; } = 1.0f;
     [field: SerializeField] public float _PoiseFortification { get; private set; } = 0.0f;
     [field: SerializeField] public float _CurrentPoise { get; private set; }
+    [SerializeField] public float _PoiseThreshold() => _CurrentPoise + _PoiseFortification;
 
     public delegate void GetHit(string hitType);
     public event GetHit OnHit;
@@ -23,8 +28,8 @@ public class Health : MonoBehaviour
     public void InitiateHealth(int health)
     {
         _MaxHealth = health;
-        _MaxPoise = 1.0f;
-        _CurrentPoise = _MaxPoise + _PoiseFortification;
+        _MaxPoise = 3.0f;
+        _CurrentPoise = 0;
         ResetHealth();
     }
 
@@ -35,14 +40,14 @@ public class Health : MonoBehaviour
 
     private void RestorePoise()
     {
-        if (_CurrentPoise < _MaxPoise + _PoiseFortification)
+        if (_CurrentPoise > 0) // max poise and poise fort creates the poise threshold.
         {
             float restoreRate;
-            if (_CurrentPoise < (_MaxPoise + _PoiseFortification) / 2) restoreRate = 5.5f;
-            else restoreRate = 2.35f;
-            _CurrentPoise += Time.deltaTime * restoreRate;
+            if (_CurrentPoise > (_PoiseThreshold()) / 2) restoreRate = 1.35f;
+            else restoreRate = 0.735f;
+            _CurrentPoise -= Time.deltaTime * restoreRate;
         }
-        else if (_CurrentPoise != _MaxPoise + _PoiseFortification) _CurrentPoise = _MaxPoise + _PoiseFortification;
+        else _CurrentPoise = 0;
     }
 
     public void ResetHealth()
@@ -69,8 +74,9 @@ public class Health : MonoBehaviour
 
     public float ChangePoise(float poise)
     {
-        _PoiseFortification += poise;
-        return poise;
+        //_PoiseFortification += poise;
+        _CurrentPoise += poise;
+		return poise;
     }
 
     public void EmitOnHit(string hitType)=> OnHit?.Invoke(hitType);

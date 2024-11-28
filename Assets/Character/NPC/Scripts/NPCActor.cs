@@ -55,13 +55,6 @@ public class NPCActor : Actor, ITargetable, IAggressable
 
     public Transform GetTargetable() => transform;
 
-	public override void ApplyKnockback(Transform forceSource, float knockforce, float launchForce)
-	{
-		base.ApplyKnockback(forceSource, knockforce, launchForce);
-
-		NPC._MoveController.SetExternalForces(forceSource, knockforce, launchForce);
-	}
-
 	public override void Damage(int damage, Transform damageSource, bool knockback = false, bool launched = false, Character damageSourceController = null)
 	{
 		base.Damage(damage, damageSource, knockback, launched, damageSourceController);

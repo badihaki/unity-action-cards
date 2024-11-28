@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
-public class Actor : MonoBehaviour, IKnockbackable, IDamageable
+public class Actor : MonoBehaviour, IDamageable
 {
     [field: SerializeField, Header("Character Actor Basics")]
     private Character _Character;
@@ -59,11 +59,6 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
         //
     }
 
-	public virtual void ApplyKnockback(Transform forceSource, float knockforce, float launchForce)
-	{
-        //print($"applying knockback to actor {name} controlled by {_Character}");
-	}
-
     public virtual void Damage(int damage, Transform damageSource, bool knockedBack = false, bool launched = false, Character damageSourceController = null)
 	{
 		if (damageSource != _Character.transform && !_IsInvuln)
@@ -78,12 +73,6 @@ public class Actor : MonoBehaviour, IKnockbackable, IDamageable
 			_Character._Actor.transform.rotation = rotation;
 
 			_Character.CalculateHitResponse(knockedBack, launched, damage); // need to rewrite thiss
-            if(knockedBack)
-            {
-
-            }
-			//ApplyKnockback(damageSource, knockedBack, launched); // need to rewrite this as well
-			//DetermineWhoWhurtMe(damageSource);
 
 			if (bloodFX != null)
 			{

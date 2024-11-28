@@ -81,11 +81,6 @@ public class Character : MonoBehaviour
 
     protected virtual void TriggerhitAnimation(string hitType)
     {
-        if (_AnimationController)
-        {
-            // print(hitType);
-            _AnimationController.SetTrigger(hitType);
-        }
     }
 
     public virtual void DestroyEntity()
@@ -97,24 +92,18 @@ public class Character : MonoBehaviour
 	public virtual void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
 	{
         // this needs to be rewritten to determine which animation plays
-		float randomHit = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
-        float poise = _Health.ChangePoise(randomHit);
-
-		//  if (launchForce > 50)
-		//  {
-		//      _Health.EmitOnHit("launch");
-		//  }
-		//  else
-		//  {
-		//if (poise < 0 && poise > -0.5f)
-		//{
-		//          _Health.EmitOnHit("hit");
-		//}
-		//else if (poise < -0.5f)
-		//{
-		// _Health.EmitOnHit("knockBack");
-		//}
-		//  }
+		float poiseLost = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
+        float poise = _Health.ChangePoise(poiseLost);
+        if (isLaunched)
+        {
+            _Health.EmitOnHit("launch");
+            return;
+        }
+        if (isKnocked)
+        {
+            _Health.EmitOnHit("knockBack");
+            return;
+        }
 		_Health.EmitOnHit("hit");
 	}
 }
