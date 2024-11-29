@@ -8,6 +8,7 @@ public class GameManagerMaster : MonoBehaviour
     public SaveLoadManager SaveLoadManager { get; private set; }
     public CharCustomizationDatabase CharacterCustomizationDatabase { get; private set; }
     public GMDice Dice { get; private set; }
+    public ConstantVariables GeneralConstantVariables { get; private set; }
 
     [field: Header("Developer Tools"), SerializeField]
     public bool devMode { get; private set; }
@@ -33,6 +34,7 @@ public class GameManagerMaster : MonoBehaviour
         SaveLoadManager = new SaveLoadManager();
         CharacterCustomizationDatabase = GetComponent<CharCustomizationDatabase>();
         Dice = GetComponent<GMDice>();
+        GeneralConstantVariables = GetComponent<ConstantVariables>();
     }
 
     // Update is called once per frame

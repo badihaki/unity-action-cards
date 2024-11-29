@@ -14,8 +14,9 @@ public class NPCLaunchState : NPCHurtSuperState
 	{
 		base.LogicUpdate();
 		
-		if (Time.time < _StateEnterTime + 0.75f)
+		if (isBeingLaunched && Time.time > _StateEnterTime + 0.75f)
 		{
+			isBeingLaunched = false;
 		}
 	}
 
@@ -25,7 +26,7 @@ public class NPCLaunchState : NPCHurtSuperState
 
 		_NPC._MoveController.ApplyGravity();
 		if(isBeingLaunched)
-			_NPC._MoveController.Jump();
+			_NPC._MoveController.Launch();
 		_NPC._MoveController.ApplyExternalForces();
 	}
 

@@ -107,4 +107,12 @@ public class NPCMovementController : MonoBehaviour
 		force.y += _VerticalVelocity;
 		_ExternalForces = force;
 	}
+
+	public void Launch()
+	{
+		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.LaunchForce);
+		Vector3 force = _ExternalForces;
+		force.y += _VerticalVelocity;
+		_ExternalForces = force;
+	}
 }
