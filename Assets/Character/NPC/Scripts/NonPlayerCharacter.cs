@@ -57,7 +57,7 @@ public class NonPlayerCharacter : Character, IDestroyable
         hitAnimationString = hitType;
         //_AnimationController.SetBool(hitAnimationString, true);
         _AnimationController.SetTrigger(hitAnimationString);
-        _StateMachine.ChangeState(_StateMachine._HurtState);
+        _StateMachine.ChangeState(_StateMachine._HitState);
     }
     public void EndHurtAnimation()
     {
