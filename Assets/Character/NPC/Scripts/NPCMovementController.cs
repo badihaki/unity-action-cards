@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class NPCMovementController : MonoBehaviour
 {
-    private NonPlayerCharacter _Character;
+    private NonPlayerCharacter _NPC;
     [field: SerializeField, Header("Components")]
 	public CharacterController _CharacterController { get; private set; }
 	
@@ -18,16 +20,16 @@ public class NPCMovementController : MonoBehaviour
 
 	public void InitializeNPCMovement(NonPlayerCharacter character)
     {
-        _Character = character;
-        _CharacterController = _Character._Actor.GetComponent<CharacterController>();
-		_Navigator = _Character._NavigationController;
+        _NPC = character;
+        _CharacterController = _NPC._Actor.GetComponent<CharacterController>();
+		_Navigator = _NPC._NavigationController;
         _ExternalForces = Vector3.zero;
     }
 
 	public void ApplyGravity(float gravityModifier = 1.0f)
 	{
 		gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f);
-		if (_Character._CheckGrounded.IsGrounded())
+		if (_NPC._CheckGrounded.IsGrounded())
 		{
 			_VerticalVelocity = _BaseVerticalVelocity;
 		}
@@ -45,7 +47,7 @@ public class NPCMovementController : MonoBehaviour
 
 	public void SetExternalForces(Transform forceSource, float knockforce, float launchForce)
 	{
-		if (forceSource != _Character.transform)
+		if (forceSource != _NPC.transform)
 		{
 			Vector3 direction = (transform.position - forceSource.position).normalized;
 			// Vector3 force = new Vector3(0, launchForce, knockforce);
@@ -67,27 +69,42 @@ public class NPCMovementController : MonoBehaviour
 
 	public void MoveToCurrentNavNode()
 	{
-		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _Character._Actor.transform.position).normalized;
+		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _NPC._Actor.transform.position).normalized;
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
-		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
 	}
 
 	public void RotateTowardsTarget(Transform target)
 	{
 		float rotationSmoothTime = 5.50f;
-		Vector3 targetRotation = target.position - _Character._NPCActor.transform.position;
+		Vector3 targetRotation = target.position - _NPC._NPCActor.transform.position;
 		Quaternion lookRotation = Quaternion.LookRotation(targetRotation);
 		lookRotation.x = 0;
 		lookRotation.z = 0;
-		_Character._NPCActor.transform.rotation = Quaternion.Slerp(_Character._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
+		_NPC._NPCActor.transform.rotation = Quaternion.Slerp(_NPC._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
 	}
 
 	public void MoveToTarget()
 	{
-		Vector3 direction = (_Navigator._Target.transform.position - _Character._Actor.transform.position).normalized;
+		Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
-		_CharacterController.Move((direction * _Character._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+	}
+
+	public void Jump()
+	{
+		if (_NPC._CheckGrounded.IsGrounded())
+		{
+			_VerticalVelocity = Mathf.Sqrt(_NPC._CharacterSheet._JumpPower * 2);
+		}
+		else
+		{
+			_VerticalVelocity = Mathf.Sqrt(_NPC._CharacterSheet._JumpPower * 3.245f);
+		}
+		Vector3 force = _ExternalForces;
+		force.y += _VerticalVelocity;
+		_ExternalForces = force;
 	}
 }

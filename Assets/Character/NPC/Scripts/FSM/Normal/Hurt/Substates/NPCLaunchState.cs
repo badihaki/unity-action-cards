@@ -2,4 +2,48 @@ using UnityEngine;
 
 public class NPCLaunchState : NPCHurtSuperState
 {
+	private bool isBeingLaunched;
+
+	public override void EnterState()
+	{
+		base.EnterState();
+		isBeingLaunched = true;
+	}
+
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+		
+		if (Time.time < _StateEnterTime + 0.75f)
+		{
+		}
+	}
+
+	public override void PhysicsUpdate()
+	{
+		base.PhysicsUpdate();
+
+		_NPC._MoveController.ApplyGravity();
+		if(isBeingLaunched)
+			_NPC._MoveController.Jump();
+		_NPC._MoveController.ApplyExternalForces();
+	}
+
+	public override void CheckStateTransitions()
+	{
+		base.CheckStateTransitions();
+
+		if (Time.time > _StateEnterTime + 1.658f)
+		{
+			if (_NPC._Actor._CheckGrounded.IsGrounded())
+			{
+				if(_NPC._NPCActor._AggressionManager.isAggressive)
+					_StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+				else
+					_StateMachine.ChangeState(_StateMachine._IdleState);
+			}
+			else
+				_StateMachine.ChangeState(_StateMachine._FallingState);
+		}
+	}
 }

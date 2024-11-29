@@ -25,16 +25,6 @@ public class Character : MonoBehaviour
         Initialize();
     }
 
-    private void OnEnable()
-    {
-        if (_Health != null) _Health.OnHit += RespondToHit;
-    }
-
-    private void OnDisable()
-    {
-        if (_Health != null) _Health.OnHit -= RespondToHit;
-    }
-
     public virtual void Initialize()
     {
         // Create the character in the game world
@@ -50,7 +40,6 @@ public class Character : MonoBehaviour
 		_Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
-        _Health.OnHit += RespondToHit;
 
         // start aether points (magic points)
         _Aether = GetComponent<Aether>();
@@ -98,15 +87,18 @@ public class Character : MonoBehaviour
 		
         if (isLaunched)
 		{
-			_Health.EmitOnHit("launch");
+			RespondToHit("launch");
 			return;
 		}
 		if (isKnocked)
 		{
-			_Health.EmitOnHit("knockBack");
+			RespondToHit("knockBack");
 			return;
 		}
 		if (updatedPoise > _Health._PoiseThreshold())
-			_Health.EmitOnHit("hit");
+        {
+			RespondToHit("hit");
+            return;
+        }
 	}
 }

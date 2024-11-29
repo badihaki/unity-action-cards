@@ -70,12 +70,12 @@ public class NPCStateMachine : MonoBehaviour
 		{
 			_KnockBackState = ScriptableObject.CreateInstance<NPCKnockbackState>();
 		}
-		_KnockBackState.InitState(npc, this, "hit");
+		_KnockBackState.InitState(npc, this, "knockback");
 		if (!_LaunchState)
 		{
 			_LaunchState = ScriptableObject.CreateInstance<NPCLaunchState>();
 		}
-		_LaunchState.InitState(npc, this, "hit");
+		_LaunchState.InitState(npc, this, "launch");
 	}
 
 	public void ChangeState(NPCState state)

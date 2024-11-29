@@ -81,7 +81,6 @@ public class Health : MonoBehaviour
     {
         //_PoiseFortification += poise;
         _CurrentPoise += poise;
-        print($">>>>>>>>>>>>> poise threshold {_PoiseThreshold()}");
         if (_CurrentPoise > _PoiseThreshold())
         {
             restoringPoise = true;
@@ -90,6 +89,5 @@ public class Health : MonoBehaviour
 		return _CurrentPoise;
     }
 
-    public void EmitOnHit(string hitType)=> OnHit?.Invoke(hitType);
     // end
 }

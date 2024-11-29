@@ -55,8 +55,6 @@ public class NonPlayerCharacter : Character, IDestroyable
     protected override void RespondToHit(string hitType)
     {
         hitAnimationString = hitType;
-        //_AnimationController.SetBool(hitAnimationString, true);
-        //_AnimationController.SetTrigger(hitAnimationString);
         switch (hitType)
         {
             case "hit":
@@ -73,7 +71,6 @@ public class NonPlayerCharacter : Character, IDestroyable
 				break;
 
 		}
-		_StateMachine.ChangeState(_StateMachine._HitState);
     }
     public void EndHurtAnimation()
     {

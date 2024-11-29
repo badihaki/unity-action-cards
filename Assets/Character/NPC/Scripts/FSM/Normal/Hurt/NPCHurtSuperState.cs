@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class NPCHurtSuperState : NPCState
 {
-	public override void EnterState()
-	{
-		base.EnterState();
-	}
-
-	public override void PhysicsUpdate()
-	{
-		base.PhysicsUpdate();
-
-        //_NPC._MoveController.ApplyExternalForces();
-	}
-
 	public override void AnimationEndTrigger()
     {
         base.AnimationEndTrigger();
