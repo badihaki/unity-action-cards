@@ -91,9 +91,10 @@ public class Character : MonoBehaviour
 
 	public virtual void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
 	{
-        // this needs to be rewritten to determine which animation plays
-		float poiseLost = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
-        float poise = _Health.ChangePoise(poiseLost);
+		float poiseLost = UnityEngine.Random.Range(0.2f, damage * MathF.PI / 2);
+        //if (poiseLost > _Health._PoiseThreshold() * 1.15f) // is this too complicated
+        //    poiseLost = Mathf.Clamp(poiseLost, 0.0f, _Health._PoiseThreshold() / 2);
+        float updatedPoise = _Health.ChangePoise(poiseLost);
         if (isLaunched)
         {
             _Health.EmitOnHit("launch");
@@ -104,6 +105,7 @@ public class Character : MonoBehaviour
             _Health.EmitOnHit("knockBack");
             return;
         }
-		_Health.EmitOnHit("hit");
+        if(updatedPoise > _Health._PoiseThreshold())
+            _Health.EmitOnHit("hit");
 	}
 }
