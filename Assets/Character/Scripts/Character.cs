@@ -27,12 +27,12 @@ public class Character : MonoBehaviour
 
     private void OnEnable()
     {
-        if (_Health != null) _Health.OnHit += TriggerhitAnimation;
+        if (_Health != null) _Health.OnHit += RespondToHit;
     }
 
     private void OnDisable()
     {
-        if (_Health != null) _Health.OnHit -= TriggerhitAnimation;
+        if (_Health != null) _Health.OnHit -= RespondToHit;
     }
 
     public virtual void Initialize()
@@ -50,7 +50,7 @@ public class Character : MonoBehaviour
 		_Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
-        _Health.OnHit += TriggerhitAnimation;
+        _Health.OnHit += RespondToHit;
 
         // start aether points (magic points)
         _Aether = GetComponent<Aether>();
@@ -79,7 +79,7 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void TriggerhitAnimation(string hitType)
+    protected virtual void RespondToHit(string hitType)
     {
     }
 
@@ -89,23 +89,24 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
-	public virtual void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
+	public void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
 	{
 		float poiseLost = UnityEngine.Random.Range(0.2f, damage * MathF.PI / 2);
-        //if (poiseLost > _Health._PoiseThreshold() * 1.15f) // is this too complicated
-        //    poiseLost = Mathf.Clamp(poiseLost, 0.0f, _Health._PoiseThreshold() / 2);
-        float updatedPoise = _Health.ChangePoise(poiseLost);
+		//if (poiseLost > _Health._PoiseThreshold() * 1.15f) // is this too complicated
+		//    poiseLost = Mathf.Clamp(poiseLost, 0.0f, _Health._PoiseThreshold() / 2);
+		float updatedPoise = _Health.ChangePoise(poiseLost);
+		
         if (isLaunched)
-        {
-            _Health.EmitOnHit("launch");
-            return;
-        }
-        if (isKnocked)
-        {
-            _Health.EmitOnHit("knockBack");
-            return;
-        }
-        if(updatedPoise > _Health._PoiseThreshold())
-            _Health.EmitOnHit("hit");
+		{
+			_Health.EmitOnHit("launch");
+			return;
+		}
+		if (isKnocked)
+		{
+			_Health.EmitOnHit("knockBack");
+			return;
+		}
+		if (updatedPoise > _Health._PoiseThreshold())
+			_Health.EmitOnHit("hit");
 	}
 }
