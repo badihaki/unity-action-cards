@@ -10,11 +10,23 @@ public class PlayerJumpState : PlayerState
     }
 
     private Vector2 aimInput;
+    private bool attackInput;
+    private bool specialInput;
+    private bool jumpInput;
+    private bool canTakeAction;
+    private PlayerAttackController attackController;
 
-    public override void EnterState()
+	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+	{
+		base.InitializeState(pc, animationName, stateMachine);
+        attackController = pc._AttackController as PlayerAttackController;
+	}
+
+	public override void EnterState()
     {
         base.EnterState();
 
+        canTakeAction = false;
 		_PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
 		_PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._LocomotionController.Jump();
@@ -59,14 +71,32 @@ public class PlayerJumpState : PlayerState
 				_StateMachine.ChangeState(_StateMachine._IdleState);
 			}
 		}
-        
+        if (canTakeAction)
+        {
+            if (attackInput)
+                _StateMachine.ChangeState(attackController._AirAttackA);
+            if (specialInput)
+                _StateMachine.ChangeState(attackController._AirSpecial);
+            if (jumpInput)
+                _StateMachine.ChangeState(_StateMachine._AirJumpState);
+		}
     }
 
     public override void CheckInputs()
     {
         base.CheckInputs();
         aimInput = _PlayerCharacter._Controls._AimInput;
-    }
+        attackInput = _PlayerCharacter._Controls._AttackInput;
+        specialInput = _PlayerCharacter._Controls._SpecialAttackInput;
+        jumpInput = _PlayerCharacter._Controls._JumpInput;
+	}
 
-    // end
+	public override void TriggerSideEffect()
+	{
+		base.TriggerSideEffect();
+
+        canTakeAction = true;
+	}
+
+	// end
 }

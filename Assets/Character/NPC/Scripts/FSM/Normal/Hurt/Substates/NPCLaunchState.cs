@@ -34,7 +34,7 @@ public class NPCLaunchState : NPCHurtSuperState
 	{
 		base.CheckStateTransitions();
 
-		if (Time.time > _StateEnterTime + 1.658f)
+		if (Time.time > _StateEnterTime + 1.358f)
 		{
 			if (_NPC._Actor._CheckGrounded.IsGrounded())
 			{
