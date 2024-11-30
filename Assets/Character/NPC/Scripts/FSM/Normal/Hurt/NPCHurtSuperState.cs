@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class NPCHurtSuperState : NPCState
 {
+	public override void PhysicsUpdate()
+	{
+		base.PhysicsUpdate();
+	}
+
 	public override void AnimationEndTrigger()
     {
         base.AnimationEndTrigger();
-
-        if (!_NPC._NPCActor._AggressionManager.isAggressive)
+        if (_NPC._CheckGrounded.IsGrounded())
         {
-            _StateMachine.ChangeState(_StateMachine._IdleState);
+            if (!_NPC._NPCActor._AggressionManager.isAggressive)
+            {
+                _StateMachine.ChangeState(_StateMachine._IdleState);
+            }
+            else
+            {
+                _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+            }
         }
         else
         {
-            _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
-        }
+			_StateMachine.ChangeState(_StateMachine._FallingState);
+		}
     }
 
     public override void ExitState()
