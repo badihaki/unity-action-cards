@@ -24,9 +24,15 @@ public class NPCLaunchState : NPCHurtSuperState
 	{
 		base.PhysicsUpdate();
 
-		_NPC._MoveController.ApplyGravity();
-		if(isBeingLaunched)
+		if (isBeingLaunched)
+		{
 			_NPC._MoveController.Launch();
+			_NPC._MoveController.ApplyGravity(2f);
+		}
+		else
+		{
+			_NPC._MoveController.ApplyGravity();
+		}
 		_NPC._MoveController.ApplyExternalForces();
 	}
 

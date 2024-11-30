@@ -137,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 										   // rotation direction determines which direction we move to reach our intended rotation
 		if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
 		{
-			rotationSmoothingTime = 0.15f;
+			rotationSmoothingTime = 0.061f;
 		}
 		else if (!_CheckForGround.IsGrounded())
 		{

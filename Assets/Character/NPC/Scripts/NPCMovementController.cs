@@ -28,7 +28,7 @@ public class NPCMovementController : MonoBehaviour
 
 	public void ApplyGravity(float gravityModifier = 1.0f)
 	{
-		gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f);
+		gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f); // 3 is the highest it should and and that's a LOT of gravity
 		if (_NPC._CheckGrounded.IsGrounded())
 		{
 			_VerticalVelocity = _BaseVerticalVelocity;
