@@ -33,6 +33,8 @@ public class NPCAggressionManager : MonoBehaviour
         
         if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
         {
+            if (GameManagerMaster.GameMaster.logExtraNPCData)
+                print(">>>>>>> adding aggressor <<");
             _LastAggressors.Add(aggressor);
         }
 

@@ -110,9 +110,22 @@ public class NPCMovementController : MonoBehaviour
 
 	public void Launch()
 	{
-		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.LaunchForce);
+		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.CharacterLaunchForce);
 		Vector3 force = _ExternalForces;
 		force.y += _VerticalVelocity;
 		_ExternalForces = force;
+	}
+
+	public void FarKnocBack(Vector3 fromPosition)
+	{
+		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
+		Vector3 force = _ExternalForces;
+		force.y += _VerticalVelocity;
+		force.z += Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
+		_ExternalForces = force;
+		Vector3 headingTo = fromPosition - _NPC._NPCActor.transform.position;
+		float distance = headingTo.magnitude;
+		Vector3 direction = headingTo / distance;
+		Debug.DrawRay(transform.position, direction, Color.red);
 	}
 }

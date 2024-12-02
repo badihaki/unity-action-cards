@@ -14,6 +14,8 @@ public class NPCStateMachine : MonoBehaviour
     public NPCHitState _HitState { get; private set; }
     public NPCKnockbackState _KnockBackState { get; private set; }
     public NPCLaunchState _LaunchState { get; private set; }
+	public NPCAirHitState _AirHitState { get; private set; }
+	public NPCFarKnockbackState _FarKnockBackState { get; private set; }
 
 	[field: SerializeField]
     public NPCState _CurrentState { get; private set; }
@@ -76,6 +78,16 @@ public class NPCStateMachine : MonoBehaviour
 			_LaunchState = ScriptableObject.CreateInstance<NPCLaunchState>();
 		}
 		_LaunchState.InitState(npc, this, "launch");
+		if(!_AirHitState)
+		{
+			_AirHitState = ScriptableObject.CreateInstance<NPCAirHitState>();
+		}
+		_AirHitState.InitState(npc, this, "airHit");
+		if (!_FarKnockBackState)
+		{
+			_FarKnockBackState = ScriptableObject.CreateInstance<NPCFarKnockbackState>();
+		}
+		_FarKnockBackState.InitState(npc, this, "farKnockBack");
 	}
 
 	public void ChangeState(NPCState state)

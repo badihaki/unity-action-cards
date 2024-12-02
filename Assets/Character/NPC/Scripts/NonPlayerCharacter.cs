@@ -69,9 +69,17 @@ public class NonPlayerCharacter : Character, IDestroyable
 				print(">>>> respond launch");
                 _StateMachine.ChangeState(_StateMachine._LaunchState);
 				break;
+			case "airHit":
+				print(">>>> respond air hit");
+				_StateMachine.ChangeState(_StateMachine._AirHitState);
+				break;
+			case "farKnockBack":
+				print(">>>> respond far knockback");
+				_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
+				break;
 
 		}
-    }
+	}
     public void EndHurtAnimation()
     {
         _AnimationController.SetBool(hitAnimationString, false);

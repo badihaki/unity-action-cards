@@ -84,21 +84,36 @@ public class Character : MonoBehaviour
 		//if (poiseLost > _Health._PoiseThreshold() * 1.15f) // is this too complicated
 		//    poiseLost = Mathf.Clamp(poiseLost, 0.0f, _Health._PoiseThreshold() / 2);
 		float updatedPoise = _Health.ChangePoise(poiseLost);
-		
-        if (isLaunched)
-		{
-			RespondToHit("launch");
-			return;
-		}
-		if (isKnocked)
-		{
-			RespondToHit("knockBack");
-			return;
-		}
+
+        if (isLaunched && isKnocked)
+        {
+            RespondToHit("farKnockBack");
+        }
+        else
+        {
+            if (isLaunched)
+		    {
+			    RespondToHit("launch");
+			    return;
+		    }
+		    if (isKnocked)
+		    {
+			    RespondToHit("knockBack");
+			    return;
+		    }
+        }
 		if (updatedPoise > _Health._PoiseThreshold())
         {
-			RespondToHit("hit");
-            return;
+            if(_CheckGrounded.IsGrounded())
+            {
+			    RespondToHit("hit");
+                return;
+            }
+            else
+            {
+                RespondToHit("airHit");
+                return;
+            }
         }
 	}
 }
