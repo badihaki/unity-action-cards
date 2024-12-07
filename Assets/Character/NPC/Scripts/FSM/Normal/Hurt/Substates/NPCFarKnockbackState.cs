@@ -29,17 +29,17 @@ public class NPCFarKnockbackState : NPCState
 		if (knockbackTime < 0.85f)
 		{
 			_NPC._MoveController.FarKnocBack(knockingFrom.position);
-			_NPC._MoveController.ApplyGravity(knockbackTime);
-			_NPC._MoveController.ApplyExternalForces();
 		}
+		_NPC._MoveController.ApplyGravity(knockbackTime);
+		_NPC._MoveController.ApplyExternalForces();
 	}
 	public override void CheckStateTransitions()
 	{
 		base.CheckStateTransitions();
 
-		if(Time.time >= _StateEnterTime + 1.15f)
+		if (knockbackTime > 1.05f && _NPC._CheckGrounded.IsGrounded())
 		{
-			_StateMachine.ChangeState(_StateMachine._FallingState);
+			_StateMachine.ChangeState(_StateMachine._IdleState); // change this to a OTG state later
 		}
 	}
 }

@@ -14,4 +14,15 @@ public class SwordAttackCState : PlayerAttackSuperState
 		_AttackController.SetAttackParameters(false, false, 2);
 		ShowOrHideWeapon(true);
 	}
+
+	public override void CheckStateTransitions()
+	{
+		if (canCombo)
+		{
+			if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+			if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherC);
+		}
+
+		base.CheckStateTransitions();
+	}
 }

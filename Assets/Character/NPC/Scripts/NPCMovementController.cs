@@ -118,11 +118,18 @@ public class NPCMovementController : MonoBehaviour
 
 	public void FarKnocBack(Vector3 fromPosition)
 	{
+		// how far high we goin?
 		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
-		Vector3 force = _ExternalForces;
-		force.y += _VerticalVelocity;
-		force.z += Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
-		_ExternalForces = force;
+		Vector3 backwardsDir = -_NPC._NPCActor.transform.forward;
+		if (GameManagerMaster.GameMaster.logExtraNPCData)
+			print($">>>>>>>>>>> backwards direction is >>> {backwardsDir.ToString()}");
+		Vector3 extForceCopy = _ExternalForces;
+		extForceCopy.y += _VerticalVelocity;
+		// how far back we goin??
+		extForceCopy.z += GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.x;
+		Vector3 forcedDirection = new Vector3(backwardsDir.x, extForceCopy.y, -backwardsDir.z * extForceCopy.z);
+		_ExternalForces = forcedDirection;
+		// lets check out ideas using a ray
 		Vector3 headingTo = fromPosition - _NPC._NPCActor.transform.position;
 		float distance = headingTo.magnitude;
 		Vector3 direction = headingTo / distance;
