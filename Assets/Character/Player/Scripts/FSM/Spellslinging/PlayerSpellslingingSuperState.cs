@@ -41,7 +41,9 @@ public class PlayerSpellslingingSuperState : PlayerState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.25f);
-        _PlayerCharacter._PlayerSpells.RotateSpellTarget();
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+
+		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
 
         if (spellslingInput)
         {

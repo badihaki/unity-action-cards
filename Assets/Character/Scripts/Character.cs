@@ -17,6 +17,16 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
+    protected enum _CharacterHitResponseType
+    {
+        none,
+        hit,
+        airHit,
+        launched,
+        staggered,
+        knockedBack
+    }
+    [field: SerializeField] protected _CharacterHitResponseType _HitResponse;
 
 
     // Start is called before the first frame update
@@ -68,8 +78,9 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void RespondToHit(string hitType)
+    protected virtual void RespondToHit()
     {
+        _HitResponse = _CharacterHitResponseType.none;
     }
 
     public virtual void DestroyEntity()
@@ -87,33 +98,35 @@ public class Character : MonoBehaviour
 
         if (isLaunched && isKnocked)
         {
-            RespondToHit("farKnockBack");
-        }
-        else
+			_HitResponse = _CharacterHitResponseType.knockedBack;
+		}
+		else
         {
             if (isLaunched)
 		    {
-			    RespondToHit("launch");
-			    return;
+				_HitResponse = _CharacterHitResponseType.launched;
+				return;
 		    }
 		    if (isKnocked)
 		    {
-			    RespondToHit("knockBack");
-			    return;
+				_HitResponse = _CharacterHitResponseType.staggered;
+				return;
 		    }
         }
 		if (updatedPoise > _Health._PoiseThreshold())
         {
             if(_CheckGrounded.IsGrounded())
             {
-			    RespondToHit("hit");
-                return;
+				_HitResponse = _CharacterHitResponseType.hit;
+				return;
             }
             else
             {
-                RespondToHit("airHit");
+				_HitResponse = _CharacterHitResponseType.airHit;
                 return;
             }
         }
+
+        RespondToHit();
 	}
 }

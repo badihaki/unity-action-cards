@@ -38,7 +38,7 @@ public class PlayerCamera : MonoBehaviour
     public void Initialize(PlayerCharacter controller)
     {
         Player = controller;
-        cinemachineCamTarget = Player._Actor.transform.Find("CamTarget");
+        cinemachineCamTarget = Player.transform.Find("CamTarget");
         InitializeCinemachineController();
         InitializeAimCamController();
         LockCursorKBM();
@@ -93,6 +93,13 @@ public class PlayerCamera : MonoBehaviour
             cursorLocked = false;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    public void MakeCameraFollowPlayerActor()
+    {
+        Vector3 pos = Player._Actor.transform.position;
+        pos.y = 1.5f;
+        cinemachineCamTarget.transform.position = pos;
     }
 
     public void ControlCameraRotation(Vector2 aimInput)

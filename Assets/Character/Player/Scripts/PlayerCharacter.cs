@@ -166,7 +166,38 @@ public class PlayerCharacter : Character, IDestroyable
         print("Player death");
     }
 
-    public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
+	protected override void RespondToHit()
+	{
+		switch (_HitResponse)
+		{
+			case _CharacterHitResponseType.hit:
+				print($"{name} >>>> respond hit");
+				_StateMachine.ChangeState(_StateMachine._HitState);
+                break;
+			case _CharacterHitResponseType.staggered:
+				print($"{name} >>>>> respond knockBack//stagger");
+				//_StateMachine.ChangeState(_StateMachine._KnockBackState);
+				break;
+			case _CharacterHitResponseType.launched:
+				print($"{name} >>>>> respond launch");
+				//_StateMachine.ChangeState(_StateMachine._LaunchState);
+				break;
+			case _CharacterHitResponseType.airHit:
+				print($"{name} >>>>> respond air hit");
+				//_StateMachine.ChangeState(_StateMachine._AirHitState);
+				break;
+			case _CharacterHitResponseType.knockedBack:
+				print($"{name} >>>>> respond far far knock back//knockback");
+				//_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
+				break;
+			default:
+				print("probably not an attack");
+				break;
+		}
+        base.RespondToHit();
+	}
+
+	public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
     public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
     public void StateVFXTrigger() => _StateMachine._CurrentState.TriggerVisualEffect();
     public void StateSFXTrigger() => _StateMachine._CurrentState.TriggerSoundEffect();

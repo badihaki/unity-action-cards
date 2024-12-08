@@ -52,34 +52,37 @@ public class NonPlayerCharacter : Character, IDestroyable
         _MoveSet.Initialize(this);
     }
 
-    protected override void RespondToHit(string hitType)
+    protected override void RespondToHit()
     {
-        hitAnimationString = hitType;
-        switch (hitType)
+        switch (_HitResponse)
         {
-            case "hit":
+            case _CharacterHitResponseType.hit:
                 print(">>>> respond hit");
                 _StateMachine.ChangeState(_StateMachine._HitState);
 				break;
-			case "knockBack":
-				print(">>>> respond knockBack");
+			case _CharacterHitResponseType.staggered:
+				print(">>>> respond knockBack//stagger");
                 _StateMachine.ChangeState(_StateMachine._KnockBackState);
 				break;
-			case "launch":
+			case _CharacterHitResponseType.launched:
 				print(">>>> respond launch");
                 _StateMachine.ChangeState(_StateMachine._LaunchState);
 				break;
-			case "airHit":
+			case _CharacterHitResponseType.airHit:
 				print(">>>> respond air hit");
 				_StateMachine.ChangeState(_StateMachine._AirHitState);
 				break;
-			case "farKnockBack":
-				print(">>>> respond far knockback");
+			case _CharacterHitResponseType.knockedBack:
+				print(">>>> respond far far knock back//knockback");
 				_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
 				break;
-
+            default:
+                print("probably not an attack");
+                break;
 		}
+		base.RespondToHit();
 	}
+
     public void EndHurtAnimation()
     {
         _AnimationController.SetBool(hitAnimationString, false);

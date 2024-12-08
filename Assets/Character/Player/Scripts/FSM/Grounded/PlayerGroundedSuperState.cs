@@ -41,7 +41,9 @@ public class PlayerGroundedSuperState : PlayerState
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
-    }
+
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
 
     public override void PhysicsUpdate()
     {
