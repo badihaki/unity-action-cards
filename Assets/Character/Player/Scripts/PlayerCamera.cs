@@ -98,7 +98,7 @@ public class PlayerCamera : MonoBehaviour
     public void MakeCameraFollowPlayerActor()
     {
         Vector3 pos = Player._Actor.transform.position;
-        pos.y = 1.5f;
+        pos.y = Player._Actor.transform.position.y + 1.5f;
         cinemachineCamTarget.transform.position = pos;
     }
 

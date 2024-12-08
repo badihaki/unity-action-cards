@@ -67,15 +67,12 @@ public class NPCAttackController : CharacterAttackController
         switch (waitType)
         {
             case AttackWaitType.Short:
-                print("attack wait short <<<<<<<<<<<<<<<<<<");
                 yield return shortAttackWait;
                 break;
 			case AttackWaitType.Long:
-				print("attack wait long <<<<<<<<<<<<<<<<<<");
 				yield return longAttackWait;
 				break;
 			case AttackWaitType.SuperLong:
-				print("attack wait supaLong <<<<<<<<<<<<<<<<<<");
 				yield return superLongAttackWait;
 				break;
 		}

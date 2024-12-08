@@ -16,6 +16,13 @@ public class PlayerHurtSuperState : PlayerState
 		}
 	}
 
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
+
 	public override void AnimationFinished()
 	{
 		base.AnimationFinished();
