@@ -52,35 +52,34 @@ public class NonPlayerCharacter : Character, IDestroyable
         _MoveSet.Initialize(this);
     }
 
-    protected override void RespondToHit()
-    {
-        switch (_HitResponse)
-        {
-            case _CharacterHitResponseType.hit:
-                print(">>>> respond hit");
+	protected override void RespondToHit(string hitType)
+	{
+		switch (hitType)
+		{
+			case "hit":
+				print($"{name} >>>> respond hit >>> hit state");
                 _StateMachine.ChangeState(_StateMachine._HitState);
 				break;
-			case _CharacterHitResponseType.staggered:
-				print(">>>> respond knockBack//stagger");
+			case "staggered":
+				print($"{name} >>>> respond knockBack//stagger>>> stagger state");
                 _StateMachine.ChangeState(_StateMachine._KnockBackState);
 				break;
-			case _CharacterHitResponseType.launched:
-				print(">>>> respond launch");
+			case "launched":
+				print($"{name} >>>> respond launch >>> launch state");
                 _StateMachine.ChangeState(_StateMachine._LaunchState);
 				break;
-			case _CharacterHitResponseType.airHit:
-				print(">>>> respond air hit");
+			case "airHit":
+				print($"{name} >>>> respond air hit >>> air Hit state");
 				_StateMachine.ChangeState(_StateMachine._AirHitState);
 				break;
-			case _CharacterHitResponseType.knockedBack:
-				print(">>>> respond far far knock back//knockback");
+			case "knockback":
+				print($"{name} >>>> respond far far knock back//knockback >>> kncok back state");
 				_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
 				break;
             default:
                 print("probably not an attack");
                 break;
 		}
-		base.RespondToHit();
 	}
 
     public void EndHurtAnimation()

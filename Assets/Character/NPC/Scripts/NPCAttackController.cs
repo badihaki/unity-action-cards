@@ -14,8 +14,8 @@ public class NPCAttackController : CharacterAttackController
     [field: SerializeField, Header("Distances")]
 
     private WaitForSeconds shortAttackWait = new WaitForSeconds(0.673f);
-    private WaitForSeconds longAttackWait = new WaitForSeconds(1.965f);
-    private WaitForSeconds superLongAttackWait = new WaitForSeconds(5.15f);
+    private WaitForSeconds longAttackWait = new WaitForSeconds(1.465f);
+    private WaitForSeconds superLongAttackWait = new WaitForSeconds(3.15f);
     public enum AttackWaitType
     {
         Short,

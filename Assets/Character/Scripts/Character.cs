@@ -17,16 +17,6 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
-    protected enum _CharacterHitResponseType
-    {
-        none,
-        hit,
-        airHit,
-        launched,
-        staggered,
-        knockedBack
-    }
-    [field: SerializeField] protected _CharacterHitResponseType _HitResponse;
 
 
     // Start is called before the first frame update
@@ -78,9 +68,8 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void RespondToHit()
+    protected virtual void RespondToHit(string hitType)
     {
-        _HitResponse = _CharacterHitResponseType.none;
     }
 
     public virtual void DestroyEntity()
@@ -91,25 +80,25 @@ public class Character : MonoBehaviour
 
 	public void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
 	{
-		float poiseLost = UnityEngine.Random.Range(0.2f, damage * MathF.PI / 2);
-		//if (poiseLost > _Health._PoiseThreshold() * 1.15f) // is this too complicated
-		//    poiseLost = Mathf.Clamp(poiseLost, 0.0f, _Health._PoiseThreshold() / 2);
+		float poiseLost = UnityEngine.Random.Range(damage * 0.285f, damage);
+        if (poiseLost > 1.1f)
+            poiseLost = 1.0f;
 		float updatedPoise = _Health.ChangePoise(poiseLost);
 
         if (isLaunched && isKnocked)
         {
-			_HitResponse = _CharacterHitResponseType.knockedBack;
+			RespondToHit("knockback");
 		}
 		else
         {
             if (isLaunched)
 		    {
-				_HitResponse = _CharacterHitResponseType.launched;
+				RespondToHit("launched");
 				return;
 		    }
 		    if (isKnocked)
 		    {
-				_HitResponse = _CharacterHitResponseType.staggered;
+				RespondToHit("staggered");
 				return;
 		    }
         }
@@ -117,16 +106,16 @@ public class Character : MonoBehaviour
         {
             if(_CheckGrounded.IsGrounded())
             {
-				_HitResponse = _CharacterHitResponseType.hit;
+				RespondToHit("hit");
 				return;
             }
             else
             {
-				_HitResponse = _CharacterHitResponseType.airHit;
-                return;
+				RespondToHit("airHit");
+				return;
             }
         }
-
-        RespondToHit();
 	}
+
+    // end of the line
 }

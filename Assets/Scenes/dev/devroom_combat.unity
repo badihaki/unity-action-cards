@@ -674,6 +674,12 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 11400000, guid: 1f909ec5e4c4d0e4d959fc278906bf4e, type: 2}
+--- !u!4 &1055843595 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2056554844}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1106406980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2471,6 +2477,74 @@ Transform:
   - {fileID: 672933842}
   m_Father: {fileID: 1106406981}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2056554844
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1228731097}
+    m_Modifications:
+    - target: {fileID: 1028050517729507658, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_Name
+      value: CamTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 669316f391d456c4bb37c26150807f3d, type: 3}
 --- !u!1001 &2073497463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4652,11 +4726,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2555641686671377901, guid: 1bb29c8e3e476f84cbfd0dc941bb97fc,
-        type: 3}
-      propertyPath: <logExtraNPCData>k__BackingField
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3696046997118454275, guid: 1bb29c8e3e476f84cbfd0dc941bb97fc,
         type: 3}
       propertyPath: m_Name
@@ -4879,6 +4948,10 @@ PrefabInstance:
     - {fileID: 4242036913303553902, guid: d274e6b2e7f3a53438f1184377199161, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1055843595}
     - targetCorrespondingSourceObject: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       insertIndex: -1

@@ -166,27 +166,27 @@ public class PlayerCharacter : Character, IDestroyable
         print("Player death");
     }
 
-	protected override void RespondToHit()
+	protected override void RespondToHit(string hitType)
 	{
-		switch (_HitResponse)
+		switch (hitType)
 		{
-			case _CharacterHitResponseType.hit:
+			case "hit":
 				print($"{name} >>>> respond hit");
 				_StateMachine.ChangeState(_StateMachine._HitState);
                 break;
-			case _CharacterHitResponseType.staggered:
+			case "staggered":
 				print($"{name} >>>>> respond knockBack//stagger");
 				//_StateMachine.ChangeState(_StateMachine._KnockBackState);
 				break;
-			case _CharacterHitResponseType.launched:
+			case "launched":
 				print($"{name} >>>>> respond launch");
 				//_StateMachine.ChangeState(_StateMachine._LaunchState);
 				break;
-			case _CharacterHitResponseType.airHit:
+			case "airHit":
 				print($"{name} >>>>> respond air hit");
 				//_StateMachine.ChangeState(_StateMachine._AirHitState);
 				break;
-			case _CharacterHitResponseType.knockedBack:
+			case "knockback":
 				print($"{name} >>>>> respond far far knock back//knockback");
 				//_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
 				break;
@@ -194,7 +194,6 @@ public class PlayerCharacter : Character, IDestroyable
 				print("probably not an attack");
 				break;
 		}
-        base.RespondToHit();
 	}
 
 	public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
