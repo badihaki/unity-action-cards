@@ -20,7 +20,7 @@ public class PlayerSpecialSuperState : PlayerCombatSuperState
         base.ExitState();
 
         // _PlayerCharacter._AnimationController.SetBool("special", false);
-        _PlayerCharacter._AttackController.ResetAttackParameters();
+        _AttackController.ResetAttackParameters();
 		_PlayerCharacter._WeaponController.UseWeaponDurability(_PlayerCharacter._WeaponController._CurrentWeapon._DurabilitySpecialCost);
 	}
 

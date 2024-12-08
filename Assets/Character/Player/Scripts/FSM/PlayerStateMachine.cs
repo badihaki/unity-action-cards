@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,13 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerSpellslingingSuperState _SpellslingState { get; private set; }
     public PlayerAirDashState _AirDashState { get; private set; }
     public PlayerAirJumpState _AirJumpState { get; private set; }
-    #endregion
-    public void InitializeStateMachine(PlayerCharacter player)
+
+    #region Hurt
+    public PlayerHitState _HitState { get; private set; }
+	#endregion
+
+	#endregion
+	public void InitializeStateMachine(PlayerCharacter player)
     {
         _IdleState = ScriptableObject.CreateInstance<PlayerIdleState>();
         _IdleState.InitializeState(player, "idle", this);
@@ -43,12 +49,20 @@ public class PlayerStateMachine : MonoBehaviour
         _AirJumpState = ScriptableObject.CreateInstance<PlayerAirJumpState>();
         _AirJumpState.InitializeState(player, "airJump", this);
 
+		InitializeHurtStates(player);
+
         _CurrentState = _IdleState;
         // Debug.Log("Starting state machine with " + state._StateAnimationName);
         _CurrentState.EnterState();
     }
 
-    public void ChangeState(PlayerState state)
+	private void InitializeHurtStates(PlayerCharacter player)
+	{
+        _HitState = ScriptableObject.CreateInstance<PlayerHitState>();
+        _HitState.InitializeState(player, "hit", this);
+	}
+
+	public void ChangeState(PlayerState state)
     {
         _CurrentState.ExitState();
         _CurrentState = state;

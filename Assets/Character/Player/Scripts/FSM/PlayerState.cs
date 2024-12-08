@@ -41,6 +41,7 @@ public class PlayerState : ScriptableObject
         _SideEffectTrigger = false;
         _AnimationIsFinished = false;
         _PlayerCharacter._AnimationController.SetBool(_StateAnimationName, true);
+        CheckInputs();
 
         // Debug.Log("Entering new state: " + _StateAnimationName + " at " + Time.time);
     }

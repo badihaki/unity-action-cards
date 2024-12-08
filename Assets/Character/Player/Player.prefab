@@ -137,11 +137,11 @@ MonoBehaviour:
     type: 2}
   <_Actor>k__BackingField: {fileID: 0}
   <_AnimationController>k__BackingField: {fileID: 0}
+  <_AttackController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
   <_PlayerActor>k__BackingField: {fileID: 0}
   <_LoadNewOnStart>k__BackingField: 1
-  <_Hitbox>k__BackingField: {fileID: 0}
 --- !u!114 &3710469694778071795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +158,6 @@ MonoBehaviour:
   <_MaxPoise>k__BackingField: 1
   <_PoiseFortification>k__BackingField: 0
   <_CurrentPoise>k__BackingField: 0
-  bloodFX: {fileID: 0}
 --- !u!114 &358040525570265840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,7 +332,7 @@ MonoBehaviour:
   _MovementDirection: {x: 0, y: 0, z: 0}
   <movementSpeed>k__BackingField: 0
   <targetSpeed>k__BackingField: 0
-  aimRotationSpeed: 5.36
+  aimRotationSpeed: 1
   <canDoubleJump>k__BackingField: 0
   <canAirDash>k__BackingField: 0
 --- !u!114 &2985811743604711824
@@ -397,7 +396,7 @@ MonoBehaviour:
   _activeSpellList: []
   _currentSpellIndex: 0
   _baseSpell: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9, type: 2}
-  <_spellOrigin>k__BackingField: {fileID: 0}
+  <_spellTarget>k__BackingField: {fileID: 0}
   _spellTimer: 0
   _spellUIPrefab: {fileID: 8331729735603304313, guid: 6a890885860d600419d9a31456fdb228,
     type: 3}
@@ -405,7 +404,6 @@ MonoBehaviour:
   _spellIconPrefab: {fileID: 4196082061840423992, guid: 145d3d7e21ed8144ab2a1671f65702ca,
     type: 3}
   _crosshair: {fileID: 0}
-  targetPos: {x: 0, y: 0, z: 0}
 --- !u!114 &7139961280166402280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,9 +413,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764021959895548567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff8a23b80ac415f45a0c83ad1a6d7388, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ade214e6798a144b8bfba78c135bfe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_Damage>k__BackingField: 0
+  <_KnockbackForce>k__BackingField: 0
+  <_LaunchForce>k__BackingField: 0
   <_AttackA>k__BackingField: {fileID: 0}
   <_AttackB>k__BackingField: {fileID: 0}
   <_AttackC>k__BackingField: {fileID: 0}
@@ -432,9 +433,6 @@ MonoBehaviour:
   <_AirAttackB>k__BackingField: {fileID: 0}
   <_AirAttackC>k__BackingField: {fileID: 0}
   <_DefenseAction>k__BackingField: {fileID: 0}
-  <_Damage>k__BackingField: 0
-  <_KnockbackForce>k__BackingField: 0
-  <_LaunchForce>k__BackingField: 0
 --- !u!114 &5072868601858473742
 MonoBehaviour:
   m_ObjectHideFlags: 0

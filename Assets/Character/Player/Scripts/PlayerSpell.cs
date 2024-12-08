@@ -183,7 +183,7 @@ public class PlayerSpell : MonoBehaviour
 		//conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
 		conjuredSpell.transform.eulerAngles = _spellTarget.transform.eulerAngles;
 		conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
-        conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellKnockAndLaunchForces, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
+        conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
         _spellTimer = timeToAddToTimer;
         RemoveSpellCharge();
     }
@@ -200,7 +200,7 @@ public class PlayerSpell : MonoBehaviour
         {
             player._LockOnTargeter.rangeTargets.ForEach(t =>
             {
-                print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
+                //print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
                 if (targetPos == Vector3.zero) targetPos = t.position;
                 else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
                 {

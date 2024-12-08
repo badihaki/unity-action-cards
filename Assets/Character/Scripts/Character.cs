@@ -10,6 +10,7 @@ public class Character : MonoBehaviour
     [field: SerializeField, Header(">> Character <<")] public CharacterSheet _CharacterSheet { get; protected set; }
     public Health _Health { get; private set; }
     public Aether _Aether { get; private set; }
+    public CharacterAttackController _AttackController { get; protected set; }
     public CheckForGround _CheckGrounded { get; private set; }
     [field: SerializeField] public Actor _Actor { get; protected set; }
     [field: SerializeField, Header("Character Components")] public Animator _AnimationController { get; private set; }
@@ -17,20 +18,11 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
 
+
     // Start is called before the first frame update
     void Start()
     {
         Initialize();
-    }
-
-    private void OnEnable()
-    {
-        if (_Health != null) _Health.OnHit += TriggerhitAnimation;
-    }
-
-    private void OnDisable()
-    {
-        if (_Health != null) _Health.OnHit -= TriggerhitAnimation;
     }
 
     public virtual void Initialize()
@@ -38,11 +30,16 @@ public class Character : MonoBehaviour
         // Create the character in the game world
         _Actor = transform.Find("Actor").GetComponent<Actor>();
 
-        // start health
-        _Health = GetComponent<Health>();
+		// start the hitbox
+		_Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>()?.Initialize(this);
+
+        // Attack
+        _AttackController = GetComponent<CharacterAttackController>();
+
+		// start health
+		_Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
-        _Health.OnHit += TriggerhitAnimation;
 
         // start aether points (magic points)
         _Aether = GetComponent<Aether>();
@@ -71,13 +68,8 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void TriggerhitAnimation(string hitType)
+    protected virtual void RespondToHit(string hitType)
     {
-        if (_AnimationController)
-        {
-            // print(hitType);
-            _AnimationController.SetTrigger(hitType);
-        }
     }
 
     public virtual void DestroyEntity()
@@ -86,26 +78,44 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
-	public virtual void CalculateHitResponse(float knockForce, float launchForce, float damage = 1.0f)
+	public void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
 	{
-		float randomHit = UnityEngine.Random.Range(MathF.Abs(damage) * 0.318f, damage * MathF.PI / 2);
-        float poise = _Health.ChangePoise(randomHit);
+		float poiseLost = UnityEngine.Random.Range(damage * 0.285f, damage);
+        if (poiseLost > 1.1f)
+            poiseLost = 1.0f;
+		float updatedPoise = _Health.ChangePoise(poiseLost);
 
-		//  if (launchForce > 50)
-		//  {
-		//      _Health.EmitOnHit("launch");
-		//  }
-		//  else
-		//  {
-		//if (poise < 0 && poise > -0.5f)
-		//{
-		//          _Health.EmitOnHit("hit");
-		//}
-		//else if (poise < -0.5f)
-		//{
-		// _Health.EmitOnHit("knockBack");
-		//}
-		//  }
-		_Health.EmitOnHit("hit");
+        if (isLaunched && isKnocked)
+        {
+			RespondToHit("knockback");
+		}
+		else
+        {
+            if (isLaunched)
+		    {
+				RespondToHit("launched");
+				return;
+		    }
+		    if (isKnocked)
+		    {
+				RespondToHit("staggered");
+				return;
+		    }
+        }
+		if (updatedPoise > _Health._PoiseThreshold())
+        {
+            if(_CheckGrounded.IsGrounded())
+            {
+				RespondToHit("hit");
+				return;
+            }
+            else
+            {
+				RespondToHit("airHit");
+				return;
+            }
+        }
 	}
+
+    // end of the line
 }

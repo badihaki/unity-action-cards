@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Attack A", menuName = "Create Attacks/00_Unarmed/Unarmed Attack A")]
+[CreateAssetMenu(fileName = "Unarmed Attack A", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Attack A")]
 public class PlayerUnarmedAttackAState : PlayerAttackSuperState
 {
     public PlayerUnarmedAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
@@ -14,8 +14,8 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
         base.EnterState();
         
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        _PlayerCharacter._AttackController.SetAttackParameters(1, 0.78f, 1.75f);
-        ShowOrHideWeapon(true);
+		_AttackController.SetAttackParameters(false, false);
+		ShowOrHideWeapon(true);
     }
 
     public override void ExitState()
@@ -26,9 +26,9 @@ public class PlayerUnarmedAttackAState : PlayerAttackSuperState
 
     public override void CheckStateTransitions()
     {
-        if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackB);
-        if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
-        if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
+        if (canCombo && attackInput) _StateMachine.ChangeState(_AttackController._AttackB);
+        if (canCombo && specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
+        if (canCombo && jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
 
         base.CheckStateTransitions();
     }

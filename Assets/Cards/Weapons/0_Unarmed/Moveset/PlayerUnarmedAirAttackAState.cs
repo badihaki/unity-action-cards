@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Air Attack A", menuName = "Create Attacks/00_Unarmed/Unarmed Air Attack A")]
+[CreateAssetMenu(fileName = "Unarmed Air Attack A", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Air Attack A")]
 public class PlayerUnarmedAirAttackAState : PlayerAirCombatSuperState
 {
     public PlayerUnarmedAirAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
@@ -11,16 +11,19 @@ public class PlayerUnarmedAirAttackAState : PlayerAirCombatSuperState
     {
         base.EnterState();
 
-        _PlayerCharacter._AttackController.SetAttackParameters(1, 0.15f, 1.75f);
+        _AttackController.SetAttackParameters(false, false);
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if(canCombo && attackInput)
+        if(canCombo)
         {
-            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirAttackB);
-        }
+            if (attackInput)
+                _StateMachine.ChangeState(_AttackController._AirAttackB);
+            if(specialInput)
+				_StateMachine.ChangeState(_AttackController._AirSpecial);
+		}
     }
 }
