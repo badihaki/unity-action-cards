@@ -8,7 +8,7 @@ public class PlayerRushAttackSuperState : PlayerCombatSuperState
     {
     }
 
-    public override void ExitState()
+	public override void ExitState()
     {
         base.ExitState();
         _AttackController.ResetAttackParameters();

@@ -26,7 +26,14 @@ public class PlayerAirDashState : PlayerState
         }
     }
 
-    public override void PhysicsUpdate()
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+
+        _PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
+
+	public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 

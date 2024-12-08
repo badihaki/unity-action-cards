@@ -32,6 +32,7 @@ public class PlayerCombatSuperState : PlayerState
         base.EnterState();
 
         canCombo = false;
+        _PlayerCharacter._LocomotionController.RotateInstantly(moveInput);
     }
 
     public override void ExitState()
