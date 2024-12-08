@@ -18,9 +18,12 @@ public class PlayerUnarmedAirAttackBState : PlayerAirCombatSuperState
     {
         base.CheckStateTransitions();
 
-        if (canCombo && attackInput)
+        if (canCombo)
         {
-            _StateMachine.ChangeState(_AttackController._AirAttackA);
-        }
+            if (attackInput)
+                _StateMachine.ChangeState(_AttackController._AirAttackA);
+            if (specialInput)
+                _StateMachine.ChangeState(_AttackController._AirSpecial);
+		}
     }
 }
