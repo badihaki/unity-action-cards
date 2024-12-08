@@ -24,7 +24,8 @@ MonoBehaviour:
   _SpellCharges: 1
   _SpellProjectileSpeed: 10.5
   _SpellKnockAndLaunchForces: {x: 3, y: 24}
-  _SpellAddonTime: 0.5
+  _SpellAetherCost: 4
+  _SpellAddonTime: 0.385
   _SpellLifetime: 5.135
   _StartSound: {fileID: 0}
   _TravelSound: {fileID: 0}

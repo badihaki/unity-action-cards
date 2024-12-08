@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Attack B", menuName = "Create Attacks/00_Unarmed/Unarmed Attack B")]
+[CreateAssetMenu(fileName = "Unarmed Attack B", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Attack B")]
 public class PlayerUnarmedAttackBState : PlayerAttackSuperState
 {
     public PlayerUnarmedAttackBState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
@@ -13,7 +13,7 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     {
         base.EnterState();
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
-        _PlayerCharacter._AttackController.SetAttackParameters(2, 1.025f, 1.35f);
+        _AttackController.SetAttackParameters(false, false, 1);
         ShowOrHideWeapon(true);
     }
 
@@ -25,9 +25,9 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
 
     public override void CheckStateTransitions()
     {
-        if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackC);
-        if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
-        if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
+        if (canCombo && attackInput) _StateMachine.ChangeState(_AttackController._AttackC);
+        if (canCombo && specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
+        if (canCombo && jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
 
         base.CheckStateTransitions();
     }
@@ -35,10 +35,10 @@ public class PlayerUnarmedAttackBState : PlayerAttackSuperState
     {
         base.TriggerVisualEffect();
         // Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._Actor.transform.position.y + 1.75f, _PlayerCharacter._Actor.transform.position.z + 0.75f);
-        Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._AttackController._WeaponHolderR.transform.position.y, _PlayerCharacter._Actor.transform.position.z + 0.75f);
+        Vector3 position = new Vector3(_PlayerCharacter._Actor.transform.position.x, _PlayerCharacter._WeaponController._WeaponHolderR.transform.position.y, _PlayerCharacter._Actor.transform.position.z + 0.75f);
         Quaternion rotation = Quaternion.Euler(_PlayerCharacter._PlayerActor.transform.forward);
 
-        GameObject vfx = Instantiate(_PlayerCharacter._AttackController._CurrentWeapon._WeaponAttackFX, position, rotation);
+        GameObject vfx = Instantiate(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponAttackFX, position, rotation);
         vfx.transform.rotation = _PlayerCharacter._PlayerActor.transform.rotation;
     }
 

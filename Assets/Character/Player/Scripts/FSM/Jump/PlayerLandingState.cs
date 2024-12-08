@@ -22,7 +22,8 @@ public class PlayerLandingState : PlayerState
         base.LogicUpdate();
 
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-    }
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
 
     public override void PhysicsUpdate()
     {

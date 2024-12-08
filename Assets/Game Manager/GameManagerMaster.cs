@@ -8,9 +8,16 @@ public class GameManagerMaster : MonoBehaviour
     public SaveLoadManager SaveLoadManager { get; private set; }
     public CharCustomizationDatabase CharacterCustomizationDatabase { get; private set; }
     public GMDice Dice { get; private set; }
+    public ConstantVariables GeneralConstantVariables { get; private set; }
 
-    // Start is called before the first frame update
-    void Start()
+    [field: Header("Developer Tools"), SerializeField]
+    public bool devMode { get; private set; }
+    [field:SerializeField]
+	public bool logExtraNPCData { get; private set; }
+
+
+	// Start is called before the first frame update
+	void Start()
     {
         if (GameMaster != null && GameMaster != this)
         {
@@ -27,6 +34,7 @@ public class GameManagerMaster : MonoBehaviour
         SaveLoadManager = new SaveLoadManager();
         CharacterCustomizationDatabase = GetComponent<CharCustomizationDatabase>();
         Dice = GetComponent<GMDice>();
+        GeneralConstantVariables = GetComponent<ConstantVariables>();
     }
 
     // Update is called once per frame

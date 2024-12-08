@@ -13,7 +13,7 @@ public class PlayerCamera : MonoBehaviour
     [field: SerializeField] public Camera _Camera { get; private set; }
     [Header("Cinemachine Cameras")]
     [field: SerializeField] public CinemachineCamera _PlayerCamController { get; private set; }
-    [field: SerializeField] public CinemachineCamera _PlayerAimCamController { get; private set; }
+    [field: SerializeField] public CinemachineCamera _PlayerSpellCamController { get; private set; }
     [SerializeField] private CinemachineCamera currentCameraController;
 
     [Header("Camera Settings")]
@@ -38,11 +38,11 @@ public class PlayerCamera : MonoBehaviour
     public void Initialize(PlayerCharacter controller)
     {
         Player = controller;
-        cinemachineCamTarget = Player._Actor.transform.Find("CamTarget");
+        cinemachineCamTarget = Player.transform.Find("CamTarget");
         InitializeCinemachineController();
         InitializeAimCamController();
         LockCursorKBM();
-        currentCameraController = _PlayerAimCamController;
+        currentCameraController = _PlayerCamController;
         cursorLocked = false;
         _Camera = Camera.main;
     }
@@ -65,13 +65,13 @@ public class PlayerCamera : MonoBehaviour
     {
         GameObject newGameObj = new GameObject();
         newGameObj.name = "PlayerAimCamController";
-        _PlayerAimCamController = newGameObj.AddComponent<CinemachineCamera>();
-        _PlayerAimCamController.Follow = cinemachineCamTarget;
-        _PlayerAimCamController.Priority = 0;
+        _PlayerSpellCamController = newGameObj.AddComponent<CinemachineCamera>();
+        _PlayerSpellCamController.Follow = cinemachineCamTarget;
+        _PlayerSpellCamController.Priority = 0;
 
-        _PlayerAimCamController.Lens.FieldOfView = 25.5f;
+        _PlayerSpellCamController.Lens.FieldOfView = 25.5f;
 
-        CinemachineThirdPersonFollow body = _PlayerAimCamController.AddComponent<CinemachineThirdPersonFollow>();
+        CinemachineThirdPersonFollow body = _PlayerSpellCamController.AddComponent<CinemachineThirdPersonFollow>();
         body.CameraDistance = 1.75f;
         body.VerticalArmLength = 1.6f;
         body.ShoulderOffset = new Vector3(0.750f, -1.25f, 0.0f);
@@ -93,6 +93,13 @@ public class PlayerCamera : MonoBehaviour
             cursorLocked = false;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    public void MakeCameraFollowPlayerActor()
+    {
+        Vector3 pos = Player._Actor.transform.position;
+        pos.y = Player._Actor.transform.position.y + 1.5f;
+        cinemachineCamTarget.transform.position = pos;
     }
 
     public void ControlCameraRotation(Vector2 aimInput)

@@ -1,90 +1,146 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class NPCNavigator : MonoBehaviour
 {
     private NonPlayerCharacter _NPC;
-    private NavMeshAgent _Agent;
-    [field: SerializeField] public Transform _Target { get; private set; }
-    [field: SerializeField] public Vector3 _TargetLocation { get; private set; }
-    [field: SerializeField] public float _PatrolRange { get; private set; }
-    [SerializeField] private GameObject _TargetDebugObject;
+    [field: SerializeField, Header("Target info")] public Transform _Target { get; private set; }
     [field: SerializeField] public float _MaxDistance { get; private set; }
+
+    [field: SerializeField, Header("Nav Node")]
+    public NavigationNode _CurrentNavNode { get; private set; }
+    [field: SerializeField] private List<NavigationNode> _PriorNavNodes;
+    [field: SerializeField] private bool listReseting;
+    private WaitForSeconds listWaitTime = new WaitForSeconds(9.386f);
+    private float resetTimer;
+    private NPCAttackController _AttackController;
 
     public void InitializeNavigator(NonPlayerCharacter npc)
     {
         _NPC = npc;
-        _Agent = _NPC._NPCActor.GetComponent<NavMeshAgent>();
-        _Agent.speed = _NPC._CharacterSheet._WalkSpeed;
+        listReseting = false;
+        _AttackController = _NPC._AttackController as NPCAttackController;
+        _NPC._NPCActor._AggressionManager.IsAggressed += BecomeAggressed;
+    }
+
+	private void OnEnable()
+	{
+		if(_NPC != null)
+        {
+			_NPC._NPCActor._AggressionManager.IsAggressed += BecomeAggressed;
+		}
+	}
+
+	private void OnDisable()
+	{
+
+		_NPC._NPCActor._AggressionManager.IsAggressed -= BecomeAggressed;
+	}
+
+	private void BecomeAggressed()
+    {
+        StopCoroutine(ManageNavNodeList());
+        _Target = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
+        _AttackController.SetNewTarget(_Target);
+        _PriorNavNodes.Clear();
+        _CurrentNavNode = null;
     }
 
     public bool TryFindNewPatrol()
     {
-        float xPos = Random.Range(-_PatrolRange, _PatrolRange);
-        float zPos = Random.Range(-_PatrolRange, _PatrolRange);
-        Vector3 newPos = new Vector3(transform.position.x + xPos, 0, transform.position.z + zPos);
-        // print("new position to find for " + name + "'s patrol: " + newPos);
-        if (Physics.CheckSphere(newPos, 1.0f))
+        if (!_CurrentNavNode) // if we dont have a nav node, lets get one and pause for a minute
         {
-            _TargetLocation = newPos;
-            CreateDebugObject(newPos);
-            return true;
-        }
-        else
-        {
+            FindNewNavigationNode();
             return false;
         }
+        FindNextNavigationNode();
+        return true;
+    }
+	
+	private void FindNewNavigationNode()
+	{
+        //NavigationNode[] nodes = GameObject.FindObjectsByType<NavigationNode>(FindObjectsSortMode.None);
+		Collider[] nodes = (Physics.OverlapSphere(transform.position, 10.5f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
+		NavigationNode node = null;
+        foreach (var navNode in nodes)
+        {
+            NavigationNode NavNode = navNode.GetComponent<NavigationNode>();
+			if (!node)
+			{
+				//node = navNode;
+				node = NavNode;
+			}
+            else
+            {
+                float distanceFromSavedNode = Vector3.Distance(_NPC._NPCActor.transform.position, node.transform.position);
+                float distanceFromNavNode = Vector3.Distance(_NPC._NPCActor.transform.position, navNode.transform.position);
+				if (distanceFromSavedNode > distanceFromNavNode) 
+                {
+					//node = navNode;
+					node = NavNode;
+                }
+            }
+        }
+        _CurrentNavNode = node;
     }
 
-    public void StartMoveToDestination()
+    private void FindNextNavigationNode()
     {
-        if (_TargetDebugObject) DestroyDebugObject();
-        if (_Target)
+        NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
+        NavigationNode navNode = GetNewNavNode(nodes);        
+        _CurrentNavNode = navNode;
+    }
+    private NavigationNode GetNewNavNode(NavigationNode[] nodes)
+    {
+        NavigationNode navNode = null;
+        foreach (var node in nodes)
         {
-            _Agent.SetDestination(_Target.position);
-            // print($"moving to target at {_Agent.destination}");
-            CreateDebugObject(_Target.position);
+            if (!_PriorNavNodes.Contains(node))
+            {
+                navNode = node; // just get the first node we haven't been to yet
+                break;
+            }
         }
+        if(navNode != null)
+            return navNode;
         else
-        {
-            _Agent.SetDestination(_TargetLocation);
-            CreateDebugObject(_TargetLocation);
-        }
-        
+            return nodes[UnityEngine.Random.Range(0, nodes.Length - 1)]; // return a random node
+            
     }
 
-    public void StopNavigation()
-    {
-        if (!_Agent.isStopped)
-        {
-            // print("~~~Stop nav");
-            _Agent.isStopped = true;
-            _Agent.ResetPath();
-            _NPC._MoveController.ZeroOutMovement();
-        }
-    }
-
-    public bool IsNavStopped() => _Agent.isStopped;
-
-    private void CreateDebugObject(Vector3 position)
-    {
-        _TargetDebugObject = new GameObject();
-        _TargetDebugObject.transform.position = position;
-        _TargetDebugObject.name = name + "TargetLoc";
-    }
-    public void DestroyDebugObject()
-    {
-        Destroy(_TargetDebugObject);
-        _TargetDebugObject = null;
-    }
-
-    public void SetTarget(Transform newTarget) => _Target = newTarget;
+	public void SetTarget(Transform newTarget) => _Target = newTarget;
     public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {
-        _Agent.stoppingDistance = distance;
         SetMaxAttackDistance(distance + 1.0f);
     }
     public void SetMaxAttackDistance(float m_distance = 2.0f) => _MaxDistance = m_distance;
+
+    public void AddToPriorNodes()
+    {
+        _PriorNavNodes.Add(_CurrentNavNode);
+        if (_PriorNavNodes.Count > 5) _PriorNavNodes.RemoveAt(0);
+        if (!listReseting)
+        {
+            listReseting = true;
+            StartCoroutine(ManageNavNodeList());
+        }
+    }
+
+    public IEnumerator ManageNavNodeList()
+    {
+        while (_PriorNavNodes.Count > 0)
+        {
+            resetTimer = Time.time;
+			yield return listWaitTime;
+            //print($"removing {_PriorNavNodes[0]} from > LIST < of prior nodes");
+            //print($" Elapsed Time == {Time.time - resetTimer}");
+            _PriorNavNodes.RemoveAt(0);
+            yield return null;
+        }
+        listReseting = false;
+    }
 }

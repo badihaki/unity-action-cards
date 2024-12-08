@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Sword Attack A", menuName = "Create Attacks/01_Sword/Sword Attack A")]
+[CreateAssetMenu(fileName = "Sword Attack A", menuName = "Characters/Player/Create Attacks/01_Sword/Sword Attack A")]
 public class SwordAttackAState : PlayerAttackSuperState
 {
     public SwordAttackAState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
@@ -13,7 +13,7 @@ public class SwordAttackAState : PlayerAttackSuperState
 	{
 		base.EnterState();
 		_PlayerCharacter._LocomotionController.ZeroOutVelocity();
-		_PlayerCharacter._AttackController.SetAttackParameters(1, 1.025f, 1.35f);
+		_AttackController.SetAttackParameters(false, false);
 		ShowOrHideWeapon(true);
 	}
 
@@ -25,10 +25,12 @@ public class SwordAttackAState : PlayerAttackSuperState
 
 	public override void CheckStateTransitions()
 	{
-		if (canCombo && attackInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackB);
-
-		// if (canCombo && specialInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._FinisherA);
-		// if (canCombo && jumpInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._LauncherAttack);
+		if (canCombo)
+		{
+			if (attackInput) _StateMachine.ChangeState(_AttackController._AttackB);
+			if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+			if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
+		}
 
 		base.CheckStateTransitions();
 	}

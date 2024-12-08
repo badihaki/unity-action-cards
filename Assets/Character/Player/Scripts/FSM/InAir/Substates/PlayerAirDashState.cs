@@ -11,6 +11,7 @@ public class PlayerAirDashState : PlayerState
         base.EnterState();
 
         _PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
+        _PlayerCharacter._Controls.UseRush();
         _PlayerCharacter._LocomotionController.SetAirDash(false);
 		_PlayerCharacter._LocomotionController.Jump();
     }
@@ -25,7 +26,14 @@ public class PlayerAirDashState : PlayerState
         }
     }
 
-    public override void PhysicsUpdate()
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+
+        _PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
+
+	public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 

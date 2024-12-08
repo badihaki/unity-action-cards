@@ -5,9 +5,16 @@ using UnityEngine;
 
 public class PlayerCombatSuperState : PlayerState
 {
-    public PlayerCombatSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+	protected PlayerAttackController _AttackController;
+	public PlayerCombatSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+	{
+		base.InitializeState(pc, animationName, stateMachine);
+
+		_AttackController = pc._AttackController as PlayerAttackController;
+	}
 
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }
@@ -25,6 +32,7 @@ public class PlayerCombatSuperState : PlayerState
         base.EnterState();
 
         canCombo = false;
+        _PlayerCharacter._LocomotionController.RotateInstantly(moveInput);
     }
 
     public override void ExitState()
@@ -59,6 +67,8 @@ public class PlayerCombatSuperState : PlayerState
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
+
+        _PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
     }
 
     public override void PhysicsUpdate()
@@ -90,13 +100,13 @@ public class PlayerCombatSuperState : PlayerState
     {
         if (showWeapon)
         {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(true);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(true);
+            _PlayerCharacter._WeaponController._WeaponR?.SetActive(true);
+            _PlayerCharacter._WeaponController._WeaponL?.SetActive(true);
         }
         else
         {
-            _PlayerCharacter._AttackController._WeaponR?.SetActive(false);
-            _PlayerCharacter._AttackController._WeaponL?.SetActive(false);
+            _PlayerCharacter._WeaponController._WeaponR?.SetActive(false);
+            _PlayerCharacter._WeaponController._WeaponL?.SetActive(false);
         }
     }
 }

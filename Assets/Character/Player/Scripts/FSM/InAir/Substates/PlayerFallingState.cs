@@ -22,8 +22,6 @@ public class PlayerFallingState : PlayerInAirSuperState
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-
         fallTime += Time.deltaTime;
     }
 

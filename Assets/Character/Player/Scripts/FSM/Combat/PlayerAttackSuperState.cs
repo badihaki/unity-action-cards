@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class PlayerAttackSuperState : PlayerCombatSuperState
 {
+
     public PlayerAttackSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
 
-    public override void EnterState()
+	
+
+	public override void EnterState()
     {
         base.EnterState();
 
@@ -22,7 +25,8 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
         base.ExitState();
 
         _PlayerCharacter._AnimationController.SetBool("attack", false);
-        _PlayerCharacter._AttackController.ResetAttackParameters();
+        _AttackController.ResetAttackParameters();
+        _PlayerCharacter._WeaponController.UseWeaponDurability(_PlayerCharacter._WeaponController._CurrentWeapon._DurabilityAttackCost);
     }
 
     public override void LogicUpdate()

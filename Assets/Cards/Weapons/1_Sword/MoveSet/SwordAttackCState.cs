@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Sword Attack C", menuName = "Create Attacks/01_Sword/Sword Attack C")]
+[CreateAssetMenu(fileName = "Sword Attack C", menuName = "Characters/Player/Create Attacks/01_Sword/Sword Attack C")]
 public class SwordAttackCState : PlayerAttackSuperState
 {
 	public SwordAttackCState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
@@ -11,7 +11,18 @@ public class SwordAttackCState : PlayerAttackSuperState
 	{
 		base.EnterState();
 		_PlayerCharacter._LocomotionController.ZeroOutVelocity();
-		_PlayerCharacter._AttackController.SetAttackParameters(3, 1.025f, 1.35f);
+		_AttackController.SetAttackParameters(false, false, 2);
 		ShowOrHideWeapon(true);
+	}
+
+	public override void CheckStateTransitions()
+	{
+		if (canCombo)
+		{
+			if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+			if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherC);
+		}
+
+		base.CheckStateTransitions();
 	}
 }

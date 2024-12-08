@@ -11,14 +11,14 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerMovement _LocomotionController { get; private set; }
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
-    public PlayerAttack _AttackController { get; private set; }
+    public PlayerWeaponController _WeaponController { get; private set; }
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
+    public PlayerUIController _PlayerUIController { get; private set; }
 
     // Actor Stuff
     [field:SerializeField, Header("~> Player Character <~")]
     public PlayerActor _PlayerActor { get; private set; }
     [field: SerializeField] public bool _LoadNewOnStart { get; private set; }
-    [field: SerializeField] public CharacterHitbox _Hitbox { get; private set; }
 
     // state machine
     public PlayerStateMachine _StateMachine { get; private set; }
@@ -52,11 +52,7 @@ public class PlayerCharacter : Character, IDestroyable
         _PlayerSpells.Initialize(this);
 
         // ok lets get attacks up
-        _AttackController = GetComponent<PlayerAttack>();
-
-        // start the hitbox
-        _Hitbox = _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>();
-        _Hitbox.Initialize(this);
+        _WeaponController = GetComponent<PlayerWeaponController>();
 
         // initialize the statemachine
         InitializeStateMachine();
@@ -65,11 +61,14 @@ public class PlayerCharacter : Character, IDestroyable
         _LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
         _LockOnTargeter.Initialize(this);
 
-        // and initialize the attack controller, since it needs the state machine
-        _AttackController.Initialize(this);
+		// and initialize the attack controller, since it needs the state machine
+		_AttackController.Initialize(this);
+        // init weapon controller directly afterwards
+        _WeaponController.Initialize(this);
 
         // initialize UI
-        if (_UI != null) _UI.InitializeUI(true, this);
+        _PlayerUIController = GetComponent<PlayerUIController>();
+        _PlayerUIController.InitializeUI(true, this);
     }
 
     private void LoadAndBuildActor()
@@ -162,22 +161,42 @@ public class PlayerCharacter : Character, IDestroyable
         _StateMachine.InitializeStateMachine(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        _StateMachine?._CurrentState.LogicUpdate();
-    }
-    private void FixedUpdate()
-    {
-        _StateMachine?._CurrentState.PhysicsUpdate();
-    }
-
     public override void DestroyEntity()
     {
         print("Player death");
     }
 
-    public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
+	protected override void RespondToHit(string hitType)
+	{
+		switch (hitType)
+		{
+			case "hit":
+				print($"{name} >>>> respond hit");
+				_StateMachine.ChangeState(_StateMachine._HitState);
+                break;
+			case "staggered":
+				print($"{name} >>>>> respond knockBack//stagger");
+				//_StateMachine.ChangeState(_StateMachine._KnockBackState);
+				break;
+			case "launched":
+				print($"{name} >>>>> respond launch");
+				//_StateMachine.ChangeState(_StateMachine._LaunchState);
+				break;
+			case "airHit":
+				print($"{name} >>>>> respond air hit");
+				//_StateMachine.ChangeState(_StateMachine._AirHitState);
+				break;
+			case "knockback":
+				print($"{name} >>>>> respond far far knock back//knockback");
+				//_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
+				break;
+			default:
+				print("probably not an attack");
+				break;
+		}
+	}
+
+	public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
     public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
     public void StateVFXTrigger() => _StateMachine._CurrentState.TriggerVisualEffect();
     public void StateSFXTrigger() => _StateMachine._CurrentState.TriggerSoundEffect();

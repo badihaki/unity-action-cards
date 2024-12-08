@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Unarmed Air Special", menuName = "Create Attacks/00_Unarmed/Unarmed Air Special")]
+[CreateAssetMenu(fileName = "Unarmed Air Special", menuName = "Characters/Player/Create Attacks/00_Unarmed/Unarmed Air Special")]
 public class PlayerUnarmedAirSpecialState : PlayerAirCombatSuperState
 {
     public PlayerUnarmedAirSpecialState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
@@ -16,7 +16,9 @@ public class PlayerUnarmedAirSpecialState : PlayerAirCombatSuperState
         continued = false;
         _PlayerCharacter._AnimationController.SetBool("continue", false);
         _PlayerCharacter._AnimationController.SetBool("continue2", false);
-    }
+
+		_AttackController.SetAttackParameters(true, true, 2);
+	}
 
     public override void LogicUpdate()
     {

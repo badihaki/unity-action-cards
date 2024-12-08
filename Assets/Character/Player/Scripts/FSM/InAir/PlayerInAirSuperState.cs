@@ -16,8 +16,16 @@ public class PlayerInAirSuperState : PlayerState
     public bool specialInput { get; private set; }
     public bool jumpInput { get; private set; }
     public bool rushInput { get; private set; }
+    protected PlayerAttackController _AttackController;
 
-    public override void LogicUpdate()
+	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+	{
+		base.InitializeState(pc, animationName, stateMachine);
+
+        _AttackController = pc._AttackController as PlayerAttackController;
+	}
+
+	public override void LogicUpdate()
     {
         base.LogicUpdate();
 
@@ -28,7 +36,9 @@ public class PlayerInAirSuperState : PlayerState
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
-    }
+
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
 
     public override void PhysicsUpdate()
     {
@@ -49,18 +59,17 @@ public class PlayerInAirSuperState : PlayerState
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
             _StateMachine.ChangeState(_StateMachine._IdleState);
-            _PlayerCharacter._LocomotionController.SetDoubleJump(true);
-            _PlayerCharacter._LocomotionController.SetAirDash(true);
-        }
+			_PlayerCharacter._LocomotionController.ResetAllAirSchmoovement();
+		}
         if (attackInput)
         {
             _PlayerCharacter.LogFromState("attackin");
             _PlayerCharacter._Controls.UseAttack();
-            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirAttackA);
+            _StateMachine.ChangeState(_AttackController._AirAttackA);
         }
         if (specialInput)
         {
-            _StateMachine.ChangeState(_PlayerCharacter._AttackController._AirSpecial);
+            _StateMachine.ChangeState(_AttackController._AirSpecial);
             _PlayerCharacter._Controls.UseSpecialAttack();
         }
     }

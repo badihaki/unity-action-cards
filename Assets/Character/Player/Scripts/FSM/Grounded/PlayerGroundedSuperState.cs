@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerGroundedSuperState : PlayerState
 {
-    public PlayerGroundedSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
-    {
-    }
-
     public Vector2 moveInput { get; private set; }
     public Vector2 aimInput { get; private set; }
     public bool rushInput { get; private set; }
@@ -18,8 +14,20 @@ public class PlayerGroundedSuperState : PlayerState
     public bool specialInput { get; private set; }
     public bool defenseInput { get; private set; }
     public int spellSelectDirection { get; private set; }
+    protected PlayerAttackController _AttackController;
+    public PlayerGroundedSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
+    {
+        _AttackController = pc._AttackController as PlayerAttackController;
+    }
 
-    public override void LogicUpdate()
+	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+	{
+		base.InitializeState(pc, animationName, stateMachine);
+
+		_AttackController = pc._AttackController as PlayerAttackController;
+	}
+
+	public override void LogicUpdate()
     {
         base.LogicUpdate();
 
@@ -33,7 +41,9 @@ public class PlayerGroundedSuperState : PlayerState
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
-    }
+
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
 
     public override void PhysicsUpdate()
     {
@@ -49,7 +59,7 @@ public class PlayerGroundedSuperState : PlayerState
             if (!_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._FallingState); // if not grounded, fall
             if (jumpInput) _StateMachine.ChangeState(_StateMachine._JumpState); // if jump input is detected, go to jump
             if (spellInput) _StateMachine.ChangeState(_StateMachine._SpellslingState); // if spell input detected, go to spell
-            if (defenseInput) _StateMachine.ChangeState(_PlayerCharacter._AttackController._DefenseAction); // if def input detected, go to def
+            if (defenseInput) _StateMachine.ChangeState(_AttackController._DefenseAction); // if def input detected, go to def
 
             // attacks
             if (rushInput)
@@ -60,7 +70,7 @@ public class PlayerGroundedSuperState : PlayerState
                     {
                         _PlayerCharacter._Controls.UseAttack();
                         _PlayerCharacter._Controls.UseSpecialAttack();
-                        _StateMachine.ChangeState(_PlayerCharacter._AttackController._RushAttack);
+                        _StateMachine.ChangeState(_AttackController._RushAttack);
                     }
                 }
                 else
@@ -68,12 +78,12 @@ public class PlayerGroundedSuperState : PlayerState
                     if (attackInput)
                     {
                         _PlayerCharacter._Controls.UseAttack();
-                        _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+                        _StateMachine.ChangeState(_AttackController._AttackA);
                     }
                     if (specialInput)
                     {
                         _PlayerCharacter._Controls.UseSpecialAttack();
-                        _StateMachine.ChangeState(_PlayerCharacter._AttackController._Special);
+                        _StateMachine.ChangeState(_AttackController._Special);
                     }
                 }
             }
@@ -82,12 +92,12 @@ public class PlayerGroundedSuperState : PlayerState
                 if (attackInput)
                 {
                     _PlayerCharacter._Controls.UseAttack();
-                    _StateMachine.ChangeState(_PlayerCharacter._AttackController._AttackA);
+                    _StateMachine.ChangeState(_AttackController._AttackA);
                 }
                 if (specialInput)
                 {
                     _PlayerCharacter._Controls.UseSpecialAttack();
-                    _StateMachine.ChangeState(_PlayerCharacter._AttackController._Special);
+                    _StateMachine.ChangeState(_AttackController._Special);
                 }
             }
         }

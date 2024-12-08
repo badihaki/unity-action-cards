@@ -8,9 +8,10 @@ public class PlayerRushAttackSuperState : PlayerCombatSuperState
     {
     }
 
-    public override void ExitState()
+	public override void ExitState()
     {
         base.ExitState();
-        _PlayerCharacter._AttackController.ResetAttackParameters();
-    }
+        _AttackController.ResetAttackParameters();
+		_PlayerCharacter._WeaponController.UseWeaponDurability(_PlayerCharacter._WeaponController._CurrentWeapon._DurabilitySpecialCost);
+	}
 }

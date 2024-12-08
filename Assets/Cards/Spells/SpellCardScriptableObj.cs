@@ -14,7 +14,7 @@ public class SpellCardScriptableObj : CardScriptableObj
     public int _SpellDamage;
     public int _SpellCharges;
     public float _SpellProjectileSpeed;
-    public Vector2 _SpellKnockAndLaunchForces;
+    public int _SpellAetherCost;
 
     [Header("Spell lifetime variables")]
     public float _SpellAddonTime;

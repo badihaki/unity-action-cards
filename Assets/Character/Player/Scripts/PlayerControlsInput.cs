@@ -67,6 +67,7 @@ public class PlayerControlsInput : MonoBehaviour
     {
         _RushInput = inputState;
     }
+    public void UseRush() => _RushInput = false;
     public void OnCards(InputValue val)
     {
         ProcessCards(val.isPressed);

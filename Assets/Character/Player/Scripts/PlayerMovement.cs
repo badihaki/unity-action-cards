@@ -1,9 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Build;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -28,11 +24,18 @@ public class PlayerMovement : MonoBehaviour
     private float rotationSmoothingTime = 0.082f;
     private float targetRotation;
     private float lerpSpeedOnSlowDown = 0.5f;
-    private Camera cam;
 
-    [Header("In Air Schmoovement")]
-    [field: SerializeField] public bool canDoubleJump { get; private set; }
+    [Header("Aim Rotation"), SerializeField]
+    private float aimRotationSpeed = 2.0f;
+
+	private Camera cam;
+
+    [field: Header("In Air Schmoovement"), SerializeField]
+    public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
+    private WaitForSeconds airSchmooveWait = new WaitForSeconds(0.15f);
+
+
     public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
@@ -127,27 +130,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void RotateCharacter(Vector2 inputDirection)
     {
-        // target rotation is the intended vector we want to rotate to
-        targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
-            * Mathf.Rad2Deg
-            + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
-        // rotation direction determines which direction we move to reach our intended rotation
-        if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
-        {
-            rotationSmoothingTime = 0.15f; 
-        }
-        else if(!_CheckForGround.IsGrounded())
-        {
-            rotationSmoothingTime = 0.45f;
-        }
-        float rotationDirection = Mathf.SmoothDampAngle(_Actor.transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
-        // actually rotating the transform
-        // transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
-        _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
-    }
+		// target rotation is the intended vector we want to rotate to
+		targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
+			* Mathf.Rad2Deg
+			+ cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
+										   // rotation direction determines which direction we move to reach our intended rotation
+		if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
+		{
+			rotationSmoothingTime = 0.061f;
+		}
+		else if (!_CheckForGround.IsGrounded())
+		{
+			rotationSmoothingTime = 0.45f;
+		}
+		float rotationDirection = Mathf.SmoothDampAngle(_Actor.transform.eulerAngles.y, targetRotation, ref rotationVelocity, rotationSmoothingTime);
+		// actually rotating the transform
+		// transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+		_Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
+	}
     public void RotateInstantly(Vector2 inputDirection)
     {
-        print($"rotating to this input direction {inputDirection}");
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
     * Mathf.Rad2Deg
     + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
@@ -166,37 +168,18 @@ public class PlayerMovement : MonoBehaviour
         _Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
     }
 
-    public void RotateTowardsTarget(Vector3 targetPos)
+    public void RotateWhileAiming(Vector2 aimInput)
     {
-        print($"rotating towards target position {targetPos} || playerMovement.rotateTowardsTarget");
-        // Vector3 rotation = Vector3.RotateTowards(_Actor.transform.position, targetPos - _Actor.transform.position, Time.deltaTime, 0.0f);
-        // Vector3 direction = targetPos - _Player._PlayerSpells._spellOrigin.transform.position;
+        //Vector3 desiredRotation = new Vector3(cam.transform.rotation.x, cam.transform.rotation.y, cam.transform.rotation.z);
+        Quaternion desiredRotation = _Player._CameraController.cinemachineCamTarget.rotation;
+        desiredRotation.x = 0;
+        desiredRotation.z = 0;
+		//_Player._CameraController.cinemachineCamTarget.transform.Rotate(0, (aimRotationSpeed * aimInput.x), 0);
+		//_Actor.transform.rotation = desiredRotation;
 
-        // _Actor.transform.localRotation = Quaternion.LookRotation(rotation); // this causes the x to get rotated.
-        // _Actor.transform.eulerAngles = new Vector3(0, rotation.y, 0);
-        // _Actor.transform.localRotation = Quaternion.Euler(rotation);
-        // print($"target to look at {direction}");
-        
-        // _Actor.transform.LookAt(targetPos);
-        // _Player._PlayerSpells._spellOrigin.LookAt(targetPos);
-        
-        // _Actor.transform.eulerAngles = new Vector3(0.0f, _Actor.transform.rotation.y, 0.0f);
-        
-        StartCoroutine(RotateTowards(targetPos, 12));
-    }
-
-    private IEnumerator RotateTowards(Vector3 targetPos, float deg)
-    {
-        Vector3 dirToLookAt = (targetPos - _Actor.transform.position).normalized;
-        float targetAngle = Mathf.Atan2(dirToLookAt.x, dirToLookAt.z) * Mathf.Rad2Deg;
-
-        while(Mathf.Abs(Mathf.DeltaAngle(_Actor.transform.eulerAngles.y, targetAngle)) > Mathf.Epsilon)
-        {
-            float angle = Mathf.MoveTowardsAngle(_Actor.transform.eulerAngles.y, targetAngle, deg);
-            _Actor.transform.eulerAngles = Vector3.up * angle;
-            yield return null;
-        }
-    }
+		_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, desiredRotation, aimRotationSpeed);
+		//_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, _Player._CameraController.cinemachineCamTarget.rotation, aimRotationSpeed);
+	}
 
     public void ApplyDesiredMoveToMovement()
     {
@@ -222,12 +205,20 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            print("air jumping");
             _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 3.245f);
         }
     }
     public void SetDoubleJump(bool value) => canDoubleJump = value;
     public void SetAirDash(bool value) => canAirDash = value;
+    public void ResetAllAirSchmoovement() => StartCoroutine(ResetAirSchmoovement());
+    private IEnumerator ResetAirSchmoovement()
+    {
+		canAirDash = false;
+		canDoubleJump = false;
+		yield return airSchmooveWait;
+        canAirDash = true;
+        canDoubleJump = true;
+    }
 
-    // end
+	// end
 }
