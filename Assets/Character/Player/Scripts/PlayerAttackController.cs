@@ -155,5 +155,12 @@ public class PlayerAttackController : CharacterAttackController
         base.SetAttackParameters(knockback, launch, damageModifier);
     }
 
-    // end
+	public override void PlayHitSpark(Vector3 hitPos)
+	{
+		base.PlayHitSpark(hitPos);
+
+        Instantiate(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity);
+	}
+
+	// end
 }
