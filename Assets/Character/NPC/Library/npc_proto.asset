@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc_proto
   m_EditorClassIdentifier: 
   _CharacterName: Protoman
-  _StartingHealth: 100
+  _StartingHealth: 25
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8

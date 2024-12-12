@@ -4764,6 +4764,35 @@ PrefabInstance:
       propertyPath: <_LoadNewOnStart>k__BackingField
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: <_Deck>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Hand>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Hand>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
     - target: {fileID: 1038968632505537608, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_AnchorMax.x

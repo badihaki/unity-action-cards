@@ -19,10 +19,10 @@ MonoBehaviour:
   _SpecialFinisherA: {fileID: 11400000, guid: 6d2510e216f5c46449a078292d192f48, type: 2}
   _SpecialFinisherB: {fileID: 11400000, guid: 6ef7a108c0ac6704792e779fcc517ea3, type: 2}
   _SpecialFinisherC: {fileID: 11400000, guid: 66bf049834c6a91479e9809cb1adcdf0, type: 2}
-  _AirAttackA: {fileID: 0}
-  _AirAttackB: {fileID: 0}
-  _AirAttackC: {fileID: 0}
-  _AirSpecial: {fileID: 0}
-  _RushAttack: {fileID: 0}
+  _AirAttackA: {fileID: 11400000, guid: 39aada22921654e4da4fd45894b57cf4, type: 2}
+  _AirAttackB: {fileID: 11400000, guid: 6ee59fa756e5003479b2296e8b3c48bf, type: 2}
+  _AirAttackC: {fileID: 11400000, guid: 869312a2a6658d34a837f6747c926314, type: 2}
+  _AirSpecial: {fileID: 11400000, guid: ee38258782b927a47a79ac11328befd0, type: 2}
+  _RushAttack: {fileID: 11400000, guid: 904b6b7ca09061b4c8d163bc427d4a59, type: 2}
   _LauncherAttack: {fileID: 11400000, guid: 3a42d5eae89cac443af5b9fd4d41458d, type: 2}
   _Defense: {fileID: 11400000, guid: e492bbaa12b31c0469ab832bbb86af11, type: 2}
