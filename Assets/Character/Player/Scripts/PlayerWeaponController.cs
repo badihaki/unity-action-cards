@@ -13,6 +13,7 @@ public class PlayerWeaponController : MonoBehaviour
 	[field: SerializeField] public GameObject _WeaponL { get; private set; }
 	[field: SerializeField] public Transform _WeaponHolderR { get; private set; }
 	[field: SerializeField] public GameObject _WeaponR { get; private set; }
+	[field: SerializeField] public Transform _VfxSpawnPos { get; private set; }
 
 	[field: Header("Durability"), SerializeField] public int _CurrentWeaponDurability { get; private set; }
 	[field: SerializeField] private bool infiniteDurability;
@@ -31,6 +32,7 @@ public class PlayerWeaponController : MonoBehaviour
 		_WeaponL = null;
 		SetWeapon(baseWeapon);
 		_WeaponR.gameObject.SetActive(false);
+		_VfxSpawnPos = player._PlayerActor.transform.Find("VFXSpawnPos");
 	}
 
 	private void SetWeapon(WeaponScriptableObj newWeapon)
@@ -105,6 +107,16 @@ public class PlayerWeaponController : MonoBehaviour
 	{
 		_CurrentWeaponDurability -= durability;
 		OnDurabilityChanged(_CurrentWeaponDurability);
+	}
+
+
+	public void PlayWeaponVFX()
+	{
+		GameObject vfx = Instantiate(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity);
+		//Vector3 rotation = player._Actor.transform.forward;
+		Quaternion rotation = player._Actor.transform.rotation;
+		vfx.transform.rotation = rotation;
+		//vfx.transform.Rotate(rotation);
 	}
 
 	// end

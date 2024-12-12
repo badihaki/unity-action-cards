@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffba2436c647df4db53ef75e106096d, type: 3}
+  m_Name: UnarmedCards
+  m_EditorClassIdentifier: 
+  _WeaponGameObjectL: {fileID: 0}
+  _WeaponGameObjectR: {fileID: 4205831455706572792, guid: 76ac64c37228881439a1b2fc0001cf94,
+    type: 3}
+  _Dmg: 1
+  _MoveSet: {fileID: 11400000, guid: 58b94eb799950474bac36c692077174a, type: 2}
+  _WeaponType: 0
+  _WeaponAttackFX: {fileID: 3001130227007436398, guid: bf7f1071c6f8f6542aaac0ca638dec53,
+    type: 3}
+  _WeaponHitSpark: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7,
+    type: 3}
+  infiniteDurability: 1
+  _Durability: 100
+  _DurabilityAttackCost: 0
+  _DurabilitySpecialCost: 0

@@ -96,7 +96,18 @@ public class PlayerCombatSuperState : PlayerState
         canCombo = true;
     }
 
-    protected void ShowOrHideWeapon(bool showWeapon)
+	public override void TriggerVisualEffect()
+	{
+		base.TriggerVisualEffect();
+
+        if(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponAttackFX != null)
+        {
+            _PlayerCharacter._WeaponController.PlayWeaponVFX();
+
+		}
+	}
+
+	protected void ShowOrHideWeapon(bool showWeapon)
     {
         if (showWeapon)
         {

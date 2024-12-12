@@ -1827,6 +1827,7 @@ Transform:
   - {fileID: 5223144482968046737}
   - {fileID: 2976396997796400746}
   - {fileID: 5175429368299952816}
+  - {fileID: 4286762416662872371}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3636352799954022296
@@ -3273,6 +3274,37 @@ Transform:
   - {fileID: 6424149499192491781}
   m_Father: {fileID: 5157538907421772345}
   m_LocalEulerAnglesHint: {x: -0.00000980204, y: 0.0000106933485, z: -0.000003119586}
+--- !u!1 &5154877898882187488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4286762416662872371}
+  m_Layer: 0
+  m_Name: VFXSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4286762416662872371
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154877898882187488}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.765}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7058586077146020884}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5191817507582155303
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,8 +21,8 @@ public class CharacterHitbox : MonoBehaviour
                 //damageableEntity?.Damage(_Character._AttackController._Damage, _Character.transform, _Character._AttackController._KnockbackForce, _Character._AttackController._LaunchForce);
                 damageableEntity?.Damage(_Character._AttackController._Damage, _Character._Actor.transform, _Character._AttackController._KnockedBack, _Character._AttackController._Launched, _Character);
                 Vector3 hitFxPosition = new Vector3(damageableEntity.GetDamagedEntity().position.x, damageableEntity.GetDamagedEntity().position.y + 0.5f, damageableEntity.GetDamagedEntity().position.z);
-                //GameObject hitFX = Instantiate(_Character._WeaponController._CurrentWeapon._WeaponHitSpark, hitFxPosition, trigger.transform.parent.rotation);
-            }
+                _Character._AttackController.PlayHitSpark(hitFxPosition);
+			}
         }
     }
 

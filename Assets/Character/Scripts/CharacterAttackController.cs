@@ -27,4 +27,6 @@ public class CharacterAttackController : MonoBehaviour
 		_KnockedBack = false;
 		_Launched = false;
 	}
+
+	public virtual void PlayHitSpark(Vector3 hitPos) { }
 }
