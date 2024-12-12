@@ -1,5 +1,12 @@
 # Card Action Game Readme
 
+## Prototype 1 - Lovesick Bunny Born of the Blade
+Hello, friends and family! As you know, this is the first prototype for my game, and I'm looking for feedback. Be as brutal as you like, but try to be as precise as possible, please.
+
+Controls 
+
+## Updates
+
 ### 11-9 - NPC Rewrite
 Guess who has to rewrite how NPCs work!? That's right!!
 Right now, NPCs are having issues with 2 key components: CharacterController and NavAgent. The idea is to abandon NavAgents in favor of an NPC-Nav-Node system.
