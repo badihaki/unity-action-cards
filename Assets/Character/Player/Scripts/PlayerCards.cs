@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class PlayerCards : MonoBehaviour
 {
@@ -17,11 +18,18 @@ public class PlayerCards : MonoBehaviour
     
     [Tooltip("The player's hand is where the active cards are stored")]
     [field: SerializeField] public List<CardScriptableObj> _Hand { get; private set; }
-    [SerializeField] private GameObject cardPrefab;
+    [field: SerializeField, Header("In-game")] private GameObject cardPrefab;
     [SerializeField] private GameObject handOfCards;
     private float radius = 300.00f;
     [SerializeField] private bool isShowingHand;
-    
+
+    [field: SerializeField, Header("Drawing Cards")]
+    private float timeTillDrawNewCard = 1.2f;
+    [field: SerializeField]
+    private float drawCardTimer = 0.0f;
+    [field: SerializeField]
+    private bool drawTimerActivated = false;
+
     public void Initialize(PlayerCharacter pl)
     {
         player = pl;
@@ -102,6 +110,49 @@ public class PlayerCards : MonoBehaviour
         _Abyss.Add(_Hand[cardIndex]);
         _Hand.RemoveAt(cardIndex);
         player._Controls.CardSelected();
+        if (!drawTimerActivated)
+        {
+            drawTimerActivated = true;
+            StartCoroutine(StartDrawCardTmer());
+        }
     }
 
+    private void DrawCard()
+    {
+        if(_Deck.Count > 0)
+		{
+            if (CardWasAdded())
+                _Deck.RemoveAt(0);
+		}
+	}
+
+	private bool CardWasAdded()
+	{
+        if (_Hand.Count < 4)
+        {
+		    _Hand.Add(_Deck[0]);
+            return true;
+        }
+        return false;
+	}
+
+	private IEnumerator StartDrawCardTmer()
+    {
+        while (drawTimerActivated)
+        {
+            drawCardTimer += Time.deltaTime;
+            if(drawCardTimer >= timeTillDrawNewCard)
+            {
+				DrawCard();
+                drawCardTimer = 0;
+                if(_Hand.Count <= 4)
+                {
+                    drawTimerActivated = false;
+                }
+            }
+            yield return null;
+        }
+    }
+
+    // end
 }
