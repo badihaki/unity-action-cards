@@ -24,13 +24,16 @@ public class PlayerCards : MonoBehaviour
     [SerializeField] private bool isShowingHand;
 
     [field: SerializeField, Header("Drawing Cards")]
-    private float timeTillDrawNewCard = 1.2f;
+    private float timeTillDrawNewCard = 5.52f;
     [field: SerializeField]
     private float drawCardTimer = 0.0f;
     [field: SerializeField]
     private bool drawTimerActivated = false;
+    private WaitForSeconds deckRechargeTime = new WaitForSeconds(8.5f);
+    [field: SerializeField]
+    private bool deckIsRecharging = false;
 
-    public void Initialize(PlayerCharacter pl)
+	public void Initialize(PlayerCharacter pl)
     {
         player = pl;
         // handOfCards = transform.Find("UI-Hand").gameObject;
@@ -38,6 +41,8 @@ public class PlayerCards : MonoBehaviour
         handOfCards.name = "Card-Hand-UI";
         handOfCards.SetActive(false);
         isShowingHand = false;
+        if (_Hand.Count == 0)
+            DrawFullHand();
     }
 
 
@@ -113,27 +118,75 @@ public class PlayerCards : MonoBehaviour
         if (!drawTimerActivated)
         {
             drawTimerActivated = true;
-            StartCoroutine(StartDrawCardTmer());
+            if (_Deck.Count > 0 && _Hand.Count > 0)
+            { 
+                StartCoroutine(StartDrawCardTmer());
+            }
+            else if(_Hand.Count <= 0)
+            {
+                drawTimerActivated = false;
+                StartCoroutine(ActivateDeckRechargeTimer());
+            }
         }
     }
 
     private void DrawCard()
     {
-        if(_Deck.Count > 0)
-		{
-            if (CardWasAdded())
-                _Deck.RemoveAt(0);
-		}
+        if(_Deck.Count > 0 && _Hand.Count < 4)
+        {
+            int drawCardIndex = Random.Range(0, _Deck.Count);
+            if (CardWasAdded(drawCardIndex))
+                _Deck.RemoveAt(drawCardIndex);
+        }
+        else
+        {
+            print($"deck count is {_Deck.Count} and hand count is {_Hand.Count}");
+            Debug.LogError("can't draw another card. either not enogh cards in deck or too many in hand.");
+            if(_Deck.Count <= 0)
+            {
+                drawTimerActivated = false;
+                drawCardTimer = 0.0f;
+                StopCoroutine(StartDrawCardTmer());
+            }
+        }
 	}
 
-	private bool CardWasAdded()
+    private void DrawFullHand()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            DrawCard();
+        }
+    }
+
+	private bool CardWasAdded(int drawCardIndex)
 	{
+        print($">>>> looking for index[{drawCardIndex}] from deck with {_Deck.Count - 1} possible indexes (count-1) <<<<<<<<<<");
         if (_Hand.Count < 4)
         {
-		    _Hand.Add(_Deck[0]);
+		    _Hand.Add(_Deck[drawCardIndex]);
             return true;
         }
+        Debug.LogError(">>>>>>>>>> cant add another CARD !!!!!!!!!!!!!!!!!!");
         return false;
+	}
+
+    private IEnumerator RechargeDeck()
+    {
+        print(">>>>>>>>>>>> start recharge");
+        deckIsRecharging = true;
+        while (deckIsRecharging)
+        {
+            int rechargeIndex = Random.Range(0, _Abyss.Count - 1);
+            _Deck.Add(_Abyss[rechargeIndex]);
+            _Abyss.RemoveAt(rechargeIndex);
+            if (_Abyss.Count <= 0)
+                deckIsRecharging = false;
+            else
+                yield return null;
+        }
+        DrawFullHand();
+		print(">>>>>>>>>>>> finish recharge");
 	}
 
 	private IEnumerator StartDrawCardTmer()
@@ -145,13 +198,23 @@ public class PlayerCards : MonoBehaviour
             {
 				DrawCard();
                 drawCardTimer = 0;
-                if(_Hand.Count <= 4)
+                if(_Hand.Count == 4)
                 {
                     drawTimerActivated = false;
                 }
             }
             yield return null;
         }
+    }
+
+    private IEnumerator ActivateDeckRechargeTimer()
+    {
+        StopCoroutine(StartDrawCardTmer());
+        drawTimerActivated = false;
+        drawCardTimer = 0.0f;
+        print("strart <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< recharge");
+		yield return deckRechargeTime;
+        StartCoroutine(RechargeDeck());
     }
 
     // end

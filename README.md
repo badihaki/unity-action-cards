@@ -1,6 +1,6 @@
 # Card Action Game Readme
 
-## Prototype 1 - Lovesick Bunny Born of the Blade
+## Prototype 1 - Lovesick Blade
 Hello, friends and family! As you know, this is the first prototype for my game, and I'm looking for feedback. Be as brutal as you like, but try to be as precise as possible, please.
 
 ### Controls
@@ -28,6 +28,9 @@ Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack
 Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
 
 ## Updates
+
+### 12-13 Prototype 1 - Lovesick Blade
+Next up is reloading the deck from the card abyss.
 
 ### 11-9 - NPC Rewrite
 Guess who has to rewrite how NPCs work!? That's right!!

@@ -137,7 +137,6 @@ MonoBehaviour:
     type: 2}
   <_Actor>k__BackingField: {fileID: 0}
   <_AnimationController>k__BackingField: {fileID: 0}
-  <_AttackController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
   <_PlayerActor>k__BackingField: {fileID: 0}
@@ -155,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <_CurrentHealth>k__BackingField: 0
+  restoringPoise: 0
   <_MaxPoise>k__BackingField: 1
   <_PoiseFortification>k__BackingField: 0
   <_CurrentPoise>k__BackingField: 0
@@ -380,6 +380,9 @@ MonoBehaviour:
   handOfCards: {fileID: 7028789774721231620, guid: a87ae87a94870514c9a8be6b00652842,
     type: 3}
   isShowingHand: 0
+  timeTillDrawNewCard: 5.52
+  drawCardTimer: 0
+  drawTimerActivated: 0
 --- !u!114 &4013965585459047465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,8 +420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <_Damage>k__BackingField: 0
-  <_KnockbackForce>k__BackingField: 0
-  <_LaunchForce>k__BackingField: 0
+  <_KnockedBack>k__BackingField: 0
+  <_Launched>k__BackingField: 0
   <_AttackA>k__BackingField: {fileID: 0}
   <_AttackB>k__BackingField: {fileID: 0}
   <_AttackC>k__BackingField: {fileID: 0}
@@ -451,6 +454,7 @@ MonoBehaviour:
   <_WeaponL>k__BackingField: {fileID: 0}
   <_WeaponHolderR>k__BackingField: {fileID: 0}
   <_WeaponR>k__BackingField: {fileID: 0}
+  <_VfxSpawnPos>k__BackingField: {fileID: 0}
   <_CurrentWeaponDurability>k__BackingField: 0
   infiniteDurability: 0
 --- !u!114 &3895246229984299987
