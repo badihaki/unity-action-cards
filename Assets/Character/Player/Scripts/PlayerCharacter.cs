@@ -66,8 +66,8 @@ public class PlayerCharacter : Character, IDestroyable
         // init weapon controller directly afterwards
         _WeaponController.Initialize(this);
 
-        // initialize UI
-        _PlayerUIController = GetComponent<PlayerUIController>();
+		// initialize UI dead last, dawg
+		_PlayerUIController = GetComponent<PlayerUIController>();
         _PlayerUIController.InitializeUI(true, this);
     }
 

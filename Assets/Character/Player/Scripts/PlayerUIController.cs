@@ -1,4 +1,4 @@
-using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +9,10 @@ public class PlayerUIController : CharacterUIController
 	[SerializeField] private Slider _AetherBar;
 	[SerializeField] private float _TargetAether;
 	[SerializeField] private bool canChangeAether = false;
+
+	[SerializeField, Header("Deck")] private Image _DeckIcon;
+	[SerializeField] private Sprite[] deckStatusIcons;
+	private TextMeshProUGUI deckCountUI;
 
 	[SerializeField, Header("Weapon Meter")] private Slider _WeaponMeter;
 
@@ -29,20 +33,36 @@ public class PlayerUIController : CharacterUIController
 		_WeaponMeter.gameObject.SetActive(false);
 		_Player = character as PlayerCharacter;
 		_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI; // sub to the OnDurabilityChanged event
+
+		_DeckIcon = _ResourceCanvas.transform.Find("DeckIcon").GetComponent<Image>();
+		_DeckIcon.sprite = deckStatusIcons[1];
+		deckCountUI = _DeckIcon.transform.Find("Count").GetComponent<TextMeshProUGUI>();
+		_Player._PlayerCards.onDeckCountChanged += UpdateDeckCount;
+		UpdateDeckCount(_Player._PlayerCards._Deck.Count);
+		_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
+		ChangeDeckIcon(true);
 	}
 
-	private void OnEnable()
+	protected override void OnEnable()
 	{
-		if (_AetherController != null)
+		base.OnEnable();
+
+		if(_Player != null)
 		{
 			_AetherController.OnAetherChanged += UpdateAetherUI;
 			_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI;
+			_Player._PlayerCards.onDeckCountChanged += UpdateDeckCount;
+			_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
 		}
 	}
-	private void OnDisable()
+	protected override void OnDisable()
 	{
+		base.OnDisable();
+
 		_AetherController.OnAetherChanged -= UpdateAetherUI;
 		_Player._WeaponController.OnDurabilityChanged -= UpdateWeaponUI;
+		_Player._PlayerCards.onDeckCountChanged -= UpdateDeckCount;
+		_Player._PlayerCards.onDeckIsActiveChanged -= ChangeDeckIcon;
 	}
 
 	protected override void Update()
@@ -78,6 +98,19 @@ public class PlayerUIController : CharacterUIController
 	private void UpdateWeaponUI(int durability)
 	{
 		_WeaponMeter.value = durability;
+	}
+
+	public void ChangeDeckIcon(bool isActive)
+	{
+		if (isActive)
+			_DeckIcon.sprite = deckStatusIcons[1];
+		else
+			_DeckIcon.sprite = deckStatusIcons[0];
+	}
+
+	public void UpdateDeckCount(int amount)
+	{
+		deckCountUI.text = amount.ToString();
 	}
 
 	public void DisableWeaponUI() => _WeaponMeter.gameObject.SetActive(false);

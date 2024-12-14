@@ -90,8 +90,8 @@ public class NonPlayerCharacter : Character, IDestroyable
 
 	public override void DestroyEntity()
 	{
+        
         _Actor.Die();
-
 		base.DestroyEntity();
 	}
 
