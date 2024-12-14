@@ -122,12 +122,12 @@ public class PlayerCards : MonoBehaviour
             { 
                 StartCoroutine(StartDrawCardTmer());
             }
-            else if(_Hand.Count <= 0)
-            {
-                drawTimerActivated = false;
-                StartCoroutine(ActivateDeckRechargeTimer());
-            }
         }
+        //if (_Deck.Count == 0)
+        //{
+        //    if (drawTimerActivated)
+        //        drawTimerActivated = false;
+        //}
     }
 
     private void DrawCard()
@@ -147,6 +147,7 @@ public class PlayerCards : MonoBehaviour
                 drawTimerActivated = false;
                 drawCardTimer = 0.0f;
                 StopCoroutine(StartDrawCardTmer());
+                StartCoroutine(ActivateDeckRechargeTimer());
             }
         }
 	}
