@@ -138,5 +138,11 @@ public class PlayerControlsInput : MonoBehaviour
     }
     public void ResetSelectSpell() => _SelectSpellInput = 0;
 
+    public void OnQuit(InputValue val)
+    {
+        if (val.isPressed)
+            GameManagerMaster.GameMaster.QuitGame();
+    }
+
     // end
 }

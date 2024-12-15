@@ -197,15 +197,15 @@ public class PlayerMovement : MonoBehaviour
         _Controller.Move(_MovementDirection * Time.deltaTime);
     }
 
-    public void Jump()
+    public void Jump(float modifier = 1.0f)
     {
         if (_Player._CheckGrounded.IsGrounded())
         {
-            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 2);
+            _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * 2) * modifier);
         }
         else
         {
-            _VerticalVelocity = Mathf.Sqrt(_Player._CharacterSheet._JumpPower * 3.245f);
+            _VerticalVelocity = Mathf.Sqrt((_Player._CharacterSheet._JumpPower * 3.245f) * modifier);
         }
     }
     public void SetDoubleJump(bool value) => canDoubleJump = value;

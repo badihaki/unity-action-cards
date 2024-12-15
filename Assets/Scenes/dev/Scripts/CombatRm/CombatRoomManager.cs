@@ -11,15 +11,11 @@ public class CombatRoomManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //activeNpc = GameObject.Find("NPC").GetComponent<NonPlayerCharacter>();
-        //activeNpc._Actor.onDeath += StartSpawnNewNpc;
         StartSpawnNewNpc();
-        print(">>>>>>>>>>>>>>>>>> ready for npc death");
 	}
 
     private void StartSpawnNewNpc()
     {
-        print(">>>>>>>>>>>>>>>>>> spawning a new npc soon");
         StartCoroutine(SpawnNPC());
     }
 

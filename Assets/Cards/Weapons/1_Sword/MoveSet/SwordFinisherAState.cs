@@ -13,9 +13,23 @@ public class SwordFinisherAState : PlayerSpecialSuperState
 	 * the swing has a hitbox with knockback properties
 	 */
 
+	private bool attackPropertiesChanged;
+
 	public override void EnterState()
 	{
 		base.EnterState();
-		_AttackController.SetAttackParameters(false, false, 2);
+		attackPropertiesChanged = false;
+		_AttackController.SetAttackParameters(true, false);
+	}
+
+	public override void TriggerSideEffect()
+	{
+		if (!attackPropertiesChanged)
+		{
+			_AttackController.SetAttackParameters(true, true, 2);
+			attackPropertiesChanged = true;
+		}
+		else
+			base.TriggerSideEffect();
 	}
 }

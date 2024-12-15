@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(_Actor == null)
+		if (_Actor == null)
             Initialize();
     }
 

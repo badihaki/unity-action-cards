@@ -37,9 +37,18 @@ public class GameManagerMaster : MonoBehaviour
         GeneralConstantVariables = GetComponent<ConstantVariables>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
+	public void QuitGame()
+	{
+		if (Application.isEditor)
+		{
+#if UNITY_EDITOR
+			UnityEditor.EditorApplication.ExitPlaymode();
+#endif
+		}
+		else
+		{
+			Application.Quit();
+		}
+	}
 }
