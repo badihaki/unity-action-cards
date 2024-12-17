@@ -148,6 +148,7 @@ public class PlayerMovement : MonoBehaviour
 		// transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
 		_Actor.transform.rotation = Quaternion.Euler(0.0f, rotationDirection, 0.0f);
 	}
+
     public void RotateInstantly(Vector2 inputDirection)
     {
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
