@@ -15,7 +15,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerJumpState _JumpState { get; private set; }
     public PlayerLandingState _LandingState { get; private set; }
     public PlayerSpellslingingSuperState _SpellslingState { get; private set; }
-    public PlayerAirDashState _AirDashState { get; private set; }
+    public PlayerAirStepState _AirDashState { get; private set; }
     public PlayerAirJumpState _AirJumpState { get; private set; }
 
     #region Hurt
@@ -43,7 +43,7 @@ public class PlayerStateMachine : MonoBehaviour
         _SpellslingState = ScriptableObject.CreateInstance<PlayerSpellslingingSuperState>();
         _SpellslingState.InitializeState(player, "aim", this);
 
-        _AirDashState = ScriptableObject.CreateInstance<PlayerAirDashState>();
+        _AirDashState = ScriptableObject.CreateInstance<PlayerAirStepState>();
         _AirDashState.InitializeState(player, "airDash", this);
 
         _AirJumpState = ScriptableObject.CreateInstance<PlayerAirJumpState>();

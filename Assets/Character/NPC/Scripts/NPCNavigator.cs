@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class NPCNavigator : MonoBehaviour
 {
@@ -108,7 +106,10 @@ public class NPCNavigator : MonoBehaviour
         if(navNode != null)
             return navNode;
         else
+        {
+
             return nodes[UnityEngine.Random.Range(0, nodes.Length - 1)]; // return a random node
+        }
             
     }
 

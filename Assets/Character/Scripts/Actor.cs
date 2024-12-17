@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 public class Actor : MonoBehaviour, IDamageable
 {
@@ -21,10 +17,15 @@ public class Actor : MonoBehaviour, IDamageable
     [field: SerializeField, Header("Transforms")]
     public Transform hitFxOrigin { get; protected set; }
 
-
+    // invulnerability
 	public bool _IsInvuln { get; private set; }
 
-    public virtual void Initialize(Character character)
+
+	// events
+	public delegate void DeathSideEffects();
+	public event DeathSideEffects onDeath;
+
+	public virtual void Initialize(Character character)
     {
         _Character = character;
         animationController = GetComponent<Animator>();
@@ -101,6 +102,7 @@ public class Actor : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
-        //
+        if (onDeath != null)
+            onDeath();
     }
 }

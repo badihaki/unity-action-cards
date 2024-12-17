@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Character : MonoBehaviour
@@ -22,7 +18,8 @@ public class Character : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Initialize();
+		if (_Actor == null)
+            Initialize();
     }
 
     public virtual void Initialize()

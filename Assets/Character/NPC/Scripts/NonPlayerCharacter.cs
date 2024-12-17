@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NonPlayerCharacter : Character, IDestroyable
@@ -90,8 +88,8 @@ public class NonPlayerCharacter : Character, IDestroyable
 
 	public override void DestroyEntity()
 	{
+        
         _Actor.Die();
-
 		base.DestroyEntity();
 	}
 

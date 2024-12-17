@@ -1,5 +1,37 @@
 # Card Action Game Readme
 
+## Prototype 1 - Lovesick Blade
+Hello, friends and family! As you know, this is the first prototype for my game, and I'm looking for feedback. Be as brutal as you like, but try to be as precise as possible, please.
+
+### Controls
+NOTICE: If you try to hook up a gamepad, you'll find it kinda works for a lot of the basic action. However, crucially, you cannot use the card system with controller (yet). As such, I highly advise you play with keyboard+mouse.
+NOTICE 2: This prototype is primarily geared towards melee actions. Ranged, Spellslinging actions are in, but working improperly and missing animations.
+
+WASD - movement
+Mouse Movemeny - Move camera
+Space - Jump/Launcher (L)
+Left Shift - Rush (hR)
+
+Left Mouse Button - Attack (A)
+'F' Button - Special Attack (S)
+Left CTRL - Defensive action
+Right Mouse Button - Ranged Spellsling
+
+Tab - Card selection menu
+
+### How to play
+This is a 3rd person character action game. You can move around and attack the NPCs in the environment.
+
+Players are fairly mobile in the air. You are able to jump, double-jump, and do an air-rush move (press Rush/Left Shift in the air).
+
+Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack (S), and air-variants of each (aA or aS).
+Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
+
+## Updates
+
+### 12-13 Prototype 1 - Lovesick Blade
+Next up is reloading the deck from the card abyss.
+
 ### 11-9 - NPC Rewrite
 Guess who has to rewrite how NPCs work!? That's right!!
 Right now, NPCs are having issues with 2 key components: CharacterController and NavAgent. The idea is to abandon NavAgents in favor of an NPC-Nav-Node system.

@@ -12,9 +12,21 @@ public class SwordFinisherCState : PlayerSpecialSuperState
 	 * The swirls do knockback damage
 	 */
 
+	private bool animationPropertiesChanged;
 	public override void EnterState()
 	{
 		base.EnterState();
+		animationPropertiesChanged = false;
 		_AttackController.SetAttackParameters(true, false, 1);
+	}
+
+	public override void TriggerSideEffect()
+	{
+		if (!animationPropertiesChanged)
+		{
+			_AttackController.SetAttackParameters(false, true, 2);
+		}
+		else
+			base.TriggerSideEffect();
 	}
 }

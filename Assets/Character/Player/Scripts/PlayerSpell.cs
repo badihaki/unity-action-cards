@@ -1,11 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using Unity.Mathematics;
 
 public class PlayerSpell : MonoBehaviour
 {
@@ -200,6 +197,11 @@ public class PlayerSpell : MonoBehaviour
         {
             player._LockOnTargeter.rangeTargets.ForEach(t =>
             {
+                if(t == null)
+                {
+                    print(">>>>>>>> No ranged targets");
+                    return;
+                }
                 //print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
                 if (targetPos == Vector3.zero) targetPos = t.position;
                 else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))

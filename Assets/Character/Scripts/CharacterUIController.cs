@@ -16,7 +16,7 @@ public class CharacterUIController : MonoBehaviour
 
 	private bool isPlayer;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         if (_HealthController != null) _HealthController.OnHealthChanged += UpdateHealthUI;
     }
@@ -46,7 +46,7 @@ public class CharacterUIController : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         _HealthController.OnHealthChanged -= UpdateHealthUI;
     }
