@@ -132,6 +132,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (28)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -207,7 +212,7 @@ GameObject:
   - component: {fileID: 21884447}
   - component: {fileID: 21884446}
   - component: {fileID: 21884445}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,6 +563,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -631,6 +641,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -706,6 +721,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (26)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -779,6 +799,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (27)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -1020,7 +1045,7 @@ GameObject:
   - component: {fileID: 114086194}
   - component: {fileID: 114086193}
   - component: {fileID: 114086192}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1371,6 +1396,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1605,7 +1635,7 @@ GameObject:
   - component: {fileID: 194538537}
   - component: {fileID: 194538536}
   - component: {fileID: 194538535}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1953,7 +1983,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198194703}
   - component: {fileID: 198194702}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Global Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2502,7 +2532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 256773117}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Structures
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2704,6 +2734,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (23)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2778,6 +2813,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2850,7 +2890,7 @@ GameObject:
   - component: {fileID: 345474719}
   - component: {fileID: 345474721}
   - component: {fileID: 345474720}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Directional Light (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2974,7 +3014,7 @@ GameObject:
   - component: {fileID: 375702428}
   - component: {fileID: 375702427}
   - component: {fileID: 375702426}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3325,6 +3365,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3564,6 +3609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3639,7 +3689,7 @@ GameObject:
   - component: {fileID: 425602560}
   - component: {fileID: 425602559}
   - component: {fileID: 425602558}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3990,6 +4040,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4065,7 +4120,7 @@ GameObject:
   - component: {fileID: 443938936}
   - component: {fileID: 443938935}
   - component: {fileID: 443938934}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4416,6 +4471,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (36)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4523,7 +4583,7 @@ GameObject:
   - component: {fileID: 618532634}
   - component: {fileID: 618532633}
   - component: {fileID: 618532632}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4874,6 +4934,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (35)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4944,7 +5009,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 636896396}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4981,7 +5046,7 @@ GameObject:
   - component: {fileID: 672933842}
   - component: {fileID: 672933841}
   - component: {fileID: 672933840}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5104,6 +5169,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (38)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5179,7 +5249,7 @@ GameObject:
   - component: {fileID: 701677322}
   - component: {fileID: 701677321}
   - component: {fileID: 701677320}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5526,7 +5596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 724868048}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Buildings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5740,7 +5810,7 @@ GameObject:
   - component: {fileID: 745551720}
   - component: {fileID: 745551719}
   - component: {fileID: 745551718}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6091,6 +6161,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6164,6 +6239,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (31)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -6239,6 +6319,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (21)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6312,6 +6397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (17)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -6388,7 +6478,7 @@ GameObject:
   - component: {fileID: 848632960}
   - component: {fileID: 848632959}
   - component: {fileID: 848632958}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6739,6 +6829,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6812,6 +6907,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (30)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -7051,6 +7151,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (29)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -7297,7 +7402,7 @@ GameObject:
   - component: {fileID: 995570812}
   - component: {fileID: 995570811}
   - component: {fileID: 995570810}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7648,6 +7753,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (34)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7721,6 +7831,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -7796,6 +7911,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7866,7 +7986,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1106406981}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: ENV
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7905,6 +8025,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (32)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -7985,6 +8110,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (24)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -8323,6 +8453,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8399,7 +8534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1247663161}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Nav
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8639,7 +8774,7 @@ GameObject:
   - component: {fileID: 1290871640}
   - component: {fileID: 1290871639}
   - component: {fileID: 1290871638}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9321,7 +9456,7 @@ GameObject:
   - component: {fileID: 1400935954}
   - component: {fileID: 1400935953}
   - component: {fileID: 1400935952}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9673,7 +9808,7 @@ GameObject:
   - component: {fileID: 1403501713}
   - component: {fileID: 1403501712}
   - component: {fileID: 1403501711}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10025,7 +10160,7 @@ GameObject:
   - component: {fileID: 1417503562}
   - component: {fileID: 1417503561}
   - component: {fileID: 1417503560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10375,6 +10510,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -10945,6 +11085,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -11018,6 +11163,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (33)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -11422,6 +11572,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (20)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -11828,7 +11983,7 @@ GameObject:
   - component: {fileID: 1649137819}
   - component: {fileID: 1649137818}
   - component: {fileID: 1649137817}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12184,7 +12339,7 @@ GameObject:
   - component: {fileID: 1691863941}
   - component: {fileID: 1691863940}
   - component: {fileID: 1691863939}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12384,7 +12539,7 @@ GameObject:
   - component: {fileID: 1709343061}
   - component: {fileID: 1709343060}
   - component: {fileID: 1709343059}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12736,7 +12891,7 @@ GameObject:
   - component: {fileID: 1722806491}
   - component: {fileID: 1722806490}
   - component: {fileID: 1722806489}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arch (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13737,6 +13892,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14022,6 +14182,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (22)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14097,7 +14262,7 @@ GameObject:
   - component: {fileID: 1777507742}
   - component: {fileID: 1777507741}
   - component: {fileID: 1777507740}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Arch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14933,6 +15098,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (25)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15006,6 +15176,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -15081,6 +15256,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15155,6 +15335,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NavigationNode (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -15228,6 +15413,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (37)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
@@ -15304,7 +15494,7 @@ GameObject:
   - component: {fileID: 1936257629}
   - component: {fileID: 1936257628}
   - component: {fileID: 1936257627}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15821,7 +16011,7 @@ GameObject:
   - component: {fileID: 1961820443}
   - component: {fileID: 1961820442}
   - component: {fileID: 1961820441}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16173,7 +16363,7 @@ GameObject:
   - component: {fileID: 1986336197}
   - component: {fileID: 1986336196}
   - component: {fileID: 1986336195}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16520,7 +16710,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2002874130}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Lights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18726,7 +18916,7 @@ GameObject:
   - component: {fileID: 2079634923}
   - component: {fileID: 2079634922}
   - component: {fileID: 2079634921}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19076,6 +19266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NavigationNode (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989213716032509200, guid: e7701f7fffffb5b4397153b0ad690224,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5802022847691065101, guid: e7701f7fffffb5b4397153b0ad690224,
         type: 3}
