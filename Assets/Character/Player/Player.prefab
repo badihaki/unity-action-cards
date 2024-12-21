@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1659997929548083405}
   - component: {fileID: 6729880218545783203}
   - component: {fileID: 2555373829552144590}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 5072868601858473742}
   - component: {fileID: 3895246229984299987}
   - component: {fileID: 6084333112869182304}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,6 +480,8 @@ MonoBehaviour:
   _AetherBar: {fileID: 0}
   _TargetAether: 0
   canChangeAether: 0
+  _DeckIcon: {fileID: 0}
+  deckStatusIcons: []
   _WeaponMeter: {fileID: 0}
 --- !u!114 &6084333112869182304
 MonoBehaviour:
@@ -505,7 +507,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3715067469113652924}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +545,7 @@ GameObject:
   - component: {fileID: 4258504847486610212}
   - component: {fileID: 7958222847948859470}
   - component: {fileID: 8463586162915772804}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,7 +620,7 @@ GameObject:
   - component: {fileID: 3669127000698969702}
   - component: {fileID: 7423258308860456545}
   - component: {fileID: 7478169804677754528}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,7 +695,7 @@ GameObject:
   - component: {fileID: 1038968632505537608}
   - component: {fileID: 6763038322174225045}
   - component: {fileID: 5544987787490781825}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +770,7 @@ GameObject:
   - component: {fileID: 5098069402199796132}
   - component: {fileID: 563998641500064673}
   - component: {fileID: 122829377646775344}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -843,7 +845,7 @@ GameObject:
   - component: {fileID: 744136954447089267}
   - component: {fileID: 4556654376491137684}
   - component: {fileID: 8438343897868902679}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -916,7 +918,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6019499814149856079}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -953,7 +955,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5554386830865894701}
   - component: {fileID: 5980685284830375816}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: AetherBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1045,7 +1047,7 @@ GameObject:
   - component: {fileID: 3539474772704598475}
   - component: {fileID: 6665673050212749706}
   - component: {fileID: 7954873754544435790}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: ResourceCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1093,7 +1095,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -1147,7 +1149,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6404758953634302525}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,7 +1187,7 @@ GameObject:
   - component: {fileID: 1315854397534703486}
   - component: {fileID: 8016037033427831653}
   - component: {fileID: 1100310490935108326}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1260,7 +1262,7 @@ GameObject:
   - component: {fileID: 1693600863842012236}
   - component: {fileID: 5793979523877857863}
   - component: {fileID: 5528168721856831134}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1395,7 +1397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1450697928639641954}
   - component: {fileID: 5179523599908529539}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1486,7 +1488,7 @@ GameObject:
   - component: {fileID: 2956446140491905931}
   - component: {fileID: 8758032152854446603}
   - component: {fileID: 6341962145144963088}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1561,7 +1563,7 @@ GameObject:
   - component: {fileID: 8049214186887702985}
   - component: {fileID: 6354191940608156313}
   - component: {fileID: 2705391444578400758}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: DeckIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1637,7 +1639,7 @@ GameObject:
   - component: {fileID: 3929479971781742923}
   - component: {fileID: 4696934624455522538}
   - component: {fileID: 4292644887821962680}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1710,7 +1712,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6544726006646986090}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1747,7 +1749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4645012403606082339}
   - component: {fileID: 8042615101014616451}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: WeaponMeter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1836,7 +1838,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5906787702111245727}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1875,6 +1877,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CamTarget
+      objectReference: {fileID: 0}
+    - target: {fileID: 1028050517729507658, guid: 669316f391d456c4bb37c26150807f3d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3758033957603901835, guid: 669316f391d456c4bb37c26150807f3d,
         type: 3}

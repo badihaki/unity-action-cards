@@ -6,17 +6,21 @@ public class CheckForGround : MonoBehaviour
 {
     [SerializeField] private Collider body;
     [SerializeField] private float GroundRayDistance = 0.112f;
-    [SerializeField] private int layerMask;
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private bool isGrounded;
 
     public void Initialize()
     {
-        CharacterController controller = GetComponent<CharacterController>();
-        body = controller;
+		body = GetComponent<CharacterController>();
         layerMask = LayerMask.GetMask("Environment");
-
 	}
 
-    public bool IsGrounded(float extraDetectionRayLength = 0.0f)
+	private void FixedUpdate()
+	{
+        isGrounded = IsGrounded();
+	}
+
+	public bool IsGrounded(float extraDetectionRayLength = 0.0f)
     {
         Ray midRay = new Ray(transform.position, -transform.up);
         Ray leftRay = new Ray(new Vector3(transform.position.x - body.bounds.extents.x, transform.position.y, transform.position.z), -transform.up);

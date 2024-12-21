@@ -18577,6 +18577,11 @@ PrefabInstance:
       propertyPath: rayLength
       value: 0.782
       objectReference: {fileID: 0}
+    - target: {fileID: 7806477115371502501, guid: 0519e41da14b0d243af456fa25a51085,
+        type: 3}
+      propertyPath: detectionRayDistance
+      value: 4.45
+      objectReference: {fileID: 0}
     - target: {fileID: 7810459796760827285, guid: 0519e41da14b0d243af456fa25a51085,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
