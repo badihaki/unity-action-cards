@@ -20,6 +20,11 @@ public class NPCIdleState : NPCState
     {
         // Debug.Log(_NPC.name + " is creating a new wait time: " + min + ", " + max);
         if (GameManagerMaster.GameMaster) waitTime = GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
+        else
+        {
+            Debug.LogError($"{_NPC.name} is trying to use the GameMaster, but there is no GameMaster. Wait time will be set to 1");
+            waitTime = 1.0f;
+        }
         // Debug.Log(_NPC.name + "'s new wait time: " + waitTime);
     }
 
@@ -67,6 +72,8 @@ public class NPCIdleState : NPCState
         }
         else
         {
+            if(GameManagerMaster.GameMaster.logExtraNPCData)
+                _StateMachine.LogFromState("no place to patrol to, rolling for wait");
             RollForWait();
         }
     }
