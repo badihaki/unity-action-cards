@@ -56,8 +56,8 @@ public class PlayerCharacter : Character, IDestroyable
         InitializeStateMachine();
 
         // combat stuff below, first the lock on
-        _LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
-        _LockOnTargeter.Initialize(this);
+        //_LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
+        //_LockOnTargeter.Initialize(this);
 
 		// and initialize the attack controller, since it needs the state machine
 		_AttackController.Initialize(this);

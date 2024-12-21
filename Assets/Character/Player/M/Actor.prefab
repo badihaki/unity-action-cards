@@ -631,6 +631,7 @@ MonoBehaviour:
   <animationController>k__BackingField: {fileID: 0}
   <_CheckGrounded>k__BackingField: {fileID: 0}
   bloodFX: {fileID: 0}
+  <hitFxOrigin>k__BackingField: {fileID: 0}
   rootBone: {fileID: 0}
   <RightWeapon>k__BackingField: {fileID: 0}
   <LeftWeapon>k__BackingField: {fileID: 0}
@@ -673,6 +674,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 0}
   GroundRayDistance: 0.11
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  isGrounded: 0
 --- !u!1 &1213843300873901200
 GameObject:
   m_ObjectHideFlags: 0
@@ -6326,6 +6331,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7064152245394618365, guid: 07423d602c5e81a4a84fca35b0f4c4aa,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 8675831057292959996, guid: 07423d602c5e81a4a84fca35b0f4c4aa,
         type: 3}
