@@ -194,6 +194,12 @@ public class PlayerCharacter : Character, IDestroyable
 		}
 	}
 
+	public override void AddToExternalForce(Vector3 force)
+	{
+		base.AddToExternalForce(force);
+        _LocomotionController.AddToExternalForces(force);
+	}
+
 	public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();
     public void StateTrigger() => _StateMachine._CurrentState.TriggerSideEffect();
     public void StateVFXTrigger() => _StateMachine._CurrentState.TriggerVisualEffect();

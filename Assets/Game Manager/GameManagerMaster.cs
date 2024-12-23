@@ -14,7 +14,8 @@ public class GameManagerMaster : MonoBehaviour
     public bool devMode { get; private set; }
     [field:SerializeField]
 	public bool logExtraNPCData { get; private set; }
-
+    [field: SerializeField]
+    public bool logExraPlayerData { get; private set; }
 
 	// Start is called before the first frame update
 	void Start()

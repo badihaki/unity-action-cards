@@ -114,5 +114,11 @@ public class Character : MonoBehaviour
         }
 	}
 
+    public virtual void AddToExternalForce(Vector3 force)
+    {
+        if (GameManagerMaster.GameMaster.logExraPlayerData)
+            print($"adding force {force} to  {name}");
+    }
+
     // end of the line
 }

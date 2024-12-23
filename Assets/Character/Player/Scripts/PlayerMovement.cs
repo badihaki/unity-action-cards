@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -34,9 +35,10 @@ public class PlayerMovement : MonoBehaviour
     public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
     private WaitForSeconds airSchmooveWait = new WaitForSeconds(0.15f);
+    [field: SerializeField] public Vector3 _ExternalForces { get; private set; }
 
 
-    public void Initialize(PlayerCharacter controllingPlayer)
+	public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
         _Actor = controllingPlayer._PlayerActor;
@@ -51,6 +53,14 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
     }
+
+    public void AddToExternalForces(Vector3 force)
+    {
+		if (force != Vector3.zero)
+			_ExternalForces += force;
+		else
+			_ExternalForces = Vector3.zero;
+	}
 
     public void ApplyGravity(float gravityModifier = 1.0f)
     {
@@ -182,11 +192,15 @@ public class PlayerMovement : MonoBehaviour
 		//_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, _Player._CameraController.cinemachineCamTarget.rotation, aimRotationSpeed);
 	}
 
-    public void ApplyDesiredMoveToMovement()
+    private void ApplyDesiredMoveToMovement()
     {
         _MovementDirection = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
         _MovementDirection.y = _VerticalVelocity;
     }
+	private void ApplyExternalForcesToMovement()
+	{
+        _MovementDirection += _ExternalForces;
+	}
 
     public void MoveWithVerticalVelocity()
     {
@@ -195,10 +209,12 @@ public class PlayerMovement : MonoBehaviour
         else
             targetSpeed = _Player._CharacterSheet._RunSpeed;
         ApplyDesiredMoveToMovement();
+        ApplyExternalForcesToMovement();
         _Controller.Move(_MovementDirection * Time.deltaTime);
     }
 
-    public void Jump(float modifier = 1.0f)
+
+	public void Jump(float modifier = 1.0f)
     {
         if (_Player._CheckGrounded.IsGrounded())
         {

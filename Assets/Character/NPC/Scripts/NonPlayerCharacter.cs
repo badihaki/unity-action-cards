@@ -93,6 +93,12 @@ public class NonPlayerCharacter : Character, IDestroyable
 		base.DestroyEntity();
 	}
 
+	public override void AddToExternalForce(Vector3 force)
+	{
+		base.AddToExternalForce(force);
+        _MoveController.AddToExternalForces(force);
+	}
+
 	#region State Triggers
 	public void StateSideEffect() => _StateMachine._CurrentState.SideEffectTrigger();
     public void StateVisFX() => _StateMachine._CurrentState.VFXTrigger();
