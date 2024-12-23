@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class CharacterRepelSpace : MonoBehaviour
 	private Character character;
 	[field:SerializeField]
 	private List<Character> charactersOnHead;
+	private WaitForSeconds repelWait = new WaitForSeconds(0.178f);
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -43,7 +45,7 @@ public class CharacterRepelSpace : MonoBehaviour
 			//Actor touchingChar = other.GetComponentInParent<Actor>();
 			if (touchingChar != null && touchingChar != character)
 			{
-				print($"{character} touching {touchingChar} through {other.name}");
+				//print($"{character} touching {touchingChar} through {other.name}");
 				if (!charactersOnHead.Contains(touchingChar))
 					charactersOnHead.Add(touchingChar);
 			}
@@ -57,10 +59,18 @@ public class CharacterRepelSpace : MonoBehaviour
 			Character touchingChar = other.GetComponentInParent<Character>();
 			//Actor touchingChar = other.GetComponentInParent<Actor>();
 			if (charactersOnHead.Contains(touchingChar))
+			{
 				charactersOnHead.Remove(touchingChar);
+				StartCoroutine(StopRepelFromCharacter(touchingChar));
+			}
 		}
 	}
 
+	private IEnumerator StopRepelFromCharacter(Character character)
+	{
+		yield return repelWait;
+		character.AddToExternalForce(Vector3.zero);
+	}
 
 	// end
 }

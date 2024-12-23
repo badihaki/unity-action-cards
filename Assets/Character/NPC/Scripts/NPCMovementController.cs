@@ -60,7 +60,13 @@ public class NPCMovementController : MonoBehaviour
 		else _ExternalForces = Vector3.zero;
 	}
 
-	public void AddToExternalForces(Vector3 force) => _ExternalForces += force;
+	public void AddToExternalForces(Vector3 force)
+	{
+		if (force != Vector3.zero)
+			_ExternalForces += force;
+		else
+			_ExternalForces = Vector3.zero;
+	}
 
 	public void ApplyExternalForces()
 	{

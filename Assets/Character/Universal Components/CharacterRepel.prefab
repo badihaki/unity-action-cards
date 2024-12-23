@@ -46,13 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
-  actor: {fileID: 0}
-  detectionRayDistance: -1
-  body: {fileID: 0}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  entityOnHead: {fileID: 0}
+  charactersOnHead: []
 --- !u!135 &5729050849001058287
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -72,5 +66,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.35
-  m_Center: {x: 0, y: 2, z: 0}
+  m_Radius: 0.3
+  m_Center: {x: 0, y: 2.15, z: 0}
