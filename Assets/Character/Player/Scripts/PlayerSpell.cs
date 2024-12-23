@@ -37,7 +37,12 @@ public class PlayerSpell : MonoBehaviour
     [Header("UI, targeting stuff")]
     [SerializeField] private Image _crosshair;
 
-    public void Initialize(PlayerCharacter pl)
+	private Ray targetDetectRay = new Ray();
+    [field: SerializeField]
+    private List<Actor> targetableActors = new List<Actor>();
+
+
+	public void Initialize(PlayerCharacter pl)
     {
         player = pl;
         cam = Camera.main;
@@ -158,6 +163,16 @@ public class PlayerSpell : MonoBehaviour
         if(_spellTimer <= 0 && player._Aether._CurrentAether > _activeSpellList[_currentSpellIndex].spell._SpellAetherCost)
         {
             ShootSpell(targetPos);
+            if (GameManagerMaster.GameMaster.logExraPlayerData)
+            {
+                print(">>>>>>>>> targetables");
+                targetableActors.ForEach(actor =>
+                {
+                    print(actor.transform.parent.name);
+                });
+                print("/>>>>>>>>> targetables/");
+            }
+			targetableActors.Clear();
         }
     }
 
@@ -188,29 +203,34 @@ public class PlayerSpell : MonoBehaviour
     public Vector3 DetectRangedTargets()
     {
         Vector3 targetPos = Vector3.zero;
-        // print($"number of targets {player._LockOnTargeter.rangeTargets.Count}");
-        /*
-        if (player._Controls._MoveInput != Vector2.zero)
-            player._LocomotionController.RotateInstantly(player._Controls._MoveInput);
-         */
-        if (player._LockOnTargeter.rangeTargets.Count > 0)
+		Collider[] possibleTargets = Physics.OverlapSphere(_spellTarget.position, 10.5f, LayerMask.GetMask("Character"), QueryTriggerInteraction.UseGlobal);
+
+        if(possibleTargets.Length > 0)
         {
-            player._LockOnTargeter.rangeTargets.ForEach(t =>
+            foreach (var target in possibleTargets)
             {
-                if(t == null)
+                Actor actor = target.GetComponentInParent<Actor>();
+                if (actor != null && actor != player._Actor)
                 {
-                    print(">>>>>>>> No ranged targets");
-                    return;
+                    if (!targetableActors.Contains(actor))
+                        targetableActors.Add(actor);
                 }
-                //print($">>>>>> targetable object is {t.name} with a position of {t.position} || playerSpell.DetectRangeTargets");
-                if (targetPos == Vector3.zero) targetPos = t.position;
-                else if (Vector3.Distance(transform.position, t.position) > Vector3.Distance(transform.position, targetPos))
+            }
+
+            if(targetableActors.Count > 0)
+            {
+                foreach (var actor in targetableActors)
                 {
-                    targetPos = t.position;
+                    if (targetPos == Vector3.zero)
+                        targetPos = actor.transform.position;
+                    else if(Vector3.Distance(targetPos, player._PlayerActor.transform.position) > Vector3.Distance(targetPos, actor.transform.position)) // if distance between current target pos and player actor is greater than distance between target pos and target actor
+                    {
+                        targetPos = actor.transform.position;
+                    }    
                 }
-            });
+            }
         }
-        // print($"targetting {targetPos}");
+
         return targetPos;
     }
 
