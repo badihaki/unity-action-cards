@@ -114,5 +114,10 @@ public class Character : MonoBehaviour
         }
 	}
 
+    public virtual void AddToExternalForce(Vector3 force)
+    {
+        print($"adding force {force}");
+    }
+
     // end of the line
 }

@@ -60,6 +60,8 @@ public class NPCMovementController : MonoBehaviour
 		else _ExternalForces = Vector3.zero;
 	}
 
+	public void AddToExternalForces(Vector3 force) => _ExternalForces += force;
+
 	public void ApplyExternalForces()
 	{
 		_CharacterController.Move(_ExternalForces * Time.deltaTime);

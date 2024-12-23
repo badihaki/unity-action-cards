@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterRepelSpace : MonoBehaviour
@@ -5,105 +6,61 @@ public class CharacterRepelSpace : MonoBehaviour
 	[field:SerializeField]
 	private Character character;
 	[field:SerializeField]
-	private Actor actor;
-	//private Ray detectRayMid;
-	private RaycastHit hit;
-	[SerializeField]
-	private float detectionRayDistance = -1.0f;
-	[SerializeField]
-	private Collider body;
-	[SerializeField]
-	private LayerMask layerMask;
-	[field:SerializeField]
-	private Transform entityOnHead;
-    
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+	private List<Character> charactersOnHead;
+
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
         character = GetComponentInParent<Character>();
-		actor = character.GetComponentInChildren<Actor>();
-		//detectRayMid = new Ray(transform.position, transform.up);
-		detectionRayDistance = -0.430f;
-		layerMask = LayerMask.GetMask("Character");
-		body = GetComponent<Collider>();
-		Debug.DrawRay(transform.position, transform.TransformDirection(transform.up) * detectionRayDistance, Color.green, 10.0f);
 	}
 
 	private void FixedUpdate()
 	{
-		//entityOnHead = DetectActor();
-	}
-
-	private void OnCollisionEnter(Collision collision)
-	{
-		if (collision.transform.name == "CharacterRepel")
+		if (character != null && charactersOnHead.Count > 0)
 		{
-			print("col");
+			charactersOnHead.ForEach(character =>
+			{
+				Vector3 force = Vector3.zero;
+				if (transform.position.z > character._Actor.transform.position.z)
+					force.z = -0.1f;
+				else
+					force.z = 0.1f;
+				if (transform.position.x > character._Actor.transform.position.x)
+					force.x = -0.1f;
+				else
+					force.x = 0.1f;
+
+				character.AddToExternalForce(force);
+			});
 		}
 	}
 
-	private void OnTriggerStay(Collider other)
+	private void OnTriggerEnter(Collider other)
 	{
-		//Character touchingChar = other.GetComponentInParent<Character>();
-		Actor touchingChar = other.GetComponentInParent<Actor>();
 		if (other.name == "Hurtbox")
 		{
-			if (touchingChar != null && touchingChar != actor)
+			Character touchingChar = other.GetComponentInParent<Character>();
+			//Actor touchingChar = other.GetComponentInParent<Actor>();
+			if (touchingChar != null && touchingChar != character)
 			{
 				print($"{character} touching {touchingChar} through {other.name}");
+				if (!charactersOnHead.Contains(touchingChar))
+					charactersOnHead.Add(touchingChar);
 			}
-			if(other.transform.parent.transform!=character.transform)
-				print(other.name);
 		}
 	}
 
-	public Transform DetectActor(float extraDetectionRayLength = 0.0f)
+	private void OnTriggerExit(Collider other)
 	{
-		Ray midRay = new Ray(transform.position, -transform.up);
-		Ray leftRay = new Ray(new Vector3(transform.position.x - (body.bounds.extents.x-0.5f), transform.position.y, transform.position.z), -transform.up);
-		Ray rightRay = new Ray(new Vector3(transform.position.x + (body.bounds.extents.x+0.5f), transform.position.y, transform.position.z), -transform.up);
-		Ray frontRay = new Ray(new Vector3(transform.position.x, transform.position.y, transform.position.z + (body.bounds.extents.z+0.5f)), -transform.up);
-		Ray backRay = new Ray(new Vector3(transform.position.x, transform.position.y, transform.position.z - (body.bounds.extents.z-0.5f)), -transform.up);
-		if (Physics.Raycast(midRay, out hit, detectionRayDistance + extraDetectionRayLength, layerMask))
+		if (other.name == "Hurtbox")
 		{
-			Debug.DrawLine(midRay.origin, new Vector3(midRay.origin.x, midRay.origin.y - (detectionRayDistance + extraDetectionRayLength), midRay.origin.z), Color.red, 0.05f);
-			Debug.Log(hit.transform);
-			return hit.transform;
-		}
-		if (Physics.Raycast(leftRay, out hit, detectionRayDistance + extraDetectionRayLength, layerMask))
-		{
-			Debug.DrawLine(leftRay.origin, new Vector3(leftRay.origin.x, leftRay.origin.y - (detectionRayDistance + extraDetectionRayLength), leftRay.origin.z), Color.red, 0.05f);
-			Debug.Log(hit.transform);
-			return hit.transform;
-		}
-		if (Physics.Raycast(rightRay, out hit, detectionRayDistance + extraDetectionRayLength, layerMask))
-		{
-			Debug.DrawLine(rightRay.origin, new Vector3(rightRay.origin.x, rightRay.origin.y - (detectionRayDistance + extraDetectionRayLength), rightRay.origin.z), Color.red, 0.05f);
-			Debug.Log(hit.transform);
-			return hit.transform;
-		}
-		if (Physics.Raycast(frontRay, out hit, detectionRayDistance + extraDetectionRayLength, layerMask))
-		{
-			Debug.DrawLine(frontRay.origin, new Vector3(frontRay.origin.x, frontRay.origin.y - (detectionRayDistance + extraDetectionRayLength), frontRay.origin.z), Color.red, 0.05f);
-			Debug.Log(hit.transform);
-			return hit.transform;
-		}
-		if (Physics.Raycast(backRay, out hit, detectionRayDistance + extraDetectionRayLength, layerMask))
-		{
-			Debug.DrawLine(backRay.origin, new Vector3(backRay.origin.x, backRay.origin.y - (detectionRayDistance + extraDetectionRayLength), backRay.origin.z), Color.red, 0.05f);
-			Debug.Log(hit.transform);
-			return hit.transform;
-		}
-		else
-		{
-			Debug.DrawLine(midRay.origin, new Vector3(midRay.origin.x, midRay.origin.y - (detectionRayDistance + extraDetectionRayLength), midRay.origin.z), Color.gray, 0.05f);
-			Debug.DrawLine(leftRay.origin, new Vector3(leftRay.origin.x, leftRay.origin.y - (detectionRayDistance + extraDetectionRayLength), leftRay.origin.z), Color.gray, 0.05f);
-			Debug.DrawLine(rightRay.origin, new Vector3(rightRay.origin.x, rightRay.origin.y - (detectionRayDistance + extraDetectionRayLength), rightRay.origin.z), Color.gray, 0.05f);
-			Debug.DrawLine(frontRay.origin, new Vector3(frontRay.origin.x, frontRay.origin.y - (detectionRayDistance + extraDetectionRayLength), frontRay.origin.z), Color.gray, 0.05f);
-			Debug.DrawLine(backRay.origin, new Vector3(backRay.origin.x, backRay.origin.y - (detectionRayDistance + extraDetectionRayLength), backRay.origin.z), Color.gray, 0.05f);
-			return null;
+			Character touchingChar = other.GetComponentInParent<Character>();
+			//Actor touchingChar = other.GetComponentInParent<Actor>();
+			if (charactersOnHead.Contains(touchingChar))
+				charactersOnHead.Remove(touchingChar);
 		}
 	}
+
 
 	// end
 }

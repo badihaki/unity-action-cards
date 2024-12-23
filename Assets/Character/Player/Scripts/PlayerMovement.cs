@@ -34,9 +34,10 @@ public class PlayerMovement : MonoBehaviour
     public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
     private WaitForSeconds airSchmooveWait = new WaitForSeconds(0.15f);
+	public Vector3 _ExternalForces { get; private set; }
 
 
-    public void Initialize(PlayerCharacter controllingPlayer)
+	public void Initialize(PlayerCharacter controllingPlayer)
     {
         _Player = controllingPlayer;
         _Actor = controllingPlayer._PlayerActor;
@@ -51,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
     }
+
+    public void AddToExternalForces(Vector3 force) => _ExternalForces += force;
 
     public void ApplyGravity(float gravityModifier = 1.0f)
     {
