@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8021314732710520345}
   - component: {fileID: 7497469736079380766}
-  - component: {fileID: 7876327063691780099}
+  - component: {fileID: 5729050849001058287}
   m_Layer: 3
   m_Name: CharacterRepel
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2036863949433090594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53,14 +53,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   entityOnHead: {fileID: 0}
---- !u!136 &7876327063691780099
-CapsuleCollider:
+--- !u!135 &5729050849001058287
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036863949433090594}
-  m_Material: {fileID: 13400000, guid: 1b3541a4f2df7b444939036979ad6b40, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -71,8 +71,6 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.7
-  m_Height: 2.65
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 3
+  m_Radius: 0.35
+  m_Center: {x: 0, y: 2, z: 0}

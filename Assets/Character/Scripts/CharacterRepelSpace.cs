@@ -34,14 +34,26 @@ public class CharacterRepelSpace : MonoBehaviour
 		//entityOnHead = DetectActor();
 	}
 
+	private void OnCollisionEnter(Collision collision)
+	{
+		if (collision.transform.name == "CharacterRepel")
+		{
+			print("col");
+		}
+	}
+
 	private void OnTriggerStay(Collider other)
 	{
 		//Character touchingChar = other.GetComponentInParent<Character>();
-		//print(other.name);
 		Actor touchingChar = other.GetComponentInParent<Actor>();
-		if (touchingChar != null && touchingChar != actor)
+		if (other.name == "Hurtbox")
 		{
-			print($"{character} touching {touchingChar} through {other.name}");
+			if (touchingChar != null && touchingChar != actor)
+			{
+				print($"{character} touching {touchingChar} through {other.name}");
+			}
+			if(other.transform.parent.transform!=character.transform)
+				print(other.name);
 		}
 	}
 

@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCAttackController : CharacterAttackController
@@ -16,6 +14,10 @@ public class NPCAttackController : CharacterAttackController
     private WaitForSeconds shortAttackWait = new WaitForSeconds(0.673f);
     private WaitForSeconds longAttackWait = new WaitForSeconds(1.465f);
     private WaitForSeconds superLongAttackWait = new WaitForSeconds(3.15f);
+
+    public float gottenDistance;
+    public bool highUp;
+    
     public enum AttackWaitType
     {
         Short,
@@ -38,7 +40,26 @@ public class NPCAttackController : CharacterAttackController
 
     public float GetDistanceFromTarget()
     {
-        float dist = Vector3.Distance(_NPC._NPCActor.transform.position, _ActiveTarget.position);
+        float dist;
+        //float myY = _NPC._NPCActor.transform.position.y > 0 ? _NPC._NPCActor.transform.position.y : _NPC._NPCActor.transform.position.y * -1;
+        //float targetY = _ActiveTarget.position.y > 0 ? _ActiveTarget.position.y : _ActiveTarget.position.y * -1;
+
+        float yDistance = _NPC._NPCActor.transform.position.y - _ActiveTarget.position.y;
+        if (yDistance < 1 && yDistance > -1)
+        {
+            Vector3 myPos = _NPC._NPCActor.transform.position;
+            myPos.y = 0;
+            Vector3 targetPos = _ActiveTarget.transform.position;
+            targetPos.y = 0;
+            dist = Vector3.Distance(myPos, targetPos);
+            highUp = false;
+		}
+        else
+        {
+            dist = Vector3.Distance(_NPC._NPCActor.transform.position, _ActiveTarget.position);
+            highUp = true;
+        }
+        gottenDistance = dist;
         return dist;
     }
 
