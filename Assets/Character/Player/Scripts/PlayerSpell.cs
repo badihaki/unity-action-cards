@@ -160,7 +160,7 @@ public class PlayerSpell : MonoBehaviour
 
     public void UseSpell(Vector3 targetPos)
     {
-        if(_spellTimer <= 0 && player._Aether._CurrentAether > _activeSpellList[_currentSpellIndex].spell._SpellAetherCost)
+        if (_spellTimer <= 0 && player._Aether._CurrentAether > _activeSpellList[_currentSpellIndex].spell._SpellAetherCost)
         {
             ShootSpell(targetPos);
             if (GameManagerMaster.GameMaster.logExraPlayerData)
@@ -200,6 +200,17 @@ public class PlayerSpell : MonoBehaviour
         RemoveSpellCharge();
     }
 
+    public Vector3 GetIntendedTarget()
+    {
+        Vector2 screenCenterPoint = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
+        Ray ray = cam.ScreenPointToRay(screenCenterPoint);
+        if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
+        {
+            return hit.point;
+        }
+        return Vector3.zero;
+    }
+
     public Vector3 DetectRangedTargets()
     {
         Vector3 targetPos = Vector3.zero;
@@ -230,7 +241,7 @@ public class PlayerSpell : MonoBehaviour
                 }
             }
         }
-
+        print($"target position is {targetPos.ToString()}");
         return targetPos;
     }
 

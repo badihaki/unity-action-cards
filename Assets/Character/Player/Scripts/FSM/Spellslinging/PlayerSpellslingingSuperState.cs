@@ -7,6 +7,7 @@ public class PlayerSpellslingingSuperState : PlayerState
     public PlayerSpellslingingSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+
 	public int spellSelectDirection { get; protected set; }
 	public bool spellslingInput { get; private set; }
 	public Vector2 aimInput { get; private set; }
@@ -30,17 +31,17 @@ public class PlayerSpellslingingSuperState : PlayerState
 
     protected void AttemptShootSpell()
     {
-        Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-        //_PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
+        //Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
         _PlayerCharacter._Controls.UseSpell();
-        _PlayerCharacter._PlayerSpells.UseSpell(target);
+        //_PlayerCharacter._PlayerSpells.UseSpell(target);
+        _PlayerCharacter._PlayerSpells.UseSpell(_PlayerCharacter._PlayerSpells.GetIntendedTarget());
     }
 
-    public override void LogicUpdate()
+	public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.25f);
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.575f);
 		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
