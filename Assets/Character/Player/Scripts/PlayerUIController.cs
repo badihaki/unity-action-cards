@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class PlayerUIController : CharacterUIController
 {
@@ -22,6 +25,18 @@ public class PlayerUIController : CharacterUIController
 	private Canvas _SpellSlingCanvas;
 	private RectTransform _SpellContainer;
 	private GameObject _Crosshair;
+	[Serializable]
+	public struct StoredSpellStruct
+	{
+		public SpellCardScriptableObj spell;
+		public int chargesLeft;
+		public Image spellIcon;
+		public RectTransform spellIconTransform;
+		public TextMeshProUGUI spellChargeText;
+	}
+	[field: SerializeField] public List<StoredSpellStruct> _ActiveSpellList { get; private set; }
+	[SerializeField] private int _MaxSpellCount = 6;
+	[field: SerializeField] public int _CurrentSpellIndex { get; private set; }
 
 	#region Initialize
 	public override void InitializeUI(bool isEntityPlayer, Character character)
@@ -53,6 +68,7 @@ public class PlayerUIController : CharacterUIController
 		_SpellContainer = _SpellSlingCanvas.transform.Find("Container").GetComponent<RectTransform>();
 		_Crosshair = _SpellSlingCanvas.transform.Find("Crosshair").gameObject;
 		_Crosshair.SetActive(false);
+		_ActiveSpellList = new List<StoredSpellStruct>();
 	}
 	
 	private void InitWeaponMeterUI()
@@ -103,6 +119,7 @@ public class PlayerUIController : CharacterUIController
 		ControlAetherUI();
 	}
 
+	#region Aether UI Methods
 	private void ControlAetherUI()
 	{
 		if (canChangeAether)
@@ -119,7 +136,9 @@ public class PlayerUIController : CharacterUIController
 		_TargetAether = aether;
 		canChangeAether = true;
 	}
+	#endregion
 
+	#region WeaponUI
 	public void ActivateWeaponUI(int durability)
 	{
 		_WeaponMeter.gameObject.SetActive(true);
@@ -132,6 +151,10 @@ public class PlayerUIController : CharacterUIController
 		_WeaponMeter.value = durability;
 	}
 
+	public void DisableWeaponUI() => _WeaponMeter.gameObject.SetActive(false);
+	#endregion
+
+	#region Deck UI
 	public void ChangeDeckIcon(bool isActive)
 	{
 		if (isActive)
@@ -144,6 +167,73 @@ public class PlayerUIController : CharacterUIController
 	{
 		deckCountUI.text = amount.ToString();
 	}
+	#endregion
 
-	public void DisableWeaponUI() => _WeaponMeter.gameObject.SetActive(false);
+	#region Spell Sling UI
+	public void SetShowCrossHair(bool isVisible) => _Crosshair.SetActive(isVisible);
+
+	public void AddSpellToUI(SpellCardScriptableObj spellCard)
+	{
+		if (_ActiveSpellList.Count < _MaxSpellCount)
+		{
+			if (_ActiveSpellList.Count == 1) _ActiveSpellList[_CurrentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
+			// create a new data structure for the stored spell
+			StoredSpellStruct newSpell = new StoredSpellStruct();
+			
+			// set spell settings
+			newSpell.spell = spellCard;
+			newSpell.chargesLeft = spellCard._SpellCharges;
+			
+			// instantiate the icon
+			Image icon = Instantiate(_SpellIconBasePrefab, _SpellContainer);
+			// set icon reference
+			newSpell.spellIcon = icon; // get a reference to the icon
+			newSpell.spellIcon.sprite = spellCard._CardImage; // set the icon image
+
+			// set the rest of the parameters
+			newSpell.spellChargeText = newSpell.spellIcon.GetComponentInChildren<TextMeshProUGUI>(); // get the spell icon
+			newSpell.spellChargeText.text = newSpell.chargesLeft.ToString();
+			newSpell.spellIconTransform = newSpell.spellIcon.GetComponent<RectTransform>();
+
+			// finally add the spell to the list
+			_ActiveSpellList.Add(newSpell);
+		}
+	}
+
+	public void ChangeSpell(int dir)
+	{
+		if (_ActiveSpellList.Count > 1)
+		{
+			int maxIndex = _ActiveSpellList.Count - 1;
+			if (dir > 0)
+			{
+				print("up");
+				// change current spell index size to 1x1
+				_ActiveSpellList[_CurrentSpellIndex].spellIconTransform.localScale = Vector3.one;
+				_CurrentSpellIndex++;
+				if (_CurrentSpellIndex > maxIndex)
+				{
+					_CurrentSpellIndex = 0;
+				}
+			}
+			else
+			{
+				print("down");
+				// change current spell index size to 1x1
+				_ActiveSpellList[_CurrentSpellIndex].spellIconTransform.localScale = Vector3.one;
+				_CurrentSpellIndex--;
+				if (_CurrentSpellIndex < 0)
+				{
+					_CurrentSpellIndex = _ActiveSpellList.Count - 1;
+				}
+			}
+			_Player._PlayerSpells.ResetSpellTimer();
+			_Player._PlayerSpells.SetHowMuchTimeToAddToSpellTimer(_ActiveSpellList[_CurrentSpellIndex].spell._SpellAddonTime);
+			// change current spell index size to 1.5x1.5
+			_ActiveSpellList[_CurrentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
+		}
+	}
+	#endregion
+
+	// end
 }

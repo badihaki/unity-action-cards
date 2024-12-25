@@ -6,22 +6,10 @@ using TMPro;
 
 public class PlayerSpell : MonoBehaviour
 {
-    [Serializable] public struct storedSpell
-    {
-        public SpellCardScriptableObj spell;
-        public int chargesLeft;
-        public Image spellIcon;
-        public RectTransform spellIconTransform;
-        public TextMeshProUGUI spellChargeText;
-    }
-
     private PlayerCharacter player;
     private Camera cam;
 
-    [SerializeField] private int _maxSpellList = 6;
-    [SerializeField] private List<storedSpell> _activeSpellList;
-    [SerializeField] private int _currentSpellIndex;
-    [SerializeField] private SpellCardScriptableObj _baseSpell;
+    [field: SerializeField] public SpellCardScriptableObj _baseSpell { get; private set; }
 
     [field: SerializeField] public Transform _spellTarget { get; private set; }
 
@@ -29,7 +17,10 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField] private float _spellTimer;
 
     [Header("UI")]
-    [Tooltip("The UI Prefab that controls spell stuff")]
+    [Tooltip("The UI Controller")]
+    [SerializeField]
+    private PlayerUIController _ui;
+
     [SerializeField] private GameObject _spellUIPrefab;
     [SerializeField] private GameObject _spellContainerUI;
     [SerializeField] private GameObject _spellIconPrefab;
@@ -46,13 +37,15 @@ public class PlayerSpell : MonoBehaviour
     {
         player = pl;
         cam = Camera.main;
-        DeployUI();
+        _ui = GetComponent<PlayerUIController>();
+        //DeployUI();
 
-        _activeSpellList = new List<storedSpell>();
-        AddSpellToList(_baseSpell);
+        //_activeSpellList = new List<storedSpell>();
+        //AddSpellToList(_baseSpell);
+        _ui.AddSpellToUI(_baseSpell);
         _spellTarget = player._PlayerActor.transform.Find("SpellTarget");
         _spellTimer = 0.0f;
-        timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
+        timeToAddToTimer = _ui._ActiveSpellList[_currentSpellIndex].spell._SpellAddonTime;
     }
 
     private void DeployUI()
@@ -99,6 +92,8 @@ public class PlayerSpell : MonoBehaviour
     }
     #endregion
     */
+
+    /*
     public void AddSpellToList(SpellCardScriptableObj spellCard)
     {
         if (_activeSpellList.Count < _maxSpellList)
@@ -106,7 +101,7 @@ public class PlayerSpell : MonoBehaviour
             if (_activeSpellList.Count == 1) _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
             // create a new struct
             storedSpell spell = new storedSpell();
-            
+
             // set spell settings
             spell.spell = spellCard;
             spell.chargesLeft = spellCard._SpellCharges;
@@ -123,7 +118,12 @@ public class PlayerSpell : MonoBehaviour
             _activeSpellList.Add(spell);
         }
     }
+    */
 
+    public void ResetSpellTimer() => _spellTimer = 0.0f;
+    public void SetHowMuchTimeToAddToSpellTimer(float timeInFloat) => timeToAddToTimer = timeInFloat;
+
+    /*
     public void ChangeSpell(int dir)
     {
         if (_activeSpellList.Count > 1)
@@ -157,10 +157,12 @@ public class PlayerSpell : MonoBehaviour
             _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
         }
     }
+    */
 
     public void UseSpell(Vector3 targetPos)
     {
-        if (_spellTimer <= 0 && player._Aether._CurrentAether > _activeSpellList[_currentSpellIndex].spell._SpellAetherCost)
+        
+        if (_spellTimer <= 0 && player._Aether._CurrentAether > _ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._SpellAetherCost)
         {
             ShootSpell(targetPos);
             if (GameManagerMaster.GameMaster.logExraPlayerData)
@@ -178,24 +180,24 @@ public class PlayerSpell : MonoBehaviour
 
     private void ShootSpell(Vector3 targetPos)
     {
-        player._AnimationController.SetTrigger(_activeSpellList[_currentSpellIndex].spell._SpellAnimationBool.ToString());
-        player._Aether.UseAether(_activeSpellList[_currentSpellIndex].spell._SpellAetherCost);
+        player._AnimationController.SetTrigger(_ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._SpellAnimationBool.ToString());
+        player._Aether.UseAether(_ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._SpellAetherCost);
         
         Projectile conjuredSpell;
         if(targetPos !=  Vector3.zero)
         {
             //player._LocomotionController.RotateTowardsTarget(targetPos);
-            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
+            conjuredSpell = Instantiate(_ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
             Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
         }
         else
         {
-            conjuredSpell = Instantiate(_activeSpellList[_currentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
+            conjuredSpell = Instantiate(_ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
         }
 		//conjuredSpell.transform.rotation = player._PlayerActor.transform.rotation;
 		conjuredSpell.transform.eulerAngles = _spellTarget.transform.eulerAngles;
-		conjuredSpell.name = _activeSpellList[_currentSpellIndex].spell._CardName;
-        conjuredSpell.InitializeProjectile(player, _activeSpellList[_currentSpellIndex].spell._SpellDamage, _activeSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
+		conjuredSpell.name = _ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._CardName;
+        conjuredSpell.InitializeProjectile(player, _ui._ActiveSpellList[_ui._CurrentSpellIndex].spell._SpellDamage, _ui._ActiveSpellList[_currentSpellIndex].spell._SpellProjectileSpeed, _activeSpellList[_currentSpellIndex].spell._SpellLifetime, _activeSpellList[_currentSpellIndex].spell._SpellImpactVFX);
         _spellTimer = timeToAddToTimer;
         RemoveSpellCharge();
     }
@@ -249,7 +251,7 @@ public class PlayerSpell : MonoBehaviour
     {
         if (_currentSpellIndex != 0)
         {
-            storedSpell modifiedSpell = _activeSpellList[_currentSpellIndex];
+            storedSpell modifiedSpell = _ui._ActiveSpellList[_currentSpellIndex];
             modifiedSpell.chargesLeft -= 1;
             modifiedSpell.spellChargeText.text = modifiedSpell.chargesLeft.ToString();
 
@@ -258,10 +260,10 @@ public class PlayerSpell : MonoBehaviour
             {
                 int oldSpellIndexNumber = _currentSpellIndex;
                 ChangeSpell(-1);
-                Destroy(_activeSpellList[oldSpellIndexNumber].spellIcon.gameObject);
-                _activeSpellList.Remove(_activeSpellList[oldSpellIndexNumber]);
+                Destroy(_ui._ActiveSpellList[oldSpellIndexNumber].spellIcon.gameObject);
+                _activeSpellList.Remove(_ui._ActiveSpellList[oldSpellIndexNumber]);
             }
-            else _activeSpellList[_currentSpellIndex] = modifiedSpell;
+            else _ui._ActiveSpellList[_currentSpellIndex] = modifiedSpell;
         }
     }
 
