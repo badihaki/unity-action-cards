@@ -588,7 +588,8 @@ MonoBehaviour:
   canChangeAether: 0
   _DeckIcon: {fileID: 0}
   deckStatusIcons: []
-  _WeaponMeter: {fileID: 0}
+  _SpellIconBasePrefab: {fileID: 4196082061840423998, guid: 145d3d7e21ed8144ab2a1671f65702ca,
+    type: 3}
 --- !u!114 &6084333112869182304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,7 +1140,7 @@ GameObject:
   - component: {fileID: 3406710536465095387}
   - component: {fileID: 7618395864048741376}
   m_Layer: 5
-  m_Name: Organizer
+  m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

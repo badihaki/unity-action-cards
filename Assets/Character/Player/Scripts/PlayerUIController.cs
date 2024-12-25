@@ -15,9 +15,13 @@ public class PlayerUIController : CharacterUIController
 	private TextMeshProUGUI deckCountUI;
 
 	private Canvas _WeaponCanvas;
-	[SerializeField, Header("Weapon Meter")] private Slider _WeaponMeter;
+	private Slider _WeaponMeter;
 
+	[field: SerializeField, Header("Spells")]
+	private Image _SpellIconBasePrefab;
 	private Canvas _SpellSlingCanvas;
+	private RectTransform _SpellContainer;
+	private GameObject _Crosshair;
 
 	#region Initialize
 	public override void InitializeUI(bool isEntityPlayer, Character character)
@@ -46,6 +50,9 @@ public class PlayerUIController : CharacterUIController
 	private void InitSpellUI()
 	{
 		_SpellSlingCanvas = transform.Find("SpellSlingCanvas").GetComponent<Canvas>();
+		_SpellContainer = _SpellSlingCanvas.transform.Find("Container").GetComponent<RectTransform>();
+		_Crosshair = _SpellSlingCanvas.transform.Find("Crosshair").gameObject;
+		_Crosshair.SetActive(false);
 	}
 	
 	private void InitWeaponMeterUI()
