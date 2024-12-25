@@ -52,7 +52,7 @@ public class PlayerSpellslingingSuperState : PlayerState
         }
         if(spellSelectDirection != 0)
         {
-            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }

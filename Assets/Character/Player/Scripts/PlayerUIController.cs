@@ -233,6 +233,26 @@ public class PlayerUIController : CharacterUIController
 			_ActiveSpellList[_CurrentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
 		}
 	}
+
+	public void RemoveSpellCharge()
+	{
+		if (_CurrentSpellIndex != 0)
+		{
+			StoredSpellStruct modifiedSpell = _ActiveSpellList[_CurrentSpellIndex];
+			modifiedSpell.chargesLeft -= 1;
+			modifiedSpell.spellChargeText.text = modifiedSpell.chargesLeft.ToString();
+
+			// yo, if there's no charges left, lets delete this
+			if (modifiedSpell.chargesLeft <= 0)
+			{
+				int oldSpellIndexNumber = _CurrentSpellIndex;
+				ChangeSpell(-1);
+				Destroy(_ActiveSpellList[oldSpellIndexNumber].spellIcon.gameObject);
+				_ActiveSpellList.Remove(_ActiveSpellList[oldSpellIndexNumber]);
+			}
+			else _ActiveSpellList[_CurrentSpellIndex] = modifiedSpell;
+		}
+	}
 	#endregion
 
 	// end
