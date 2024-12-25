@@ -14,12 +14,25 @@ public class PlayerUIController : CharacterUIController
 	[SerializeField] private Sprite[] deckStatusIcons;
 	private TextMeshProUGUI deckCountUI;
 
+	private Canvas _WeaponCanvas;
 	[SerializeField, Header("Weapon Meter")] private Slider _WeaponMeter;
 
+	private Canvas _SpellSlingCanvas;
+
+	#region Initialize
 	public override void InitializeUI(bool isEntityPlayer, Character character)
 	{
 		base.InitializeUI(isEntityPlayer, character);
+		_Player = character as PlayerCharacter;
 
+		InitAetherUI();
+		InitSpellUI();
+		InitWeaponMeterUI();
+		InitDeckUI();
+	}
+
+	private void InitAetherUI()
+	{
 		_AetherBar = _ResourceCanvas.transform.Find("AetherBar").GetComponent<Slider>();
 
 		canChangeAether = false;
@@ -28,12 +41,23 @@ public class PlayerUIController : CharacterUIController
 		_AetherBar.value = _AetherController._MaxAether;
 		_TargetAether = _AetherController._MaxAether;
 		_AetherController.OnAetherChanged += UpdateAetherUI; // subscribe to the OnAetherChanged event
+	}
 
-		_WeaponMeter = _ResourceCanvas.transform.Find("WeaponMeter").GetComponent <Slider>();
+	private void InitSpellUI()
+	{
+		_SpellSlingCanvas = transform.Find("SpellSlingCanvas").GetComponent<Canvas>();
+	}
+	
+	private void InitWeaponMeterUI()
+	{
+		_WeaponCanvas = transform.Find("WeaponCanvas").GetComponent<Canvas>();
+		_WeaponMeter = _WeaponCanvas.transform.Find("WeaponMeter").GetComponent<Slider>();
 		_WeaponMeter.gameObject.SetActive(false);
-		_Player = character as PlayerCharacter;
 		_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI; // sub to the OnDurabilityChanged event
+	}
 
+	private void InitDeckUI()
+	{
 		_DeckIcon = _ResourceCanvas.transform.Find("DeckIcon").GetComponent<Image>();
 		_DeckIcon.sprite = deckStatusIcons[1];
 		deckCountUI = _DeckIcon.transform.Find("Count").GetComponent<TextMeshProUGUI>();
@@ -42,6 +66,7 @@ public class PlayerUIController : CharacterUIController
 		_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
 		ChangeDeckIcon(true);
 	}
+	#endregion
 
 	protected override void OnEnable()
 	{
