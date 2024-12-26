@@ -69,6 +69,9 @@ public class PlayerUIController : CharacterUIController
 		_Crosshair = _SpellSlingCanvas.transform.Find("Crosshair").gameObject;
 		_Crosshair.SetActive(false);
 		_ActiveSpellList = new List<StoredSpellStruct>();
+
+		AddSpellToUI(_Player._PlayerSpells._baseSpell);
+		_Player._PlayerSpells.SetHowMuchTimeToAddToSpellTimer(_ActiveSpellList[0].spell._SpellAddonTime);
 	}
 	
 	private void InitWeaponMeterUI()

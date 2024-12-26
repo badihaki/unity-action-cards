@@ -21,13 +21,6 @@ public class PlayerSpell : MonoBehaviour
     [SerializeField]
     private PlayerUIController _UI;
 
-    [SerializeField] private GameObject _spellUIPrefab;
-    [SerializeField] private GameObject _spellContainerUI;
-    [SerializeField] private GameObject _spellIconPrefab;
-
-    [Header("UI, targeting stuff")]
-    [SerializeField] private Image _crosshair;
-
 	private Ray targetDetectRay = new Ray();
     [field: SerializeField]
     private List<Actor> targetableActors = new List<Actor>();
@@ -38,22 +31,8 @@ public class PlayerSpell : MonoBehaviour
         player = pl;
         cam = Camera.main;
         _UI = GetComponent<PlayerUIController>();
-        //DeployUI();
-
-        //_activeSpellList = new List<storedSpell>();
-        //AddSpellToList(_baseSpell);
-        _UI.AddSpellToUI(_baseSpell);
         _spellTarget = player._PlayerActor.transform.Find("SpellTarget");
         _spellTimer = 0.0f;
-        timeToAddToTimer = _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellAddonTime;
-    }
-
-    private void DeployUI()
-    {
-        GameObject ui = Instantiate(_spellUIPrefab, Vector3.zero, Quaternion.identity);
-        _spellContainerUI = ui.transform.Find("Organizer").gameObject;
-        _crosshair = ui.transform.Find("Crosshair").GetComponent<Image>();
-        _crosshair.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -69,95 +48,10 @@ public class PlayerSpell : MonoBehaviour
             _spellTimer -= Time.deltaTime;
         }
     }
-    /*
-    #region Crosshair Functions
-    public void ShowCrosshair() => _crosshair.gameObject.SetActive(true);
-
-    public void HideCrosshair() => _crosshair.gameObject.SetActive(false);
-
-    public void UpdateCrosshair()
-    {
-        // update crosshair here
-        Vector2 screenCenterPoint = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
-        Ray ray = cam.ScreenPointToRay(screenCenterPoint);
-        targetPos = ray.direction;
-        Vector3 desiredCrosshairPos = _spellTarget.transform.position + transform.forward * 10;
-
-        if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
-        {
-            targetPos = hit.point;
-            desiredCrosshairPos = cam.WorldToScreenPoint(hit.point);
-        }
-        _crosshair.transform.position = desiredCrosshairPos;
-    }
-    #endregion
-    */
-
-    /*
-    public void AddSpellToList(SpellCardScriptableObj spellCard)
-    {
-        if (_activeSpellList.Count < _maxSpellList)
-        {
-            if (_activeSpellList.Count == 1) _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
-            // create a new struct
-            storedSpell spell = new storedSpell();
-
-            // set spell settings
-            spell.spell = spellCard;
-            spell.chargesLeft = spellCard._SpellCharges;
-
-            // instantiate the icon, set ref to icon in struct
-            GameObject icon = Instantiate(_spellIconPrefab, _spellContainerUI.GetComponent<RectTransform>());
-            spell.spellIcon = icon.GetComponent<Image>();
-            spell.spellIcon.sprite = spellCard._CardImage;
-            spell.spellChargeText = spell.spellIcon.GetComponentInChildren<TextMeshProUGUI>();
-            spell.spellChargeText.text = spell.chargesLeft.ToString();
-            spell.spellIconTransform = spell.spellIcon.GetComponent<RectTransform>();
-
-            // add spell to list
-            _activeSpellList.Add(spell);
-        }
-    }
-    */
 
     public void ResetSpellTimer() => _spellTimer = 0.0f;
     public void SetHowMuchTimeToAddToSpellTimer(float timeInFloat) => timeToAddToTimer = timeInFloat;
 
-    /*
-    public void ChangeSpell(int dir)
-    {
-        if (_activeSpellList.Count > 1)
-        {
-            int maxIndex = _activeSpellList.Count - 1;
-            if(dir > 0)
-            {
-                print("up");
-                // change current spell index size to 1x1
-                _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
-                _currentSpellIndex++;
-                if (_currentSpellIndex > maxIndex)
-                {
-                    _currentSpellIndex = 0;
-                }
-            }
-            else
-            {
-                print("down");
-                // change current spell index size to 1x1
-                _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = Vector3.one;
-                _currentSpellIndex--;
-                if (_currentSpellIndex < 0)
-                {
-                    _currentSpellIndex = _activeSpellList.Count -1;
-                }
-            }
-            _spellTimer = 0.0f;
-            timeToAddToTimer = _activeSpellList[_currentSpellIndex].spell._SpellAddonTime;
-            // change current spell index size to 1.5x1.5
-            _activeSpellList[_currentSpellIndex].spellIconTransform.localScale = new Vector3(1.50f, 1.50f, 0.00f);
-        }
-    }
-    */
 
     public void UseSpell(Vector3 targetPos)
     {
