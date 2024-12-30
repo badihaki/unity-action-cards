@@ -114,19 +114,21 @@ public class PlayerCamera : MonoBehaviour
             cinemachineTargetPitch += aimInput.y;
         }
 
-        // clamp movement
-        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomLookClamp, isAiming ? topLookClampWhileAiming : topLookClamp);
-
+        float desiredTopClamp = isAiming ? topLookClampWhileAiming : topLookClamp;
+        float desiredBotClamp = bottomLookClamp;
 #if UNITY_EDITOR
 		if (Application.isEditor && PlayModeWindow.GetPlayModeFocused() == true)
         {
             lookSensitivity = Mathf.Clamp(lookSensitivity, 3, 8);
-            topLookClamp = topLookClamp / 2;
-            topLookClampWhileAiming = topLookClampWhileAiming / 2.15f;
-            bottomLookClamp = bottomLookClamp / 2;
+            desiredTopClamp = desiredTopClamp / 2;
+            desiredBotClamp = desiredBotClamp / 2;
         }
 #endif
+
+        // clamp movement
+        cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, desiredBotClamp, desiredTopClamp);
+
 
 
         // rotate cam target
