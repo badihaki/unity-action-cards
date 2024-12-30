@@ -4458,6 +4458,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1649137816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &562068968 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1183872991}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &592054718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4566,6 +4572,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 562068968}
   - {fileID: 1228731097}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8348,7 +8355,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 617635386}
     m_Modifications:
     - target: {fileID: 1797102457050523090, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
@@ -8373,17 +8380,17 @@ PrefabInstance:
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.77
+      value: 3.5185432
       objectReference: {fileID: 0}
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.64
+      value: -16.483719
       objectReference: {fileID: 0}
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.33
+      value: -3.3244133
       objectReference: {fileID: 0}
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
@@ -8393,17 +8400,17 @@ PrefabInstance:
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5916562070096258111, guid: 55fa72a54f34ed34a9757bcd96d4e1e6,
         type: 3}
@@ -19861,5 +19868,4 @@ SceneRoots:
   - {fileID: 961739753}
   - {fileID: 1705193276}
   - {fileID: 1106406981}
-  - {fileID: 1183872991}
   - {fileID: 617635386}
