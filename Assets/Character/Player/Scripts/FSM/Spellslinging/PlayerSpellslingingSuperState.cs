@@ -23,32 +23,24 @@ public class PlayerSpellslingingSuperState : PlayerState
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
         
-        AttemptShootSpell();
+        //AttemptShootSpell();
         
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
-    }
-
-    protected void AttemptShootSpell()
-    {
-        //Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-        _PlayerCharacter._Controls.UseSpell();
-        //_PlayerCharacter._PlayerSpells.UseSpell(target);
-        _PlayerCharacter._PlayerSpells.UseSpell(_PlayerCharacter._PlayerSpells.GetIntendedTarget());
     }
 
 	public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.575f);
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.75f, true);
 		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
 
         if (spellslingInput)
         {
-            AttemptShootSpell();
+			_PlayerCharacter._PlayerSpells.UseSpell(_PlayerCharacter._PlayerSpells.GetIntendedTarget());
         }
         if(spellSelectDirection != 0)
         {

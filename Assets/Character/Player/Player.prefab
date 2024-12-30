@@ -457,9 +457,10 @@ MonoBehaviour:
   <_PlayerCamController>k__BackingField: {fileID: 0}
   <_PlayerSpellCamController>k__BackingField: {fileID: 0}
   currentCameraController: {fileID: 0}
-  topLookClamp: 9
-  bottomLookClamp: -13.75
-  lookSensitivity: 1.5
+  topLookClamp: 38.6
+  topLookClampWhileAiming: 59.125
+  bottomLookClamp: -43.3
+  lookSensitivity: 1
   <cinemachineCamTarget>k__BackingField: {fileID: 0}
   cursorLocked: 0
 --- !u!114 &952087385969057769
