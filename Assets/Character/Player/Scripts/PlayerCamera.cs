@@ -119,7 +119,7 @@ public class PlayerCamera : MonoBehaviour
 #if UNITY_EDITOR
 		if (Application.isEditor && PlayModeWindow.GetPlayModeFocused() == true)
         {
-            lookSensitivity = Mathf.Clamp(lookSensitivity, 3, 8);
+            lookSensitivity = Mathf.Clamp(lookSensitivity, isAiming ? 1 : 3, isAiming ? 5 : 8);
             desiredTopClamp = desiredTopClamp / 2;
             desiredBotClamp = desiredBotClamp / 2;
         }

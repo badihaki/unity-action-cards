@@ -35,7 +35,7 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         Vector3 target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
 
-		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.75f, true);
+		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
 		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
