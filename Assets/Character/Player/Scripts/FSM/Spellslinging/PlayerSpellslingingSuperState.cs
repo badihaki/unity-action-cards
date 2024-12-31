@@ -22,8 +22,8 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
-        
-        //AttemptShootSpell();
+
+        _PlayerCharacter._PlayerUIController.SetShowCrossHair(true);
         
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
@@ -73,8 +73,10 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), true);
-        // _PlayerCharacter._PlayerSpells.HideCrosshair();
-        _PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
+
+		_PlayerCharacter._PlayerUIController.SetShowCrossHair(false);
+
+		_PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
     }
 
     public override void CheckStateTransitions()

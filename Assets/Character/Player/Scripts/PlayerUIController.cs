@@ -67,7 +67,7 @@ public class PlayerUIController : CharacterUIController
 		_SpellSlingCanvas = transform.Find("SpellSlingCanvas").GetComponent<Canvas>();
 		_SpellContainer = _SpellSlingCanvas.transform.Find("Container").GetComponent<RectTransform>();
 		_Crosshair = _SpellSlingCanvas.transform.Find("Crosshair").gameObject;
-		_Crosshair.SetActive(false);
+		SetShowCrossHair(false);
 		_ActiveSpellList = new List<StoredSpellStruct>();
 
 		AddSpellToUI(_Player._PlayerSpells._baseSpell);
