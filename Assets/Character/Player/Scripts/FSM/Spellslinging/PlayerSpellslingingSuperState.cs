@@ -33,14 +33,17 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.75f, true);
+        Vector3 target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
+
+		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.75f, true);
 		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
+        _PlayerCharacter._PlayerUIController.UpdateCrosshairPos(target);
 
         if (spellslingInput)
         {
-			_PlayerCharacter._PlayerSpells.UseSpell(_PlayerCharacter._PlayerSpells.GetIntendedTarget());
+			_PlayerCharacter._PlayerSpells.UseSpell(target);
         }
         if(spellSelectDirection != 0)
         {

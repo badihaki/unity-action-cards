@@ -22,9 +22,6 @@ public class PlayerSpell : MonoBehaviour
     private PlayerUIController _UI;
 
 	private Ray targetDetectRay = new Ray();
-    [field: SerializeField]
-    private List<Actor> targetableActors = new List<Actor>();
-
 
 	public void Initialize(PlayerCharacter pl)
     {
@@ -59,16 +56,6 @@ public class PlayerSpell : MonoBehaviour
         if (_spellTimer <= 0 && player._Aether._CurrentAether > _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellAetherCost)
         {
             ShootSpell(targetPos);
-            if (GameManagerMaster.GameMaster.logExraPlayerData)
-            {
-                print(">>>>>>>>> targetables");
-                targetableActors.ForEach(actor =>
-                {
-                    print(actor.transform.parent.name);
-                });
-                print("/>>>>>>>>> targetables/");
-            }
-			targetableActors.Clear();
         }
     }
 
@@ -102,43 +89,10 @@ public class PlayerSpell : MonoBehaviour
         Ray ray = cam.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
         {
+            print(hit.transform.name);
             return hit.point;
         }
         return Vector3.zero;
-    }
-
-    public Vector3 DetectRangedTargets()
-    {
-        Vector3 targetPos = Vector3.zero;
-		Collider[] possibleTargets = Physics.OverlapSphere(_spellTarget.position, 10.5f, LayerMask.GetMask("Character"), QueryTriggerInteraction.UseGlobal);
-
-        if(possibleTargets.Length > 0)
-        {
-            foreach (var target in possibleTargets)
-            {
-                Actor actor = target.GetComponentInParent<Actor>();
-                if (actor != null && actor != player._Actor)
-                {
-                    if (!targetableActors.Contains(actor))
-                        targetableActors.Add(actor);
-                }
-            }
-
-            if(targetableActors.Count > 0)
-            {
-                foreach (var actor in targetableActors)
-                {
-                    if (targetPos == Vector3.zero)
-                        targetPos = actor.transform.position;
-                    else if(Vector3.Distance(targetPos, player._PlayerActor.transform.position) > Vector3.Distance(targetPos, actor.transform.position)) // if distance between current target pos and player actor is greater than distance between target pos and target actor
-                    {
-                        targetPos = actor.transform.position;
-                    }    
-                }
-            }
-        }
-        print($"target position is {targetPos.ToString()}");
-        return targetPos;
     }
 
     public void RotateSpellTarget()

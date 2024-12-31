@@ -8,6 +8,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class PlayerUIController : CharacterUIController
 {
 	private PlayerCharacter _Player;
+	private Camera _Cam;
 	[SerializeField, Header("Aether")] private Aether _AetherController;
 	[SerializeField] private Slider _AetherBar;
 	[SerializeField] private float _TargetAether;
@@ -43,6 +44,7 @@ public class PlayerUIController : CharacterUIController
 	{
 		base.InitializeUI(isEntityPlayer, character);
 		_Player = character as PlayerCharacter;
+		_Cam = Camera.main;
 
 		InitAetherUI();
 		InitSpellUI();
@@ -174,6 +176,20 @@ public class PlayerUIController : CharacterUIController
 
 	#region Spell Sling UI
 	public void SetShowCrossHair(bool isVisible) => _Crosshair.SetActive(isVisible);
+
+	public void UpdateCrosshairPos(Vector3 pos)
+	{
+		if (pos == Vector3.zero)
+		{
+			Vector3 screenCenterPoint = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0.0f);
+			_Crosshair.transform.position = screenCenterPoint;
+		}
+		else
+		{
+			Vector3 screenPos = _Cam.WorldToScreenPoint(pos);
+			_Crosshair.transform.position = screenPos;
+		}
+	}
 
 	public void AddSpellToUI(SpellCardScriptableObj spellCard)
 	{
