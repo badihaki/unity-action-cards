@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -18,10 +19,11 @@ public class PlayerCamera : MonoBehaviour
 
     [Header("Camera Settings")]
     [Tooltip("How far can the camera look up")]
-    [SerializeField] private float topLookClamp = 10.0f;
-    [Tooltip("How far can the camera look down")]
-    [SerializeField] private float bottomLookClamp = -15.0f;
-    [SerializeField] private float lookSensitivity = 1.0f;
+    [SerializeField] private float topLookClamp = 38.60f;
+    [SerializeField] private float topLookClampWhileAiming = 59.125f;
+	[Tooltip("How far can the camera look down")]
+    [SerializeField] private float bottomLookClamp = -43.3f;
+	[SerializeField] private float lookSensitivity = 1.0f;
 
     [field: SerializeField] public Transform cinemachineCamTarget { get; private set; }
     
@@ -102,30 +104,37 @@ public class PlayerCamera : MonoBehaviour
         cinemachineCamTarget.transform.position = pos;
     }
 
-    public void ControlCameraRotation(Vector2 aimInput)
+    public void ControlCameraRotation(Vector2 aimInput, bool isAiming = false)
     {
         const float lookThreshold = 0.01f; // how far do we attempt to look around before the cam should start moving
         if(aimInput.sqrMagnitude >= lookThreshold)
         {
+            aimInput *= 1.43f; // add a prelim modifier
             cinemachineTargetYaw += aimInput.x;
             cinemachineTargetPitch += aimInput.y;
         }
 
+        float desiredTopClamp = isAiming ? topLookClampWhileAiming : topLookClamp;
+        float desiredBotClamp = bottomLookClamp;
+#if UNITY_EDITOR
+		if (Application.isEditor && PlayModeWindow.GetPlayModeFocused() == true)
+        {
+            lookSensitivity = Mathf.Clamp(lookSensitivity, isAiming ? 1 : 3, isAiming ? 5 : 8);
+            desiredTopClamp = desiredTopClamp / 2;
+            desiredBotClamp = desiredBotClamp / 2;
+        }
+#endif
+
         // clamp movement
         cinemachineTargetYaw = ClampAngle(cinemachineTargetYaw, float.MinValue, float.MaxValue);
-        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, bottomLookClamp, topLookClamp);
+        cinemachineTargetPitch = ClampAngle(cinemachineTargetPitch, desiredBotClamp, desiredTopClamp);
 
-        LimitSensitivity();
+
 
         // rotate cam target
         cinemachineCamTarget.rotation = Quaternion.Euler(-cinemachineTargetPitch * lookSensitivity, cinemachineTargetYaw * lookSensitivity, 0.0f);
     }
 
-    private void LimitSensitivity()
-    {
-        if (lookSensitivity < 3.0f) lookSensitivity = 3.0f;
-        else if (lookSensitivity > 8.00f) lookSensitivity = 8.00f;
-    }
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {
         if (lfAngle < -360f) lfAngle += 360f;

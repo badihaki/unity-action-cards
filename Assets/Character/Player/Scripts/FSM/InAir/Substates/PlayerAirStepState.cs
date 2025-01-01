@@ -38,21 +38,31 @@ public class PlayerAirStepState : PlayerState
 
         if (canShmoove)
         {
-            // check for jump and rush input here
-            if (_PlayerCharacter._LocomotionController.canDoubleJump)
+			// check for jump and rush input here
+			if (jumpInput)
             {
-                if (jumpInput)
-                    _StateMachine.ChangeState(_StateMachine._AirJumpState);
-            }
-            else
+				_PlayerCharacter._Controls.UseJump();
+				_StateMachine.ChangeState(_StateMachine._AirJumpState);
+			}
+            if (rushInput)
             {
-                if (jumpInput || rushInput)
-                {
-                    _PlayerCharacter._Controls.UseJump();
-                    _PlayerCharacter._Controls.UseRush();
-                    _StateMachine.ChangeState(_StateMachine._FallingState);
-                }
-            }
+				_PlayerCharacter._Controls.UseRush();
+				_StateMachine.ChangeState(_StateMachine._FallingState);
+			}
+			//if (_PlayerCharacter._LocomotionController.canDoubleJump)
+   //         {
+   //             if (jumpInput)
+   //                 _StateMachine.ChangeState(_StateMachine._AirJumpState);
+   //         }
+   //         else
+   //         {
+   //             if (jumpInput || rushInput)
+   //             {
+   //                 _PlayerCharacter._Controls.UseJump();
+   //                 _PlayerCharacter._Controls.UseRush();
+   //                 _StateMachine.ChangeState(_StateMachine._FallingState);
+   //             }
+   //         }
 
         }
     }

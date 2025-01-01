@@ -63,7 +63,7 @@ public class PlayerCombatSuperState : PlayerState
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
         if (spellSelectDirection != 0)
         {
-            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }

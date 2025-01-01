@@ -67,6 +67,7 @@ public class PlayerCharacter : Character, IDestroyable
 		// initialize UI dead last, dawg
 		_PlayerUIController = GetComponent<PlayerUIController>();
         _PlayerUIController.InitializeUI(true, this);
+        print("finish setup");
     }
 
     private void LoadAndBuildActor()

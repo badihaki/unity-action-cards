@@ -7,6 +7,7 @@ public class PlayerSpellslingingSuperState : PlayerState
     public PlayerSpellslingingSuperState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
     }
+
 	public int spellSelectDirection { get; protected set; }
 	public bool spellslingInput { get; private set; }
 	public Vector2 aimInput { get; private set; }
@@ -21,37 +22,32 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerSpellCamController);
-        
-        AttemptShootSpell();
+
+        _PlayerCharacter._PlayerUIController.SetShowCrossHair(true);
         
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
     }
 
-    protected void AttemptShootSpell()
-    {
-        Vector3 target = _PlayerCharacter._PlayerSpells.DetectRangedTargets();
-        //_PlayerCharacter.LogFromState(target == Vector3.zero ? "No target || playerSpellslingingState" : $"Target found!! >>{target} || playerSpellslingingState");
-        _PlayerCharacter._Controls.UseSpell();
-        _PlayerCharacter._PlayerSpells.UseSpell(target);
-    }
-
-    public override void LogicUpdate()
+	public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.25f);
+        Vector3 target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
+
+		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
 		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
+        _PlayerCharacter._PlayerUIController.UpdateCrosshairPos(target);
 
         if (spellslingInput)
         {
-            AttemptShootSpell();
+			_PlayerCharacter._PlayerSpells.UseSpell(target);
         }
         if(spellSelectDirection != 0)
         {
-            _PlayerCharacter._PlayerSpells.ChangeSpell(spellSelectDirection);
+            _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
@@ -80,8 +76,10 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         _PlayerCharacter._CameraController.SwitchCam(_PlayerCharacter._CameraController._PlayerCamController);
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), true);
-        // _PlayerCharacter._PlayerSpells.HideCrosshair();
-        _PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
+
+		_PlayerCharacter._PlayerUIController.SetShowCrossHair(false);
+
+		_PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
     }
 
     public override void CheckStateTransitions()
