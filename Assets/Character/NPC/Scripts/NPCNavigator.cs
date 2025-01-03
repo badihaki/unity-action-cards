@@ -58,35 +58,52 @@ public class NPCNavigator : MonoBehaviour
         FindNextNavigationNode();
         return true;
     }
-	
-	private void FindNewNavigationNode()
-	{
+
+    private void FindNewNavigationNode()
+    {
         //NavigationNode[] nodes = GameObject.FindObjectsByType<NavigationNode>(FindObjectsSortMode.None);
-		Collider[] nodes = (Physics.OverlapSphere(transform.position, 10.5f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
-		NavigationNode node = null;
-        foreach (var navNode in nodes)
-        {
-            NavigationNode NavNode = navNode.GetComponent<NavigationNode>();
+        Collider[] nodes = Physics.OverlapSphere(transform.position, 10.5f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal);
+        //print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv nav list");
+        //foreach (var item in nodes)
+        //{
+        //    print(item.name);
+        //}
+        //print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ nav list");
+        //CreateDebugSphere();
+        NavigationNode node = null;
+		foreach (var navNode in nodes)
+		{
+			NavigationNode NavNode = navNode.GetComponent<NavigationNode>();
 			if (!node)
 			{
 				//node = navNode;
 				node = NavNode;
 			}
-            else
-            {
-                float distanceFromSavedNode = Vector3.Distance(_NPC._NPCActor.transform.position, node.transform.position);
-                float distanceFromNavNode = Vector3.Distance(_NPC._NPCActor.transform.position, navNode.transform.position);
-				if (distanceFromSavedNode > distanceFromNavNode) 
-                {
+			else
+			{
+				float distanceFromSavedNode = Vector3.Distance(_NPC._NPCActor.transform.position, node.transform.position);
+				float distanceFromNavNode = Vector3.Distance(_NPC._NPCActor.transform.position, navNode.transform.position);
+				if (distanceFromSavedNode > distanceFromNavNode)
+				{
 					//node = navNode;
 					node = NavNode;
-                }
-            }
-        }
-        _CurrentNavNode = node;
-    }
+				}
+			}
+		}
+		_CurrentNavNode = node;
+	}
 
-    private void FindNextNavigationNode()
+	private void CreateDebugSphere()
+	{
+		SphereCollider sphere = new GameObject().AddComponent<SphereCollider>();
+		sphere.isTrigger = true;
+		sphere.radius = 10.5f;
+		sphere.transform.position = transform.position;
+		sphere.name = "Debug Sphere";
+		Destroy(sphere, 5.5f);
+	}
+
+	private void FindNextNavigationNode()
     {
         NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
         NavigationNode navNode = GetNewNavNode(nodes);        

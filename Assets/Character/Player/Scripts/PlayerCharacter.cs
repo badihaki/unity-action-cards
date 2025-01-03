@@ -56,8 +56,8 @@ public class PlayerCharacter : Character, IDestroyable
         InitializeStateMachine();
 
         // combat stuff below, first the lock on
-        _LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
-        _LockOnTargeter.Initialize(this);
+        //_LockOnTargeter = _PlayerActor.transform.GetComponentInChildren<PlayerLockOnTargeter>();
+        //_LockOnTargeter.Initialize(this);
 
 		// and initialize the attack controller, since it needs the state machine
 		_AttackController.Initialize(this);
@@ -67,6 +67,7 @@ public class PlayerCharacter : Character, IDestroyable
 		// initialize UI dead last, dawg
 		_PlayerUIController = GetComponent<PlayerUIController>();
         _PlayerUIController.InitializeUI(true, this);
+        print("finish setup");
     }
 
     private void LoadAndBuildActor()
@@ -192,6 +193,12 @@ public class PlayerCharacter : Character, IDestroyable
 				print("probably not an attack");
 				break;
 		}
+	}
+
+	public override void AddToExternalForce(Vector3 force)
+	{
+		base.AddToExternalForce(force);
+        _LocomotionController.AddToExternalForces(force);
 	}
 
 	public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();

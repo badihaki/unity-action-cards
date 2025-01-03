@@ -71,11 +71,23 @@ public class PlayerStateMachine : MonoBehaviour
 
 	private void Update()
 	{
-		_CurrentState?.LogicUpdate();
+        if(_CurrentState != null)
+        {
+            if (!_CurrentState._IsExitingState)
+            {
+		        _CurrentState.LogicUpdate();
+            }
+        }
 	}
 	private void FixedUpdate()
 	{
-		_CurrentState?.PhysicsUpdate();
+		if (_CurrentState != null)
+		{
+			if (!_CurrentState._IsExitingState)
+			{
+				_CurrentState.PhysicsUpdate();
+			}
+		}
 	}
 	private void LateUpdate()
 	{

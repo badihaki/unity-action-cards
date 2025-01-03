@@ -60,6 +60,14 @@ public class NPCMovementController : MonoBehaviour
 		else _ExternalForces = Vector3.zero;
 	}
 
+	public void AddToExternalForces(Vector3 force)
+	{
+		if (force != Vector3.zero)
+			_ExternalForces += force;
+		else
+			_ExternalForces = Vector3.zero;
+	}
+
 	public void ApplyExternalForces()
 	{
 		_CharacterController.Move(_ExternalForces * Time.deltaTime);
@@ -111,6 +119,19 @@ public class NPCMovementController : MonoBehaviour
 		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.CharacterLaunchForce);
 		Vector3 force = _ExternalForces;
 		force.y += _VerticalVelocity;
+		float backForceVelocity = _NPC._NPCActor.transform.forward.z * Vector3.back.z;
+		
+		if (force.z > 0)
+		{
+			print($"backwards force is {backForceVelocity}");
+			force.z *= backForceVelocity;
+		}
+		else
+		{
+			print(Time.deltaTime);
+			float newVerticalVel = _VerticalVelocity * Time.deltaTime;
+			force.z = backForceVelocity * _VerticalVelocity > 0 ? newVerticalVel : newVerticalVel * -1;
+		}
 		_ExternalForces = force;
 	}
 

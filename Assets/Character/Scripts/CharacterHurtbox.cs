@@ -19,22 +19,8 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 
     public void Damage(int damage, Transform damageSource, bool knockedBack, bool launched, Character damageSourceController = null)
 	{
-		print("damagin from hurtbox");
-        //if(damageSource != character.transform)
-        //{
-        //    character._Health.TakeDamage(damage);
-        //    character._Actor.transform.LookAt(damageSource);
+		//print("damagin from hurtbox");
 
-        //    Quaternion rotation = character._Actor.transform.rotation;
-        //    rotation.x = 0;
-        //    rotation.z = 0;
-
-        //    character._Actor.transform.rotation = rotation;
-
-        //    character.CalculateHitResponse(knockForce, launchForce, damage);
-        //    knockInterface?.ApplyKnockback(damageSource, knockForce, launchForce);
-        //    DetermineWhoWhurtMe(damageSource);
-        //}
         character._Actor.Damage(damage, damageSource, knockedBack, launched, damageSourceController);
     }
 
