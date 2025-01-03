@@ -66,16 +66,18 @@ public class NPCIdleState : NPCState
     private void FindPlaceToGo()
     {
         // Debug.Log(_NPC.name + " is Finding a place to move to");
-        if (_NPC._NavigationController.TryFindNewPatrol())
-        {
-            _NPC._StateMachine.ChangeState(_StateMachine._MoveState);
-        }
-        else
-        {
-            if(GameManagerMaster.GameMaster.logExtraNPCData)
-                _StateMachine.LogFromState("no place to patrol to, rolling for wait");
-            RollForWait();
-        }
+        //if (_NPC._NavigationController.TryFindNewPatrol())
+        //{
+        //    _NPC._StateMachine.ChangeState(_StateMachine._MoveState);
+        //}
+        //else
+        //{
+        //    if (GameManagerMaster.GameMaster.logExtraNPCData)
+        //        _StateMachine.LogFromState("no place to patrol to, rolling for wait");
+        //    RollForWait();
+        //}
+
+        
     }
 
     public override void CheckStateTransitions()

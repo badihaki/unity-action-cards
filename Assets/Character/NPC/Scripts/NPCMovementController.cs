@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class NPCMovementController : MonoBehaviour
 {
@@ -16,10 +17,16 @@ public class NPCMovementController : MonoBehaviour
 	[SerializeField] private float _BaseVerticalVelocity = -0.1f;
 	[SerializeField] private float _MaxFallVelocity = -25.00f; // terminal velocity
 
+	[field: SerializeField, Header("Nav Agent Stuff"),]
+	private NavMeshAgent _NavAgent;
+	[SerializeField]
+	private Vector3 _IntendedVelocity;
+
 	public void InitializeNPCMovement(NonPlayerCharacter character)
     {
         _NPC = character;
         _CharacterController = _NPC._Actor.GetComponent<CharacterController>();
+		_NavAgent = GetComponent<NavMeshAgent>();
 		_Navigator = _NPC._NavigationController;
         _ExternalForces = Vector3.zero;
     }
@@ -89,6 +96,11 @@ public class NPCMovementController : MonoBehaviour
 		lookRotation.x = 0;
 		lookRotation.z = 0;
 		_NPC._NPCActor.transform.rotation = Quaternion.Slerp(_NPC._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
+	}
+
+	public void FindNewNavAgentTarget()
+	{
+		//
 	}
 
 	public void MoveToTarget()
