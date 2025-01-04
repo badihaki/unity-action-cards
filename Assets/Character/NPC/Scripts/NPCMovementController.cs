@@ -26,7 +26,7 @@ public class NPCMovementController : MonoBehaviour
     {
         _NPC = character;
         _CharacterController = _NPC._Actor.GetComponent<CharacterController>();
-		_NavAgent = GetComponent<NavMeshAgent>();
+		_NavAgent = GetComponentInChildren<NavMeshAgent>();
 		_Navigator = _NPC._NavigationController;
         _ExternalForces = Vector3.zero;
 		_NavAgent.updatePosition = false;
@@ -108,6 +108,7 @@ public class NPCMovementController : MonoBehaviour
 		else
 			_NavAgent.destination = _NPC._NPCActor.transform.position;
 	}
+
 	public void MoveToTarget()
 	{
 		Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;

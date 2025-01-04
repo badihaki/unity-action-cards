@@ -68,7 +68,8 @@ public class NPCMoveState : NPCState
 
         if(_NPC._NPCActor._AggressionManager.isAggressive)
         {
-            _NPC._MoveController.MoveToTarget();
+            _NPC._MoveController.SetAgentDestination(_AttackController._ActiveTarget.position);
+			_NPC._MoveController.MoveToTarget();
             _NPC._MoveController.RotateTowardsTarget(_AttackController._ActiveTarget);
         }
         else
