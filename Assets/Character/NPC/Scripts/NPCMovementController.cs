@@ -29,7 +29,9 @@ public class NPCMovementController : MonoBehaviour
 		_NavAgent = GetComponent<NavMeshAgent>();
 		_Navigator = _NPC._NavigationController;
         _ExternalForces = Vector3.zero;
-    }
+		_NavAgent.updatePosition = false;
+		_NavAgent.updateRotation = false;
+	}
 
 	public void ApplyGravity(float gravityModifier = 1.0f)
 	{
@@ -48,20 +50,18 @@ public class NPCMovementController : MonoBehaviour
 		}
 	}
 
-	public void ZeroOutMovement() => _CharacterController.Move(Vector3.zero);
+	public void ZeroOutMovement()
+	{
+		_CharacterController.Move(Vector3.zero);
+		SyncAgentVelToCharControllerVel();
+	}
 
 	public void SetExternalForces(Transform forceSource, float knockforce, float launchForce)
 	{
 		if (forceSource != _NPC.transform)
 		{
 			Vector3 direction = (transform.position - forceSource.position).normalized;
-			// Vector3 force = new Vector3(0, launchForce, knockforce);
-			//direction *= -1;
 			Vector3 force = new Vector3(direction.x, direction.y * launchForce, direction.z * knockforce);
-			//_CharacterController.Move(direction * Mathf.Sqrt(knockforce)); // was I using the wrong value all along??
-			//_CharacterController.Move(force);
-
-			//print($"{name} is KNOCKBACKED in direction >> {direction} with force {force} resulting in {direction * Mathf.Sqrt(knockforce)} <<");
 			_ExternalForces = force;
 		}
 		else _ExternalForces = Vector3.zero;
@@ -78,6 +78,7 @@ public class NPCMovementController : MonoBehaviour
 	public void ApplyExternalForces()
 	{
 		_CharacterController.Move(_ExternalForces * Time.deltaTime);
+		SyncAgentVelToCharControllerVel();
 	}
 
 	public void MoveToCurrentNavNode()
@@ -86,6 +87,7 @@ public class NPCMovementController : MonoBehaviour
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		SyncAgentVelToCharControllerVel();
 	}
 
 	public void RotateTowardsTarget(Transform target)
@@ -98,17 +100,21 @@ public class NPCMovementController : MonoBehaviour
 		_NPC._NPCActor.transform.rotation = Quaternion.Slerp(_NPC._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
 	}
 
-	public void FindNewNavAgentTarget()
+	private void SyncAgentVelToCharControllerVel() => _NavAgent.velocity = _CharacterController.velocity;
+	public void SetAgentDestination(Vector3? destination)
 	{
-		//
+		if (destination != null)
+			_NavAgent.destination = destination.Value;
+		else
+			_NavAgent.destination = _NPC._NPCActor.transform.position;
 	}
-
 	public void MoveToTarget()
 	{
 		Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		SyncAgentVelToCharControllerVel();
 	}
 
 	public void Jump()

@@ -46,6 +46,7 @@ public class NPCNavigator : MonoBehaviour
         _AttackController.SetNewTarget(_Target);
         _PriorNavNodes.Clear();
         _CurrentNavNode = null;
+        _NPC._MoveController.SetAgentDestination(null);
     }
 
     public bool TryFindNewPatrol()
@@ -61,15 +62,7 @@ public class NPCNavigator : MonoBehaviour
 
     private void FindNewNavigationNode()
     {
-        //NavigationNode[] nodes = GameObject.FindObjectsByType<NavigationNode>(FindObjectsSortMode.None);
         Collider[] nodes = Physics.OverlapSphere(transform.position, 10.5f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal);
-        //print("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv nav list");
-        //foreach (var item in nodes)
-        //{
-        //    print(item.name);
-        //}
-        //print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ nav list");
-        //CreateDebugSphere();
         NavigationNode node = null;
 		foreach (var navNode in nodes)
 		{
@@ -91,6 +84,7 @@ public class NPCNavigator : MonoBehaviour
 			}
 		}
 		_CurrentNavNode = node;
+		_NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position);		
 	}
 
 	private void CreateDebugSphere()
@@ -108,7 +102,8 @@ public class NPCNavigator : MonoBehaviour
         NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
         NavigationNode navNode = GetNewNavNode(nodes);        
         _CurrentNavNode = navNode;
-    }
+		_NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position);
+	}
     private NavigationNode GetNewNavNode(NavigationNode[] nodes)
     {
         NavigationNode navNode = null;
