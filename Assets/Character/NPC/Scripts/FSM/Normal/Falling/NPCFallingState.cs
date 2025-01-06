@@ -5,7 +5,14 @@ public class NPCFallingState : NPCState
 	public override void EnterState()
 	{
 		base.EnterState();
-		
+
+		_NPC._MoveController.SetAgentUpdates(false);
+	}
+	public override void ExitState()
+	{
+		base.ExitState();
+
+		_NPC._MoveController.SetAgentUpdates(true);
 	}
 	public override void CheckStateTransitions()
 	{

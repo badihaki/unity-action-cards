@@ -23,14 +23,19 @@ public class NPCMovementController : MonoBehaviour
 	private Vector3 _IntendedVelocity;
 
 	public void InitializeNPCMovement(NonPlayerCharacter character)
-    {
-        _NPC = character;
-        _CharacterController = _NPC._Actor.GetComponent<CharacterController>();
+	{
+		_NPC = character;
+		_CharacterController = _NPC._Actor.GetComponent<CharacterController>();
 		_NavAgent = _NPC._Actor.GetComponent<NavMeshAgent>();
 		_Navigator = _NPC._NavigationController;
-        _ExternalForces = Vector3.zero;
-		//_NavAgent.updatePosition = false;
-		//_NavAgent.updateRotation = false;
+		_ExternalForces = Vector3.zero;
+		SetAgentUpdates(false);
+	}
+
+	public void SetAgentUpdates(bool value)
+	{
+		_NavAgent.updatePosition = value;
+		_NavAgent.updateRotation = value;
 	}
 
 	public void ApplyGravity(float gravityModifier = 1.0f)
@@ -83,7 +88,8 @@ public class NPCMovementController : MonoBehaviour
 
 	public void MoveToCurrentNavNode()
 	{
-		Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _NPC._Actor.transform.position).normalized;
+		//Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _NPC._Actor.transform.position).normalized;
+		Vector3 direction = _NavAgent.desiredVelocity.normalized;
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);

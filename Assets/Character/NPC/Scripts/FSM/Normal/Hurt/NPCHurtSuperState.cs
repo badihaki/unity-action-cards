@@ -29,10 +29,18 @@ public class NPCHurtSuperState : NPCState
 		}
     }
 
-    public override void ExitState()
+	public override void EnterState()
+	{
+		base.EnterState();
+
+        _NPC._MoveController.SetAgentUpdates(false);
+	}
+
+	public override void ExitState()
     {
         base.ExitState();
 
         _NPC._MoveController.SetExternalForces(_NPC.transform, 0.0f, 0.0f);
-    }
+        _NPC._MoveController.SetAgentUpdates(true);
+	}
 }
