@@ -100,9 +100,16 @@ public class NPCMovementController : MonoBehaviour
 		_NPC._NPCActor.transform.rotation = Quaternion.Slerp(_NPC._NPCActor.transform.rotation, lookRotation, Time.deltaTime * rotationSmoothTime);
 	}
 
-	private void SyncAgentVelToCharControllerVel() => _NavAgent.velocity = _CharacterController.velocity;
+	private void SyncAgentVelToCharControllerVel()
+	{
+		_NavAgent.velocity = _CharacterController.velocity;
+		if (GameManagerMaster.GameMaster.logExtraNPCData)
+			print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
+	}
 	public void SetAgentDestination(Vector3? destination)
 	{
+		if (GameManagerMaster.GameMaster.logExtraNPCData)
+			print($"Setting destination to {destination.ToString()}");
 		if (destination != null)
 			_NavAgent.destination = destination.Value;
 		else
