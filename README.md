@@ -29,6 +29,9 @@ Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A
 
 ## Updates
 
+### 1-6-2025 - expanding NPC logic
+The goal is to expand on the capabilities of the NPCs. Adding always-aggressive NPCs. Trying to have nav mesh agent work with character controller.
+
 ### 12-13 Prototype 1 - Lovesick Blade
 Next up is reloading the deck from the card abyss.
 

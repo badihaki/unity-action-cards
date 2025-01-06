@@ -26,11 +26,11 @@ public class NPCMovementController : MonoBehaviour
     {
         _NPC = character;
         _CharacterController = _NPC._Actor.GetComponent<CharacterController>();
-		_NavAgent = GetComponentInChildren<NavMeshAgent>();
+		_NavAgent = _NPC._Actor.GetComponent<NavMeshAgent>();
 		_Navigator = _NPC._NavigationController;
         _ExternalForces = Vector3.zero;
-		_NavAgent.updatePosition = false;
-		_NavAgent.updateRotation = false;
+		//_NavAgent.updatePosition = false;
+		//_NavAgent.updateRotation = false;
 	}
 
 	public void ApplyGravity(float gravityModifier = 1.0f)
@@ -103,13 +103,13 @@ public class NPCMovementController : MonoBehaviour
 	private void SyncAgentVelToCharControllerVel()
 	{
 		_NavAgent.velocity = _CharacterController.velocity;
-		if (GameManagerMaster.GameMaster.logExtraNPCData)
-			print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
+		//if (GameManagerMaster.GameMaster.logExtraNPCData)
+		//	print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
 	}
 	public void SetAgentDestination(Vector3? destination)
 	{
-		if (GameManagerMaster.GameMaster.logExtraNPCData)
-			print($"Setting destination to {destination.ToString()}");
+		//if (GameManagerMaster.GameMaster.logExtraNPCData)
+		//	print($"Setting destination to {destination.ToString()}");
 		if (destination != null)
 			_NavAgent.destination = destination.Value;
 		else
@@ -118,7 +118,8 @@ public class NPCMovementController : MonoBehaviour
 
 	public void MoveToTarget()
 	{
-		Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;
+		//Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;
+		Vector3 direction = _NavAgent.desiredVelocity.normalized;
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
