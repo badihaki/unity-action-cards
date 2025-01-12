@@ -18,7 +18,7 @@ public class NavigationNode : MonoBehaviour
 
 	public void FindNeightbors()
 	{
-		Collider[] colliders = (Physics.OverlapSphere(transform.position, _NeighborDetectionRadius, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
+		Collider[] colliders = (Physics.OverlapSphere(transform.position, _NeighborDetectionRadius * 2, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal));
 		foreach (var item in colliders)
 		{
 			NavigationNode navNode = item.GetComponent<NavigationNode>();
