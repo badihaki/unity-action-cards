@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a4c6563f51534449b0528545c24e9e, type: 3}
-  m_Name: npc_Fred
+  m_Script: {fileID: 11500000, guid: 45a4db8ab37149842a79231fc22d3d0a, type: 3}
+  m_Name: npc_fred
   m_EditorClassIdentifier: 
-  _CharacterName: Fred
-  _StartingHealth: 12
+  _CharacterName: 
+  _StartingHealth: 1
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
@@ -22,3 +22,4 @@ MonoBehaviour:
   _InteractionClips: []
   _HurtClips: []
   _HardHitClips: []
+  CharacterTypes: []
