@@ -14,6 +14,16 @@ public class NonPlayerCharacter : Character, IDestroyable
 
     [field: SerializeField] private string hitAnimationString;
     
+    public virtual void BuildAndInitialize(NPCSheetScriptableObj characterSheet)
+    {
+		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.CharactersFolder(), true);
+		_CharacterSheet = characterSheet;
+        name = _CharacterSheet._CharacterName;
+        GameObject cloneActor = Instantiate(characterSheet.Actor, transform);
+        cloneActor.name = "Actor";
+        Initialize();
+    }
+
     public override void Initialize()
     {
         base.Initialize();

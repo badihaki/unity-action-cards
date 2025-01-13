@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45a4db8ab37149842a79231fc22d3d0a, type: 3}
-  m_Name: npc_fred
+  m_Name: npc_goliathProtoman
   m_EditorClassIdentifier: 
-  _CharacterName: Fred the NPC
-  _StartingHealth: 10
+  _CharacterName: Goliath Protoman
+  _StartingHealth: 150
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
@@ -22,6 +22,5 @@ MonoBehaviour:
   _InteractionClips: []
   _HurtClips: []
   _HardHitClips: []
-  CharacterTypes:
-  - {fileID: 11400000, guid: 453ec94ca1828d746b0be3269f284de5, type: 2}
+  CharacterTypes: []
   Actor: {fileID: 430825095429624883, guid: d0b39d176be02a5489f96d1188468183, type: 3}

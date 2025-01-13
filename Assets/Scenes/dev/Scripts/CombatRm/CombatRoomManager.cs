@@ -4,6 +4,7 @@ using UnityEngine;
 public class CombatRoomManager : MonoBehaviour
 {
     public NonPlayerCharacter npc;
+    public NPCSheetScriptableObj characterSheet;
     [field: SerializeField] private NonPlayerCharacter activeNpc;
 	private WaitForSeconds spawnNpcWait = new WaitForSeconds(1.5f);
     
@@ -26,9 +27,7 @@ public class CombatRoomManager : MonoBehaviour
         yield return spawnNpcWait;
 
 		activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
-        activeNpc.transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.CharactersFolder(), true);
-        activeNpc.Initialize();
-        activeNpc.name = "Fred the NPC";
+        activeNpc.BuildAndInitialize(characterSheet);
         activeNpc._Actor.onDeath += StartSpawnNewNpc;
 	}
 

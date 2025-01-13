@@ -65,12 +65,15 @@ public class NPCAggressionManager : MonoBehaviour
         {
             yield return fastWait;
             _Aggression -= 1;
-			print("quickly lose aggression");
+            if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+                print("quickly lose aggression");
 			if (_Aggression == 0)
             {
+                // lost all aggression here
                 _LastAggressors.Clear();
                 isAggressive = false;
                 _NPC._NPCActor.animationController.SetBool("aggressive", false);
+                _NPC._StateMachine.ChangeState(_NPC._StateMachine._IdleState);
             }
             else
                 yield return null;
