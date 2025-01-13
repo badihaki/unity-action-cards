@@ -19,7 +19,7 @@ public class NPCAttackSuperState : NPCState
 		
 		_NPC._AnimationController.SetBool(_NPC._MoveSet.GetCurrentAttack().animationName, true);
 		
-		if (GameManagerMaster.GameMaster.logExtraNPCData)
+		if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 			Debug.Log(_NPC.name + " is entering state " + _NPC._MoveSet.GetCurrentAttack().animationName);
 
 		_AttackController.SetAttackParameters(false, false);

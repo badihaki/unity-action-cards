@@ -72,7 +72,7 @@ public class NPCIdleState : NPCState
         }
         else
         {
-            if (GameManagerMaster.GameMaster.logExtraNPCData)
+            if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
                 _StateMachine.LogFromState("no place to patrol to, rolling for wait");
             RollForWait();
         }

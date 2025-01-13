@@ -109,12 +109,12 @@ public class NPCMovementController : MonoBehaviour
 	private void SyncAgentVelToCharControllerVel()
 	{
 		_NavAgent.velocity = _CharacterController.velocity;
-		//if (GameManagerMaster.GameMaster.logExtraNPCData)
+		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 		//	print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
 	}
 	public void SetAgentDestination(Vector3? destination)
 	{
-		//if (GameManagerMaster.GameMaster.logExtraNPCData)
+		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 		//	print($"Setting destination to {destination.ToString()}");
 		if (destination != null)
 			_NavAgent.destination = destination.Value;
@@ -173,7 +173,7 @@ public class NPCMovementController : MonoBehaviour
 		// how far high we goin?
 		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
 		Vector3 backwardsDir = -_NPC._NPCActor.transform.forward;
-		if (GameManagerMaster.GameMaster.logExtraNPCData)
+		if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 			print($">>>>>>>>>>> backwards direction is >>> {backwardsDir.ToString()}");
 		Vector3 extForceCopy = _ExternalForces;
 		extForceCopy.y += _VerticalVelocity;

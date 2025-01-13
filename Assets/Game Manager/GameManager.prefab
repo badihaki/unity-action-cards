@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49bc34ef1157ade4d9f55967f3457ce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <devMode>k__BackingField: 0
-  <logExtraNPCData>k__BackingField: 0
+  <GMSettings>k__BackingField: {fileID: 11400000, guid: 810a1963a2bd9004ba5685c51ec3648e,
+    type: 2}
 --- !u!114 &312642220554178603
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbdc1e7b4493f904db7ae7fc7dc07068, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <CharacterLaunchForce>k__BackingField: 25.85
+  <FarKnockBackForce>k__BackingField: {x: 15.3, y: 23.4}
 --- !u!114 &7106337775562811646
 MonoBehaviour:
   m_ObjectHideFlags: 0

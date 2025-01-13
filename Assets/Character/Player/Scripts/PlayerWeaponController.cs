@@ -59,12 +59,11 @@ public class PlayerWeaponController : MonoBehaviour
 		{
 			_WeaponL = Instantiate(weaponL, _WeaponHolderL);
 		}
-		else print("no left-hand weapon");
 		if (weaponR != null)
 		{
 			_WeaponR = Instantiate(weaponR, _WeaponHolderR);
 		}
-		else print("no right-hand weapon");
+		else Debug.LogWarning("no right-hand weapon!?");
 	}
 
 	public void SwitchWeapon(WeaponScriptableObj weapon)

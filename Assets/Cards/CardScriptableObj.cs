@@ -25,8 +25,8 @@ public class CardScriptableObj : ScriptableObject
         if (AetherCheck(controllingCharacter._Aether._CurrentAether, controllingCharacter._Aether))
         {
             UseCardAbility(controllingCharacter);
-
-            Debug.Log("Playing card: " + _CardName);
+			if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+				Debug.Log("Playing card: " + _CardName);
         }
     }
 
