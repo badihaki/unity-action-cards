@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a4db8ab37149842a79231fc22d3d0a, type: 3}
   m_Name: npc_fred
   m_EditorClassIdentifier: 
-  _CharacterName: 
+  _CharacterName: Fred the NPC
   _StartingHealth: 1
   _StartingAetherPool: 1
   _WalkSpeed: 5
@@ -22,4 +22,5 @@ MonoBehaviour:
   _InteractionClips: []
   _HurtClips: []
   _HardHitClips: []
-  CharacterTypes: []
+  CharacterTypes:
+  - {fileID: 11400000, guid: 453ec94ca1828d746b0be3269f284de5, type: 2}

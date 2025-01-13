@@ -5,5 +5,5 @@ using UnityEngine;
 public class NPCSheetScriptableObj : CharacterSheet
 {
     [Header("NPC Settings"), Tooltip("")]
-    public List<CharacterGroupScriptableObject> CharacterTypes;
+    public List<NPCGroupScriptableObject> CharacterTypes;
 }
