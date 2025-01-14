@@ -10,10 +10,17 @@ public class CharacterRepelSpace : MonoBehaviour
 	private List<Character> charactersOnHead;
 	private WaitForSeconds repelWait = new WaitForSeconds(0.178f);
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-    {
-        character = GetComponentInParent<Character>();
+
+	public void Initialize(Character newChar)
+	{
+		character = newChar;
+
+		character._Actor.onDeath += CleanUp;
+	}
+
+	public void CleanUp()
+	{
+		charactersOnHead.Clear();
 	}
 
 	private void FixedUpdate()

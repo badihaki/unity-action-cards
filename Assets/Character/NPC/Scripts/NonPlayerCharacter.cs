@@ -7,6 +7,7 @@ public class NonPlayerCharacter : Character, IDestroyable
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
     [field: SerializeField] public NPCMoveSet _MoveSet { get; private set; }
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
+    [field: SerializeField] public CharacterEyesight _EyeSight { get; protected set; }
 
 
 	// State Machine
@@ -49,6 +50,9 @@ public class NonPlayerCharacter : Character, IDestroyable
         // attack controller
         _AttackController = GetComponent<NPCAttackController>();
         _AttackController.Initialize(this);
+
+        // eyes for sight beyond sight
+        _EyeSight = GetComponentInChildren<CharacterEyesight>();
 
         // state machine
         _StateMachine = GetComponent<NPCStateMachine>();
