@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Char", menuName = "Characters/NPC/New NPC")]
+[CreateAssetMenu(fileName = "npc_", menuName = "Characters/NPC/New NPC")]
 public class NPCSheetScriptableObj : CharacterSheet
 {
     [Header("NPC Settings"), Tooltip("The different groups this NPC can belong to")]

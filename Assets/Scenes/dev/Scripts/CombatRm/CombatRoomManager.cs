@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CombatRoomManager : MonoBehaviour
 {
     public NonPlayerCharacter npc;
-    public NPCSheetScriptableObj characterSheet;
+    public List<NPCSheetScriptableObj> spawnableCharacters;
     [field: SerializeField] private NonPlayerCharacter activeNpc;
 	private WaitForSeconds spawnNpcWait = new WaitForSeconds(1.5f);
     
@@ -27,7 +28,9 @@ public class CombatRoomManager : MonoBehaviour
         yield return spawnNpcWait;
 
 		activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
-        activeNpc.BuildAndInitialize(characterSheet);
+        int spawnIndex = Random.Range(0, spawnableCharacters.Count);
+        print($"spawn index is {spawnIndex}");
+		activeNpc.BuildAndInitialize(spawnableCharacters[spawnIndex]);
         activeNpc._Actor.onDeath += StartSpawnNewNpc;
 	}
 

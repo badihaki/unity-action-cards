@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 4894186365248338362}
   - component: {fileID: 82226844190149105}
   m_Layer: 0
-  m_Name: Actor
+  m_Name: actor_Fred
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2565,7 +2565,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: 499b0f93a6259cc4e8338a685f6508dc, type: 3}
+  - {fileID: 2100000, guid: e83a14e17464eed459ab2e6b7f44e31a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

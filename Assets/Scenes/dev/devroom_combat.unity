@@ -11959,7 +11959,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npc: {fileID: 7167106336545046644, guid: e10474091632b144a84e746585ffe147, type: 3}
-  characterSheet: {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666, type: 2}
+  spawnableCharacters:
+  - {fileID: 11400000, guid: 7173758fea64491418a2f017b0c88416, type: 2}
+  - {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666, type: 2}
+  - {fileID: 11400000, guid: d167dc007b20d194db97282d75be3b47, type: 2}
   activeNpc: {fileID: 0}
 --- !u!43 &1760283602
 Mesh:

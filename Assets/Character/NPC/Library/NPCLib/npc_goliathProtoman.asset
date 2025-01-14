@@ -22,5 +22,7 @@ MonoBehaviour:
   _InteractionClips: []
   _HurtClips: []
   _HardHitClips: []
-  CharacterTypes: []
-  Actor: {fileID: 430825095429624883, guid: d0b39d176be02a5489f96d1188468183, type: 3}
+  CharacterTypes:
+  - {fileID: 11400000, guid: 62fa05e27d9c7d24dbe0a9977233b85f, type: 2}
+  Actor: {fileID: 430825095429624883, guid: 8631143882b8a1047b10fb01fd126806, type: 3}
+  <isAlwaysAggressive>k__BackingField: 1
