@@ -55,6 +55,11 @@ public class NPCAggressionManager : MonoBehaviour
         {
             yield return slowWait;
             _Aggression -= 1;
+            int targetIndex = _Aggression;
+            if (_Aggression < 50 && _NPC._EyeSight.TryTooSeeTarget(targetIndex))
+            {
+                _Aggression = 100;
+            }
             yield return null;
         }
         StartCoroutine(QuicklyLowerAggression());
