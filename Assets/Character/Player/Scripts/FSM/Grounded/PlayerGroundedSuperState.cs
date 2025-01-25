@@ -31,10 +31,6 @@ public class PlayerGroundedSuperState : PlayerState
     {
         base.LogicUpdate();
 
-        if (!cardInput)
-        {
-            _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-        }
         if (spellSelectDirection != 0)
         {
             _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
@@ -47,6 +43,10 @@ public class PlayerGroundedSuperState : PlayerState
 
     public override void PhysicsUpdate()
     {
+        if (!cardInput)
+        {
+            _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+        }
         _PlayerCharacter._LocomotionController.ApplyGravity(1);
     }
 

@@ -35,9 +35,6 @@ public class PlayerSpellslingingSuperState : PlayerState
 
         Vector3 target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
 
-		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
-		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
-
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
         _PlayerCharacter._PlayerUIController.UpdateCrosshairPos(target);
 
@@ -62,12 +59,14 @@ public class PlayerSpellslingingSuperState : PlayerState
         base.PhysicsUpdate();
         _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
         _PlayerCharacter._LocomotionController.SlowDown();
-    }
+		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
+	}
 
 	public override void LateUpdate()
 	{
 		base.LateUpdate();
         _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 	}
 
 	public override void ExitState()

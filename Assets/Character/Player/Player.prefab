@@ -460,7 +460,7 @@ MonoBehaviour:
   topLookClamp: 38.6
   topLookClampWhileAiming: 59.125
   bottomLookClamp: -43.3
-  lookSensitivity: 1
+  lookSensitivity: 3
   <cinemachineCamTarget>k__BackingField: {fileID: 0}
   cursorLocked: 0
 --- !u!114 &952087385969057769
@@ -508,7 +508,6 @@ MonoBehaviour:
   <_spellTarget>k__BackingField: {fileID: 0}
   _spellTimer: 0
   _UI: {fileID: 0}
-  targetableActors: []
 --- !u!114 &7139961280166402280
 MonoBehaviour:
   m_ObjectHideFlags: 0

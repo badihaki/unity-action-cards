@@ -23,7 +23,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float topLookClampWhileAiming = 59.125f;
 	[Tooltip("How far can the camera look down")]
     [SerializeField] private float bottomLookClamp = -43.3f;
-	[SerializeField] private float lookSensitivity = 1.0f;
+	[SerializeField] private float lookSensitivity = 3.0f;
 
     [field: SerializeField] public Transform cinemachineCamTarget { get; private set; }
     
@@ -45,7 +45,7 @@ public class PlayerCamera : MonoBehaviour
         InitializeAimCamController();
         LockCursorKBM();
         currentCameraController = _PlayerCamController;
-        cursorLocked = false;
+        cursorLocked = true;
         _Camera = Camera.main;
     }
     private void InitializeCinemachineController()
@@ -119,7 +119,7 @@ public class PlayerCamera : MonoBehaviour
 #if UNITY_EDITOR
 		if (Application.isEditor && PlayModeWindow.GetPlayModeFocused() == true)
         {
-            lookSensitivity = Mathf.Clamp(lookSensitivity, isAiming ? 1 : 3, isAiming ? 5 : 8);
+            lookSensitivity = Mathf.Clamp(lookSensitivity, isAiming ? 0.5f : 1, isAiming ? 1 : 2);
             desiredTopClamp = desiredTopClamp / 2;
             desiredBotClamp = desiredBotClamp / 2;
         }

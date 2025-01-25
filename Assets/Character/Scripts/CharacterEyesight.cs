@@ -8,7 +8,7 @@ public class CharacterEyesight : MonoBehaviour
 
 	private void Start()
 	{
-		_NoticeableEntitiesInView = new List<Transform>();
+		//_NoticeableEntitiesInView = new List<Transform>();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -29,17 +29,19 @@ public class CharacterEyesight : MonoBehaviour
 			case 3 or 6 or 8:
 				if (isGoingIn)
 				{
-					_NoticeableEntitiesInView.Add(other.transform.parent.transform);
+					if (!_NoticeableEntitiesInView.Contains(other.transform.parent.transform))
+						_NoticeableEntitiesInView.Add(other.transform.parent.transform);
 					if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
 					{
-						print($"in view {other.transform.parent.name}");
+						print($"EYESIGT :: >> {other.transform.parent.name} detected in range of eyesight");
+						print($"EYESIGT :: >> currently seeing {_NoticeableEntitiesInView.Count} entities");
 						TryTooSeeTarget(_NoticeableEntitiesInView.Count - 1);
 					}
 				}
 				else
 				{
 					if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
-						print($"trying to remove {other.transform.parent.name}");
+						print($"EYESIGT :: >> trying to remove {other.transform.parent.name}");
 					if (_NoticeableEntitiesInView.Contains(other.transform.parent.transform))
 						_NoticeableEntitiesInView.Remove(other.transform.parent.transform);
 				}
@@ -53,11 +55,13 @@ public class CharacterEyesight : MonoBehaviour
 	{
 		if(targetIndex>0)
 		{
+			print($"EYESIGT :: >> trying to see {_NoticeableEntitiesInView[targetIndex].name}");
 			Vector3 rayDir = _NoticeableEntitiesInView[targetIndex].position - transform.parent.position;
 			float rayDist = 18.5f;
 			Ray ray = new Ray(transform.position, rayDir);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDist))
 			{
+				print($"got to {hitInfo.point} EYESIGHT");
 				if(hitInfo.point == _NoticeableEntitiesInView[targetIndex].position)
 				{
 					print($"bingo!!!! can see the target!!!!! {_NoticeableEntitiesInView[targetIndex].name}");
