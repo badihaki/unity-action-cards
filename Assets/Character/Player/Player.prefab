@@ -475,13 +475,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e21e68f078499049b0d7d5596317755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_Deck>k__BackingField: []
-  <_Abyss>k__BackingField: []
-  <_Hand>k__BackingField:
-  - {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e, type: 2}
-  - {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1, type: 2}
+  <_Deck>k__BackingField:
+  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
+  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
   - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
   - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
+  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
+  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
+  - {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1, type: 2}
+  - {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e, type: 2}
+  <_Abyss>k__BackingField: []
+  <_Hand>k__BackingField: []
   cardPrefab: {fileID: 2994744669256209799, guid: 9cbbbfb1755bbf94aabe2cd0d91d35b6,
     type: 3}
   handOfCards: {fileID: 7028789774721231620, guid: a87ae87a94870514c9a8be6b00652842,
@@ -580,7 +584,9 @@ MonoBehaviour:
   _TargetAether: 0
   canChangeAether: 0
   _DeckIcon: {fileID: 0}
-  deckStatusIcons: []
+  deckStatusIcons:
+  - {fileID: 21300000, guid: 7d409ab7fa6f82f4e9c0d90b6e13d413, type: 3}
+  - {fileID: 21300000, guid: b82fee3c9d21c074dabb88bb8f93e225, type: 3}
   _SpellIconBasePrefab: {fileID: 4196082061840423998, guid: 145d3d7e21ed8144ab2a1671f65702ca,
     type: 3}
   <_ActiveSpellList>k__BackingField: []

@@ -63,28 +63,16 @@ public class NPCNavigator : MonoBehaviour
     private void FindNewNavigationNode()
     {
         Collider[] nodes = Physics.OverlapSphere(transform.position, 10.5f, LayerMask.GetMask("Navigation"), QueryTriggerInteraction.UseGlobal);
-        NavigationNode node = null;
-		foreach (var navNode in nodes)
-		{
-			NavigationNode NavNode = navNode.GetComponent<NavigationNode>();
-			if (!node)
-			{
-				//node = navNode;
-				node = NavNode;
-			}
-			else
-			{
-				float distanceFromSavedNode = Vector3.Distance(_NPC._NPCActor.transform.position, node.transform.position);
-				float distanceFromNavNode = Vector3.Distance(_NPC._NPCActor.transform.position, navNode.transform.position);
-				if (distanceFromSavedNode > distanceFromNavNode)
-				{
-					//node = navNode;
-					node = NavNode;
-				}
-			}
-		}
-		_CurrentNavNode = node;
-		_NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position);		
+        List<NavigationNode> navNodes = new List<NavigationNode>();
+        //NavigationNode node = nodes[Random.Range(0, nodes.Length-1)].GetComponent<NavigationNode>();
+        foreach (var navNode in nodes)
+        {
+            NavigationNode NavNode = navNode.GetComponent<NavigationNode>();
+            if(NavNode != null)
+                navNodes.Add(NavNode);
+        }
+        _CurrentNavNode = GetNewNavNode(navNodes.ToArray());
+        _NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position);		
 	}
 
 	private void CreateDebugSphere()
@@ -106,22 +94,28 @@ public class NPCNavigator : MonoBehaviour
 	}
     private NavigationNode GetNewNavNode(NavigationNode[] nodes)
     {
-        NavigationNode navNode = null;
         foreach (var node in nodes)
         {
-            if (!_PriorNavNodes.Contains(node))
-            {
-                navNode = node; // just get the first node we haven't been to yet
-                break;
-            }
+            print($"got navnode {node.name}");
         }
-        if(navNode != null)
-            return navNode;
-        else
-        {
+        NavigationNode navNode = null;
+        //foreach (var node in nodes)
+        //{
+        //    if (!_PriorNavNodes.Contains(node))
+        //    {
+        //        navNode = node; // just get the first node we haven't been to yet
+        //        break;
+        //    }
+        //}
+        //if(navNode != null)
+        //    return navNode;
+        //else
+        //{
 
-            return nodes[UnityEngine.Random.Range(0, nodes.Length - 1)]; // return a random node
-        }
+        //}
+        navNode = nodes[UnityEngine.Random.Range(0, nodes.Length - 1)];
+
+		return navNode; // return a random node
             
     }
 
