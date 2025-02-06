@@ -18,6 +18,8 @@ public class NPCStateMachine : MonoBehaviour
 	public NPCKnockbackState _FarKnockBackState { get; private set; }
 
 	[field: SerializeField]
+	public NPCStateLibrary _StateLibrary { get; private set; }
+	[field: SerializeField]
     public NPCState _CurrentState { get; private set; }
     
     
@@ -26,7 +28,11 @@ public class NPCStateMachine : MonoBehaviour
 
     public void InitializeStateMachine(NonPlayerCharacter npc)
     {
-        SetUpStateMachine(npc);
+		NPCSheetScriptableObj characterSheet = npc._CharacterSheet as NPCSheetScriptableObj;
+		_StateLibrary = characterSheet.StateLibrary;
+		SetUpStateMachine(npc);
+		_StateLibrary.InitializeAllStates(npc);
+
         _CurrentState = _IdleState;
         _CurrentState.EnterState();
         _Ready = true;

@@ -3,8 +3,9 @@ using UnityEngine;
 
 public class NPCMoveSet : MonoBehaviour
 {
-	[field:SerializeField]
-	public List<NPCAttackActionSO> attackActions {  get; private set; }
+	[field: SerializeField]
+	public List<NPCAttackActionSO> attackActions { get; private set; }
+
 	[field: SerializeField]
 	public List<NPCAttackSuperState> loadedAttackActions { get; private set; }
 	[field: SerializeField]
@@ -15,11 +16,14 @@ public class NPCMoveSet : MonoBehaviour
 
 	public void Initialize(NonPlayerCharacter npc)
 	{
-        foreach (NPCAttackActionSO action in attackActions)
+		NPCSheetScriptableObj characterSheet = npc._CharacterSheet as NPCSheetScriptableObj;
+
+		foreach (NPCAttackActionSO action in characterSheet.StateLibrary._Attacks)
         {
 			NPCAttackSuperState addAction = ScriptableObject.CreateInstance<NPCAttackSuperState>();
 			addAction.InitState(npc, npc._StateMachine, action.animationName);
 			addAction.name = action.name;
+			attackActions.Add(action);
 			loadedAttackActions.Add(addAction);
         }
     }
