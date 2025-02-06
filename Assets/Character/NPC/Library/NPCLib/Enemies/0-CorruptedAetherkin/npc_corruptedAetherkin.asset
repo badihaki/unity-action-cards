@@ -22,7 +22,9 @@ MonoBehaviour:
   _InteractionClips: []
   _HurtClips: []
   _HardHitClips: []
-  CharacterTypes: []
+  CharacterTypes:
+  - {fileID: 11400000, guid: 07890a734cf9162449cdc365dee6141d, type: 2}
+  - {fileID: 11400000, guid: 985d3b70ea24aa240b035fe5c54fddd0, type: 2}
   Actor: {fileID: 882643842430387778, guid: 63c2d53990593b34296ce01ce0bb7a13, type: 3}
   <isAlwaysAggressive>k__BackingField: 1
   StateLibrary:
@@ -34,3 +36,12 @@ MonoBehaviour:
       _MoveState: {fileID: 11400000, guid: e65b008f4e2075f488763d49ad044735, type: 2}
       _PatrolState: {fileID: 0}
       _ChaseState: {fileID: 11400000, guid: e65b008f4e2075f488763d49ad044735, type: 2}
+    Attacks:
+    - {fileID: 11400000, guid: e50d072760bd7cd4fb26c704db9db29e, type: 2}
+    _HurtStates:
+      _HitState: {fileID: 11400000, guid: c3319b1e7a4819140a7c1d5b0639afcd, type: 2}
+      _AirHitState: {fileID: 11400000, guid: 776272db1de9d1f498c7a014741a4723, type: 2}
+      _StaggerState: {fileID: 11400000, guid: 47f71417e3d0afc4abc130f612e77ce5, type: 2}
+      _KnockbackState: {fileID: 11400000, guid: d6075aaa7c4633047a93d47be266a9a0,
+        type: 2}
+      _LaunchState: {fileID: 11400000, guid: 569545e8f631a4a4199650b7a83ef448, type: 2}

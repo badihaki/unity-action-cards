@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Characters/NPC/FSM/Hurt/Hit", fileName = "Get Hit")]
-public class NPCHitState : NPCHurtSuperState
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Hurt/Stagger", fileName = "Stagger")]
+public class NPCStaggerState : NPCHurtSuperState
 {
 	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
 	{

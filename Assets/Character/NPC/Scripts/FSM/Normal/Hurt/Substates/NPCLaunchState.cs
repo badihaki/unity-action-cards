@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Hurt/Launch", fileName = "Launch")]
 public class NPCLaunchState : NPCHurtSuperState
 {
 	private bool isBeingLaunched;

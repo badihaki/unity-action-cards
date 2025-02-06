@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <animationName>k__BackingField: jab
   <damage>k__BackingField: 1
-  <attackState>k__BackingField: {fileID: 0}
+  <attackState>k__BackingField: {fileID: 11400000, guid: b1588e5d22baf274fb734c2161dd5dab,
+    type: 2}
+  <attackPriority>k__BackingField: 0
   <mininumDistance>k__BackingField: 0.56
   <desiredDistance>k__BackingField: 1.23
   <maxinumDistance>k__BackingField: 2
