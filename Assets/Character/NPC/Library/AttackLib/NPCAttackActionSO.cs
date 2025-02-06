@@ -7,10 +7,10 @@ public class NPCAttackActionSO : ScriptableObject
 	public string animationName { get; private set; }
 	[field: SerializeField]
 	public int damage { get; private set; } = 1;
-
-	[field: SerializeField]
+	[field: SerializeField, Tooltip("This is the actual state logic for this attack")]
 	public NPCAttackSuperState attackState { get; private set; }
-
+	[field: SerializeField, Tooltip("When requesting an attack, use this to determine which attacks can be chosen. EG general attacks have lower priority, stronger attacks have more priority")]
+	public int attackPriority { get; private set; } = 0;
 	//
 	[field: SerializeField, Header("Distance Variables")]
 	public float mininumDistance { get; private set; } = 0.56f;

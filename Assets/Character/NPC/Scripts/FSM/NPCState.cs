@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class NPCState : ScriptableObject
 {
     public virtual void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)

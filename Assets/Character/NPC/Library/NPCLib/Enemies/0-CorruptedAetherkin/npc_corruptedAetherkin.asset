@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45a4db8ab37149842a79231fc22d3d0a, type: 3}
-  m_Name: corruptedAetherkin
+  m_Name: npc_corruptedAetherkin
   m_EditorClassIdentifier: 
   _CharacterName: Corrupted Aetherkin
   _StartingHealth: 15
@@ -25,3 +25,12 @@ MonoBehaviour:
   CharacterTypes: []
   Actor: {fileID: 882643842430387778, guid: 63c2d53990593b34296ce01ce0bb7a13, type: 3}
   <isAlwaysAggressive>k__BackingField: 1
+  StateLibrary:
+    _IdleStates:
+      _IdleState: {fileID: 11400000, guid: d2ae5c430bbe21b4bbc79cda312e6c2a, type: 2}
+      _IdleAggressiveState: {fileID: 11400000, guid: 695015d26c5302d48bc2ac57a0f5186b,
+        type: 2}
+    _MoveStates:
+      _MoveState: {fileID: 11400000, guid: e65b008f4e2075f488763d49ad044735, type: 2}
+      _PatrolState: {fileID: 0}
+      _ChaseState: {fileID: 11400000, guid: e65b008f4e2075f488763d49ad044735, type: 2}

@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCIdleAggressiveState : NPCState
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/Aggressive", fileName = "Aggressive Idle")]
+public class NPCIdleAggressiveState : NPCIdleState
 {
-    private float waitTime;
     private float distanceFromPlayer;
     private NPCAttackController attackController;
 

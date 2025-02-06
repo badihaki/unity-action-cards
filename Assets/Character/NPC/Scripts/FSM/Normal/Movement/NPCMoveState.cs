@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Movement/Base", fileName = "Base Move")]
 public class NPCMoveState : NPCState
 {
     private float distanceFromPlayer;

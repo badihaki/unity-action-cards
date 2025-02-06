@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/Base", fileName = "Basic Idle")]
 public class NPCIdleState : NPCState
 {
     protected float waitTime;

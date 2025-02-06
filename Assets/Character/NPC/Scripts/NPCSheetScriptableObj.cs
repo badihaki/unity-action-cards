@@ -10,4 +10,8 @@ public class NPCSheetScriptableObj : CharacterSheet
     public GameObject Actor;
     [field:SerializeField, Tooltip("If true, this entity will be aggressive to any character that doesn't belong to it's Group.")]
     public bool isAlwaysAggressive { get; private set; }
+
+    [field: SerializeField, Header("NPC State Library")]
+    public NPCStateLibrary StateLibrary;
+
 }
