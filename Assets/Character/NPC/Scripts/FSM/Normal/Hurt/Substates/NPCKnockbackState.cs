@@ -40,7 +40,7 @@ public class NPCKnockbackState : NPCHurtSuperState
 
 		if (knockbackTime > 1.05f && _NPC._CheckGrounded.IsGrounded())
 		{
-			_StateMachine.ChangeState(_StateMachine._IdleState); // change this to a OTG state later
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState); // change this to a OTG state later
 		}
 	}
 }

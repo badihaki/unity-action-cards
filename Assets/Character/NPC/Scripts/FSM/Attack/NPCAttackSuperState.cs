@@ -39,7 +39,7 @@ public class NPCAttackSuperState : NPCState
 	{
 		base.AnimationEndTrigger();
 
-		_StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
 	}
 	// end
 }

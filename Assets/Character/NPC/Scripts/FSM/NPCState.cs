@@ -13,12 +13,12 @@ public class NPCState : ScriptableObject
         _StateAnimationName = animationName;
     }
 
-    public NonPlayerCharacter _NPC { get; protected set; }
+	[field: SerializeField] public NonPlayerCharacter _NPC { get; protected set; }
     [field: SerializeField] public string _StateAnimationName { get; protected set; }
-    public NPCStateMachine _StateMachine { get; protected set; }
-    
-    // the time the state starts
-    public float _StateEnterTime { get; protected set; }
+	[field: SerializeField] public NPCStateMachine _StateMachine { get; protected set; }
+
+	// the time the state starts
+	[field: SerializeField] public float _StateEnterTime { get; protected set; }
 
     // state boolean triggers
     public bool _IsExitingState { get; protected set; }
@@ -30,6 +30,7 @@ public class NPCState : ScriptableObject
         _AnimationIsFinished = false;
         _IsExitingState = false;
         _StateEnterTime = Time.time;
+        _StateMachine.LogFromState($"do we have an NPC animation controller?? {(_NPC._AnimationController == true).ToString()}");
         _NPC._AnimationController.SetBool(_StateAnimationName, true);
 
         if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)

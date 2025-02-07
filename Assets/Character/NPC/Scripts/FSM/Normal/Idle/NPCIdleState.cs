@@ -69,8 +69,8 @@ public class NPCIdleState : NPCState
         //Debug.Log(_NPC.name + " is Finding a place to move to");
         if (_NPC._NavigationController.TryFindNewPatrol())
         {
-            _NPC._StateMachine.ChangeState(_StateMachine._MoveState);
-        }
+			_NPC._StateMachine.ChangeState(_StateMachine._StateLibrary._MoveState);
+		}
         else
         {
             if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
@@ -86,13 +86,13 @@ public class NPCIdleState : NPCState
         // if aggressive
         if (_NPC._NPCActor._AggressionManager.isAggressive)
         {
-            _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+            _StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
         }
 
         // if not on ground
         if (!_NPC._CheckGrounded.IsGrounded())
         {
-            _StateMachine.ChangeState(_StateMachine._FallingState);
+            _StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
         }
 	}
 }

@@ -78,7 +78,7 @@ public class NPCAggressionManager : MonoBehaviour
                 _LastAggressors.Clear();
                 isAggressive = false;
                 _NPC._NPCActor.animationController.SetBool("aggressive", false);
-                _NPC._StateMachine.ChangeState(_NPC._StateMachine._IdleState);
+                _NPC._StateMachine.ChangeState(_NPC._StateMachine._StateLibrary._IdleState);
             }
             else
                 yield return null;

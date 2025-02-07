@@ -5,39 +5,31 @@ using UnityEngine;
 
 public class NPCStateMachine : MonoBehaviour
 {
-	public NPCIdleState _IdleState { get; private set; }
-	public NPCIdleAggressiveState _IdleAggressiveState { get; private set; }
-	public NPCMoveState _MoveState { get; private set; }
-    public NPCFallingState _FallingState { get; private set; }
-	
-    // hurt
-    public NPCHitState _HitState { get; private set; }
-    public NPCStaggerState _KnockBackState { get; private set; }
-    public NPCLaunchState _LaunchState { get; private set; }
-	public NPCAirHitState _AirHitState { get; private set; }
-	public NPCKnockbackState _FarKnockBackState { get; private set; }
-
 	[field: SerializeField]
 	public NPCStateLibrary _StateLibrary { get; private set; }
 	[field: SerializeField]
     public NPCState _CurrentState { get; private set; }
-    
-    
-    private bool _Ready = false;
+	[field: SerializeField]
+	public string _StateAnimationName { get; private set; }
+
+	private bool _Ready = false;
     
 
     public void InitializeStateMachine(NonPlayerCharacter npc)
     {
 		NPCSheetScriptableObj characterSheet = npc._CharacterSheet as NPCSheetScriptableObj;
-		_StateLibrary = characterSheet.StateLibrary;
-		SetUpStateMachine(npc);
+		//SetUpStateMachine(npc);
+		_StateLibrary = ScriptableObject.CreateInstance<NPCStateLibrary>();
 		_StateLibrary.InitializeAllStates(npc);
 
-        _CurrentState = _IdleState;
+		// set current state
+        _CurrentState = _StateLibrary._IdleState;
+		_StateAnimationName = _CurrentState._StateAnimationName;
         _CurrentState.EnterState();
         _Ready = true;
     }
 
+	/*
 	public virtual void SetUpStateMachine(NonPlayerCharacter npc)
 	{
 		if (!_IdleState)
@@ -95,12 +87,14 @@ public class NPCStateMachine : MonoBehaviour
 		}
 		_FarKnockBackState.InitState(npc, this, "farKnockBack");
 	}
+	*/
 
 	public void ChangeState(NPCState state)
     {
         _CurrentState.ExitState();
         _CurrentState = state;
-        _CurrentState.EnterState();
+		_StateAnimationName = _CurrentState._StateAnimationName;
+		_CurrentState.EnterState();
     }
 
     public void Update()

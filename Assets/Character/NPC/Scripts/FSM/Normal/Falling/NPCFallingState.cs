@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/In Air/Falling", fileName = "Falling")]
 public class NPCFallingState : NPCState
 {
 	public override void EnterState()
@@ -22,11 +23,11 @@ public class NPCFallingState : NPCState
 		{
 			if (!_NPC._NPCActor._AggressionManager.isAggressive)
 			{
-				_StateMachine.ChangeState(_StateMachine._IdleState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
 			}
 			else
 			{
-				_StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
 			}
 		}
 	}
