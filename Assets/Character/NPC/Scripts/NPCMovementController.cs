@@ -112,14 +112,17 @@ public class NPCMovementController : MonoBehaviour
 		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 		//	print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
 	}
-	public void SetAgentDestination(Vector3? destination)
+	public void SetAgentDestination(Vector3? destination, float desiredDistance = 0.0f)
 	{
 		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 		//	print($"Setting destination to {destination.ToString()}");
 		if (destination != null)
 			_NavAgent.destination = destination.Value;
 		else
+		{
 			_NavAgent.destination = _NPC._NPCActor.transform.position;
+			_NavAgent.stoppingDistance = desiredDistance;
+		}
 	}
 
 	public void MoveToTarget()

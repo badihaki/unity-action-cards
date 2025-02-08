@@ -56,13 +56,20 @@ public class NPCAggressionManager : MonoBehaviour
             yield return slowWait;
             _Aggression -= 1;
             int targetIndex = _Aggression;
-            if (_Aggression < 50 && _NPC._EyeSight.TryTooSeeTarget(targetIndex))
-            {
-                _Aggression = 100;
-            }
+			foreach (var enemy in _LastAggressors)
+			{
+                if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
+                    print($">> trying to see {enemy.parent.name} || can we see them? {_NPC._EyeSight.CanSeeTarget(enemy)}");
+			    if (_Aggression < 50 && _NPC._EyeSight.CanSeeTarget(enemy))
+                {
+                    _Aggression = 100;
+                    break;
+                }				
+			}
             yield return null;
         }
         StartCoroutine(QuicklyLowerAggression());
+        StopCoroutine(SlowlyLowerAggression());
     }
     private IEnumerator QuicklyLowerAggression()
     {

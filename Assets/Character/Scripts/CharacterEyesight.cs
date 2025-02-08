@@ -72,4 +72,11 @@ public class CharacterEyesight : MonoBehaviour
 		}
 		return false;
 	}
+
+	public bool CanSeeTarget(Transform target)
+	{
+		if(_NoticeableEntitiesInView.Contains(target))
+			return true;
+		return false;
+	}
 }

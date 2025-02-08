@@ -164,11 +164,14 @@ MonoBehaviour:
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
+  <devMode>k__BackingField: 0
+  <_NPCharacterSheet>k__BackingField: {fileID: 0}
   <_NPCActor>k__BackingField: {fileID: 0}
   <_MoveController>k__BackingField: {fileID: 0}
   <_NavigationController>k__BackingField: {fileID: 0}
   <_MoveSet>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
+  <_EyeSight>k__BackingField: {fileID: 0}
   hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
@@ -203,7 +206,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5715300c9c5e57945a1921ed7f14be9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <_StateLibrary>k__BackingField: {fileID: 0}
   <_CurrentState>k__BackingField: {fileID: 0}
+  <_StateAnimationName>k__BackingField: 
 --- !u!114 &524785220728916397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,8 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 884a29c9a0fae8646bc8e240c67793da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <attackActions>k__BackingField:
-  - {fileID: 11400000, guid: e50d072760bd7cd4fb26c704db9db29e, type: 2}
+  <attackActions>k__BackingField: []
   <loadedAttackActions>k__BackingField: []
   <attackIndex>k__BackingField: 0
 --- !u!1 &4551127519303163791

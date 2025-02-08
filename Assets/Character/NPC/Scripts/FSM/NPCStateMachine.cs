@@ -113,7 +113,15 @@ public class NPCStateMachine : MonoBehaviour
         }
     }
 
-    public void LogFromState(string input)
+	//public void LateUpdate()
+	//{
+	//	if (_Ready && GameManagerMaster.GameMaster)
+	//	{
+	//		//_CurrentState.();
+	//	}
+	//}
+
+	public void LogFromState(string input)
     {
         print($">>> : {input} : <<< NPC :: {_CurrentState.ToString()}");
     }

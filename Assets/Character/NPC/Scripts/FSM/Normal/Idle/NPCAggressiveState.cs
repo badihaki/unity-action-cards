@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/Aggressive", fileName = "Aggressive Idle")]
-public class NPCIdleAggressiveState : NPCIdleState
+public class NPCAggressiveState : NPCIdleState
 {
     private float distanceFromPlayer;
     private NPCAttackController attackController;
@@ -18,12 +18,16 @@ public class NPCIdleAggressiveState : NPCIdleState
 
 	public override void EnterState()
     {
-        waitTime = CreateNewWait(0.2f, _NPC._MoveSet.GetCurrentAttack().waitTime * 2.15f);
+        if (waitTime <= 0)
+            waitTime = CreateNewWait(0.2f, _NPC._MoveSet.GetCurrentAttack().waitTime * 2.15f);
         base.EnterState();
     }
 
     public override void LogicUpdate()
     {
+
+        if (waitTime > 0) RunWaitTimer();
+        else waitTime = 0;
         // distanceFromPlayer = Vector3.Distance(_NPC.transform.position, _NPC._NavigationController._Target.position);
 		if (_NPC._NPCActor._AggressionManager.isAggressive && attackController._ActiveTarget != null)
 		{
@@ -34,9 +38,6 @@ public class NPCIdleAggressiveState : NPCIdleState
 			distanceFromPlayer = 1.75f;
 		}
 		base.LogicUpdate();
-
-        if (waitTime > 0) RunWaitTimer();
-        else waitTime = 0;
         
     }
 
@@ -49,17 +50,28 @@ public class NPCIdleAggressiveState : NPCIdleState
 
 	public override void CheckStateTransitions()
     {
-        base.CheckStateTransitions();
-        if (distanceFromPlayer > _NPC._MoveSet.GetCurrentAttack().maxinumDistance)
+        //base.CheckStateTransitions();
+		// if not on ground
+		if (!_NPC._CheckGrounded.IsGrounded())
+		{
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
+		}
+		if (distanceFromPlayer > _NPC._MoveSet.GetCurrentAttack().maxinumDistance)
         {
             // Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
             _StateMachine.ChangeState(_StateMachine._StateLibrary._MoveState);
         }
         if (waitTime <= 0)
         {
+			_StateMachine.LogFromState($"going to action {_NPC._MoveSet.GetCurrentAttackState().name} from state {name}");
             _StateMachine.ChangeState(_NPC._MoveSet.GetCurrentAttackState());
         }
-    }
+		// if aggressive
+		if (!_NPC._NPCActor._AggressionManager.isAggressive)
+		{
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+		}
+	}
 
     private void RunWaitTimer()
     {

@@ -13,12 +13,13 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
+    [field: SerializeField, Header("devmode")] public bool devMode { get; protected set; } = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-		if (_Actor == null)
+        if (devMode)
             Initialize();
     }
 

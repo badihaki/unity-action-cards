@@ -41,9 +41,15 @@ public class NPCNavigator : MonoBehaviour
 
 	private void BecomeAggressed()
     {
+        // stop managing the navigation node list
         StopCoroutine(ManageNavNodeList());
+        listReseting = false;
+
+        // get the target
         _Target = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
-        _AttackController.SetNewTarget(_Target);
+        _AttackController.SetNewTargetEnemy(_Target); // set the enemy
+        
+        // clean up navigation nodes
         _PriorNavNodes.Clear();
         _CurrentNavNode = null;
         _NPC._MoveController.SetAgentDestination(null);
@@ -72,17 +78,7 @@ public class NPCNavigator : MonoBehaviour
                 navNodes.Add(NavNode);
         }
         _CurrentNavNode = GetNewNavNode(navNodes.ToArray());
-        _NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position);		
-	}
-
-	private void CreateDebugSphere()
-	{
-		SphereCollider sphere = new GameObject().AddComponent<SphereCollider>();
-		sphere.isTrigger = true;
-		sphere.radius = 10.5f;
-		sphere.transform.position = transform.position;
-		sphere.name = "Debug Sphere";
-		Destroy(sphere, 5.5f);
+        _NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
 	}
 
 	private void FindNextNavigationNode()
@@ -90,7 +86,7 @@ public class NPCNavigator : MonoBehaviour
         NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
         NavigationNode navNode = GetNewNavNode(nodes);        
         _CurrentNavNode = navNode;
-		_NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position);
+		_NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position, 3.2f);
 	}
     private NavigationNode GetNewNavNode(NavigationNode[] nodes)
     {
@@ -99,20 +95,7 @@ public class NPCNavigator : MonoBehaviour
             print($"got navnode {node.name}");
         }
         NavigationNode navNode = null;
-        //foreach (var node in nodes)
-        //{
-        //    if (!_PriorNavNodes.Contains(node))
-        //    {
-        //        navNode = node; // just get the first node we haven't been to yet
-        //        break;
-        //    }
-        //}
-        //if(navNode != null)
-        //    return navNode;
-        //else
-        //{
 
-        //}
         navNode = nodes[UnityEngine.Random.Range(0, nodes.Length - 1)];
 
 		return navNode; // return a random node
@@ -139,15 +122,20 @@ public class NPCNavigator : MonoBehaviour
 
     public IEnumerator ManageNavNodeList()
     {
-        while (_PriorNavNodes.Count > 0)
+        while (listReseting)
         {
             resetTimer = Time.time;
 			yield return listWaitTime;
-            //print($"removing {_PriorNavNodes[0]} from > LIST < of prior nodes");
-            //print($" Elapsed Time == {Time.time - resetTimer}");
-            _PriorNavNodes.RemoveAt(0);
-            yield return null;
+            if(_PriorNavNodes.Count > 0)
+            {
+                _PriorNavNodes.RemoveAt(0);
+				if (_PriorNavNodes.Count <= 0)
+                {
+                    listReseting = false;
+                }
+                yield return null;
+			}
+            listReseting = false;
         }
-        listReseting = false;
     }
 }

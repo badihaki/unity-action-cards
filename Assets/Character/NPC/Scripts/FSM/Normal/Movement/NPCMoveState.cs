@@ -69,7 +69,7 @@ public class NPCMoveState : NPCState
 
         if(_NPC._NPCActor._AggressionManager.isAggressive)
         {
-            _NPC._MoveController.SetAgentDestination(_AttackController._ActiveTarget.position);
+            _NPC._MoveController.SetAgentDestination(_AttackController._ActiveTarget.position); // set desired distance from here in enter state
 			_NPC._MoveController.MoveToTarget();
             _NPC._MoveController.RotateTowardsTarget(_AttackController._ActiveTarget);
         }

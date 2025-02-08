@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/Base", fileName = "Basic Idle")]
 public class NPCIdleState : NPCState
 {
+    [SerializeField]
     protected float waitTime;
 
     public override void EnterState()
@@ -14,6 +15,7 @@ public class NPCIdleState : NPCState
         base.EnterState();
 
         CreateNewWait(2.5f, 7.0f);
+        waitTime = 0;
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
     }
 

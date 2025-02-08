@@ -30,7 +30,6 @@ public class NPCState : ScriptableObject
         _AnimationIsFinished = false;
         _IsExitingState = false;
         _StateEnterTime = Time.time;
-        _StateMachine.LogFromState($"do we have an NPC animation controller?? {(_NPC._AnimationController == true).ToString()}");
         _NPC._AnimationController.SetBool(_StateAnimationName, true);
 
         if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)

@@ -3,9 +3,7 @@ using UnityEngine;
 public class NPCAttackSuperState : NPCState
 {
 	protected NPCAttackController _AttackController;
-	public NPCAttackSuperState()
-	{
-	}
+	
 	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
 	{
 		base.InitState(npc, stateMachine, animationName);

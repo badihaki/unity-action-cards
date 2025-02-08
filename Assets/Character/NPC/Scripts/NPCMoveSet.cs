@@ -11,6 +11,7 @@ public class NPCMoveSet : MonoBehaviour
 	[field: SerializeField]
 	public int attackIndex { get; private set; } = 0;
 
+	[SerializeField]
 	public NPCAttackActionSO GetCurrentAttack() => attackActions[attackIndex];
 	public NPCAttackSuperState GetCurrentAttackState() => loadedAttackActions[attackIndex];
 
