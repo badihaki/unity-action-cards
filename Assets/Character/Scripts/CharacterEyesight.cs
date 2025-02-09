@@ -31,7 +31,7 @@ public class CharacterEyesight : MonoBehaviour
 				{
 					if (!_NoticeableEntitiesInView.Contains(other.transform.parent.transform))
 						_NoticeableEntitiesInView.Add(other.transform.parent.transform);
-					if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+					if (GameManagerMaster.GameMaster.GMSettings.logNPCUtilData)
 					{
 						print($"EYESIGT :: >> {other.transform.parent.name} detected in range of eyesight");
 						print($"EYESIGT :: >> currently seeing {_NoticeableEntitiesInView.Count} entities");
@@ -40,7 +40,7 @@ public class CharacterEyesight : MonoBehaviour
 				}
 				else
 				{
-					if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+					if (GameManagerMaster.GameMaster.GMSettings.logNPCUtilData)
 						print($"EYESIGT :: >> trying to remove {other.transform.parent.name}");
 					if (_NoticeableEntitiesInView.Contains(other.transform.parent.transform))
 						_NoticeableEntitiesInView.Remove(other.transform.parent.transform);

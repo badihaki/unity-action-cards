@@ -84,15 +84,18 @@ public class NPCNavigator : MonoBehaviour
 	private void FindNextNavigationNode()
     {
         NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
-        NavigationNode navNode = GetNewNavNode(nodes);        
+        NavigationNode navNode = GetNewNavNode(nodes);
         _CurrentNavNode = navNode;
 		_NPC._MoveController.SetAgentDestination(_CurrentNavNode.transform.position, 3.2f);
 	}
     private NavigationNode GetNewNavNode(NavigationNode[] nodes)
     {
-        foreach (var node in nodes)
+        if (GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
         {
-            print($"got navnode {node.name}");
+            foreach (var node in nodes)
+            {
+                print($"got navnode {node.name}");
+            }
         }
         NavigationNode navNode = null;
 

@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/Aggressive", fileName = "Aggressive Idle")]
 public class NPCAggressiveState : NPCIdleState
 {
-    private float distanceFromPlayer;
+    private float distanceFromTarget;
     private NPCAttackController attackController;
 
 	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
@@ -31,11 +31,11 @@ public class NPCAggressiveState : NPCIdleState
         // distanceFromPlayer = Vector3.Distance(_NPC.transform.position, _NPC._NavigationController._Target.position);
 		if (_NPC._NPCActor._AggressionManager.isAggressive && attackController._ActiveTarget != null)
 		{
-			distanceFromPlayer = attackController.GetDistanceFromTarget();
+			distanceFromTarget = attackController.GetDistanceFromTarget();
 		}
 		else
 		{
-			distanceFromPlayer = 1.75f;
+			distanceFromTarget = 1.75f;
 		}
 		base.LogicUpdate();
         
@@ -56,10 +56,10 @@ public class NPCAggressiveState : NPCIdleState
 		{
 			_StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
 		}
-		if (distanceFromPlayer > _NPC._MoveSet.GetCurrentAttack().maxinumDistance)
+		if (distanceFromTarget > _NPC._MoveSet.GetCurrentAttack().maxinumDistance)
         {
             // Debug.Log($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromPlayer}");
-            _StateMachine.ChangeState(_StateMachine._StateLibrary._MoveState);
+            _StateMachine.ChangeState(_StateMachine._StateLibrary._ChaseState);
         }
         if (waitTime <= 0)
         {

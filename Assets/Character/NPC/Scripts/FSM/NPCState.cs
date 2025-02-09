@@ -33,8 +33,9 @@ public class NPCState : ScriptableObject
         _NPC._AnimationController.SetBool(_StateAnimationName, true);
 
         if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-            Debug.Log(_NPC.name + " is entering state " + this._StateAnimationName);
-    }
+            Debug.Log(_NPC.name + " is entering state " + name);
+            //Debug.Log(_NPC.name + " is entering state " + this._StateAnimationName);
+	}
     public virtual void ExitState()
     {
         _IsExitingState = true;

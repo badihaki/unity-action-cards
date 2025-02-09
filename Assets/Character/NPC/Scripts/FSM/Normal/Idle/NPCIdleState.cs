@@ -16,6 +16,7 @@ public class NPCIdleState : NPCState
 
         CreateNewWait(2.5f, 7.0f);
         waitTime = 0;
+        _NPC._MoveController.ZeroOutMovement();
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
     }
 
@@ -75,7 +76,7 @@ public class NPCIdleState : NPCState
 		}
         else
         {
-            if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
+            if (GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
                 _StateMachine.LogFromState("no place to patrol to, rolling for wait");
             RollForWait();
         }

@@ -21,7 +21,8 @@ public class NPCMoveSet : MonoBehaviour
 
 		foreach (NPCAttackActionSO action in characterSheet.StateLibrary._Attacks)
         {
-			NPCAttackSuperState addAction = ScriptableObject.CreateInstance<NPCAttackSuperState>();
+			//NPCAttackSuperState addAction = ScriptableObject.CreateInstance<NPCAttackSuperState>();
+			NPCAttackSuperState addAction = Instantiate(action.attackState);
 			addAction.InitState(npc, npc._StateMachine, action.animationName);
 			addAction.name = action.name;
 			attackActions.Add(action);

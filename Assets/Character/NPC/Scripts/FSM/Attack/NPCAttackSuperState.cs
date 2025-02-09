@@ -21,6 +21,7 @@ public class NPCAttackSuperState : NPCState
 			Debug.Log(_NPC.name + " is entering state " + _NPC._MoveSet.GetCurrentAttack().animationName);
 
 		_AttackController.SetAttackParameters(false, false);
+		_NPC._MoveController.ZeroOutMovement();
 		_AttackController.UseAttackTicket();
 	}
 

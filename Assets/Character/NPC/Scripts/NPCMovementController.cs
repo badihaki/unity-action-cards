@@ -58,6 +58,7 @@ public class NPCMovementController : MonoBehaviour
 	public void ZeroOutMovement()
 	{
 		_CharacterController.Move(Vector3.zero);
+		_NavAgent.isStopped = true;
 		SyncAgentVelToCharControllerVel();
 	}
 
@@ -93,6 +94,8 @@ public class NPCMovementController : MonoBehaviour
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		if (_NavAgent.isStopped)
+			_NavAgent.isStopped = false; // make sure nav agent is not stopped
 		SyncAgentVelToCharControllerVel();
 	}
 
@@ -132,6 +135,17 @@ public class NPCMovementController : MonoBehaviour
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		if (_NavAgent.isStopped)
+		{
+			if (GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
+				print("!!!!!!!!!!!!!! Nav agent was stopped, but is being started again");
+			_NavAgent.isStopped = false; // make sure nav agent is not stopped
+		}
+		else
+		{
+			if(GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
+				print("!!!!!!!!!!!!!! Nav agent was turned on, nothing happened");
+		}
 		SyncAgentVelToCharControllerVel();
 	}
 
