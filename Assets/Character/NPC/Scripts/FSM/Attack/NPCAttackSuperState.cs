@@ -16,7 +16,6 @@ public class NPCAttackSuperState : NPCState
 		_StateEnterTime = Time.time;
 		
 		_NPC._AnimationController.SetBool(_NPC._MoveSet.GetCurrentAttack().animationName, true);
-		
 		if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
 			Debug.Log(_NPC.name + " is entering state " + _NPC._MoveSet.GetCurrentAttack().animationName);
 
@@ -32,13 +31,19 @@ public class NPCAttackSuperState : NPCState
 
 		_AttackController.EndAttackAddWait(_NPC._MoveSet.GetCurrentAttack().waitTime);
 		_AttackController.ResetAttackParameters();
+
+		_NPC._MoveSet.SetAttackIndexRandomly();
 	}
 
-	public override void AnimationEndTrigger()// you can safely completely override this method
+	public override void CheckStateTransitions()
 	{
-		base.AnimationEndTrigger();
+		base.CheckStateTransitions();
 
-		_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
+		if (_AnimationIsFinished)
+		{
+			_StateMachine.LogFromState($"going from attack state {name} to state {_StateMachine._StateLibrary._IdleAggressiveState.name}");
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
+		}
 	}
 	// end
 }

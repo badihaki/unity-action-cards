@@ -33,7 +33,7 @@ public class NPCMoveSet : MonoBehaviour
 	public void SetAttackIndex(int indexNum) => attackIndex = indexNum;
 	public void SetAttackIndexRandomly()
 	{
-		if(attackActions.Count <= 1)
+		if(attackActions.Count == 1)
 		{
 			print("setting random atk index to 0, only 1 attack loaded");
 			attackIndex = 0;

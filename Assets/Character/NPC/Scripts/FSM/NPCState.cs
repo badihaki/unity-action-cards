@@ -34,7 +34,6 @@ public class NPCState : ScriptableObject
 
         if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
             Debug.Log(_NPC.name + " is entering state " + name);
-            //Debug.Log(_NPC.name + " is entering state " + this._StateAnimationName);
 	}
     public virtual void ExitState()
     {
@@ -86,6 +85,7 @@ public class NPCState : ScriptableObject
     {
         //Debug.Log("ending animation");
         // end of animation
+        _AnimationIsFinished = true;
     }
     #endregion
 

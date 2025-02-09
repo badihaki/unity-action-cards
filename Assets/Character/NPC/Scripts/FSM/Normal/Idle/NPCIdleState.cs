@@ -33,16 +33,21 @@ public class NPCIdleState : NPCState
     }
 
     public override void LogicUpdate()
-    {
-        base.LogicUpdate();
+	{
+		base.LogicUpdate();
 
-        waitTime -= Time.deltaTime;
-        if(waitTime <= 0)
-        {
-            waitTime = 0;
-            FindPlaceToGo();
-        }
-    }
+		RunWaitTimer();
+	}
+
+	private void RunWaitTimer()
+	{
+		waitTime -= Time.deltaTime;
+		if (waitTime <= 0)
+		{
+			waitTime = 0;
+			FindPlaceToGo();
+		}
+	}
 
 	public override void PhysicsUpdate()
 	{
