@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class NonPlayerCharacter : Character, IDestroyable
 {
-    [field: SerializeField, Header("~> Nonplayer Character <~")] public NPCActor _NPCActor { get; private set; }
+    [field: SerializeField, Header("~> Nonplayer Character <~")]
+    public NPCSheetScriptableObj _NPCharacterSheet { get; private set; }
+	[field: SerializeField] public NPCActor _NPCActor { get; private set; }
     [field: SerializeField] public NPCMovementController _MoveController { get; private set; }
     [field: SerializeField] public NPCNavigator _NavigationController { get; private set; }
     [field: SerializeField] public NPCMoveSet _MoveSet { get; private set; }
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
+    [field: SerializeField] public CharacterEyesight _EyeSight { get; protected set; }
 
 
 	// State Machine
@@ -14,6 +17,17 @@ public class NonPlayerCharacter : Character, IDestroyable
 
     [field: SerializeField] private string hitAnimationString;
     
+    public virtual void BuildAndInitialize(NPCSheetScriptableObj characterSheet)
+    {
+		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.CharactersFolder(), true);
+		_CharacterSheet = characterSheet;
+        _NPCharacterSheet = _CharacterSheet as NPCSheetScriptableObj;
+        name = _CharacterSheet._CharacterName;
+        GameObject cloneActor = Instantiate(characterSheet.Actor, transform);
+        cloneActor.name = "Actor";
+        Initialize();
+    }
+
     public override void Initialize()
     {
         base.Initialize();
@@ -40,6 +54,9 @@ public class NonPlayerCharacter : Character, IDestroyable
         _AttackController = GetComponent<NPCAttackController>();
         _AttackController.Initialize(this);
 
+        // eyes for sight beyond sight
+        _EyeSight = GetComponentInChildren<CharacterEyesight>();
+
         // state machine
         _StateMachine = GetComponent<NPCStateMachine>();
         
@@ -56,23 +73,23 @@ public class NonPlayerCharacter : Character, IDestroyable
 		{
 			case "hit":
 				print($"{name} >>>> respond hit >>> hit state");
-                _StateMachine.ChangeState(_StateMachine._HitState);
+                _StateMachine.ChangeState(_StateMachine._StateLibrary._HitState);
 				break;
 			case "staggered":
 				print($"{name} >>>> respond knockBack//stagger>>> stagger state");
-                _StateMachine.ChangeState(_StateMachine._KnockBackState);
+                _StateMachine.ChangeState(_StateMachine._StateLibrary._StaggerState);
 				break;
 			case "launched":
 				print($"{name} >>>> respond launch >>> launch state");
-                _StateMachine.ChangeState(_StateMachine._LaunchState);
+                _StateMachine.ChangeState(_StateMachine._StateLibrary._LaunchState); 
 				break;
 			case "airHit":
 				print($"{name} >>>> respond air hit >>> air Hit state");
-				_StateMachine.ChangeState(_StateMachine._AirHitState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._AirHitState);
 				break;
 			case "knockback":
 				print($"{name} >>>> respond far far knock back//knockback >>> kncok back state");
-				_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._KnockbackState);
 				break;
             default:
                 print("probably not an attack");

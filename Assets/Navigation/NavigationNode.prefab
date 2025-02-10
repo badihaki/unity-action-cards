@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Color: {r: 0, g: 1, b: 1, a: 1}
   _EditorSphereRadius: 0.5
-  _NeighborDetectionRadius: 10
+  _NeighborDetectionRadius: 20
   _Neighbors: []
 --- !u!114 &3805388011654496622
 MonoBehaviour:
@@ -84,4 +84,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Color: {r: 1, g: 0, b: 0.9810171, a: 0.13725491}
-  _EditorSphereRadius: 10
+  _EditorSphereRadius: 20

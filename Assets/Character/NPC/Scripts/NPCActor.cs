@@ -21,7 +21,7 @@ public class NPCActor : Actor, ITargetable, IAggressable
 		_AggressionManager.Initialize(NPC);
 
 		EntityIsDamaged += _AggressionManager.AddAggression;
-        if (GameManagerMaster.GameMaster.logExtraNPCData)
+        if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
             print(">>>>>> Subscribed to entity is damaged event");
     }
 

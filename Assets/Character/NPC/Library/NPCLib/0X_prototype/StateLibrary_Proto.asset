@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca1fb9e8ca2c3924296c0dfe62036aec, type: 3}
+  m_Name: StateLibrary_Proto
+  m_EditorClassIdentifier: 
+  _IdleState: {fileID: 11400000, guid: 76b531e755a3329459d2be504af38246, type: 2}
+  _IdleAggressiveState: {fileID: 11400000, guid: 695015d26c5302d48bc2ac57a0f5186b,
+    type: 2}
+  _MoveState: {fileID: 11400000, guid: e65b008f4e2075f488763d49ad044735, type: 2}
+  _PatrolState: {fileID: 11400000, guid: e65b008f4e2075f488763d49ad044735, type: 2}
+  _ChaseState: {fileID: 11400000, guid: 052ab190e0776a6479272eeb6c707c22, type: 2}
+  _HitState: {fileID: 11400000, guid: c3319b1e7a4819140a7c1d5b0639afcd, type: 2}
+  _AirHitState: {fileID: 11400000, guid: 776272db1de9d1f498c7a014741a4723, type: 2}
+  _StaggerState: {fileID: 11400000, guid: 47f71417e3d0afc4abc130f612e77ce5, type: 2}
+  _KnockbackState: {fileID: 11400000, guid: d6075aaa7c4633047a93d47be266a9a0, type: 2}
+  _LaunchState: {fileID: 11400000, guid: 569545e8f631a4a4199650b7a83ef448, type: 2}
+  _FallingState: {fileID: 11400000, guid: f5bce2f4f0c4972489da0a75bfa0dc88, type: 2}
+  _Attacks:
+  - {fileID: 11400000, guid: e50d072760bd7cd4fb26c704db9db29e, type: 2}

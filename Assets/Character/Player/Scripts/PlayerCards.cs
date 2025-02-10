@@ -147,14 +147,15 @@ public class PlayerCards : MonoBehaviour
         else
 		{
 			print($"deck count is {_Deck.Count} and hand count is {_Hand.Count}");
-			Debug.LogError("can't draw another card. either not enogh cards in deck or too many in hand.");
+			Debug.LogWarning("can't draw another card. either not enogh cards in deck or too many in hand.");
 			CheckDeckCount();
 		}
 	}
 
     private void CheckDeckCount()
     {
-        Debug.LogWarning("Checking deck");
+		if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+			Debug.LogWarning("Checking deck");
         if (_Deck.Count <= 0)
         {
             print(">>>>>>>>>>>>> Should not be drawing more cards");
@@ -166,7 +167,10 @@ public class PlayerCards : MonoBehaviour
             StartCoroutine(StartDeckRechargeTimer());
         }
         else
-            print($"Deck checked out ok with {_Deck.Count} cards left");
+        {
+            if(GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+                print($"Deck checked out ok with {_Deck.Count} cards left");
+        }
 	}
 
 	private void DrawFullHand()
@@ -186,7 +190,8 @@ public class PlayerCards : MonoBehaviour
 		    _Hand.Add(_Deck[drawCardIndex]);
             return true;
         }
-        Debug.LogError(">>>>>>>>>> cant add another CARD !!!!!!!!!!!!!!!!!!");
+		if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+			Debug.LogError(">>>>>>>>>> cant add another CARD !!!!!!!!!!!!!!!!!!");
         return false;
 	}
 
@@ -194,26 +199,37 @@ public class PlayerCards : MonoBehaviour
     {
         while (deckIsRecharging)
         {
-            int rechargeIndex = Random.Range(0, _Abyss.Count - 1);
+            if(GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+                print($">>>>>>>>>> adding cards back to deck");
+			int rechargeIndex = Random.Range(0, _Abyss.Count - 1);
             _Deck.Add(_Abyss[rechargeIndex]);
             _Abyss.RemoveAt(rechargeIndex);
             if (_Abyss.Count <= 0)
             {
-                deckIsRecharging = false;
+				if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+					print($">>>>>>>>>> Done adding cards");
+				deckIsRecharging = false;
 				onDeckIsActiveChanged(!deckIsRecharging);
 			}
             else
                 yield return null;
         }
+
         //DrawFullHand();
-        if(_Hand.Count < 4)
+
+		if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+            print($">>>>>>>>>> hand count is {_Hand.Count}");
+        if (_Hand.Count < 4)
         {
             if (_Hand.Count == 0)
                 DrawCard();
-            print(">>>>>>>>>> Need more cards");
+            if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+                print(">>>>>>>>>> Starting the draw card timer");
+            drawTimerActivated = true;
             StartCoroutine(StartDrawCardTmer());
         }
-		print(">>>>>>>>>>>> finish recharge");
+        if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+			print(">>>>>>>>>>>> finish recharge");
 	}
 
 	private IEnumerator StartDrawCardTmer()
@@ -236,8 +252,11 @@ public class PlayerCards : MonoBehaviour
 
     private IEnumerator StartDeckRechargeTimer()
     {
-        print("strart <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< recharge");
-		print(">>>>>>>>>>>> start recharge");
+		if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
+        {
+			print("strart <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< recharging deck");
+		    print(">>>>>>>>>>>> start recharge");
+        }
 		deckIsRecharging = true;
 		yield return deckRechargeTime;
         StartCoroutine(RechargeDeck());

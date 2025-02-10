@@ -4,19 +4,23 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/Base", fileName = "Basic Idle")]
 public class NPCIdleState : NPCState
 {
+    [SerializeField]
     protected float waitTime;
 
     public override void EnterState()
     {
         base.EnterState();
 
-        CreateNewWait(2.5f, 7.0f);
+        if (waitTime <= 0)
+            RandomlySetWaitTime(2.5f, 7.0f);
+        _NPC._MoveController.ZeroOutMovement();
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
     }
 
-    private void CreateNewWait(float min, float max)
+    private void RandomlySetWaitTime(float min, float max)
     {
         // Debug.Log(_NPC.name + " is creating a new wait time: " + min + ", " + max);
         if (GameManagerMaster.GameMaster) waitTime = GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
@@ -29,16 +33,21 @@ public class NPCIdleState : NPCState
     }
 
     public override void LogicUpdate()
-    {
-        base.LogicUpdate();
+	{
+		base.LogicUpdate();
 
-        waitTime -= Time.deltaTime;
-        if(waitTime <= 0)
-        {
-            waitTime = 0;
-            FindPlaceToGo();
-        }
-    }
+		RunWaitTimer();
+	}
+
+	private void RunWaitTimer()
+	{
+		waitTime -= Time.deltaTime;
+		if (waitTime <= 0)
+		{
+			waitTime = 0;
+			FindPlaceToGo();
+		}
+	}
 
 	public override void PhysicsUpdate()
 	{
@@ -60,19 +69,19 @@ public class NPCIdleState : NPCState
         // Debug.Log(_NPC.name + " is making a new wait");
         float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(0.1f, 1.0f);
         float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(1.2f, 5.0f);
-        CreateNewWait(minWait, maxWait);
+        RandomlySetWaitTime(minWait, maxWait);
     }
 
     private void FindPlaceToGo()
     {
-        // Debug.Log(_NPC.name + " is Finding a place to move to");
+        //Debug.Log(_NPC.name + " is Finding a place to move to");
         if (_NPC._NavigationController.TryFindNewPatrol())
         {
-            _NPC._StateMachine.ChangeState(_StateMachine._MoveState);
-        }
+			_NPC._StateMachine.ChangeState(_StateMachine._StateLibrary._MoveState);
+		}
         else
         {
-            if(GameManagerMaster.GameMaster.logExtraNPCData)
+            if (GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
                 _StateMachine.LogFromState("no place to patrol to, rolling for wait");
             RollForWait();
         }
@@ -85,13 +94,13 @@ public class NPCIdleState : NPCState
         // if aggressive
         if (_NPC._NPCActor._AggressionManager.isAggressive)
         {
-            _StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+            _StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
         }
 
         // if not on ground
         if (!_NPC._CheckGrounded.IsGrounded())
         {
-            _StateMachine.ChangeState(_StateMachine._FallingState);
+            _StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
         }
 	}
 }

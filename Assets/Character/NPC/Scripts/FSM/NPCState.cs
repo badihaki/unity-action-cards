@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class NPCState : ScriptableObject
 {
     public virtual void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
@@ -13,12 +13,12 @@ public class NPCState : ScriptableObject
         _StateAnimationName = animationName;
     }
 
-    public NonPlayerCharacter _NPC { get; protected set; }
+	[field: SerializeField] public NonPlayerCharacter _NPC { get; protected set; }
     [field: SerializeField] public string _StateAnimationName { get; protected set; }
-    public NPCStateMachine _StateMachine { get; protected set; }
-    
-    // the time the state starts
-    public float _StateEnterTime { get; protected set; }
+	[field: SerializeField] public NPCStateMachine _StateMachine { get; protected set; }
+
+	// the time the state starts
+	[field: SerializeField] public float _StateEnterTime { get; protected set; }
 
     // state boolean triggers
     public bool _IsExitingState { get; protected set; }
@@ -32,9 +32,9 @@ public class NPCState : ScriptableObject
         _StateEnterTime = Time.time;
         _NPC._AnimationController.SetBool(_StateAnimationName, true);
 
-        if (GameManagerMaster.GameMaster.logExtraNPCData)
-            Debug.Log(_NPC.name + " is entering state " + this._StateAnimationName);
-    }
+        if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
+            Debug.Log(_NPC.name + " is entering state " + name);
+	}
     public virtual void ExitState()
     {
         _IsExitingState = true;
@@ -85,6 +85,7 @@ public class NPCState : ScriptableObject
     {
         //Debug.Log("ending animation");
         // end of animation
+        _AnimationIsFinished = true;
     }
     #endregion
 

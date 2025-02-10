@@ -30,10 +30,10 @@ public class NPCAttackController : CharacterAttackController
         _NPC = character as NonPlayerCharacter;
         _AttackTicket = true;
         
-        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTarget;
+        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTargetEnemy;
     }
 
-    public void SetNewTarget(Transform aggressor)
+    public void SetNewTargetEnemy(Transform aggressor)
     {
         _ActiveTarget = aggressor;
     }
