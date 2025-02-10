@@ -21,7 +21,10 @@ public class NPCAggressiveState : NPCIdleState
 	public override void EnterState()
     {
 		_StateMachine.LogFromState($"entering aggressive state");
-		waitTime = CreateNewWait(0.55f, 1.0f);
+		if (waitTime <= 0)
+		{
+			waitTime = CreateNewWaitTime(0.55f, 1.0f);
+		}
 		readyToAttack = false;
         base.EnterState();
     }
@@ -62,13 +65,13 @@ public class NPCAggressiveState : NPCIdleState
 		}
 		if (distanceFromTarget > _NPC._MoveSet.GetCurrentAttack().maxinumDistance)
         {
-			_StateMachine.LogFromState($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromTarget}");
+			//_StateMachine.LogFromState($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromTarget}");
             _StateMachine.ChangeState(_StateMachine._StateLibrary._ChaseState);
         }
         if (readyToAttack)
         {
-			_StateMachine.LogFromState($"going to action {_NPC._MoveSet.GetCurrentAttackState().name} from state {name}");
-			waitTime = CreateNewWait(1.0f, _NPC._MoveSet.GetCurrentAttack().waitTime * 2.15f);
+			//_StateMachine.LogFromState($"going to action {_NPC._MoveSet.GetCurrentAttackState().name} from state {name}");
+			waitTime = CreateNewWaitTime(0.5f, _NPC._MoveSet.GetCurrentAttack().waitTime);
 			_StateMachine.ChangeState(_NPC._MoveSet.GetCurrentAttackState());
         }
 		// if aggressive
@@ -88,7 +91,7 @@ public class NPCAggressiveState : NPCIdleState
 		}
     }
 
-    private float CreateNewWait(float min, float max)
+    private float CreateNewWaitTime(float min, float max)
     {
         return GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
     }

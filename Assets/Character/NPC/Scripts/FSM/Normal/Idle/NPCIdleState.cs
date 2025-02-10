@@ -14,12 +14,13 @@ public class NPCIdleState : NPCState
     {
         base.EnterState();
 
-        CreateNewWait(2.5f, 7.0f);
+        if (waitTime <= 0)
+            RandomlySetWaitTime(2.5f, 7.0f);
         _NPC._MoveController.ZeroOutMovement();
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
     }
 
-    private void CreateNewWait(float min, float max)
+    private void RandomlySetWaitTime(float min, float max)
     {
         // Debug.Log(_NPC.name + " is creating a new wait time: " + min + ", " + max);
         if (GameManagerMaster.GameMaster) waitTime = GameManagerMaster.GameMaster.Dice.RollRandomDice(min, max);
@@ -68,7 +69,7 @@ public class NPCIdleState : NPCState
         // Debug.Log(_NPC.name + " is making a new wait");
         float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(0.1f, 1.0f);
         float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(1.2f, 5.0f);
-        CreateNewWait(minWait, maxWait);
+        RandomlySetWaitTime(minWait, maxWait);
     }
 
     private void FindPlaceToGo()

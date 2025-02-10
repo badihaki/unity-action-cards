@@ -28,7 +28,7 @@ public class NPCLaunchState : NPCHurtSuperState
 		if (isBeingLaunched)
 		{
 			_NPC._MoveController.Launch();
-			_NPC._MoveController.ApplyGravity(2f);
+			_NPC._MoveController.ApplyGravity(0.2f);
 		}
 		else
 		{

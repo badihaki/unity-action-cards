@@ -28,20 +28,23 @@ public class NPCHurtSuperState : NPCState
 	{
 		base.CheckStateTransitions();
 
-		if (_NPC._CheckGrounded.IsGrounded())
+		if (_AnimationIsFinished)
 		{
-			if (!_NPC._NPCActor._AggressionManager.isAggressive)
+			if (_NPC._CheckGrounded.IsGrounded())
 			{
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+				if (!_NPC._NPCActor._AggressionManager.isAggressive)
+				{
+					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+				}
+				else
+				{
+					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
+				}
 			}
 			else
 			{
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
 			}
-		}
-		else
-		{
-			_StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
 		}
 	}
 }
