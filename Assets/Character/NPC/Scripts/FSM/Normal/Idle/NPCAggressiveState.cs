@@ -8,6 +8,8 @@ public class NPCAggressiveState : NPCIdleState
 {
     private float distanceFromTarget;
     private NPCAttackController attackController;
+	[SerializeField]
+	protected bool readyToAttack;
 
 	public override void InitState(NonPlayerCharacter npc, NPCStateMachine stateMachine, string animationName)
 	{
@@ -18,8 +20,9 @@ public class NPCAggressiveState : NPCIdleState
 
 	public override void EnterState()
     {
-        if (waitTime <= 0)
-            waitTime = CreateNewWait(0.2f, 1.0f);
+		_StateMachine.LogFromState($"entering aggressive state");
+		waitTime = CreateNewWait(0.55f, 1.0f);
+		readyToAttack = false;
         base.EnterState();
     }
 
@@ -29,8 +32,8 @@ public class NPCAggressiveState : NPCIdleState
 		{
 			CheckStateTransitions();
 		}
-		if (waitTime > 0) RunWaitTimer();
-        else waitTime = 0;
+		if (waitTime > 0)
+			RunWaitTimer();
         // distanceFromPlayer = Vector3.Distance(_NPC.transform.position, _NPC._NavigationController._Target.position);
 		if (_NPC._NPCActor._AggressionManager.isAggressive && attackController._ActiveTarget != null)
 		{
@@ -62,7 +65,7 @@ public class NPCAggressiveState : NPCIdleState
 			_StateMachine.LogFromState($"entity {_NPC.name} is moving towards target. Distance from target exceeded {distanceFromTarget}");
             _StateMachine.ChangeState(_StateMachine._StateLibrary._ChaseState);
         }
-        if (waitTime <= 0)
+        if (readyToAttack)
         {
 			_StateMachine.LogFromState($"going to action {_NPC._MoveSet.GetCurrentAttackState().name} from state {name}");
 			waitTime = CreateNewWait(1.0f, _NPC._MoveSet.GetCurrentAttack().waitTime * 2.15f);
@@ -78,7 +81,11 @@ public class NPCAggressiveState : NPCIdleState
     private void RunWaitTimer()
     {
         waitTime -= Time.deltaTime;
-        //if (waitTime <= 0) _StateMachine.LogFromState($"done with wait");
+        if (waitTime <= 0)
+		{
+			_StateMachine.LogFromState($"done with wait");
+			readyToAttack = true;
+		}
     }
 
     private float CreateNewWait(float min, float max)
