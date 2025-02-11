@@ -10,6 +10,8 @@ public class PlayerUnarmedLauncherState : PlayerLauncherAttackSuperState
     public override void EnterState()
     {
         base.EnterState();
-        _AttackController.SetAttackParameters(false, true);
+        //_AttackController.SetAttackParameters(false, true);
+        int damage = _PlayerCharacter._WeaponController._CurrentWeapon._Dmg;
+        _AttackController.SetAttackParameters(responsesToDamage.launch);
     }
 }

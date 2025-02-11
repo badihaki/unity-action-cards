@@ -153,9 +153,13 @@ public class PlayerAttackController : CharacterAttackController
 	//    base.SetAttackParameters(knockback, launch, damageModifier);
 	//}
 
-	public override void SetAttackParameters(float damageForce, int damageModifier = 0)
+	public override void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 1.0f)
 	{
-		base.SetAttackParameters(damageForce, damageModifier);
+		base.SetAttackParameters(intendedDmgResponse, damageModifier, force);
+
+        _Damage = _Damage + player._WeaponController._CurrentWeapon._Dmg;
+        // calculate force here
+        _Force = force + player._WeaponController._CurrentWeapon._Force;
 	}
 
 	public override void PlayHitSpark(Vector3 hitPos)
