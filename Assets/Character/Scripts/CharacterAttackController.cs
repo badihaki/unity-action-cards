@@ -28,8 +28,6 @@ public class CharacterAttackController : MonoBehaviour
 		_Force = force;
 	}
 
-	public void SetIntendedDmgResponse(responsesToDamage _responsesToDamage) => _IntendedResponseToDamageBeingDealt = _responsesToDamage;
-
 	public virtual void ResetAttackParameters()
 	{
 		_Damage = 0;

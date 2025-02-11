@@ -27,8 +27,7 @@ public class Damage
 
 public enum responsesToDamage
 {
-	hit,
-	airHit,
+	hit, // this can do air hits and ground hits
 	stagger,
 	knockBack,
 	launch,

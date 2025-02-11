@@ -155,8 +155,9 @@ public class PlayerAttackController : CharacterAttackController
 
 	public override void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 1.0f)
 	{
+		// was -->> bool knockback(this is actually stagger), bool launched, int damageModifier(this was additional damage on top of base weapon dmg)
+        // if both stagger and launch, then we knockback
 		base.SetAttackParameters(intendedDmgResponse, damageModifier, force);
-
         _Damage = _Damage + player._WeaponController._CurrentWeapon._Dmg;
         // calculate force here
         _Force = force + player._WeaponController._CurrentWeapon._Force;

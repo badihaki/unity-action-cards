@@ -10,6 +10,7 @@ public class SwordLauncherState : PlayerLauncherAttackSuperState
 	public override void EnterState()
 	{
 		base.EnterState();
-		_AttackController.SetAttackParameters(false, true, 1);
+		//_AttackController.SetAttackParameters(false, true, 1);
+		_AttackController.SetAttackParameters(responsesToDamage.launch);
 	}
 }
