@@ -91,33 +91,48 @@ public class NPCState : ScriptableObject
     }
 	#endregion
 
+	// stuff that manages state response to getting hit
+	#region Hurt functions
 	public void GetHurt(responsesToDamage damageResponse)
     {
         switch (damageResponse)
         {
             case responsesToDamage.hit:
-                if (!_NPC._CheckGrounded.IsGrounded())
-                {
-                    _StateMachine.ChangeState(_StateMachine._StateLibrary._AirHitState);
-					break;
-				}
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._HitState);
+                GetHurt();
 				break;
             case responsesToDamage.stagger:
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._StaggerState);
+                GetStaggered();
 				break;
 			case responsesToDamage.launch:
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._LaunchState);
+                GetLaunched();
 				break;
 			case responsesToDamage.knockBack:
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._KnockbackState);
+                GetKnockedBack();
 				break;
 		}
     }
 
-    public virtual void GetHit()
-    {
-    }
-
+	public void GetHurt()
+	{
+		if (!_NPC._CheckGrounded.IsGrounded())
+		{
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._AirHitState);
+			return;
+		}
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._HitState);
+	}
+	public virtual void GetStaggered()
+	{
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._StaggerState);
+	}
+	public virtual void GetLaunched()
+	{
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._LaunchState);
+	}
+	public virtual void GetKnockedBack()
+	{
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._KnockbackState);
+	}
+	#endregion
 	// end of the line
 }

@@ -165,7 +165,7 @@ public class PlayerCharacter : Character, IDestroyable
         print("Player death");
     }
 
-    protected override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+    public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
 
 	public override void AddToExternalForce(Vector3 force)
 	{

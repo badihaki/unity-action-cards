@@ -10,12 +10,13 @@ public class Damage
 	public float damageForce { get; private set; }
 	public Transform damageSource { get; private set; }
 
-	public Damage(int dmg, float force, responsesToDamage response)
+	public Damage(int dmg, float force, responsesToDamage response, Transform source)
 	{
 		damageAmount = dmg;
 		poiseDamageAmount = CalculatePoise(dmg);
 		damageForce = force;
 		intendedResponse = response;
+		damageSource = source;
 	}
 
 	private float CalculatePoise(int dmg)

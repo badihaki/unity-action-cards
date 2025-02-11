@@ -67,7 +67,7 @@ public class NonPlayerCharacter : Character, IDestroyable
         _MoveSet.Initialize(this);
     }
 
-    protected override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+    public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
 
     public void EndHurtAnimation()
     {

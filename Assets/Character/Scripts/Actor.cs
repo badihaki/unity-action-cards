@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Actor : MonoBehaviour, IDamageable
+public class Actor : MonoBehaviour
 {
     [field: SerializeField, Header("Character Actor Basics")]
     private Character _Character;
@@ -61,45 +61,51 @@ public class Actor : MonoBehaviour, IDamageable
     }
 
     //public virtual void Damage(int damage, Transform damageSource, bool knockedBack = false, bool launched = false, Character damageSourceController = null)
-	public virtual void Damage(Damage dmgObj)
-	{
-		//if (damageSource != _Character.transform && !_IsInvuln)
-		//{
-		//	_Character._Health.TakeDamage(damage);
-		//	_Character._Actor.transform.LookAt(damageSource);
-
-		//	Quaternion rotation = _Character._Actor.transform.rotation;
-		//	rotation.x = 0;
-		//	rotation.z = 0;
-
-		//	_Character._Actor.transform.rotation = rotation;
-
-		//	_Character.CalculateHitResponse(knockedBack, launched, damage); // need to rewrite thiss
-
-		//	if (bloodFX != null)
-		//	{
-		//		GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
-		//		blood.transform.rotation = hitFxOrigin.rotation;
-		//	}
-		//}
+    public virtual void TakeDamage(Damage dmgObj)
+    {
+        if (dmgObj.damageSource != _Character.transform && !_IsInvuln)
+		{
+			UseDamageObj(dmgObj);
+		}
 	}
 
-    public void SetInvulnerability(int value)
+	private void UseDamageObj(Damage dmgObj)
+	{
+		_Character._Health.TakeDamage(dmgObj.damageAmount);
+		_Character._Actor.transform.LookAt(dmgObj.damageSource);
+
+		// calculate rotation
+		Quaternion rotation = CalculateRotationWhenDmg();
+
+		_Character.RespondToHit(dmgObj.intendedResponse);
+
+		BleedWhenDmg(rotation);
+	}
+
+	private void BleedWhenDmg(Quaternion rotation)
+	{
+		if (bloodFX != null)
+		{
+			GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
+			blood.transform.rotation = hitFxOrigin.rotation;
+		}
+	}
+
+	private Quaternion CalculateRotationWhenDmg()
+	{
+		Quaternion rotation = _Character._Actor.transform.rotation;
+		rotation.x = 0;
+		rotation.z = 0;
+		_Character._Actor.transform.rotation = rotation;
+		return rotation;
+	}
+
+	public void SetInvulnerability(int value)
     {
         bool res = Convert.ToBoolean(value);
         //print($"value is {res}");
         if(_IsInvuln != res) _IsInvuln = res;
     }
-
-	public Transform GetControllingEntity()
-	{
-		return _Character.transform;
-	}
-
-	public Transform GetDamagedEntity()
-	{
-        return transform;
-	}
 
     public virtual void Die()
     {

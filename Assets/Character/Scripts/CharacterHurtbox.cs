@@ -20,7 +20,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
     public void Damage(Damage dmgObj)
 	{
 		//print("damagin from hurtbox");
-        character._Actor.Damage(dmgObj);
+        character._Actor.TakeDamage(dmgObj);
     }
 
     public Transform GetControllingEntity()

@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void RespondToHit(responsesToDamage intendedDamageResponse)
+    public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
     {
     }
 

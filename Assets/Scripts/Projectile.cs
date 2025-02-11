@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
-                    Damage damageOb = new Damage(_damage, _force, intendedResponse);
+                    Damage damageOb = new Damage(_damage, _force, intendedResponse, transform);
 
 					damageableEntity?.Damage(damageOb);
             
