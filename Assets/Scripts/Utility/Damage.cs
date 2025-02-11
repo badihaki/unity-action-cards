@@ -10,6 +10,8 @@ public class Damage
 	public float damageForce { get; private set; }
 	public Transform damageSource { get; private set; }
 
+	private DamageOptions dmgOptions;
+
 	public Damage(int dmg, float force, responsesToDamage response, Transform source)
 	{
 		damageAmount = dmg;
@@ -17,12 +19,64 @@ public class Damage
 		damageForce = force;
 		intendedResponse = response;
 		damageSource = source;
+
+		dmgOptions = new DamageOptions(0, 0, 0, 0, Vector2.zero);
 	}
 
 	private float CalculatePoise(int dmg)
 	{
 		float calculatedPoise = dmg * Random.Range(15, 25);
 		return calculatedPoise;
+	}
+
+	public void SetOptions(DamageOptions dmgOptions)
+	{
+		SetFireDamage(dmgOptions.fireDmg);
+		SetWaterDamage(dmgOptions.waterDmg);
+		SetPlasmaDamage(dmgOptions.plasmaDmg);
+		SetGravityDamage(dmgOptions.gravityDmg, dmgOptions.gravityInflunce);
+	}
+
+	public void SetFireDamage(float value)
+	{
+		DamageOptions copy = dmgOptions;
+		copy.fireDmg = value;
+		dmgOptions = copy;
+	}
+	public void SetWaterDamage(float value)
+	{
+		DamageOptions copy = dmgOptions;
+		copy.waterDmg = value;
+		dmgOptions = copy;
+	}
+	public void SetPlasmaDamage(float value)
+	{
+		DamageOptions copy = dmgOptions;
+		copy.plasmaDmg = value;
+		dmgOptions = copy;
+	}
+	public void SetGravityDamage(float value, Vector2 influence)
+	{
+		DamageOptions copy = dmgOptions;
+		copy.gravityDmg = value;
+		dmgOptions = copy;
+	}
+}
+
+public struct DamageOptions
+{
+	public float fireDmg;
+	public float waterDmg;
+	public float plasmaDmg;
+	public float gravityDmg;
+	public Vector2 gravityInflunce;
+	public DamageOptions(float fire, float water, float plasma, float gravity, Vector2 influence)
+	{
+		fireDmg = fire;
+		waterDmg = water;
+		plasmaDmg = plasma;
+		gravityDmg = gravity;
+		gravityInflunce = influence;
 	}
 }
 
