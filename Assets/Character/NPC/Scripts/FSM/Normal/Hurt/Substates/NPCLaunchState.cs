@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Hurt/Launch", fileName = "Launch")]
 public class NPCLaunchState : NPCHurtSuperState
 {
 	private bool isBeingLaunched;
@@ -27,7 +28,7 @@ public class NPCLaunchState : NPCHurtSuperState
 		if (isBeingLaunched)
 		{
 			_NPC._MoveController.Launch();
-			_NPC._MoveController.ApplyGravity(2f);
+			_NPC._MoveController.ApplyGravity(0.2f);
 		}
 		else
 		{
@@ -45,12 +46,12 @@ public class NPCLaunchState : NPCHurtSuperState
 			if (_NPC._Actor._CheckGrounded.IsGrounded())
 			{
 				if(_NPC._NPCActor._AggressionManager.isAggressive)
-					_StateMachine.ChangeState(_StateMachine._IdleAggressiveState);
+					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
 				else
-					_StateMachine.ChangeState(_StateMachine._IdleState);
+					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
 			}
 			else
-				_StateMachine.ChangeState(_StateMachine._FallingState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
 		}
 	}
 }

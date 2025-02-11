@@ -12,6 +12,7 @@ public class PlayerUnarmedRushState : PlayerRushAttackSuperState
     public override void EnterState()
     {
         base.EnterState();
-        _AttackController.SetAttackParameters(true, false, 1);
-    }
+        //_AttackController.SetAttackParameters(true, false, 1);
+		_AttackController.SetAttackParameters(responsesToDamage.stagger);
+	}
 }

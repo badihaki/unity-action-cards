@@ -13,12 +13,13 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
+    [field: SerializeField, Header("devmode")] public bool devMode { get; protected set; } = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-		if (_Actor == null)
+        if (devMode)
             Initialize();
     }
 
@@ -65,7 +66,7 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void RespondToHit(string hitType)
+    public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
     {
     }
 
@@ -75,48 +76,9 @@ public class Character : MonoBehaviour
         Destroy(gameObject);
     }
 
-	public void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
-	{
-		float poiseLost = UnityEngine.Random.Range(damage * 0.285f, damage);
-        if (poiseLost > 1.1f)
-            poiseLost = 1.0f;
-		float updatedPoise = _Health.ChangePoise(poiseLost);
-
-        if (isLaunched && isKnocked)
-        {
-			RespondToHit("knockback");
-		}
-		else
-        {
-            if (isLaunched)
-		    {
-				RespondToHit("launched");
-				return;
-		    }
-		    if (isKnocked)
-		    {
-				RespondToHit("staggered");
-				return;
-		    }
-        }
-		if (updatedPoise > _Health._PoiseThreshold())
-        {
-            if(_CheckGrounded.IsGrounded())
-            {
-				RespondToHit("hit");
-				return;
-            }
-            else
-            {
-				RespondToHit("airHit");
-				return;
-            }
-        }
-	}
-
     public virtual void AddToExternalForce(Vector3 force)
     {
-        if (GameManagerMaster.GameMaster.logExraPlayerData)
+        if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print($"adding force {force} to  {name}");
     }
 

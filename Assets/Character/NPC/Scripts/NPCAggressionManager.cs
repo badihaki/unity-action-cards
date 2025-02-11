@@ -33,7 +33,7 @@ public class NPCAggressionManager : MonoBehaviour
         
         if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
         {
-            if (GameManagerMaster.GameMaster.logExtraNPCData)
+            if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
                 print(">>>>>>> adding aggressor <<");
             _LastAggressors.Add(aggressor);
         }
@@ -55,9 +55,21 @@ public class NPCAggressionManager : MonoBehaviour
         {
             yield return slowWait;
             _Aggression -= 1;
+            int targetIndex = _Aggression;
+			foreach (var enemy in _LastAggressors)
+			{
+                if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
+                    print($">> trying to see {enemy.parent.name} || can we see them? {_NPC._EyeSight.CanSeeTarget(enemy)}");
+			    if (_Aggression < 50 && _NPC._EyeSight.CanSeeTarget(enemy))
+                {
+                    _Aggression = 100;
+                    break;
+                }				
+			}
             yield return null;
         }
         StartCoroutine(QuicklyLowerAggression());
+        StopCoroutine(SlowlyLowerAggression());
     }
     private IEnumerator QuicklyLowerAggression()
     {
@@ -65,12 +77,15 @@ public class NPCAggressionManager : MonoBehaviour
         {
             yield return fastWait;
             _Aggression -= 1;
-			print("quickly lose aggression");
+            if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+                print("quickly lose aggression");
 			if (_Aggression == 0)
             {
+                // lost all aggression here
                 _LastAggressors.Clear();
                 isAggressive = false;
                 _NPC._NPCActor.animationController.SetBool("aggressive", false);
+                _NPC._StateMachine.ChangeState(_NPC._StateMachine._StateLibrary._IdleState);
             }
             else
                 yield return null;

@@ -19,14 +19,16 @@ public class SwordFinisherAState : PlayerSpecialSuperState
 	{
 		base.EnterState();
 		attackPropertiesChanged = false;
-		_AttackController.SetAttackParameters(true, false);
+		//_AttackController.SetAttackParameters(true, false);
+		_AttackController.SetAttackParameters(responsesToDamage.stagger, 1, 3);
 	}
 
 	public override void TriggerSideEffect()
 	{
 		if (!attackPropertiesChanged)
 		{
-			_AttackController.SetAttackParameters(true, true, 2);
+			//_AttackController.SetAttackParameters(true, true, 2);
+			_AttackController.SetAttackParameters(responsesToDamage.stagger, 2);
 			attackPropertiesChanged = true;
 		}
 		else

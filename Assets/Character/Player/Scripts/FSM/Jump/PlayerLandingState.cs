@@ -17,22 +17,21 @@ public class PlayerLandingState : PlayerState
         _PlayerCharacter._LocomotionController.ZeroOutVelocity();
     }
 
-    public override void LogicUpdate()
-    {
-        base.LogicUpdate();
-
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
-	}
-
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
         _PlayerCharacter._LocomotionController.ApplyGravity(1);
-    }
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+	}
 
-    public override void CheckStateTransitions()
+	public override void LateUpdate()
+	{
+		base.LateUpdate();
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
+
+	public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 

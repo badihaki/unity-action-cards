@@ -29,6 +29,11 @@ Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A
 
 ## Updates
 
+### 1-6-2025 - expanding NPC logic
+The goal is to expand on the capabilities of the NPCs. Adding always-aggressive NPCs. Trying to have nav mesh agent work with character controller. Next up is taking the distance between the player and determining if the entity should lose aggression, as well as a new class to determine sight and detection.
+After that, permanently aggressed NPCs, as 'isEnemy' parameter in the NPC scriptable obj, so spawn these fools as an aggressed NPC.
+Then group logic with new 'GroupLeader' and 'GroupMember' classes where GroupLeader has a list of members and methods to get a new member, handle losing members, etc. GroupMember will track the group member's leader
+
 ### 12-13 Prototype 1 - Lovesick Blade
 Next up is reloading the deck from the card abyss.
 

@@ -60,7 +60,6 @@ public class PlayerCombatSuperState : PlayerState
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
         if (spellSelectDirection != 0)
         {
             _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
@@ -74,9 +73,10 @@ public class PlayerCombatSuperState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
     }
 
-    public override void CheckInputs()
+	public override void CheckInputs()
     {
         base.CheckInputs();
         moveInput = _PlayerCharacter._Controls._MoveInput;

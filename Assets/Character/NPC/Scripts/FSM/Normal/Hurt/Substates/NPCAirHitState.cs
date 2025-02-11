@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Characters/NPC/FSM/Hurt/Air Hit", fileName = "Air Hit")]
 public class NPCAirHitState : NPCHurtSuperState
 {
 	public NPCAirHitState()

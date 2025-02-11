@@ -29,7 +29,6 @@ public class PlayerInAirSuperState : PlayerState
     {
         base.LogicUpdate();
 
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
         if (spellSelectDirection != 0)
         {
             _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
@@ -43,7 +42,8 @@ public class PlayerInAirSuperState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        if (moveInput != Vector2.zero)
+        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+		if (moveInput != Vector2.zero)
         {
             _PlayerCharacter._LocomotionController.DetectMove(moveInput);
             _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);

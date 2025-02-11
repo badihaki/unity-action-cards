@@ -10,12 +10,9 @@ public class GameManagerMaster : MonoBehaviour
     public GMDice Dice { get; private set; }
     public ConstantVariables GeneralConstantVariables { get; private set; }
 
-    [field: Header("Developer Tools"), SerializeField]
-    public bool devMode { get; private set; }
-    [field:SerializeField]
-	public bool logExtraNPCData { get; private set; }
+    
     [field: SerializeField]
-    public bool logExraPlayerData { get; private set; }
+    public GMSettings GMSettings { get; private set; }
 
 	// Start is called before the first frame update
 	void Start()

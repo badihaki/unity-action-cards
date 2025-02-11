@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Char", menuName = "Characters/New Character")]
 public class CharacterSheet : ScriptableObject
 {
-    [Header("Base Information")]
+    [Header("Basic Character Information")]
     [Tooltip("The name of this character")]
     public string _CharacterName;
     [Tooltip("The starting health of this character")]

@@ -85,11 +85,7 @@ public class PlayerAirStepState : PlayerState
 	public override void LogicUpdate()
 	{
 		base.LogicUpdate();
-
-        _PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
-        _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-        _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
-
+                
         if(!canShmoove && Time.time > _StateEnterTime + 0.18f)
         {
             canShmoove = true;
@@ -103,7 +99,15 @@ public class PlayerAirStepState : PlayerState
 		_PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
 
         _PlayerCharacter._LocomotionController.ApplyGravity(0.34f);
-    }
+		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
+		_PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
+	}
+
+	public override void LateUpdate()
+	{
+		base.LateUpdate();
+		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
+	}
 
 	public override void CheckInputs()
 	{

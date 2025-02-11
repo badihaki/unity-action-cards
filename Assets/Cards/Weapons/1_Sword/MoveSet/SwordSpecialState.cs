@@ -10,6 +10,7 @@ public class SwordSpecialState : PlayerSpecialSuperState
 	public override void EnterState()
 	{
 		base.EnterState();
-		_AttackController.SetAttackParameters(false, false, 2);
+		//_AttackController.SetAttackParameters(false, false, 2);
+		_AttackController.SetAttackParameters(responsesToDamage.hit, 2, 2);
 	}
 }
