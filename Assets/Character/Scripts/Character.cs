@@ -66,7 +66,7 @@ public class Character : MonoBehaviour
         
     }
 
-    protected virtual void RespondToHit(string hitType)
+    public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
     {
     }
 
@@ -75,45 +75,6 @@ public class Character : MonoBehaviour
         print("goodbye, " + name);
         Destroy(gameObject);
     }
-
-	public void CalculateHitResponse(bool isKnocked, bool isLaunched, float damage = 1.0f)
-	{
-		float poiseLost = UnityEngine.Random.Range(damage * 0.285f, damage);
-        if (poiseLost > 1.1f)
-            poiseLost = 1.0f;
-		float updatedPoise = _Health.ChangePoise(poiseLost);
-
-        if (isLaunched && isKnocked)
-        {
-			RespondToHit("knockback");
-		}
-		else
-        {
-            if (isLaunched)
-		    {
-				RespondToHit("launched");
-				return;
-		    }
-		    if (isKnocked)
-		    {
-				RespondToHit("staggered");
-				return;
-		    }
-        }
-		if (updatedPoise > _Health._PoiseThreshold())
-        {
-            if(_CheckGrounded.IsGrounded())
-            {
-				RespondToHit("hit");
-				return;
-            }
-            else
-            {
-				RespondToHit("airHit");
-				return;
-            }
-        }
-	}
 
     public virtual void AddToExternalForce(Vector3 force)
     {

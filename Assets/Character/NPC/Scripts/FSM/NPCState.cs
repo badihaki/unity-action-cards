@@ -58,6 +58,7 @@ public class NPCState : ScriptableObject
 
     #endregion
 
+    // stuff thats checkin for stuff
     #region Checker functions
     public virtual void CheckStateTransitions()
     {
@@ -65,6 +66,7 @@ public class NPCState : ScriptableObject
     }
     #endregion
 
+    // stuff that triggers stuff
     #region Effect Triggers
     public virtual void SideEffectTrigger()
     {
@@ -87,7 +89,50 @@ public class NPCState : ScriptableObject
         // end of animation
         _AnimationIsFinished = true;
     }
-    #endregion
+	#endregion
 
-    // end of the line
+	// stuff that manages state response to getting hit
+	#region Hurt functions
+	public void GetHurt(responsesToDamage damageResponse)
+    {
+        switch (damageResponse)
+        {
+            case responsesToDamage.hit:
+                GetHurt();
+				break;
+            case responsesToDamage.stagger:
+                GetStaggered();
+				break;
+			case responsesToDamage.launch:
+                GetLaunched();
+				break;
+			case responsesToDamage.knockBack:
+                GetKnockedBack();
+				break;
+		}
+    }
+
+	public void GetHurt()
+	{
+		if (!_NPC._CheckGrounded.IsGrounded())
+		{
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._AirHitState);
+			return;
+		}
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._HitState);
+	}
+	public virtual void GetStaggered()
+	{
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._StaggerState);
+	}
+	public virtual void GetLaunched()
+	{
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._LaunchState);
+	}
+	public virtual void GetKnockedBack()
+	{
+		_StateMachine.ChangeState(_StateMachine._StateLibrary._KnockbackState);
+	}
+	#endregion
+	// end of the line
 }

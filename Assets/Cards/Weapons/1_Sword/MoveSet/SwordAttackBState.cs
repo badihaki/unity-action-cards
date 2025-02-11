@@ -13,7 +13,8 @@ public class SwordAttackBState : PlayerAttackSuperState
 	{
 		base.EnterState();
 		_PlayerCharacter._LocomotionController.ZeroOutVelocity();
-		_AttackController.SetAttackParameters(false, false);
+		//_AttackController.SetAttackParameters(false, false);
+		_AttackController.SetAttackParameters(responsesToDamage.hit, 1);
 		ShowOrHideWeapon(true);
 	}
 

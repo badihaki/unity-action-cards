@@ -29,65 +29,7 @@ public class NPCStateMachine : MonoBehaviour
         _Ready = true;
     }
 
-	/*
-	public virtual void SetUpStateMachine(NonPlayerCharacter npc)
-	{
-		if (!_IdleState)
-		{
-			_IdleState = ScriptableObject.CreateInstance<NPCIdleState>();
-		}
-		_IdleState.InitState(npc, this, "idle");
-
-		if (!_IdleAggressiveState)
-		{
-			_IdleAggressiveState = ScriptableObject.CreateInstance<NPCIdleAggressiveState>();
-		}
-		_IdleAggressiveState.InitState(npc, this, "idle");
-
-		if (!_MoveState)
-		{
-			_MoveState = ScriptableObject.CreateInstance<NPCMoveState>();
-		}
-		_MoveState.InitState(npc, this, "move");
-
-		if (!_FallingState)
-		{
-			_FallingState = ScriptableObject.CreateInstance<NPCFallingState>();
-		}
-		_FallingState.InitState(npc, this, "falling");
-
-		InitHurtStates(npc);
-	}
-
-	private void InitHurtStates(NonPlayerCharacter npc)
-	{
-		if (!_HitState)
-		{
-			_HitState = ScriptableObject.CreateInstance<NPCHitState>();
-		}
-		_HitState.InitState(npc, this, "hit");
-		if (!_KnockBackState)
-		{
-			_KnockBackState = ScriptableObject.CreateInstance<NPCStaggerState>();
-		}
-		_KnockBackState.InitState(npc, this, "knockback");
-		if (!_LaunchState)
-		{
-			_LaunchState = ScriptableObject.CreateInstance<NPCLaunchState>();
-		}
-		_LaunchState.InitState(npc, this, "launch");
-		if(!_AirHitState)
-		{
-			_AirHitState = ScriptableObject.CreateInstance<NPCAirHitState>();
-		}
-		_AirHitState.InitState(npc, this, "airHit");
-		if (!_FarKnockBackState)
-		{
-			_FarKnockBackState = ScriptableObject.CreateInstance<NPCKnockbackState>();
-		}
-		_FarKnockBackState.InitState(npc, this, "farKnockBack");
-	}
-	*/
+	public void GoToHurtState(responsesToDamage damageResponse) => _CurrentState.GetHurt(damageResponse);
 
 	public void ChangeState(NPCState state)
     {

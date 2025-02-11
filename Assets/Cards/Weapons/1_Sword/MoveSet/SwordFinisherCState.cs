@@ -17,14 +17,16 @@ public class SwordFinisherCState : PlayerSpecialSuperState
 	{
 		base.EnterState();
 		animationPropertiesChanged = false;
-		_AttackController.SetAttackParameters(true, false, 1);
+		//_AttackController.SetAttackParameters(true, false, 1);
+		_AttackController.SetAttackParameters(responsesToDamage.stagger, 1);
 	}
 
 	public override void TriggerSideEffect()
 	{
 		if (!animationPropertiesChanged)
 		{
-			_AttackController.SetAttackParameters(false, true, 2);
+			//_AttackController.SetAttackParameters(false, true, 2);
+			_AttackController.SetAttackParameters(responsesToDamage.launch, 2, 2f);
 		}
 		else
 			base.TriggerSideEffect();

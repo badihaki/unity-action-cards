@@ -9,8 +9,6 @@ public class PlayerAttackSuperState : PlayerCombatSuperState
     {
     }
 
-	
-
 	public override void EnterState()
     {
         base.EnterState();

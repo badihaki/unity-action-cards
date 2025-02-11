@@ -11,7 +11,8 @@ public class SwordAirAttackAState : PlayerAirCombatSuperState
 	{
 		base.EnterState();
 
-		_AttackController.SetAttackParameters(false, false, 1);
+		//_AttackController.SetAttackParameters(false, false, 1);
+		_AttackController.SetAttackParameters(responsesToDamage.hit, 0, 1.5f);
 	}
 
 	public override void CheckStateTransitions()

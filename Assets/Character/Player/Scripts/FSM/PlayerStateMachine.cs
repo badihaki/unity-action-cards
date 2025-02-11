@@ -69,6 +69,8 @@ public class PlayerStateMachine : MonoBehaviour
         _CurrentState.EnterState();
     }
 
+    public void GoToHurtState(responsesToDamage damageResponse)=>_CurrentState.GetHurt(damageResponse);
+
 	private void Update()
 	{
         if(_CurrentState != null)
