@@ -55,13 +55,16 @@ public class NPCActor : Actor, ITargetable, IAggressable
 
     public Transform GetTargetable() => transform;
 
-	public override void Damage(int damage, Transform damageSource, bool knockback = false, bool launched = false, Character damageSourceController = null)
+	//public override void Damage(int damage, Transform damageSource, bool knockback = false, bool launched = false, Character damageSourceController = null)
+	public override void Damage(Damage dmgObj)
 	{
-        EntityIsDamaged(CalculateAggression(damage, knockback, launched), damageSource);
-		base.Damage(damage, damageSource, knockback, launched, damageSourceController);
+        //EntityIsDamaged(CalculateAggression(damage, knockback, launched), damageSource);
+        EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageSource);
+        base.Damage(dmgObj);
 	}
 
-	private int CalculateAggression(int damage, bool knocked, bool launched)
+	//private int CalculateAggression(int damage, bool knocked, bool launched)
+	private int CalculateAggression(int damage, responsesToDamage dmgResponse)
 	{
 		float aggressionCalculation = damage * Mathf.Sqrt(100 - _AggressionManager._Aggression);
 		//print($"first calculation = {aggressionCalculation}");
@@ -71,7 +74,7 @@ public class NPCActor : Actor, ITargetable, IAggressable
         //else
         //    aggressionCalculation *= (float)Math.Sqrt(launchForce * knockForce);
 		//print($"aggr calculation w/ knock * (health * launch) = {aggressionCalculation}");
-        if(knocked || launched)
+        if(dmgResponse == responsesToDamage.knockBack || dmgResponse == responsesToDamage.launch)
         {
             aggressionCalculation = 100.0f;
         }

@@ -7,11 +7,14 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] private Character _controllingCharacter;
     [SerializeField] private int _damage;
+    [SerializeField] private float _force;
     [SerializeField] private float _speed;
     [SerializeField] private float _lifetime = 5.135f;
     [SerializeField] private GameObject _impactVFX;
+    [SerializeField] private responsesToDamage intendedResponse;
 
-    private Rigidbody _rigidbody;
+
+	private Rigidbody _rigidbody;
 
     [SerializeField] private bool _ready = false;
 
@@ -54,7 +57,9 @@ public class Projectile : MonoBehaviour
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
-                    damageableEntity?.Damage(_damage, _controllingCharacter._Actor.transform, false, false, _controllingCharacter);
+                    Damage damageOb = new Damage(_damage, _force, intendedResponse);
+
+					damageableEntity?.Damage(damageOb);
             
                      print("projectile " + name + " collided with " + hitCharacter.name);
                 }

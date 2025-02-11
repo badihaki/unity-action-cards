@@ -65,7 +65,7 @@ public class NPCAttackController : CharacterAttackController
 
 	public override void SetAttackParameters(bool knockback, bool launch, int damageModifier = 0)
 	{
-        _Damage = _NPC._MoveSet.GetCurrentAttack().damage + damageModifier;
+        _DamageModifier = _NPC._MoveSet.GetCurrentAttack().damage + damageModifier;
 		base.SetAttackParameters(knockback, launch);
 	}
 

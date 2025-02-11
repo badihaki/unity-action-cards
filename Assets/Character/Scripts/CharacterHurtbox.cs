@@ -17,11 +17,10 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         //print($"{character.name} has knock interface {knockInterface}");
     }
 
-    public void Damage(int damage, Transform damageSource, bool knockedBack, bool launched, Character damageSourceController = null)
+    public void Damage(Damage dmgObj)
 	{
 		//print("damagin from hurtbox");
-
-        character._Actor.Damage(damage, damageSource, knockedBack, launched, damageSourceController);
+        character._Actor.Damage(dmgObj);
     }
 
     public Transform GetControllingEntity()

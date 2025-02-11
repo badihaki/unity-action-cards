@@ -26,8 +26,6 @@ public class PlayerAttackController : CharacterAttackController
 
     [field: SerializeField, Header("Defensive Action")] public PlayerDefenseSuperState _DefenseAction { get; private set; }
 
-    
-
     // delete later
     private void Update()
     {
@@ -149,11 +147,16 @@ public class PlayerAttackController : CharacterAttackController
         Destroy(_DefenseAction);
     }
 
-    public override void SetAttackParameters(bool knockback, bool launch, int damageModifier = 0)
-    {
-        _Damage = player._WeaponController._CurrentWeapon._Dmg + damageModifier;
-        base.SetAttackParameters(knockback, launch, damageModifier);
-    }
+	//public override void SetAttackParameters(bool knockback, bool launch, int damageModifier = 0)
+	//{
+	//    _DamageModifier = player._WeaponController._CurrentWeapon._Dmg + damageModifier;
+	//    base.SetAttackParameters(knockback, launch, damageModifier);
+	//}
+
+	public override void SetAttackParameters(float damageForce, int damageModifier = 0)
+	{
+		base.SetAttackParameters(damageForce, damageModifier);
+	}
 
 	public override void PlayHitSpark(Vector3 hitPos)
 	{
