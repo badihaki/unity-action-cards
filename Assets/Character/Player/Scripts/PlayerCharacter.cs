@@ -165,35 +165,7 @@ public class PlayerCharacter : Character, IDestroyable
         print("Player death");
     }
 
-	protected override void RespondToHit(string hitType)
-	{
-		switch (hitType)
-		{
-			case "hit":
-				print($"{name} >>>> respond hit");
-				_StateMachine.ChangeState(_StateMachine._HitState);
-                break;
-			case "staggered":
-				print($"{name} >>>>> respond knockBack//stagger");
-				//_StateMachine.ChangeState(_StateMachine._KnockBackState);
-				break;
-			case "launched":
-				print($"{name} >>>>> respond launch");
-				//_StateMachine.ChangeState(_StateMachine._LaunchState);
-				break;
-			case "airHit":
-				print($"{name} >>>>> respond air hit");
-				//_StateMachine.ChangeState(_StateMachine._AirHitState);
-				break;
-			case "knockback":
-				print($"{name} >>>>> respond far far knock back//knockback");
-				//_StateMachine.ChangeState(_StateMachine._FarKnockBackState);
-				break;
-			default:
-				print("probably not an attack");
-				break;
-		}
-	}
+    protected override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
 
 	public override void AddToExternalForce(Vector3 force)
 	{

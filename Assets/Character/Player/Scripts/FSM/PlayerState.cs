@@ -98,7 +98,8 @@ public class PlayerState : ScriptableObject
     {
         // use this to hold whatever inputs you want to check for
     }
-    #endregion
+    public virtual void GetHurt(responsesToDamage damageResponse) => _StateMachine.ChangeState(_StateMachine._HitState);
+	#endregion
 
-    // end
+	// end
 }
