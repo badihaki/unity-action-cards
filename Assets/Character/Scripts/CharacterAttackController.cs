@@ -26,6 +26,7 @@ public class CharacterAttackController : MonoBehaviour
 		// was -->> bool knockback, bool launched, int damageModifier(this was additional damage on top of base weapon dmg)
 		_Damage = damageModifier;
 		_Force = force;
+		_IntendedResponseToDamageBeingDealt = intendedDmgResponse;
 	}
 
 	public virtual void ResetAttackParameters()

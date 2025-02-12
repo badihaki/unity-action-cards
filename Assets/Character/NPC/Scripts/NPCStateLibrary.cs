@@ -38,7 +38,6 @@ public class NPCStateLibrary : ScriptableObject
 		_IdleState = Instantiate(copyLib._IdleState);
 		_IdleState.InitState(_npc, _npc._StateMachine, "idle");
 		_IdleState.name = $"{_npc.name}-Idle";
-		Debug.Log($"animator is on npc {_IdleState._NPC._AnimationController.ToString()}");
 		//_IdleAggressiveState = ScriptableObject.CreateInstance<NPCIdleAggressiveState>();
 		_IdleAggressiveState = Instantiate(copyLib._IdleAggressiveState);
 		_IdleAggressiveState.InitState(_npc, _npc._StateMachine, "idle");

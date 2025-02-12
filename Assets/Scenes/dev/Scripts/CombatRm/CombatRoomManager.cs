@@ -29,7 +29,8 @@ public class CombatRoomManager : MonoBehaviour
 
 		activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
         int spawnIndex = Random.Range(0, spawnableCharacters.Count);
-        print($"spawn index is {spawnIndex}");
+        if (GameManagerMaster.GameMaster.GMSettings.devMode)
+            print($"spawn index is {spawnIndex}");
 		activeNpc.BuildAndInitialize(spawnableCharacters[spawnIndex]);
         activeNpc._Actor.onDeath += StartSpawnNewNpc;
 	}
