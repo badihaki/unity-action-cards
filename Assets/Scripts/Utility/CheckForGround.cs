@@ -18,6 +18,11 @@ public class CheckForGround : MonoBehaviour
 	private void FixedUpdate()
 	{
         isGrounded = IsGrounded();
+        if (!isGrounded)
+        {
+            if (GameManagerMaster.GameMaster.GMSettings.logNPCUtilData)
+                print($"{transform.parent.name} is not grounded, is this during an attack?");
+        }
 	}
 
 	public bool IsGrounded(float extraDetectionRayLength = 0.0f)

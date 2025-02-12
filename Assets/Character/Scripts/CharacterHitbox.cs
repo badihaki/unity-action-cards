@@ -18,7 +18,7 @@ public class CharacterHitbox : MonoBehaviour
             IDamageable damageableEntity = trigger.GetComponent<IDamageable>();
             if (damageableEntity != null && _Character.transform != damageableEntity.GetControllingEntity())
             {
-                print(damageableEntity.ToString());
+                //print(damageableEntity.ToString());
                 Damage dmgObj = new Damage(_Character._AttackController._Damage, _Character._AttackController._Force, _Character._AttackController._IntendedResponseToDamageBeingDealt, _Character._Actor.transform);
                 
                 damageableEntity?.Damage(dmgObj);

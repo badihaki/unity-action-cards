@@ -35,7 +35,8 @@ public class NPCMoveSet : MonoBehaviour
 	{
 		if(attackActions.Count == 1)
 		{
-			print("setting random atk index to 0, only 1 attack loaded");
+			if(GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
+				print("setting random atk index to 0, only 1 attack loaded");
 			attackIndex = 0;
 			return;
 		}

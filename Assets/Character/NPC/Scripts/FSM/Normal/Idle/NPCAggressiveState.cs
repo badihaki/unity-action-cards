@@ -20,7 +20,6 @@ public class NPCAggressiveState : NPCIdleState
 
 	public override void EnterState()
     {
-		_StateMachine.LogFromState($"entering aggressive state");
 		if (waitTime <= 0)
 		{
 			waitTime = CreateNewWaitTime(0.55f, 1.0f);
@@ -86,7 +85,8 @@ public class NPCAggressiveState : NPCIdleState
         waitTime -= Time.deltaTime;
         if (waitTime <= 0)
 		{
-			_StateMachine.LogFromState($"done with wait");
+			if (GameManagerMaster.GameMaster.GMSettings.logNPCUtilData)
+				_StateMachine.LogFromState($"done with wait");
 			readyToAttack = true;
 		}
     }

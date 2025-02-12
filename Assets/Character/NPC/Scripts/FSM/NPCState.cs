@@ -98,7 +98,7 @@ public class NPCState : ScriptableObject
         switch (damageResponse)
         {
             case responsesToDamage.hit:
-                GetHurt();
+                GetHit();
 				break;
             case responsesToDamage.stagger:
                 GetStaggered();
@@ -112,8 +112,10 @@ public class NPCState : ScriptableObject
 		}
     }
 
-	public void GetHurt()
+	public void GetHit()
 	{
+        if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+            _StateMachine.LogFromState($"{_NPC.name} is grounded? --> {_NPC._CheckGrounded.IsGrounded()}");
 		if (!_NPC._CheckGrounded.IsGrounded())
 		{
 			_StateMachine.ChangeState(_StateMachine._StateLibrary._AirHitState);

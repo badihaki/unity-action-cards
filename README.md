@@ -28,6 +28,10 @@ Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack
 Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
 
 ## Updates
+### 2-11-2025
+We are still working on always-aggressive NPCs, but I have a stalking-idle state for that. Just need to poll eyesight for stuff the entity can attack. Speaking of NPCs and attacks, there's a new Damage class and a new NPC State Library class.
+
+I'm getting to aggressive NPCs and NPC grouping next. I plan to have that done in March.
 
 ### 1-6-2025 - expanding NPC logic
 The goal is to expand on the capabilities of the NPCs. Adding always-aggressive NPCs. Trying to have nav mesh agent work with character controller. Next up is taking the distance between the player and determining if the entity should lose aggression, as well as a new class to determine sight and detection.
