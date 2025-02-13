@@ -94,10 +94,21 @@ public class NPCMovementController : MonoBehaviour
 			knockBackForce = pushBackForce;
 			knockBackDir = knockBackSource - _NPC._NPCActor.transform.position;
 			knockBackDir = -knockBackDir.normalized;
-			if (knockBackDir.y < 0)
-				knockBackDir.y *= -1;
+
+			knockBackDir.y = CalculateKnockbackY(isLaunched);
 		}
 		_CharacterController.Move(knockBackDir * knockBackForce);
+	}
+
+	private float CalculateKnockbackY(bool isLaunched)
+	{
+		if (isLaunched)
+		{
+			return knockBackDir.y = 0.75f;
+		}
+		if (knockBackDir.y < 0)
+			return knockBackDir.y *= -1;
+		return knockBackDir.y;
 	}
 
 	public void ResetPushback()
@@ -211,13 +222,11 @@ public class NPCMovementController : MonoBehaviour
 		_ExternalForces = force;
 	}
 
-	public void FarKnocBack(Vector3 fromPosition)
+	public void GetKnockback(Vector3 fromPosition)
 	{
 		// how far high we goin?
 		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
 		Vector3 backwardsDir = -_NPC._NPCActor.transform.forward;
-		if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-			print($">>>>>>>>>>> backwards direction is >>> {backwardsDir.ToString()}");
 		Vector3 extForceCopy = _ExternalForces;
 		extForceCopy.y += _VerticalVelocity;
 		// how far back we goin??

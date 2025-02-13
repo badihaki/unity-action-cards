@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 [CreateAssetMenu(menuName = "Characters/NPC/FSM/Idle/StalkingWait", fileName = "Stalking Idle")]
 public class NPCEnemyStalkingIdleState : NPCIdleState
@@ -64,6 +65,26 @@ public class NPCEnemyStalkingIdleState : NPCIdleState
 	protected void CheckIfValidEnemy(Character character)
 	{
 		Actor charActor = character._Actor;
-		_NPC._NPCActor._AggressionManager.AddAggression(100, charActor.transform);
+		if (character is PlayerCharacter)
+		{
+			_NPC._NPCActor._AggressionManager.AddAggression(100, charActor.transform);
+		}
+		else
+		{
+			if (!SharesTypeWith(character as NonPlayerCharacter))
+			{
+				_NPC._NPCActor._AggressionManager.AddAggression(100, charActor.transform);
+			}
+		}
+	}
+
+	private bool SharesTypeWith(NonPlayerCharacter character)
+	{
+		foreach (var type in character._NPCharacterSheet.CharacterTypes)
+		{
+			if (_NPC._NPCharacterSheet.CharacterTypes.Contains(type))
+				return true;
+		}
+		return false;
 	}
 }
