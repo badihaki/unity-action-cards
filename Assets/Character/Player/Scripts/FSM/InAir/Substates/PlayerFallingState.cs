@@ -38,13 +38,13 @@ public class PlayerFallingState : PlayerInAirSuperState
             if (fallTime > 2.85f) _StateMachine.ChangeState(_StateMachine._LandingState);
             else _StateMachine.ChangeState(_StateMachine._IdleState);
         }
-        if (jumpInput && _PlayerCharacter._LocomotionController.canDoubleJump)
+        if (jumpInput && _PlayerCharacter._MoveController.canDoubleJump)
         {
             _StateMachine.ChangeState(_StateMachine._AirJumpState);
         }
-        if (_PlayerCharacter._LocomotionController.canAirDash && rushInput && Time.time >= _StateEnterTime + 0.35f)
+        if (_PlayerCharacter._MoveController.canAirDash && rushInput && Time.time >= _StateEnterTime + 0.35f)
         {
-            _PlayerCharacter._LocomotionController.ZeroOutVertVelocity();
+            _PlayerCharacter._MoveController.ZeroOutVertVelocity();
             _StateMachine.ChangeState(_StateMachine._AirDashState);
         }
     }

@@ -27,6 +27,6 @@ public class SwordAirAttackCState : PlayerAirCombatSuperState
 
 	public override void TriggerSideEffect()
 	{
-		_PlayerCharacter._LocomotionController.Jump(0.125f);
+		_PlayerCharacter._MoveController.Jump(0.125f);
 	}
 }

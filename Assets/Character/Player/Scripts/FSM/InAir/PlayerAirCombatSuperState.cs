@@ -11,15 +11,15 @@ public class PlayerAirCombatSuperState : PlayerAttackSuperState
     {
         base.EnterState();
 
-        _PlayerCharacter._LocomotionController.ZeroOutVertVelocity();
+        _PlayerCharacter._MoveController.ZeroOutVertVelocity();
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        _PlayerCharacter._MoveController.ApplyGravity(0.15f);
+        _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
     }
 
     public override void CheckStateTransitions()
@@ -28,8 +28,8 @@ public class PlayerAirCombatSuperState : PlayerAttackSuperState
 
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
-            _PlayerCharacter._LocomotionController.SetDoubleJump(true);
-            _PlayerCharacter._LocomotionController.SetAirDash(true);
+            _PlayerCharacter._MoveController.SetDoubleJump(true);
+            _PlayerCharacter._MoveController.SetAirDash(true);
             _StateMachine.ChangeState(_StateMachine._IdleState);
         }
         if (_AnimationIsFinished) _StateMachine.ChangeState(_StateMachine._FallingState);

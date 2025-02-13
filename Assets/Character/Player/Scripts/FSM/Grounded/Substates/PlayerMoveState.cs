@@ -10,7 +10,7 @@ public class PlayerMoveState : PlayerGroundedSuperState
 
     public override void CheckStateTransitions()
     {
-        if (_PlayerCharacter._LocomotionController.movementSpeed <= 0.1f && moveInput == Vector2.zero || cardInput) _StateMachine.ChangeState(_StateMachine._IdleState);
+        if (_PlayerCharacter._MoveController.movementSpeed <= 0.1f && moveInput == Vector2.zero || cardInput) _StateMachine.ChangeState(_StateMachine._IdleState);
 
         base.CheckStateTransitions();
     }
@@ -21,12 +21,12 @@ public class PlayerMoveState : PlayerGroundedSuperState
         if (!_IsExitingState)
         {
             if (moveInput == Vector2.zero)
-                _PlayerCharacter._LocomotionController.SlowDown();
+                _PlayerCharacter._MoveController.SlowDown();
             else
             {
-                _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-                _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
-                _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+                _PlayerCharacter._MoveController.DetectMove(moveInput);
+                _PlayerCharacter._MoveController.RotateCharacter(moveInput);
+                _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
             }
         }
     }

@@ -7,6 +7,8 @@ public class NPCHurtSuperState : NPCState
 	public override void PhysicsUpdate()
 	{
 		base.PhysicsUpdate();
+
+		_NPC._MoveController.GetPushedBack(Vector3.zero);
 	}
 
 	public override void EnterState()
@@ -21,7 +23,8 @@ public class NPCHurtSuperState : NPCState
         base.ExitState();
 
         _NPC._MoveController.SetExternalForces(_NPC.transform, 0.0f, 0.0f);
-        _NPC._MoveController.SetAgentUpdates(true);
+		_NPC._MoveController.ResetPushback();
+		_NPC._MoveController.SetAgentUpdates(true);
 	}
 
 	public override void CheckStateTransitions()

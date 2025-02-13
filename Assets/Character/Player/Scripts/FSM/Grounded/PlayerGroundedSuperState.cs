@@ -47,7 +47,7 @@ public class PlayerGroundedSuperState : PlayerState
         {
             _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
         }
-        _PlayerCharacter._LocomotionController.ApplyGravity(1);
+        _PlayerCharacter._MoveController.ApplyGravity(1);
     }
 
     public override void CheckStateTransitions()
@@ -64,7 +64,7 @@ public class PlayerGroundedSuperState : PlayerState
             // attacks
             if (rushInput)
             {
-                if(_PlayerCharacter._LocomotionController.movementSpeed > 10.0f)
+                if(_PlayerCharacter._MoveController.movementSpeed > 10.0f)
                 {
                     if (attackInput || specialInput)
                     {

@@ -77,6 +77,11 @@ public class Actor : MonoBehaviour
 		// calculate rotation
 		Quaternion rotation = CalculateRotationWhenDmg();
 
+        bool launched = false;
+        if (dmgObj.intendedResponse == responsesToDamage.launch || dmgObj.intendedResponse == responsesToDamage.knockBack)
+            launched = true;
+
+        _Character.PushBackCharacter(dmgObj.damageSource.position, dmgObj.damageForce, launched);
 		_Character.RespondToHit(dmgObj.intendedResponse);
 
 		BleedWhenDmg(rotation);

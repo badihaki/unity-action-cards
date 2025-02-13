@@ -20,12 +20,12 @@ public class PlayerIdleState : PlayerGroundedSuperState
     {
         if(!_IsExitingState)
         {
-            if (_PlayerCharacter._LocomotionController.targetSpeed > 0.1f) _PlayerCharacter._LocomotionController.SlowDown();
-            else _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+            if (_PlayerCharacter._MoveController.targetSpeed > 0.1f) _PlayerCharacter._MoveController.SlowDown();
+            else _PlayerCharacter._MoveController.ZeroOutVelocity();
 
             base.PhysicsUpdate();
-            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-            _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+            _PlayerCharacter._MoveController.DetectMove(moveInput);
+            _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
         }
     }
 
@@ -34,6 +34,6 @@ public class PlayerIdleState : PlayerGroundedSuperState
         base.EnterState();
 
         // why did I need to comment this out
-        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._MoveController.ZeroOutVelocity();
     }
 }

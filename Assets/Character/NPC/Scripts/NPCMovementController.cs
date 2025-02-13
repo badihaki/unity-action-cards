@@ -7,9 +7,6 @@ public class NPCMovementController : MonoBehaviour
     [field: SerializeField, Header("Components")]
 	public CharacterController _CharacterController { get; private set; }
 	
-	[field: SerializeField]
-	private NPCNavigator _Navigator;
-	
 	[field: Header("Forces"), SerializeField]
     public Vector3 _ExternalForces { get; private set; }
 	[SerializeField] private float _Gravity = 9.810f;
@@ -22,12 +19,18 @@ public class NPCMovementController : MonoBehaviour
 	[SerializeField]
 	private Vector3 _IntendedVelocity;
 
+	[field: SerializeField, Header("Knockback")]
+	public Vector3 knockBackSource = Vector3.zero;
+	[field: SerializeField]
+	public Vector3 knockBackDir = Vector3.zero;
+	[field: SerializeField]
+	public float knockBackForce = 0;
+
 	public void InitializeNPCMovement(NonPlayerCharacter character)
 	{
 		_NPC = character;
 		_CharacterController = _NPC._Actor.GetComponent<CharacterController>();
 		_NavAgent = _NPC._Actor.GetComponent<NavMeshAgent>();
-		_Navigator = _NPC._NavigationController;
 		_ExternalForces = Vector3.zero;
 		SetAgentUpdates(false);
 	}
@@ -79,6 +82,36 @@ public class NPCMovementController : MonoBehaviour
 			_ExternalForces += force;
 		else
 			_ExternalForces = Vector3.zero;
+	}
+
+	public void GetPushedBack(Vector3 pushFromPoint, float pushBackForce = 0, bool isLaunched = false)
+	{
+		if (knockBackSource != pushFromPoint && pushFromPoint != Vector3.zero)
+		{
+			if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+				print(">> Setting pushed back stuff");
+			knockBackSource = pushFromPoint;
+			knockBackForce = pushBackForce;
+			knockBackDir = knockBackSource - _NPC._NPCActor.transform.position;
+			knockBackDir = -knockBackDir.normalized;
+			if (!isLaunched)
+			{
+				knockBackDir.y = 1;
+			}
+			else
+			{
+				if (knockBackDir.y < 0)
+					knockBackDir.y *= -1;
+			}
+		}
+		_CharacterController.Move(knockBackDir * knockBackForce);
+	}
+
+	public void ResetPushback()
+	{
+		knockBackSource = Vector3.zero;
+		knockBackForce = 0;
+		knockBackDir = Vector3.zero;
 	}
 
 	public void ApplyExternalForces()

@@ -12,7 +12,7 @@ public class PlayerAirJumpState : PlayerJumpState
     {
         base.EnterState();
 
-        _PlayerCharacter._LocomotionController.SetDoubleJump(false);
+        _PlayerCharacter._MoveController.SetDoubleJump(false);
         // _PlayerCharacter._LocomotionController.ZeroOutVertVelocity();
         // isIncreasingVertVel = true;
         /*

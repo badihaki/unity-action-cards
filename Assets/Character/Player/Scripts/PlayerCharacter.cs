@@ -6,7 +6,7 @@ public class PlayerCharacter : Character, IDestroyable
 {
     public PlayerControlsInput _Controls { get; private set; }
     public PlayerCamera _CameraController { get; private set; }
-    public PlayerMovement _LocomotionController { get; private set; }
+    public PlayerMovement _MoveController { get; private set; }
     public PlayerCards _PlayerCards { get; private set; }
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerWeaponController _WeaponController { get; private set; }
@@ -38,8 +38,8 @@ public class PlayerCharacter : Character, IDestroyable
         _CameraController.Initialize(this);
 
         // start locomotion --> movement && jumping
-        _LocomotionController = GetComponent<PlayerMovement>();
-        _LocomotionController.Initialize(this);
+        _MoveController = GetComponent<PlayerMovement>();
+        _MoveController.Initialize(this);
 
         // start the card stuff
         _PlayerCards = GetComponent<PlayerCards>();
@@ -166,11 +166,13 @@ public class PlayerCharacter : Character, IDestroyable
     }
 
     public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+	public override void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false) => _MoveController.GetPushedBack(pushFromPoint, pushBackForce, isLaunched);
+    public override void ResetCharacterPushback() => _MoveController.ResetPushback();
 
 	public override void AddToExternalForce(Vector3 force)
 	{
 		base.AddToExternalForce(force);
-        _LocomotionController.AddToExternalForces(force);
+        _MoveController.AddToExternalForces(force);
 	}
 
 	public void StateAnimationFinished()=>_StateMachine._CurrentState.AnimationFinished();

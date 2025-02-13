@@ -28,14 +28,14 @@ public class Character : MonoBehaviour
         // Create the character in the game world
         _Actor = transform.Find("Actor").GetComponent<Actor>();
 
-		// start the hitbox
-		_Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>()?.Initialize(this);
+        // start the hitbox
+        _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>()?.Initialize(this);
 
         // Attack
         _AttackController = GetComponent<CharacterAttackController>();
 
-		// start health
-		_Health = GetComponent<Health>();
+        // start health
+        _Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
 
@@ -63,7 +63,7 @@ public class Character : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
@@ -80,6 +80,15 @@ public class Character : MonoBehaviour
     {
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print($"adding force {force} to  {name}");
+    }
+
+    public virtual void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false)
+    {
+        //
+    }
+    public virtual void ResetCharacterPushback()
+    {
+        //
     }
 
     // end of the line

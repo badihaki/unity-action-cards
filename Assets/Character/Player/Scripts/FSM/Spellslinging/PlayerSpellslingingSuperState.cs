@@ -17,7 +17,7 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.EnterState();
 
-        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._MoveController.ZeroOutVelocity();
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
 
         _PlayerCharacter._CameraController.ResetCinemachineTargetTransform();
@@ -57,15 +57,15 @@ public class PlayerSpellslingingSuperState : PlayerState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-        _PlayerCharacter._LocomotionController.ApplyGravity(0.15f);
-        _PlayerCharacter._LocomotionController.SlowDown();
+        _PlayerCharacter._MoveController.ApplyGravity(0.15f);
+        _PlayerCharacter._MoveController.SlowDown();
 		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
 	}
 
 	public override void LateUpdate()
 	{
 		base.LateUpdate();
-        _PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
+        _PlayerCharacter._MoveController.RotateWhileAiming(aimInput);
 		_PlayerCharacter._CameraController.MakeCameraFollowPlayerActor();
 	}
 

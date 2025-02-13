@@ -68,8 +68,10 @@ public class NonPlayerCharacter : Character, IDestroyable
     }
 
     public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+	public override void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false) => _MoveController.GetPushedBack(pushFromPoint, pushBackForce, isLaunched);
+	public override void ResetCharacterPushback() => _MoveController.ResetPushback();
 
-    public void EndHurtAnimation()
+	public void EndHurtAnimation()
     {
         _AnimationController.SetBool(hitAnimationString, false);
         hitAnimationString = "";

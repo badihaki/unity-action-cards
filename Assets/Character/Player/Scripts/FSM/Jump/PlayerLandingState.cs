@@ -14,14 +14,14 @@ public class PlayerLandingState : PlayerState
     {
         base.EnterState();
 
-        _PlayerCharacter._LocomotionController.ZeroOutVelocity();
+        _PlayerCharacter._MoveController.ZeroOutVelocity();
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity(1);
+        _PlayerCharacter._MoveController.ApplyGravity(1);
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 	}
 

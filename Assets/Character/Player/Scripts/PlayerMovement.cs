@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour
     private float rotationVelocity;
     private float rotationSmoothingTime = 0.082f;
     private float targetRotation;
-    private float lerpSpeedOnSlowDown = 0.5f;
 
     [Header("Aim Rotation"), SerializeField]
     private float aimRotationSpeed = 2.0f;
@@ -36,6 +35,13 @@ public class PlayerMovement : MonoBehaviour
     [field: SerializeField] public bool canAirDash { get; private set; }
     private WaitForSeconds airSchmooveWait = new WaitForSeconds(0.15f);
     [field: SerializeField] public Vector3 _ExternalForces { get; private set; }
+
+    [field:SerializeField, Header("Knockback")]
+    public Vector3 knockBackSource = Vector3.zero;
+    [field: SerializeField]
+	public Vector3 knockBackDir = Vector3.zero;
+	[field: SerializeField]
+    public float knockBackForce = 0;
 
 
 	public void Initialize(PlayerCharacter controllingPlayer)
@@ -62,7 +68,37 @@ public class PlayerMovement : MonoBehaviour
 			_ExternalForces = Vector3.zero;
 	}
 
-    public void ApplyGravity(float gravityModifier = 1.0f)
+    public void GetPushedBack(Vector3 pushFromPoint, float pushBackForce = 0, bool isLaunched = false)
+    {
+        if (knockBackSource != pushFromPoint && pushFromPoint != Vector3.zero)
+        {
+            if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+                print(">> Setting pushed back stuff");
+            knockBackSource = pushFromPoint;
+            knockBackForce = pushBackForce;
+            knockBackDir = knockBackSource - _Actor.transform.position;
+            knockBackDir = -knockBackDir.normalized;
+            if (!isLaunched)
+            {
+                knockBackDir.y = 1;
+            }
+            else
+            {
+                if (knockBackDir.y < 0)
+                    knockBackDir.y *= -1;
+            }
+        }
+        _Controller.Move(knockBackDir * knockBackForce);
+    }
+
+	public void ResetPushback()
+	{
+		knockBackSource = Vector3.zero;
+		knockBackForce = 0;
+		knockBackDir = Vector3.zero;
+	}
+
+	public void ApplyGravity(float gravityModifier = 1.0f)
     {
         gravityModifier = Mathf.Clamp(gravityModifier, 0.1f, 3.0f);
         if (_CheckForGround.IsGrounded())
