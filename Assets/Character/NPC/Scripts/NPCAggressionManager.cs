@@ -30,10 +30,12 @@ public class NPCAggressionManager : MonoBehaviour
     public void AddAggression(int aggression, Transform aggressor)
     {
         _Aggression += aggression;
+        if (_Aggression > 100)
+            _Aggression = 100;
         
         if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
         {
-            if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
+            if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
                 print(">>>>>>> adding aggressor <<");
             _LastAggressors.Add(aggressor);
         }

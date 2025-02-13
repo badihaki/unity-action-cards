@@ -9,6 +9,10 @@ public class NPCIdleState : NPCState
 {
     [SerializeField]
     protected float waitTime;
+    protected float minimumWait = 0.1f;
+    protected float minimumWaitMax = 1.0f;
+    protected float maximumWaitMin = 1.2f;
+    protected float maximumWait = 5.0f;
 
     public override void EnterState()
     {
@@ -18,7 +22,7 @@ public class NPCIdleState : NPCState
             RandomlySetWaitTime(2.5f, 7.0f);
         _NPC._MoveController.ZeroOutMovement();
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
-    }
+	}
 
     private void RandomlySetWaitTime(float min, float max)
     {
@@ -67,8 +71,8 @@ public class NPCIdleState : NPCState
             return;
         }
         // Debug.Log(_NPC.name + " is making a new wait");
-        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(0.1f, 1.0f);
-        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(1.2f, 5.0f);
+        float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(minimumWait, minimumWaitMax);
+        float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(maximumWaitMin, maximumWait);
         RandomlySetWaitTime(minWait, maxWait);
     }
 
