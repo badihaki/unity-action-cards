@@ -78,15 +78,8 @@ public class PlayerMovement : MonoBehaviour
             knockBackForce = pushBackForce;
             knockBackDir = knockBackSource - _Actor.transform.position;
             knockBackDir = -knockBackDir.normalized;
-            if (!isLaunched)
-            {
-                knockBackDir.y = 1;
-            }
-            else
-            {
-                if (knockBackDir.y < 0)
-                    knockBackDir.y *= -1;
-            }
+            if (knockBackDir.y < 0)
+                knockBackDir.y *= -1;
         }
         _Controller.Move(knockBackDir * knockBackForce);
     }

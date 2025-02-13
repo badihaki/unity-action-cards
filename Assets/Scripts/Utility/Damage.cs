@@ -17,6 +17,7 @@ public class Damage
 		damageAmount = dmg;
 		poiseDamageAmount = CalculatePoise(dmg);
 		damageForce = force;
+		Mathf.Clamp(force, 0, 1);
 		intendedResponse = response;
 		damageSource = source;
 

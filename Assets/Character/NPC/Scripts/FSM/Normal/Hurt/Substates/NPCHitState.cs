@@ -7,4 +7,12 @@ public class NPCHitState : NPCHurtSuperState
 	{
 		base.InitState(npc, stateMachine, animationName);
 	}
+
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+
+		if (Time.time > _StateEnterTime + 0.15f)
+			isBeingPushedBack = false;
+	}
 }

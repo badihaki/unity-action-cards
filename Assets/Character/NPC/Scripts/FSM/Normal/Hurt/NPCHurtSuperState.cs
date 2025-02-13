@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class NPCHurtSuperState : NPCState
 {
+	[SerializeField]
+	protected bool isBeingPushedBack = false;
+	public override void LogicUpdate()
+	{
+		base.LogicUpdate();
+	}
 	public override void PhysicsUpdate()
 	{
 		base.PhysicsUpdate();
 
-		_NPC._MoveController.GetPushedBack(Vector3.zero);
+		if (isBeingPushedBack)
+			_NPC._MoveController.GetPushedBack(Vector3.zero);
 	}
 
 	public override void EnterState()
@@ -16,6 +23,7 @@ public class NPCHurtSuperState : NPCState
 		base.EnterState();
 
         _NPC._MoveController.SetAgentUpdates(false);
+		isBeingPushedBack = true;
 	}
 
 	public override void ExitState()
@@ -24,6 +32,7 @@ public class NPCHurtSuperState : NPCState
 
         _NPC._MoveController.SetExternalForces(_NPC.transform, 0.0f, 0.0f);
 		_NPC._MoveController.ResetPushback();
+		isBeingPushedBack = false;
 		_NPC._MoveController.SetAgentUpdates(true);
 	}
 

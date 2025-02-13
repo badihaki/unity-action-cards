@@ -94,15 +94,8 @@ public class NPCMovementController : MonoBehaviour
 			knockBackForce = pushBackForce;
 			knockBackDir = knockBackSource - _NPC._NPCActor.transform.position;
 			knockBackDir = -knockBackDir.normalized;
-			if (!isLaunched)
-			{
-				knockBackDir.y = 1;
-			}
-			else
-			{
-				if (knockBackDir.y < 0)
-					knockBackDir.y *= -1;
-			}
+			if (knockBackDir.y < 0)
+				knockBackDir.y *= -1;
 		}
 		_CharacterController.Move(knockBackDir * knockBackForce);
 	}
