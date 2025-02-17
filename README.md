@@ -28,6 +28,11 @@ Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack
 Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
 
 ## Updates
+### 2-14-2025
+I got aggressive NPCs working! NPCs using the Stalking Idle state will poll the eyesight component every (random)few seconds in order to determine what they can see, and any Character class-derived component gets compared to see if it's a friend or a valid target. If it's a valid target, I use the Aggression Manager class's Add Aggression function to make it instantly aggressive towards it. That leads it into the combat loop.
+
+I created the Character Group classes.
+
 ### 2-11-2025
 We are still working on always-aggressive NPCs, but I have a stalking-idle state for that. Just need to poll eyesight for stuff the entity can attack. Speaking of NPCs and attacks, there's a new Damage class and a new NPC State Library class.
 

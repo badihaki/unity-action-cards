@@ -25,7 +25,17 @@ public class NPCActor : Actor, ITargetable, IAggressable
             print(">>>>>> Subscribed to entity is damaged event");
     }
 
-    public override void StateAnimationFinished()
+	private void OnEnable()
+	{
+        if (_AggressionManager != null)
+		EntityIsDamaged += _AggressionManager.AddAggression;
+	}
+	private void OnDisable()
+	{
+		EntityIsDamaged -= _AggressionManager.AddAggression;
+	}
+
+	public override void StateAnimationFinished()
     {
         base.StateAnimationFinished();
 
