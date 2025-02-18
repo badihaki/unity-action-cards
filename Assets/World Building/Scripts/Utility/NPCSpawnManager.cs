@@ -46,14 +46,13 @@ public class NPCSpawnManager : MonoBehaviour
 	private void SpawnNewNPC()
 	{
 		//NonPlayerCharacter activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
-		GameObject pooledNpc = ObjectPoolManager.GetObjectFromPool(npc.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
-		NonPlayerCharacter activeNpc = pooledNpc.GetComponent<NonPlayerCharacter>();
 		int spawnIndex = Random.Range(0, spawnableCharacters.Count);
+		GameObject pooledNpc = ObjectPoolManager.GetObjectFromPool(npc.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Character, spawnableCharacters[spawnIndex]._CharacterName);
+		NonPlayerCharacter activeNpc = pooledNpc.GetComponent<NonPlayerCharacter>();
 		if (GameManagerMaster.GameMaster.GMSettings.devMode)
 			print($"spawn index is {spawnIndex}");
 		activeNpc.BuildAndInitialize(spawnableCharacters[spawnIndex]);
 		activeNpc._Actor.onDeath += OnNpcDeath;
-		//activeNpc._Actor.onDeath -= OnNpcDeath;
 		currentNpcCount++;
 	}
 

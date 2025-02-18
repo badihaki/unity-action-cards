@@ -11,18 +11,6 @@ public class CharacterRepelSpace : MonoBehaviour
 	private WaitForSeconds repelWait = new WaitForSeconds(0.257f);
 
 
-	//public void Initialize(Character newChar)
-	//{
-	//	character = newChar;
-
-	//	character._Actor.onDeath += CleanUp;
-	//}
-	//private void Start()
-	//{
-	//	character = GetComponentInParent<Character>();
-	//	character._Actor.onDeath += CleanUp;
-	//}
-
 	public void Initialize(Character _character)
 	{
 		character = _character;

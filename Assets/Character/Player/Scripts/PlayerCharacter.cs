@@ -161,7 +161,7 @@ public class PlayerCharacter : Character, IDestroyable
         _StateMachine.InitializeStateMachine(this);
     }
 
-    public override void DestroyEntity()
+    public void DestroyEntity()
     {
         print("Player death");
     }

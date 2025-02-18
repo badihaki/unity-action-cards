@@ -115,7 +115,6 @@ public class Actor : MonoBehaviour
 
     public virtual void Die()
     {
-        if (onDeath != null)
-            onDeath();
-    }
+		onDeath?.Invoke();
+	}
 }

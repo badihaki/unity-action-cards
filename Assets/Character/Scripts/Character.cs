@@ -74,13 +74,6 @@ public class Character : MonoBehaviour
     {
     }
 
-    public virtual void DestroyEntity()
-    {
-        print("goodbye, " + name);
-        //Destroy(gameObject);
-        ObjectPoolManager.ReturnObjectToPool(this.gameObject);
-    }
-
     public virtual void AddToExternalForce(Vector3 force)
     {
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)

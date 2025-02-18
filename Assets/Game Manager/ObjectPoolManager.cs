@@ -17,7 +17,7 @@ public class ObjectPoolManager : MonoBehaviour
 	}
 	public static PoolFolder IntendedPoolFolder;
 
-	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, PoolFolder poolFolder = PoolFolder.None)
+	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, PoolFolder poolFolder = PoolFolder.None) // regulr
 	{
 		PooledObjectInfo pool = ObjectPools.Find(pool => pool.LookupString == objToSpwn.name);
 		// if the pool doesnt exist
@@ -38,7 +38,7 @@ public class ObjectPoolManager : MonoBehaviour
 
 		return spawnableObject;
 	}
-	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, Transform parentTransform, PoolFolder poolFolder = PoolFolder.None)
+	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, Transform parentTransform, PoolFolder poolFolder = PoolFolder.None) // with parent
 	{
 		PooledObjectInfo pool = ObjectPools.Find(pool => pool.LookupString == objToSpwn.name);
 		// if the pool doesnt exist
@@ -57,6 +57,27 @@ public class ObjectPoolManager : MonoBehaviour
 			SpawnObjectInWorld(spwnPos, spwnRot, pool, spawnableObject);
 		}
 		spawnableObject.transform.SetParent(parentTransform);
+		return spawnableObject;
+	}
+	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, PoolFolder poolFolder = PoolFolder.None, string desiredName = "") // with a new name
+	{
+		PooledObjectInfo pool = ObjectPools.Find(pool => pool.LookupString == objToSpwn.name);
+		// if the pool doesnt exist
+		if (pool == null)
+			pool = CreateNewObjPool(objToSpwn, desiredName);
+
+		// check if there are any inactive objects
+		GameObject spawnableObject = pool.InactiveObjects.FirstOrDefault();
+
+		if (spawnableObject == null) // we make a new one
+		{
+			spawnableObject = CreateNewObject(objToSpwn, spwnPos, spwnRot, poolFolder, desiredName);
+		}
+		else // we reset its pos/rot, remove it from the list, set active to true
+		{
+			SpawnObjectInWorld(spwnPos, spwnRot, pool, spawnableObject);
+		}
+
 		return spawnableObject;
 	}
 
@@ -95,11 +116,30 @@ public class ObjectPoolManager : MonoBehaviour
 		} // /
 		return spawnableObject;
 	}
+	private static GameObject CreateNewObject(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, PoolFolder poolFolder, string newName) // with a new name
+	{
+		GameObject spawnableObject = Instantiate(objToSpwn, spwnPos, spwnRot);
+		spawnableObject.name = newName;
+		// set the parent
+		Transform parentObj = SetParentObject(poolFolder);
+		if (parentObj != null)
+		{
+			spawnableObject.transform.SetParent(parentObj);
+		} // /
+		return spawnableObject;
+	}
 
 	private static PooledObjectInfo CreateNewObjPool(GameObject objToSpwn)
 	{
 		// setup a new pool
 		PooledObjectInfo pool = new PooledObjectInfo() { LookupString = objToSpwn.name };
+		ObjectPools.Add(pool);
+		return pool;
+	}
+	private static PooledObjectInfo CreateNewObjPool(GameObject objToSpwn, string customName) // with a specified name
+	{
+		// setup a new pool
+		PooledObjectInfo pool = new PooledObjectInfo() { LookupString = customName };
 		ObjectPools.Add(pool);
 		return pool;
 	}

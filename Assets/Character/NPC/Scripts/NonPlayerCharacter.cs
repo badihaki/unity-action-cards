@@ -22,11 +22,8 @@ public class NonPlayerCharacter : Character, IDestroyable
 		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.GetCharactersFolder(), true);
 		_CharacterSheet = characterSheet;
         _NPCharacterSheet = _CharacterSheet as NPCSheetScriptableObj;
-        name = _CharacterSheet._CharacterName;
-        //GameObject cloneActor = Instantiate(characterSheet.Actor, transform);
+        //name = _CharacterSheet._CharacterName;
         GameObject cloneActor = ObjectPoolManager.GetObjectFromPool(characterSheet.Actor, transform.position, transform.rotation, transform);
-		//cloneActor.transform.SetParent(transform);
-		//cloneActor.transform.parent = transform;
         cloneActor.name = "Actor";
         Initialize();
     }
@@ -80,11 +77,11 @@ public class NonPlayerCharacter : Character, IDestroyable
         hitAnimationString = "";
     }
 
-	public override void DestroyEntity()
+	public void DestroyEntity()
 	{
         
         _Actor.Die();
-		base.DestroyEntity();
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
 	}
 
 	public override void AddToExternalForce(Vector3 force)
