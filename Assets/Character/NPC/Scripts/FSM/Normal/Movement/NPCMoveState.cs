@@ -19,12 +19,15 @@ public class NPCMoveState : NPCState
 	}
 
 	public override void CheckStateTransitions()
-    {
-        base.CheckStateTransitions();
-		if(Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
+	{
+		base.CheckStateTransitions();
+		if (_NPC._NavigationController._CurrentNavNode != null)
+		{
+			if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
 
 			{
-			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+			}
 		}
     }
 
@@ -32,7 +35,8 @@ public class NPCMoveState : NPCState
 	{
 		base.PhysicsUpdate();
         _NPC._MoveController.MoveToCurrentNavNode();
-		_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._CurrentNavNode.transform);
+		if (_NPC._NavigationController._CurrentNavNode != null)
+			_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._CurrentNavNode.transform);
 		// if aggressive
 		if (_NPC._NPCActor._AggressionManager.isAggressive)
 		{

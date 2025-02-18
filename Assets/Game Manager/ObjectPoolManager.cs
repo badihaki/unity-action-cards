@@ -89,7 +89,6 @@ public class ObjectPoolManager : MonoBehaviour
 		spawnableObject.name = objectName;
 		// set the parent
 		Transform parentObj = SetParentObject(poolFolder);
-		print($">> Object Pool :: got parent folder{parentObj == true}");
 		if (parentObj != null)
 		{
 			spawnableObject.transform.SetParent(parentObj);
@@ -99,7 +98,6 @@ public class ObjectPoolManager : MonoBehaviour
 
 	private static PooledObjectInfo CreateNewObjPool(GameObject objToSpwn)
 	{
-		print($">> Object Pool :: Creating a new object pool || object name = {objToSpwn.name}");
 		// setup a new pool
 		PooledObjectInfo pool = new PooledObjectInfo() { LookupString = objToSpwn.name };
 		ObjectPools.Add(pool);
@@ -117,10 +115,8 @@ public class ObjectPoolManager : MonoBehaviour
 			case PoolFolder.Particle:
 				return GameManagerMaster.GameMaster.GeneralConstantVariables.GetParticlesFolder();
 			case PoolFolder.None:
-				print(">> Object Pool :: No Folder");
 				return null;
 			default:
-				print(">> Object Pool :: No Folder but its default");
 				return null;
 		}
 	}

@@ -65,10 +65,9 @@ public class NPCActor : Actor, ITargetable, IAggressable
 
     public Transform GetTargetable() => transform;
 
-	//public override void Damage(int damage, Transform damageSource, bool knockback = false, bool launched = false, Character damageSourceController = null)
 	public override void TakeDamage(Damage dmgObj)
 	{
-        //EntityIsDamaged(CalculateAggression(damage, knockback, launched), damageSource);
+        print(dmgObj.ToString());
         EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageSource);
         base.TakeDamage(dmgObj);
 	}
