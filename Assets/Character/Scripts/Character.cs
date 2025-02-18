@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Character : MonoBehaviour
 {
@@ -59,7 +60,10 @@ public class Character : MonoBehaviour
 
         _SoundManager = GetComponent<CharacterSoundManager>();
         _SoundManager.InitializeSoundManager(this);
-    }
+
+		CharacterRepelSpace characterRepelSpace = GetComponentInChildren<CharacterRepelSpace>();
+		characterRepelSpace.Initialize(this);
+	}
     // Update is called once per frame
     void Update()
     {
@@ -73,7 +77,8 @@ public class Character : MonoBehaviour
     public virtual void DestroyEntity()
     {
         print("goodbye, " + name);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        ObjectPoolManager.ReturnObjectToPool(this.gameObject);
     }
 
     public virtual void AddToExternalForce(Vector3 force)

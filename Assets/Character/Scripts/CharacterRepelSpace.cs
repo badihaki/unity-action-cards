@@ -17,9 +17,15 @@ public class CharacterRepelSpace : MonoBehaviour
 
 	//	character._Actor.onDeath += CleanUp;
 	//}
-	private void Start()
+	//private void Start()
+	//{
+	//	character = GetComponentInParent<Character>();
+	//	character._Actor.onDeath += CleanUp;
+	//}
+
+	public void Initialize(Character _character)
 	{
-		character = GetComponentInParent<Character>();
+		character = _character;
 		character._Actor.onDeath += CleanUp;
 	}
 

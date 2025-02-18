@@ -73,14 +73,20 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(_lifetime);
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
 
     protected virtual void OnImpact(bool withVfx)
     {
-        if (withVfx) Instantiate(_impactVFX, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
+        if (withVfx)
+        {
+            //Instantiate(_impactVFX, transform.position, Quaternion.identity);
+            GameObject effect = ObjectPoolManager.GetObjectFromPool(_impactVFX, transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Particle);
+		}
+		//Destroy(gameObject);
+		ObjectPoolManager.ReturnObjectToPool(gameObject);
+	}
 
     // end
 }

@@ -35,7 +35,9 @@ public class CombatRoomManager : MonoBehaviour
 
 	private void SpawnNewNPC()
 	{
-		NonPlayerCharacter activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
+		//NonPlayerCharacter activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
+		GameObject pooledNpc = ObjectPoolManager.GetObjectFromPool(npc.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
+		NonPlayerCharacter activeNpc = pooledNpc.GetComponent<NonPlayerCharacter>();
 		int spawnIndex = Random.Range(0, spawnableCharacters.Count);
 		if (GameManagerMaster.GameMaster.GMSettings.devMode)
 			print($"spawn index is {spawnIndex}");

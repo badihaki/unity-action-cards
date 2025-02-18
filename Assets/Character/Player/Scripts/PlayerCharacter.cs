@@ -150,7 +150,7 @@ public class PlayerCharacter : Character, IDestroyable
             bottom.sharedMesh = parts.fBottomsDatabase[saveData.BottomIndex].mesh;
             bottom.material = parts.fBottomsDatabase[saveData.BottomIndex].material;
         }
-        _PlayerActor.name = "Actor";
+        //_PlayerActor.name = "Actor";
     }
 
     private void InitializeStateMachine()

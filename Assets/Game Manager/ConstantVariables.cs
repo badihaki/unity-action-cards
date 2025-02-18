@@ -15,7 +15,11 @@ public class ConstantVariables : MonoBehaviour
 		if (CharactersFolder != null)
 			return CharactersFolder;
 		else
-			return CreateNewFolder("Characters");
+		{
+			Transform folder = CreateNewFolder("Characters");
+			CharactersFolder = folder;
+			return folder;
+		}
 	}
 
 	[field: SerializeField, Tooltip("This transform is a gameobject that holds all the projectiles in the game, and if there is no folder it will make it.")]
@@ -25,7 +29,11 @@ public class ConstantVariables : MonoBehaviour
 		if (ProjectilesFolder != null)
 			return ProjectilesFolder;
 		else
-			return CreateNewFolder("Projectiles");
+		{
+			Transform folder = CreateNewFolder("Projectiles");
+			ProjectilesFolder = folder;
+			return folder;
+		}
 	}
 
 	[field: SerializeField, Tooltip("This transform is a gameobject that holds all the particles in the game, and if there is no folder it will make it.")]
@@ -35,7 +43,11 @@ public class ConstantVariables : MonoBehaviour
 		if (ParticlesFolder != null)
 			return ParticlesFolder;
 		else
-			return CreateNewFolder("Particles");
+		{
+			Transform folder = CreateNewFolder("Particles");
+			ParticlesFolder = folder;
+			return folder;
+		}
 	}
 
 	private Transform CreateNewFolder(string folderName)

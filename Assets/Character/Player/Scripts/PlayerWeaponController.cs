@@ -111,7 +111,8 @@ public class PlayerWeaponController : MonoBehaviour
 
 	public void PlayWeaponVFX()
 	{
-		GameObject vfx = Instantiate(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity);
+		//GameObject vfx = Instantiate(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity);
+		GameObject vfx = ObjectPoolManager.GetObjectFromPool(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Particle);
 		//Vector3 rotation = player._Actor.transform.forward;
 		Quaternion rotation = player._Actor.transform.rotation;
 		vfx.transform.rotation = rotation;

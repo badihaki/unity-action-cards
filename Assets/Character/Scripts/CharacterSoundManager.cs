@@ -17,7 +17,7 @@ public class CharacterSoundManager : MonoBehaviour
     }
     private void OnDisable()
     {
-        _Character._Health.OnHit -= PlayHurtClip;
+		if (_Character != null) _Character._Health.OnHit -= PlayHurtClip;
     }
 
     public void InitializeSoundManager(Character character)

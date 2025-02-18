@@ -55,13 +55,11 @@ public class CharacterEyesight : MonoBehaviour
 	{
 		if(targetIndex>0)
 		{
-			print($"EYESIGT :: >> trying to see {_NoticeableEntitiesInView[targetIndex].name}");
 			Vector3 rayDir = _NoticeableEntitiesInView[targetIndex].position - transform.parent.position;
 			float rayDist = 18.5f;
 			Ray ray = new Ray(transform.position, rayDir);
 			if (Physics.Raycast(ray, out RaycastHit hitInfo, rayDist))
 			{
-				print($"got to {hitInfo.point} EYESIGHT");
 				if(hitInfo.point == _NoticeableEntitiesInView[targetIndex].position)
 				{
 					print($"bingo!!!! can see the target!!!!! {_NoticeableEntitiesInView[targetIndex].name}");

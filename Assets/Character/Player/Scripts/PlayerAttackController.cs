@@ -167,7 +167,8 @@ public class PlayerAttackController : CharacterAttackController
 	{
 		base.PlayHitSpark(hitPos);
 
-        Instantiate(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity);
+        //Instantiate(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity);
+		GameObject effect = ObjectPoolManager.GetObjectFromPool(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity, ObjectPoolManager.PoolFolder.Particle);
 	}
 
 	// end

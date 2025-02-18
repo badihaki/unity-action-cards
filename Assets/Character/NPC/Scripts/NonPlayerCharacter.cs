@@ -19,11 +19,14 @@ public class NonPlayerCharacter : Character, IDestroyable
     
     public virtual void BuildAndInitialize(NPCSheetScriptableObj characterSheet)
     {
-		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.CharactersFolder(), true);
+		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.GetCharactersFolder(), true);
 		_CharacterSheet = characterSheet;
         _NPCharacterSheet = _CharacterSheet as NPCSheetScriptableObj;
         name = _CharacterSheet._CharacterName;
-        GameObject cloneActor = Instantiate(characterSheet.Actor, transform);
+        //GameObject cloneActor = Instantiate(characterSheet.Actor, transform);
+        GameObject cloneActor = ObjectPoolManager.GetObjectFromPool(characterSheet.Actor, transform.position, transform.rotation, transform);
+		//cloneActor.transform.SetParent(transform);
+		//cloneActor.transform.parent = transform;
         cloneActor.name = "Actor";
         Initialize();
     }

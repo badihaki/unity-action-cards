@@ -11,6 +11,7 @@ public class PlayerSpellslingingSuperState : PlayerState
 	public int spellSelectDirection { get; protected set; }
 	public bool spellslingInput { get; private set; }
 	public Vector2 aimInput { get; private set; }
+    private Vector3 target;
 
 
 	public override void EnterState()
@@ -27,13 +28,16 @@ public class PlayerSpellslingingSuperState : PlayerState
         
         spellSelectDirection = 0;
         _PlayerCharacter._Controls.ResetSelectSpell();
-    }
+
+        _PlayerCharacter._MoveController.RotateInstantly(aimInput);
+		target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
+	}
 
 	public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        Vector3 target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
+         target = _PlayerCharacter._PlayerSpells.GetIntendedTarget();
 
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
         _PlayerCharacter._PlayerUIController.UpdateCrosshairPos(target);

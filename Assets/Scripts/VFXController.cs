@@ -15,6 +15,7 @@ public class VFXController : MonoBehaviour
     IEnumerator Death()
     {
         yield return new WaitForSeconds(lifetime);
-        Destroy(gameObject);
-    }
+        //Destroy(gameObject);
+		ObjectPoolManager.ReturnObjectToPool(gameObject);
+	}
 }

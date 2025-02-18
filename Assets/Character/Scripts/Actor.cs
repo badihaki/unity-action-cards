@@ -91,7 +91,8 @@ public class Actor : MonoBehaviour
 	{
 		if (bloodFX != null)
 		{
-			GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
+			//GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
+			GameObject blood = ObjectPoolManager.GetObjectFromPool(bloodFX, hitFxOrigin.position, rotation, ObjectPoolManager.PoolFolder.Particle);
 			blood.transform.rotation = hitFxOrigin.rotation;
 		}
 	}

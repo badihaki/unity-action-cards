@@ -21,6 +21,15 @@ public class MinionCardScriptableObj : CardScriptableObj
             return;
         }
 
-        Instantiate(_MinionActor, spawnPosition, Quaternion.identity);
-    }
+        //Instantiate(_MinionActor, spawnPosition, Quaternion.identity);
+        GameObject minion = ObjectPoolManager.GetObjectFromPool(_MinionActor, spawnPosition, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
+		SetupMinion(controllingCharacter, minion);
+	}
+
+	private void SetupMinion(Character controllingCharacter, GameObject minion)
+	{
+		throw new System.NotImplementedException();
+	}
+
+	// end of the class
 }
