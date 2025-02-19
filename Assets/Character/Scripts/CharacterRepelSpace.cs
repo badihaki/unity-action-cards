@@ -55,7 +55,7 @@ public class CharacterRepelSpace : MonoBehaviour
 			//else
 			//	force.x = 0.1f;
 			//character.AddToExternalForce(force);
-			character.PushBackCharacter(transform.position, 0.2f);
+			character.PushBackCharacter(transform.position, 0.5f);
 		});
 	}
 
