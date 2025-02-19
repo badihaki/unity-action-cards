@@ -19,7 +19,7 @@ public class NPCIdleState : NPCState
         base.EnterState();
 
         if (waitTime <= 0)
-            RandomlySetWaitTime(2.5f, 7.0f);
+            RandomlySetWaitTime(1.75f, 2.250f);
         _NPC._MoveController.ZeroOutMovement();
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
 	}

@@ -67,7 +67,6 @@ public class NPCActor : Actor, ITargetable, IAggressable
 
 	public override void TakeDamage(Damage dmgObj)
 	{
-        print(dmgObj.ToString());
         EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageSource);
         base.TakeDamage(dmgObj);
 	}
@@ -76,19 +75,12 @@ public class NPCActor : Actor, ITargetable, IAggressable
 	private int CalculateAggression(int damage, responsesToDamage dmgResponse)
 	{
 		float aggressionCalculation = damage * Mathf.Sqrt(100 - _AggressionManager._Aggression);
-		//print($"first calculation = {aggressionCalculation}");
-
-        //if (knockForce < launchForce)
-        //    aggressionCalculation *= (float)Math.Sqrt(knockForce * launchForce);
-        //else
-        //    aggressionCalculation *= (float)Math.Sqrt(launchForce * knockForce);
-		//print($"aggr calculation w/ knock * (health * launch) = {aggressionCalculation}");
+		
         if(dmgResponse == responsesToDamage.knockBack || dmgResponse == responsesToDamage.launch)
         {
             aggressionCalculation = 100.0f;
         }
 		int aggression = (int)Math.Ceiling(aggressionCalculation);
-		//print($"final aggression = {aggression}");
 		return aggression;
 	}
 

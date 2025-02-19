@@ -16765,6 +16765,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: spawnableCharacters.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: 'spawnableCharacters.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 95357d2f90b4e204b9288516c72bce8d,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16912,6 +16923,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: spawnTimerThreshold
+      value: 8.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: spawnableCharacters.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: 'spawnableCharacters.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7173758fea64491418a2f017b0c88416,
+        type: 2}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: 'spawnableCharacters.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

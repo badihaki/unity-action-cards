@@ -21,6 +21,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 	{
 		//print("damagin from hurtbox");
         character._Actor.TakeDamage(dmgObj);
+        DetermineWhoWhurtMe(dmgObj.damageSource);
     }
 
     public Transform GetControllingEntity()

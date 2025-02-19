@@ -13,18 +13,10 @@ public class NPCEnemyStalkingIdleState : NPCIdleState
 	{
 		base.InitState(npc, stateMachine, animationName);
 		lookForTargetsTimer = GameManagerMaster.GameMaster.Dice.RollD4();
-	}
-
-	public override void EnterState()
-	{
-		base.EnterState();
-
 		minimumWait = 1.0f;
 		minimumWaitMax = 2.0f;
 		maximumWaitMin = 2.2f;
 		maximumWait = 12.0f;
-
-		
 	}
 
 	public override void LogicUpdate()

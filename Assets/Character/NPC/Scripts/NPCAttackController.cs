@@ -6,7 +6,7 @@ public class NPCAttackController : CharacterAttackController
     private NonPlayerCharacter _NPC;
 
     [SerializeField] private bool _AttackTicket;
-    [field: SerializeField, Header("Attacking Target")]
+    [field: SerializeField, Header("Attacking this Target")]
     public Transform _ActiveTarget { get; private set; }
     
     [field: SerializeField, Header("Distances")]
@@ -35,7 +35,14 @@ public class NPCAttackController : CharacterAttackController
 
     public void SetNewTargetEnemy(Transform aggressor)
     {
-        _ActiveTarget = aggressor;
+        if(_ActiveTarget == null)
+            _ActiveTarget = aggressor;
+        else
+        {
+            int result = GameManagerMaster.GameMaster.Dice.RollD10();
+            if (result >= 4)
+                _ActiveTarget = aggressor;
+        }
     }
 
     public float GetDistanceFromTarget()
