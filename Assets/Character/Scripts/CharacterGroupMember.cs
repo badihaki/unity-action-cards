@@ -6,15 +6,12 @@ public class CharacterGroupMember : MonoBehaviour
     private NonPlayerCharacter npc;
     [field: SerializeField]
 	public CharacterGroupLeader _GroupLeader { get; private set; }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    public void Initialize(CharacterGroupLeader Leader)
     {
         npc = GetComponent<NonPlayerCharacter>();
+        _GroupLeader = Leader;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // end of the line
 }

@@ -17,6 +17,14 @@ public class ObjectPoolManager : MonoBehaviour
 	}
 	public static PoolFolder IntendedPoolFolder;
 
+	/// <summary>
+	/// This is the regular way to spawn an object using object pooling
+	/// </summary>
+	/// <param name="objToSpwn">What ~GameObject~ are you spawning</param>
+	/// <param name="spwnPos">The object's position</param>
+	/// <param name="spwnRot">The object's rotation</param>
+	/// <param name="poolFolder">Sorting option, choose an option from the enum</param>
+	/// <returns></returns>
 	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, PoolFolder poolFolder = PoolFolder.None) // regulr
 	{
 		PooledObjectInfo pool = ObjectPools.Find(pool => pool.LookupString == objToSpwn.name);
@@ -38,6 +46,15 @@ public class ObjectPoolManager : MonoBehaviour
 
 		return spawnableObject;
 	}
+	/// <summary>
+	/// This adds a parent option
+	/// </summary>
+	/// <param name="objToSpwn">What ~GameObject~ are you spawning</param>
+	/// <param name="spwnPos">The object's position</param>
+	/// <param name="spwnRot">The object's rotation</param>
+	/// <param name="parentTransform">The parent of this object</param>
+	/// <param name="poolFolder">Sorting option, choose an option from the enum</param>
+	/// <returns></returns>
 	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, Transform parentTransform, PoolFolder poolFolder = PoolFolder.None) // with parent
 	{
 		PooledObjectInfo pool = ObjectPools.Find(pool => pool.LookupString == objToSpwn.name);
@@ -59,6 +76,14 @@ public class ObjectPoolManager : MonoBehaviour
 		spawnableObject.transform.SetParent(parentTransform);
 		return spawnableObject;
 	}
+	/// <summary>
+	/// Gives a new name, and makes sure its added to the pool as that name
+	/// </summary>
+	/// <param name="objToSpwn">What ~GameObject~ are you spawning</param>
+	/// <param name="spwnPos">The object's position</param>
+	/// <param name="spwnRot">The object's rotation</param>
+	/// <param name="desiredName">The true name of this object</param>
+	/// <param name="poolFolder">Sorting option, choose an option from the enum</param>
 	public static GameObject GetObjectFromPool(GameObject objToSpwn, Vector3 spwnPos, Quaternion spwnRot, PoolFolder poolFolder = PoolFolder.None, string desiredName = "") // with a new name
 	{
 		PooledObjectInfo pool = ObjectPools.Find(pool => pool.LookupString == objToSpwn.name);

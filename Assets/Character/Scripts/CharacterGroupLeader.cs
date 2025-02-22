@@ -1,22 +1,31 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterGroupLeader : MonoBehaviour
 {
-    [field: Header("The group members"), SerializeField]
-    private Character character;
+    [field: Header("The controlling character"), SerializeField]
+    private Character _Character;
 	[field: Header("The group members"), SerializeField]
     public List<CharacterGroupMember> _GroupMembers { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        character = GetComponent<Character>();
+        _Character = GetComponent<Character>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddCharacterToGroup(Character character)
     {
-        
+        // add a group member class to the character
+        character.TryGetComponent<CharacterGroupMember>(out CharacterGroupMember newGroupMember);
+        if (newGroupMember == null)
+        {
+            newGroupMember = character.AddComponent<CharacterGroupMember>();
+        }
+        // set the character's group leader to this character
+        newGroupMember.Initialize(this);
     }
+
+    // end
 }

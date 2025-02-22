@@ -2949,6 +2949,16 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3137339615451667405, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: maxSummonDistance
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3137339615451667405, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: minSummonDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3669127000698969702, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_AnchorMax.x
