@@ -94,5 +94,23 @@ public class NPCAggressionManager : MonoBehaviour
         }
     }
 
-    //
+	public bool CheckIfValidEnemy(Character character)
+	{
+		Actor charActor = character._Actor;
+		if (character is PlayerCharacter)
+		{
+            //AddAggression(100, charActor.transform);
+            return true;
+		}
+		else
+		{
+			if (!_NPC._TypesManager.SharesTypeWith(character as NonPlayerCharacter))
+			{
+                //AddAggression(100, charActor.transform);
+                return true;
+			}
+		}
+        return false;
+	}
+	//
 }

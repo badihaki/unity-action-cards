@@ -10,6 +10,7 @@ public class NonPlayerCharacter : Character, IDestroyable
     [field: SerializeField] public NPCMoveSet _MoveSet { get; private set; }
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
     [field: SerializeField] public CharacterEyesight _EyeSight { get; protected set; }
+	[field: SerializeField] public NPCTypesManager _TypesManager { get; protected set; }
 
 
 	// State Machine
@@ -22,6 +23,8 @@ public class NonPlayerCharacter : Character, IDestroyable
 		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.GetCharactersFolder(), true);
 		_CharacterSheet = characterSheet;
         _NPCharacterSheet = _CharacterSheet as NPCSheetScriptableObj;
+        _TypesManager = GetComponent<NPCTypesManager>();
+        _TypesManager.Initialize(_NPCharacterSheet);
         //name = _CharacterSheet._CharacterName;
         GameObject cloneActor = ObjectPoolManager.GetObjectFromPool(characterSheet.Actor, transform.position, transform.rotation, transform);
         cloneActor.name = "Actor";

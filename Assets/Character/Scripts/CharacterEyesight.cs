@@ -5,10 +5,12 @@ public class CharacterEyesight : MonoBehaviour
 {
 	[field:SerializeField]
 	public List<Transform> _NoticeableEntitiesInView { get; private set; }
+	private NonPlayerCharacter _NPC;
 
 	private void Start()
 	{
-		//_NoticeableEntitiesInView = new List<Transform>();
+		_NoticeableEntitiesInView = new List<Transform>();
+		_NPC = GetComponentInParent<NonPlayerCharacter>();
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -77,4 +79,21 @@ public class CharacterEyesight : MonoBehaviour
 			return true;
 		return false;
 	}
+
+	public void LookForTargets()
+	{
+		if (_NoticeableEntitiesInView.Count > 0)
+		{
+			foreach (var entity in _NoticeableEntitiesInView)
+			{
+				Character possibleCharacter = entity.GetComponentInParent<Character>();
+				if (possibleCharacter != null && _NPC._NPCActor._AggressionManager.CheckIfValidEnemy(possibleCharacter) == true)
+				{
+					_NPC._NPCActor._AggressionManager.AddAggression(100, possibleCharacter._Actor.transform);
+				}
+			}
+		}
+	}
+
+	// end
 }

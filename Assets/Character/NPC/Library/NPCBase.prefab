@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 455657816430404285}
   - component: {fileID: 6753683996963061221}
   - component: {fileID: 6470356879736681909}
+  - component: {fileID: 1500347415295123266}
   m_Layer: 0
   m_Name: NPCBase
   m_TagString: Untagged
@@ -171,6 +172,7 @@ MonoBehaviour:
   <_MoveSet>k__BackingField: {fileID: 0}
   <_UI>k__BackingField: {fileID: 0}
   <_EyeSight>k__BackingField: {fileID: 0}
+  <_TypesManager>k__BackingField: {fileID: 0}
   hitAnimationString: 
 --- !u!114 &8458274122206909391
 MonoBehaviour:
@@ -340,8 +342,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <attackActions>k__BackingField: []
-  <loadedAttackActions>k__BackingField: []
+  <loadedAttacks>k__BackingField: []
   <attackIndex>k__BackingField: 0
+--- !u!114 &1500347415295123266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797102457050523090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d280a6079ab85a24598eeea020085400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4551127519303163791
 GameObject:
   m_ObjectHideFlags: 0
