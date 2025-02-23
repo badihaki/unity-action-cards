@@ -36,8 +36,6 @@ public class NPCMoveSet : MonoBehaviour
 	{
 		if (attackActions.Count == 1)
 		{
-			if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
-				print("setting random atk index to 0, only 1 attack loaded");
 			attackIndex = 0;
 			return;
 		}
@@ -52,8 +50,6 @@ public class NPCMoveSet : MonoBehaviour
 				if (nextAttacks.Count == 1)
 				{
 					newAttackIndex = loadedAttacks.IndexOf(loadedAttacks.Find(attack => attack == nextAttacks[0]));
-					if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
-						print($"there's only one other attack so we're going with the next attack with index of {newAttackIndex}");
 					attackIndex = newAttackIndex;
 					return;
 				}
@@ -61,12 +57,9 @@ public class NPCMoveSet : MonoBehaviour
 				{
 					newAttackIndex = Random.Range(0, nextAttacks.Count - 1);
 					attackIndex = loadedAttacks.IndexOf(loadedAttacks.Find(attack => attack == nextAttacks[newAttackIndex]));
-					if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
-						print($"setting random atk index to {attackIndex} from range of 0 to {(attackActions.Count-1).ToString()}");
 					return;
 				}
 			}
-			print($"New attack index is {newAttackIndex} and that's what we're going with");
 			attackIndex = newAttackIndex;
 			return;
 		}

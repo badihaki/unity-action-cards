@@ -626,6 +626,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCSpawn (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -679,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -703,6 +708,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 846188439}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &904162480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 904162482}
+  - component: {fileID: 904162481}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!135 &904162481
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904162480}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &904162482
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904162480}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.18, y: 7.96, z: 20.35}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &912374516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1134,6 +1192,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCSpawn (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1187,7 +1250,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1308,6 +1371,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCSpawn
       objectReference: {fileID: 0}
+    - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1361,7 +1429,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1586,6 +1654,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCSpawn (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1639,7 +1712,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -2844,6 +2917,47 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: <_Deck>k__BackingField.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[5]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1,
+        type: 2}
     - target: {fileID: 1038968632505537608, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2952,12 +3066,12 @@ PrefabInstance:
     - target: {fileID: 3137339615451667405, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: maxSummonDistance
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3137339615451667405, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: minSummonDistance
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3669127000698969702, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
@@ -3226,3 +3340,4 @@ SceneRoots:
   - {fileID: 672933842}
   - {fileID: 2832351299198644264}
   - {fileID: 1670274916}
+  - {fileID: 904162482}

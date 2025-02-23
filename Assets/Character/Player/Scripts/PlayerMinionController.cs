@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMinionController : CharacterGroupLeader
@@ -32,9 +33,15 @@ public class PlayerMinionController : CharacterGroupLeader
             loc.z += Random.Range(minSummonDistance, maxSummonDistance); // may wanna move in front of the camera later
             loc.y += 1;
             // now use spherecast to determine if there's a collider there
-            if (!Physics.SphereCast(loc, 1.0f, _Character._Actor.transform.forward, out RaycastHit hit))
+            print($"location chosen is {loc}");
+            Collider[] collisions = Physics.OverlapSphere(loc, 1);
+			foreach (var collision in collisions)
+			{
+                print(collision.name);
+			}
+			if (collisions.Length == 0)
             {
-                found = true;
+				found = true;
                 summonLocation = loc;
                 break;
             }
@@ -45,8 +52,13 @@ public class PlayerMinionController : CharacterGroupLeader
 
 	private void SummonMinion(NPCSheetScriptableObj minionTemplate)
     {
-        //Character newMinion = ObjectPoolManager.GetObjectFromPool(minionTemplate, spawnLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
-        NonPlayerCharacter minion = ObjectPoolManager.GetObjectFromPool(GameResources._Resources.npcTemplate, summonLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character).GetComponent<NonPlayerCharacter>();
+		//Character newMinion = ObjectPoolManager.GetObjectFromPool(minionTemplate, spawnLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
+		print($"where is the summon location?? {summonLocation}");
+        NonPlayerCharacter minion = ObjectPoolManager.GetObjectFromPool(GameManagerMaster.GameMaster.Resources.npcTemplate, summonLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character, minionTemplate._CharacterName).GetComponent<NonPlayerCharacter>();
+        print($"minion was made?? {minion == true}");
         minion.BuildAndInitialize(minionTemplate);
+        CharacterGroupMember groupMember = minion.AddComponent<CharacterGroupMember>();
+        groupMember.Initialize(this);
+        _GroupMembers.Add(groupMember);
     }
 }

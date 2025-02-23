@@ -210,12 +210,10 @@ public class NPCMovementController : MonoBehaviour
 		
 		if (force.z > 0)
 		{
-			print($"backwards force is {backForceVelocity}");
 			force.z *= backForceVelocity;
 		}
 		else
 		{
-			print(Time.deltaTime);
 			float newVerticalVel = _VerticalVelocity * Time.deltaTime;
 			force.z = backForceVelocity * _VerticalVelocity > 0 ? newVerticalVel : newVerticalVel * -1;
 		}

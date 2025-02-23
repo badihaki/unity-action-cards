@@ -8,8 +8,6 @@ public class MinionCardScriptableObj : CardScriptableObj
     [Header("Minion Specific Below")]
     [Tooltip("Minions will need a character sheet to initialize")]
     public NPCSheetScriptableObj _MinionCharacterSheet;
-    [Tooltip("The actor is the in-game representative of the minion. What the player sees")]
-    public GameObject _MinionActor;
 
     protected override void UseCardAbility(Character controllingCharacter)
     {

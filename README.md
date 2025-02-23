@@ -28,6 +28,21 @@ Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack
 Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
 
 ## Updates
+### 2-23-2025
+Summoning minions works in that it brings out a NPC character into the world.
+
+Initial Thoughts:
+- CharacterGroupLeader may want to derive from CharacterGroupMember so we can have some comparison methods ( bool IsPartOfGroup(CharacterGroupMember character) and stuff like that )
+- CharacterGroupLeader/CharacterGroupMember should work independantly, depending on if there are group members. Meaning, it should be running it's own logic on top of everything
+
+What is working:
+- NPCs can come into the world
+- NPCs have a CharacterGroupMember class on them when initializing, and are being added to the player's group members list.
+What isn't working:
+- NPCs can wander anywhere (once again, GroupLeader should work independantly of the other classes to control where the group members can go)
+- Can hit group members, whaaa!?!?!
+- Should probably have a way to determine if an entity is a part of the group, then attack if not.
+
 ### 2-14-2025
 I got aggressive NPCs working! NPCs using the Stalking Idle state will poll the eyesight component every (random)few seconds in order to determine what they can see, and any Character class-derived component gets compared to see if it's a friend or a valid target. If it's a valid target, I use the Aggression Manager class's Add Aggression function to make it instantly aggressive towards it. That leads it into the combat loop.
 
