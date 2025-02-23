@@ -11,7 +11,8 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerSpell _PlayerSpells { get; private set; }
     public PlayerWeaponController _WeaponController { get; private set; }
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
-    public PlayerUIController _PlayerUIController { get; private set; }
+    public PlayerUIController _UIController { get; private set; }
+    public PlayerMinionController _MinionController { get; private set; }
 
     // Actor Stuff
     [field:SerializeField, Header("~> Player Character <~")]
@@ -65,8 +66,11 @@ public class PlayerCharacter : Character, IDestroyable
         _WeaponController.Initialize(this);
 
 		// initialize UI dead last, dawg
-		_PlayerUIController = GetComponent<PlayerUIController>();
-        _PlayerUIController.InitializeUI(true, this);
+		_UIController = GetComponent<PlayerUIController>();
+        _UIController.InitializeUI(true, this);
+
+        _MinionController = GetComponent<PlayerMinionController>();
+
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print("finish setup");
     }

@@ -31,7 +31,7 @@ public class PlayerInAirSuperState : PlayerState
 
         if (spellSelectDirection != 0)
         {
-            _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
+            _PlayerCharacter._UIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }

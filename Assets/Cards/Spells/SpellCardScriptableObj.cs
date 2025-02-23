@@ -41,7 +41,7 @@ public class SpellCardScriptableObj : CardScriptableObj
         if (controllingCharacter.GetComponent<PlayerCharacter>() != null)
         {
             PlayerCharacter player = controllingCharacter.GetComponent<PlayerCharacter>();
-            player._PlayerUIController.AddSpellToUI(this);
+            player._UIController.AddSpellToUI(this);
         }
     }
 }

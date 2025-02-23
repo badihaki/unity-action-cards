@@ -46,7 +46,7 @@ public class PlayerWeaponController : MonoBehaviour
 		if(!infiniteDurability)
 		{
 			_CurrentWeaponDurability = _CurrentWeapon._Durability;
-			player._PlayerUIController.ActivateWeaponUI(_CurrentWeaponDurability);
+			player._UIController.ActivateWeaponUI(_CurrentWeaponDurability);
 			OnDurabilityChanged(_CurrentWeaponDurability);
 			//print("starting dur timer coroutine");
 			StartCoroutine(ManageDurabilityTimer());
@@ -98,7 +98,7 @@ public class PlayerWeaponController : MonoBehaviour
 			OnDurabilityChanged(_CurrentWeaponDurability);
 			yield return null;
 		}
-		player._PlayerUIController.DisableWeaponUI();
+		player._UIController.DisableWeaponUI();
 		SwitchWeapon(baseWeapon);
 	}
 

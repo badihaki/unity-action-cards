@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManagerMaster : MonoBehaviour
@@ -9,6 +7,7 @@ public class GameManagerMaster : MonoBehaviour
     public CharCustomizationDatabase CharacterCustomizationDatabase { get; private set; }
     public GMDice Dice { get; private set; }
     public ConstantVariables GeneralConstantVariables { get; private set; }
+    public GameResources Resources { get; private set; }
 
     
     [field: SerializeField]
@@ -33,6 +32,7 @@ public class GameManagerMaster : MonoBehaviour
         CharacterCustomizationDatabase = GetComponent<CharCustomizationDatabase>();
         Dice = GetComponent<GMDice>();
         GeneralConstantVariables = GetComponent<ConstantVariables>();
+        Resources = GetComponent<GameResources>();
     }
 
     

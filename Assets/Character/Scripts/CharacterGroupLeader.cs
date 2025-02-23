@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharacterGroupLeader : MonoBehaviour
 {
     [field: Header("The controlling character"), SerializeField]
-    private Character _Character;
+    protected Character _Character;
 	[field: Header("The group members"), SerializeField]
     public List<CharacterGroupMember> _GroupMembers { get; private set; }
 

@@ -10,11 +10,11 @@ public class PlayerMinionController : CharacterGroupLeader
     private Vector3 summonLocation;
 
 
-	public bool TrySummonMinion(Character minionTemplate)
+	public bool TrySummonMinion(NPCSheetScriptableObj minionTemplate)
     {
         if (FindSpaceToSummon())
         {
-            SummonMinion(minionTemplate, summonLocation);
+            SummonMinion(minionTemplate);
             return true;
         }
         return false;
@@ -43,9 +43,10 @@ public class PlayerMinionController : CharacterGroupLeader
 		return found;
     }
 
-	private void SummonMinion(Character minionTemplate, Vector3 spawnLocation)
+	private void SummonMinion(NPCSheetScriptableObj minionTemplate)
     {
         //Character newMinion = ObjectPoolManager.GetObjectFromPool(minionTemplate, spawnLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
-        ObjectPoolManager.GetObjectFromPool(minionTemplate.gameObject, spawnLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
+        NonPlayerCharacter minion = ObjectPoolManager.GetObjectFromPool(GameResources._Resources.npcTemplate, summonLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character).GetComponent<NonPlayerCharacter>();
+        minion.BuildAndInitialize(minionTemplate);
     }
 }
