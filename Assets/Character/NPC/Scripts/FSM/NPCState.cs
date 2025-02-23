@@ -140,8 +140,6 @@ public class NPCState : ScriptableObject
 	}
 	public virtual void GetLaunched()
 	{
-        if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
-            _StateMachine.LogFromState($"{_NPC.name} should be going to LAUNCH STATE");
 		_StateMachine.ChangeState(_StateMachine._StateLibrary._LaunchState);
 	}
 	public virtual void GetKnockedBack()

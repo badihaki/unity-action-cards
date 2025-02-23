@@ -26,7 +26,7 @@ public class PlayerMinionController : CharacterGroupLeader
 		for (int i = 0; i < 1000; i++)
 		{
             // use search range to determine if there's a place to spawn
-            Vector3 loc = _Character._Actor.transform.position;
+            Vector3 loc = _LeaderCharacter._Actor.transform.position;
             loc.x += Random.Range(minSummonDistance, maxSummonDistance);
             if (GameManagerMaster.GameMaster.Dice.RollD4() > 2)
                 loc.x *= -1; // this moves it to left or the right randomly
@@ -59,6 +59,6 @@ public class PlayerMinionController : CharacterGroupLeader
         minion.BuildAndInitialize(minionTemplate);
         CharacterGroupMember groupMember = minion.AddComponent<CharacterGroupMember>();
         groupMember.Initialize(this);
-        _GroupMembers.Add(groupMember);
+        AddCharacterToGroup(minion);
     }
 }
