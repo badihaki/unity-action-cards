@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -72,7 +73,28 @@ public class CharacterGroupLeader : CharacterGroupMember
     private void ManageGroup()
     {
         ManageGroupDistance();
+		LeashGroupMembers();
     }
+
+	private void LeashGroupMembers()
+	{
+		// if too far, call go to leader on the group member
+		List<GroupMember> groupMembers = new List<GroupMember>(_GroupMembers);
+		foreach (GroupMember character in groupMembers)
+		{
+			GroupMember newCharacterStats = character;
+			if (newCharacterStats.DistanceFromLeader > _GroupLeashDistance && !newCharacterStats.commandedToMove)
+            {
+                newCharacterStats.Character._NavigationController.SetTarget(_LeaderCharacter._Actor.transform);
+                newCharacterStats.commandedToMove = true;
+
+				int index = _GroupMembers.IndexOf(character);
+				_GroupMembers[index] = newCharacterStats;
+
+                StartCoroutine(MoveGroupMemberToLeader(_GroupMembers[index], index));
+			}
+		}
+	}
 
 	private void ManageGroupDistance()
 	{
@@ -83,10 +105,22 @@ public class CharacterGroupLeader : CharacterGroupMember
             GroupMember newCharacterStats = character;
 			float distance = Vector3.Distance(_Character._Actor.transform.position, character.Actor.transform.position);
             newCharacterStats.DistanceFromLeader = distance;
+            
             int index = _GroupMembers.IndexOf(character);
             _GroupMembers[index] = newCharacterStats;
-            // if too far, call go to leader on the group member
 		}
+	}
+
+    private IEnumerator MoveGroupMemberToLeader(GroupMember groupMember, int memberIndexNum)
+    {
+		while (groupMember.DistanceFromLeader > _GroupLeashDistance)
+        {
+            yield return null;
+        }
+        GroupMember copyGroupMember = groupMember;
+		copyGroupMember.Character._NavigationController.SetTarget(null);
+		copyGroupMember.commandedToMove = false;
+		_GroupMembers[memberIndexNum] = copyGroupMember;
 	}
 
     // end

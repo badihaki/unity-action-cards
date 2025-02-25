@@ -124,13 +124,12 @@ public class NPCMovementController : MonoBehaviour
 		SyncAgentVelToCharControllerVel();
 	}
 
-	public void MoveToCurrentNavNode()
+	public void MoveToNavmeshDestination()
 	{
-		//Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _NPC._Actor.transform.position).normalized;
-		Vector3 direction = _NavAgent.desiredVelocity.normalized;
+		Vector3 movement = _NavAgent.desiredVelocity.normalized;
 		ApplyGravity(1);
-		direction.y = _VerticalVelocity;
-		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		movement.y = _VerticalVelocity;
+		_CharacterController.Move((movement * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
 		if (_NavAgent.isStopped)
 			_NavAgent.isStopped = false; // make sure nav agent is not stopped
 		SyncAgentVelToCharControllerVel();
@@ -149,15 +148,13 @@ public class NPCMovementController : MonoBehaviour
 	private void SyncAgentVelToCharControllerVel()
 	{
 		_NavAgent.velocity = _CharacterController.velocity;
-		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-		//	print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
 	}
-	public void SetAgentDestination(Vector3? destination, float desiredDistance = 0.0f)
+	public void SetAgentDestination(Vector3? destination, float desiredDistance = 1.20f)
 	{
-		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-		//	print($"Setting destination to {destination.ToString()}");
 		if (destination != null)
+		{
 			_NavAgent.destination = destination.Value;
+		}
 		else
 		{
 			_NavAgent.destination = _NPC._NPCActor.transform.position;

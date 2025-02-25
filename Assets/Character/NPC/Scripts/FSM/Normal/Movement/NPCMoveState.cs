@@ -21,12 +21,15 @@ public class NPCMoveState : NPCState
 	public override void CheckStateTransitions()
 	{
 		base.CheckStateTransitions();
-		if (_NPC._NavigationController._CurrentNavNode != null)
+		if (_NPC._NavigationController._Target == null)
 		{
-			if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
-
+			if (_NPC._NavigationController._CurrentNavNode != null)
 			{
-				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+				if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
+
+				{
+					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+				}
 			}
 		}
     }
@@ -34,14 +37,34 @@ public class NPCMoveState : NPCState
 	public override void PhysicsUpdate()
 	{
 		base.PhysicsUpdate();
-        _NPC._MoveController.MoveToCurrentNavNode();
-		if (_NPC._NavigationController._CurrentNavNode != null)
-			_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._CurrentNavNode.transform);
+		if (_NPC._NavigationController._Target == null) // there is no target
+		{
+			if (_NPC._NavigationController._CurrentNavNode != null)
+			{
+				MoveToNavNode();
+			}
+		}
+		else
+		{
+			MoveToTarget();
+		}
 		// if aggressive
 		if (_NPC._NPCActor._AggressionManager.isAggressive)
 		{
 			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
 		}
+	}
+
+	protected void MoveToTarget()
+	{
+		_NPC._MoveController.MoveToNavmeshDestination();
+		_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._Target);
+	}
+
+	protected void MoveToNavNode()
+	{
+		_NPC._MoveController.MoveToNavmeshDestination();
+		_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._CurrentNavNode.transform);
 	}
 
 	// end of the line
