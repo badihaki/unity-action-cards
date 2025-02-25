@@ -15,23 +15,29 @@ public class CharacterGroupLeader : CharacterGroupMember
         public string Name;
         public NonPlayerCharacter Character;
         public Actor Actor;
-        public CharacterGroupMember Group;
-        public float Distance;
+        public CharacterGroupMember GroupMemberController;
+        public float DistanceFromLeader;
+
+        public bool commandedToMove;
+        public bool commandedToAttack;
 
         public GroupMember(string name, NonPlayerCharacter character, Actor actor, CharacterGroupMember grouping, float dist)
         {
             Name = name;
             Character = character;
             Actor = actor;
-            Group = grouping;
-            Distance = dist;
+            GroupMemberController = grouping;
+            DistanceFromLeader = dist;
+
+            commandedToMove = false;
+            commandedToAttack = false;
         }
     }
 	[field: Header("Group Member Properties"), SerializeField]
     protected List<GroupMember> _GroupMembers { get; private set; }
     
     [field: SerializeField, Tooltip("The leash is how far entities can move from the leader")]
-    public float _GroupLeashDistance { get; private set; } = 3.0f;
+    public float _GroupLeashDistance { get; private set; } = 12.0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -70,9 +76,15 @@ public class CharacterGroupLeader : CharacterGroupMember
 
 	private void ManageGroupDistance()
 	{
-		foreach (var character in _GroupMembers)
+        List<GroupMember> groupMembers = new List<GroupMember>(_GroupMembers);
+		foreach (GroupMember character in groupMembers)
 		{
-			// chekc the distance
+            // chekc the distance
+            GroupMember newCharacterStats = character;
+			float distance = Vector3.Distance(_Character._Actor.transform.position, character.Actor.transform.position);
+            newCharacterStats.DistanceFromLeader = distance;
+            int index = _GroupMembers.IndexOf(character);
+            _GroupMembers[index] = newCharacterStats;
             // if too far, call go to leader on the group member
 		}
 	}
