@@ -56,7 +56,7 @@ public class NPCSpawnManager : MonoBehaviour
 		currentNpcCount++;
 	}
 
-	private void OnNpcDeath()
+	private void OnNpcDeath(Character character)
 	{
 		currentNpcCount--;
 		if(currentNpcCount <= 0)

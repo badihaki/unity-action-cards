@@ -13,6 +13,7 @@ public class NPCIdleState : NPCState
     protected float minimumWaitMax = 1.0f;
     protected float maximumWaitMin = 1.2f;
     protected float maximumWait = 5.0f;
+    protected bool readyToMove = false;
 
     public override void EnterState()
     {
@@ -22,6 +23,7 @@ public class NPCIdleState : NPCState
             RandomlySetWaitTime(1.75f, 2.250f);
         _NPC._MoveController.ZeroOutMovement();
         _NPC._NavigationController.SetTargetDesiredDistance(0.5f);
+        readyToMove = false;
 	}
 
     private void RandomlySetWaitTime(float min, float max)
@@ -41,6 +43,9 @@ public class NPCIdleState : NPCState
 		base.LogicUpdate();
 
 		RunWaitTimer();
+
+        if (!readyToMove && _NPC._NavigationController._NavTarget != null)
+            readyToMove = true;
 	}
 
 	private void RunWaitTimer()
@@ -63,14 +68,14 @@ public class NPCIdleState : NPCState
 
 	private void RollForWait()
     {
-        int roll = GameManagerMaster.GameMaster.Dice.RollD6();
-        // Debug.Log(_NPC.name + " is Rolling to wait. Need 5+ to ignore. Roll?: " + roll);
-        if (roll >= 5)
+        int rollToMoveInstantly = GameManagerMaster.GameMaster.Dice.RollD6();
+        if (rollToMoveInstantly >= 5)
         {
             FindPlaceToGo();
             return;
         }
-        // Debug.Log(_NPC.name + " is making a new wait");
+
+        // actually make a wait time
         float minWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(minimumWait, minimumWaitMax);
         float maxWait = GameManagerMaster.GameMaster.Dice.RollRandomDice(maximumWaitMin, maximumWait);
         RandomlySetWaitTime(minWait, maxWait);
@@ -78,10 +83,9 @@ public class NPCIdleState : NPCState
 
     private void FindPlaceToGo()
     {
-        //Debug.Log(_NPC.name + " is Finding a place to move to");
-        if (_NPC._NavigationController.TryFindNewPatrol())
+        if (_NPC._NavigationController.TryFindNewNavNode() && _NPC._NavigationController._NavTarget == null)
         {
-			_NPC._StateMachine.ChangeState(_StateMachine._StateLibrary._MoveState);
+			readyToMove = true;
 		}
         else
         {
@@ -105,6 +109,12 @@ public class NPCIdleState : NPCState
         if (!_NPC._CheckGrounded.IsGrounded())
         {
             _StateMachine.ChangeState(_StateMachine._StateLibrary._FallingState);
+        }
+
+        // we are ready to move
+        if (readyToMove)
+        {
+            _NPC._StateMachine.ChangeState(_StateMachine._StateLibrary._MoveState);
         }
 	}
 }

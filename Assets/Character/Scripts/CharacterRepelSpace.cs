@@ -28,7 +28,7 @@ public class CharacterRepelSpace : MonoBehaviour
 			character._Actor.onDeath -= CleanUp;
 	}
 
-	public void CleanUp()
+	public void CleanUp(Character character)
 	{
 		charactersOnHead.Clear();
 	}

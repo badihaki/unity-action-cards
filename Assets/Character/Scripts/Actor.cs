@@ -22,7 +22,7 @@ public class Actor : MonoBehaviour
 
 
 	// events
-	public delegate void DeathSideEffects();
+	public delegate void DeathSideEffects(Character character);
 	public event DeathSideEffects onDeath;
 
 	public virtual void Initialize(Character character)
@@ -115,6 +115,6 @@ public class Actor : MonoBehaviour
 
     public virtual void Die()
     {
-		onDeath?.Invoke();
+		onDeath?.Invoke(_Character);
 	}
 }

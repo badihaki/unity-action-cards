@@ -149,6 +149,7 @@ public class NPCMovementController : MonoBehaviour
 	{
 		_NavAgent.velocity = _CharacterController.velocity;
 	}
+
 	public void SetAgentDestination(Vector3? destination, float desiredDistance = 1.20f)
 	{
 		if (destination != null)
@@ -158,8 +159,8 @@ public class NPCMovementController : MonoBehaviour
 		else
 		{
 			_NavAgent.destination = _NPC._NPCActor.transform.position;
-			_NavAgent.stoppingDistance = desiredDistance;
 		}
+		_NavAgent.stoppingDistance = desiredDistance;
 	}
 
 	public void MoveToTarget()
@@ -171,14 +172,7 @@ public class NPCMovementController : MonoBehaviour
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
 		if (_NavAgent.isStopped)
 		{
-			if (GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
-				print("!!!!!!!!!!!!!! Nav agent was stopped, but is being started again");
 			_NavAgent.isStopped = false; // make sure nav agent is not stopped
-		}
-		else
-		{
-			if(GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
-				print("!!!!!!!!!!!!!! Nav agent was turned on, nothing happened");
 		}
 		SyncAgentVelToCharControllerVel();
 	}

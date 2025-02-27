@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 [CreateAssetMenu(menuName = "Characters/NPC/FSM/Movement/Base", fileName = "Base Move")]
 public class NPCMoveState : NPCState
@@ -21,7 +22,14 @@ public class NPCMoveState : NPCState
 	public override void CheckStateTransitions()
 	{
 		base.CheckStateTransitions();
-		if (_NPC._NavigationController._Target == null)
+		// if aggressive
+		if (_NPC._NPCActor._AggressionManager.isAggressive)
+		{
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
+		}
+
+		// changing state based on nav
+		if (_NPC._NavigationController._NavTarget == null)
 		{
 			if (_NPC._NavigationController._CurrentNavNode != null)
 			{
@@ -31,13 +39,15 @@ public class NPCMoveState : NPCState
 					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
 				}
 			}
+			if (_NPC._NavigationController._CurrentNavNode == null)
+				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
 		}
     }
 
 	public override void PhysicsUpdate()
 	{
 		base.PhysicsUpdate();
-		if (_NPC._NavigationController._Target == null) // there is no target
+		if (_NPC._NavigationController._NavTarget == null) // there is no target
 		{
 			if (_NPC._NavigationController._CurrentNavNode != null)
 			{
@@ -48,17 +58,13 @@ public class NPCMoveState : NPCState
 		{
 			MoveToTarget();
 		}
-		// if aggressive
-		if (_NPC._NPCActor._AggressionManager.isAggressive)
-		{
-			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
-		}
 	}
 
 	protected void MoveToTarget()
 	{
-		_NPC._MoveController.MoveToNavmeshDestination();
-		_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._Target);
+		_NPC._MoveController.MoveToTarget();
+		_StateMachine.LogFromState($"desired destination is {_NPC._Actor.GetComponent<NavMeshAgent>().destination.ToString()}");
+		_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._NavTarget);
 	}
 
 	protected void MoveToNavNode()
