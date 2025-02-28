@@ -165,8 +165,9 @@ public class NPCMovementController : MonoBehaviour
 
 	public void MoveToTarget()
 	{
-		//Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;
+		_NavAgent.SetDestination(_NPC._NavigationController._NavTarget.position);
 		Vector3 direction = _NavAgent.desiredVelocity.normalized;
+		print($"agent stopping distance is {_NavAgent.stoppingDistance}");
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);

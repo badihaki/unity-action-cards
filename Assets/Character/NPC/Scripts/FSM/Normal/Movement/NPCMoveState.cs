@@ -63,7 +63,6 @@ public class NPCMoveState : NPCState
 	protected void MoveToTarget()
 	{
 		_NPC._MoveController.MoveToTarget();
-		_StateMachine.LogFromState($"desired destination is {_NPC._Actor.GetComponent<NavMeshAgent>().destination.ToString()}");
 		_NPC._MoveController.RotateTowardsTarget(_NPC._NavigationController._NavTarget);
 	}
 

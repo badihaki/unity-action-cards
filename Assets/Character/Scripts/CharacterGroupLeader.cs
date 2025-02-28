@@ -96,7 +96,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 			GroupMember newCharacterStats = character;
 			if (newCharacterStats.DistanceFromLeader > _GroupMaxLeashDistance && !newCharacterStats.commandedToMove)
             {
-                newCharacterStats.Character._NavigationController.SetTarget(_LeaderCharacter._Actor.transform, _GroupLeashDistance);
+                newCharacterStats.Character._NavigationController.SetTarget(_LeaderCharacter._Actor.transform, _GroupLeashDistance - 1);
                 newCharacterStats.commandedToMove = true;
 
 				int index = _GroupMembers.IndexOf(character);
@@ -124,20 +124,17 @@ public class CharacterGroupLeader : CharacterGroupMember
 
     private IEnumerator MoveGroupMemberToLeader(GroupMember groupMember, int memberIndexNum)
     {
-        print($"group member is {groupMember} and the index is {memberIndexNum}");
         GroupMember copyGroupMember = groupMember;
         while (_GroupMembers[memberIndexNum].commandedToMove)
         {
             if(_GroupMembers[memberIndexNum].DistanceFromLeader <= _GroupLeashDistance)
             {
-                print("changing command to move to false");
                 copyGroupMember.commandedToMove = false;
 		        _GroupMembers[memberIndexNum] = copyGroupMember;
             }
             else
             {
-                print($"making minion go to leader. distance is {groupMember.DistanceFromLeader} and leash is {_GroupMaxLeashDistance} units long");
-                copyGroupMember.DistanceFromLeader = Vector3.Distance(_LeaderCharacter._Actor.transform.position, _Character._Actor.transform.position);
+				copyGroupMember.DistanceFromLeader = Vector3.Distance(_LeaderCharacter._Actor.transform.position, _Character._Actor.transform.position);
 				_GroupMembers[memberIndexNum] = copyGroupMember;
 				yield return null;
             }
