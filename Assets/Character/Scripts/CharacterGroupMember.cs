@@ -20,5 +20,18 @@ public class CharacterGroupMember : MonoBehaviour
 		return false;
     }
 
-    // end of the line
+    public void AttackTarget(Transform target)
+    {
+        NonPlayerCharacter npc = _Character as NonPlayerCharacter;
+        npc._NPCActor._AggressionManager.AddAggression(100, target);
+        npc._NavigationController.SetTarget(target);
+    }
+
+    public void GoToPosition(Transform targetPosition)
+    {
+		NonPlayerCharacter npc = _Character as NonPlayerCharacter;
+        npc._NavigationController.SetTarget(targetPosition);
+	}
+
+	// end of the line
 }

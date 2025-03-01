@@ -105,7 +105,7 @@ public class NPCAggressionManager : MonoBehaviour
             {
                 // got member
                 // then we check to see if the group leader is our leader. this should work for the player on both sides as well
-                if(groupMember._GroupLeader == _NPC._GroupMember._GroupLeader)
+                if (groupMember.CheckIfPartOfMyGroup(groupMember))
                 {
                     if (FoundFriend != null)
                         FoundFriend.Invoke(character);
