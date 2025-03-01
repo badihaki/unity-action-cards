@@ -49,6 +49,11 @@ public class CharacterGroupLeader : CharacterGroupMember
         _LeaderCharacter = GetComponent<Character>();
         _GroupMembers = new List<GroupMember>();
         Initialize(this);
+        if(_LeaderCharacter is NonPlayerCharacter)
+        {
+            NonPlayerCharacter npc = _LeaderCharacter as NonPlayerCharacter;
+            npc.GetGroupedUp(this);
+        }
     }
 
 	private void Update()
@@ -57,7 +62,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 			ManageGroup();
 	}
 
-	public void AddCharacterToGroup(Character character)
+	public void AddCharacterToGroup(NonPlayerCharacter character)
     {
 		// add a group member class to the character
 		character.TryGetComponent(out CharacterGroupMember newGroupMember);
@@ -67,9 +72,10 @@ public class CharacterGroupLeader : CharacterGroupMember
         }
         // set the character's group leader to this character
         float distance = Vector3.Distance(_Character._Actor.transform.position, character._Actor.transform.position);
-		GroupMember newMemberStruct = new(character.name, character as NonPlayerCharacter, character._Actor, newGroupMember, distance);
+		GroupMember newMemberStruct = new(character.name, character, character._Actor, newGroupMember, distance);
         _GroupMembers.Add(newMemberStruct);
         newGroupMember.Initialize(this);
+        character.GetGroupedUp(newGroupMember);
         character._Actor.onDeath += RemoveCharacterFromGroup;
     }
 

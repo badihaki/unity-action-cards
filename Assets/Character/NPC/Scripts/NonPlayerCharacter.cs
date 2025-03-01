@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class NonPlayerCharacter : Character, IDestroyable
@@ -11,7 +12,9 @@ public class NonPlayerCharacter : Character, IDestroyable
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
     [field: SerializeField] public CharacterEyesight _EyeSight { get; protected set; }
 	[field: SerializeField] public NPCTypesManager _TypesManager { get; protected set; }
-
+    [field: SerializeField, Header("")]
+    public bool isGroupedUp { get; protected set; } = false;
+    public CharacterGroupMember _GroupMember { get; protected set; }
 
 	// State Machine
 	public NPCStateMachine _StateMachine { get; private set; }
@@ -68,6 +71,21 @@ public class NonPlayerCharacter : Character, IDestroyable
         
         // init moveset
         _MoveSet.Initialize(this);
+
+        // grouping
+        if (TryGetComponent(out CharacterGroupMember member))
+        {
+            _GroupMember = member;
+            isGroupedUp = true;
+        }
+        else
+            isGroupedUp = false;
+    }
+
+    public void GetGroupedUp(CharacterGroupMember memberClass)
+    {
+        _GroupMember = memberClass;
+        isGroupedUp = true;
     }
 
     public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);

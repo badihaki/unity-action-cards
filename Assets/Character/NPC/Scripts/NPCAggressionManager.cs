@@ -19,6 +19,8 @@ public class NPCAggressionManager : MonoBehaviour
     // events
     public delegate void OnAggressed();
     public event OnAggressed IsAggressed;
+    public delegate void OnSeeAlly(Character character);
+    public event OnSeeAlly FoundFriend;
 
 	public void Initialize(NonPlayerCharacter npc)
     {
@@ -97,16 +99,38 @@ public class NPCAggressionManager : MonoBehaviour
 	public bool CheckIfValidEnemy(Character character)
 	{
 		Actor charActor = character._Actor;
+        if (_NPC.isGroupedUp)
+        {
+            if (character.TryGetComponent(out CharacterGroupMember groupMember))
+            {
+                // got member
+                // then we check to see if the group leader is our leader. this should work for the player on both sides as well
+                if(groupMember._GroupLeader == _NPC._GroupMember._GroupLeader)
+                {
+                    if (FoundFriend != null)
+                        FoundFriend.Invoke(character);
+                    return false;
+                }
+            }
+            else
+            {
+				// no member
+				if (!_NPC._TypesManager.SharesTypeWith(character as NonPlayerCharacter))
+				{
+					return true; // doesnt share type, is enemy
+				}
+                return false; // shares type, not enemy
+			}
+        }
 		if (character is PlayerCharacter)
 		{
-            //AddAggression(100, charActor.transform);
-            return true;
+            if (_NPC._NPCharacterSheet.isAlwaysAggressive)
+                return true; // character is a player and I'm always an aggressive lil bish
 		}
 		else
 		{
 			if (!_NPC._TypesManager.SharesTypeWith(character as NonPlayerCharacter))
 			{
-                //AddAggression(100, charActor.transform);
                 return true;
 			}
 		}

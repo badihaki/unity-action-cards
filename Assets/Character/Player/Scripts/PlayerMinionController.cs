@@ -59,6 +59,7 @@ public class PlayerMinionController : CharacterGroupLeader
         minion.BuildAndInitialize(minionTemplate);
         CharacterGroupMember groupMember = minion.AddComponent<CharacterGroupMember>();
         groupMember.Initialize(this);
+        minion.GetGroupedUp(groupMember);
         AddCharacterToGroup(minion);
     }
 }
