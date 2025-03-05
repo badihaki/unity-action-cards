@@ -71,7 +71,8 @@ public class NPCNavigator : MonoBehaviour
         }
         _CurrentNavNode = GetNavNodeFromList(navNodes.ToArray());
         print("found a new nav node");
-		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
+		//_MovementController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
+		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
 	}
 
 	private void FindNextNavigationNode()
@@ -80,7 +81,8 @@ public class NPCNavigator : MonoBehaviour
         NavigationNode navNode = GetNavNodeFromList(nodes);
 		print("finding next nav node in the order");
 		_CurrentNavNode = navNode;
-		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
+		//_MovementController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
+		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
 	}
 
     private NavigationNode GetNavNodeFromList(NavigationNode[] nodes)
@@ -138,21 +140,12 @@ public class NPCNavigator : MonoBehaviour
     #endregion
 
     #region Target Acquisition and Management
-    public void SetTarget(Transform newTarget)
-    {
-        _CurrentNavNode = null;
-        if (newTarget != null)
-        {
-            _NavTarget = newTarget;
-            _MovementController.SetAgentDestination(_NavTarget.transform.position);
-        }
-        else
-        {
-            _NavTarget = null;
-            _MovementController.SetAgentDestination(_NPC._Actor.transform.position);
-        }
-    }
-	public void SetTarget(Transform newTarget, float distance)
+	/// <summary>
+	/// Set a new target using a basic Transform
+	/// </summary>
+	/// <param name="newTarget">Target transform that becomes the new _NavTarget</param>
+	/// <param name="distance">Distance from the target</param>
+	public void SetTarget(Transform newTarget, float distance = 1.0f)
 	{
 		_CurrentNavNode = null;
 		if (newTarget != null)
@@ -166,6 +159,38 @@ public class NPCNavigator : MonoBehaviour
 			_MovementController.SetAgentDestination(_NPC._Actor.transform.position);
 		}
 	}
+    /// <summary>
+    /// Set target using a character
+    /// </summary>
+    /// <param name="targetChar"></param>
+    /// <param name="distance"></param>
+    public void SetTarget(Character targetChar, float distance = 1.0f)
+    {
+		_CurrentNavNode = null;
+        if (targetChar != null)
+        {
+            _NavTarget = targetChar._Actor.transform;
+            targetChar._Actor.onDeath += RemoveTargetCharacter;
+			_MovementController.SetAgentDestination(_NavTarget.transform.position, distance);
+		}
+		else
+		{
+			_NavTarget = null;
+			_MovementController.SetAgentDestination(_NPC._Actor.transform.position);
+		}
+	}
+    public void RemoveTarget()
+    {
+		_NavTarget = null;
+        _MovementController.SetAgentDestination(_NPC._Actor.transform.position);
+	}
+	public void RemoveTargetCharacter(Character targetChar)
+    {
+        print($"cleaning up:: making sure {targetChar.name} us not the target");
+        targetChar._Actor.onDeath -= RemoveTargetCharacter;
+        if (_NavTarget == targetChar._Actor)
+            RemoveTarget();
+    }
 	public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {
         SetMaxAttackDistance(distance + 1.0f);

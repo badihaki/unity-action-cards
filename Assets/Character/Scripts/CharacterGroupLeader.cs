@@ -102,7 +102,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 			GroupMember newCharacterStats = character;
 			if (newCharacterStats.DistanceFromLeader > _GroupMaxLeashDistance && !newCharacterStats.commandedToMove)
             {
-                newCharacterStats.Character._NavigationController.SetTarget(_LeaderCharacter._Actor.transform, _GroupLeashDistance - 1);
+                newCharacterStats.Character._NavigationController.SetTarget(_LeaderCharacter, _GroupLeashDistance - 1);
                 newCharacterStats.commandedToMove = true;
 
 				int index = _GroupMembers.IndexOf(character);
@@ -145,8 +145,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 				yield return null;
             }
 		}
-        print("changing command to move to false");
-		copyGroupMember.Character._NavigationController.SetTarget(null);
+		copyGroupMember.Character._NavigationController.RemoveTarget();
 		_GroupMembers[memberIndexNum] = copyGroupMember;
         groupMember.Character._StateMachine.ChangeState(groupMember.Character._StateMachine._StateLibrary._IdleState);
 	}

@@ -67,7 +67,10 @@ public class NPCActor : Actor, ITargetable, IAggressable
 
 	public override void TakeDamage(Damage dmgObj)
 	{
-        EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageSource);
+        if (dmgObj.damageCreatorCharacter != null)
+            EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageCreatorCharacter);
+		else
+            EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), null);
         base.TakeDamage(dmgObj);
 	}
 

@@ -19,9 +19,8 @@ public class CharacterHitbox : MonoBehaviour
             if (damageableEntity != null && _Character.transform != damageableEntity.GetControllingEntity())
             {
                 //print(damageableEntity.ToString());
-                Damage dmgObj = new Damage(_Character._AttackController._Damage, _Character._AttackController._Force, _Character._AttackController._IntendedResponseToDamageBeingDealt, _Character._Actor.transform);
-                
-                damageableEntity?.Damage(dmgObj);
+                Damage dmgObj = new Damage(_Character._AttackController._Damage, _Character._AttackController._Force, _Character._AttackController._IntendedResponseToDamageBeingDealt, _Character._Actor.transform, _Character);
+				damageableEntity?.Damage(dmgObj);
                 Vector3 hitFxPosition = new Vector3(damageableEntity.GetDamagedEntity().position.x, damageableEntity.GetDamagedEntity().position.y + 0.5f, damageableEntity.GetDamagedEntity().position.z);
                 _Character._AttackController.PlayHitSpark(hitFxPosition);
 			}

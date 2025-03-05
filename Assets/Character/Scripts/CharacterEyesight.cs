@@ -89,7 +89,7 @@ public class CharacterEyesight : MonoBehaviour
 				Character possibleCharacter = entity.GetComponentInParent<Character>();
 				if (possibleCharacter != null && _NPC._NPCActor._AggressionManager.CheckIfValidEnemy(possibleCharacter) == true)
 				{
-					_NPC._NPCActor._AggressionManager.AddAggression(100, possibleCharacter._Actor.transform);
+					_NPC._NPCActor._AggressionManager.AddAggression(100, possibleCharacter);
 				}
 			}
 		}

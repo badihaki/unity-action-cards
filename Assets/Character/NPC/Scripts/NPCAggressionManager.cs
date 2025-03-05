@@ -29,17 +29,18 @@ public class NPCAggressionManager : MonoBehaviour
         _LastAggressors = new List<Transform>();
     }
 
-    public void AddAggression(int aggression, Transform aggressor)
+    public void AddAggression(int aggression, Character aggressor)
     {
         _Aggression += aggression;
         if (_Aggression > 100)
             _Aggression = 100;
         
-        if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
+        if(!_LastAggressors.Contains(aggressor._Actor.transform) && _LastAggressors.Count < 4)
         {
             if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
                 print(">>>>>>> adding aggressor <<");
-            _LastAggressors.Add(aggressor);
+            _LastAggressors.Add(aggressor._Actor.transform);
+            aggressor._Actor.onDeath += _NPC._NavigationController.RemoveTargetCharacter;
         }
 
         if (_Aggression >= 50 && !isAggressive)
@@ -85,8 +86,14 @@ public class NPCAggressionManager : MonoBehaviour
                 print("quickly lose aggression");
 			if (_Aggression == 0)
             {
-                // lost all aggression here
-                _LastAggressors.Clear();
+				// lost all aggression here
+				foreach (Transform aggressor in _LastAggressors)
+				{
+					Character aggressiveChar = aggressor.GetComponentInParent<Character>();
+                    if (aggressiveChar != null)
+                        aggressiveChar._Actor.onDeath -= _NPC._NavigationController.RemoveTargetCharacter;
+				}
+				_LastAggressors.Clear();
                 isAggressive = false;
                 _NPC._NPCActor.animationController.SetBool("aggressive", false);
                 _NPC._StateMachine.ChangeState(_NPC._StateMachine._StateLibrary._IdleState);

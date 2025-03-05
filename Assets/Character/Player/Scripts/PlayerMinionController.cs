@@ -52,10 +52,7 @@ public class PlayerMinionController : CharacterGroupLeader
 
 	private void SummonMinion(NPCSheetScriptableObj minionTemplate)
     {
-		//Character newMinion = ObjectPoolManager.GetObjectFromPool(minionTemplate, spawnLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character);
-		print($"where is the summon location?? {summonLocation}");
         NonPlayerCharacter minion = ObjectPoolManager.GetObjectFromPool(GameManagerMaster.GameMaster.Resources.npcTemplate, summonLocation, Quaternion.identity, ObjectPoolManager.PoolFolder.Character, minionTemplate._CharacterName).GetComponent<NonPlayerCharacter>();
-        print($"minion was made?? {minion == true}");
         minion.BuildAndInitialize(minionTemplate);
         CharacterGroupMember groupMember = minion.AddComponent<CharacterGroupMember>();
         groupMember.Initialize(this);

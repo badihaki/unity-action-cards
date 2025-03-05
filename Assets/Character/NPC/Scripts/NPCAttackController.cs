@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -31,9 +32,15 @@ public class NPCAttackController : CharacterAttackController
         _AttackTicket = true;
         
         if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTargetEnemy;
+        _NPC._Actor.onDeath += CleanupAggression;
     }
 
-    public void SetNewTargetEnemy(Transform aggressor)
+	private void CleanupAggression(Character character)
+	{
+		StopAllCoroutines();
+	}
+
+	public void SetNewTargetEnemy(Transform aggressor)
     {
         if(_ActiveTarget == null)
             _ActiveTarget = aggressor;
