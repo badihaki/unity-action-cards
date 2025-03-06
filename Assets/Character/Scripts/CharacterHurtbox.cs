@@ -29,7 +29,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
     [field: SerializeField]
     LastDamageObj lastDamage;
 
-    public delegate void DetectWhoHurtMe(Transform target);
+    public delegate void DetectWhoHurtMe(Character target);
     public event DetectWhoHurtMe DetermineWhoWhurtMe;
 
     public void InitializeHurtBox(Character _character)
@@ -46,7 +46,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 		StoreLastDamageSource(dmgObj);
         print(dmgObj != null);
         if (DetermineWhoWhurtMe != null)
-            DetermineWhoWhurtMe(dmgObj.damageCreatorCharacter._Actor.transform);
+            DetermineWhoWhurtMe(dmgObj.damageCreatorCharacter);
     }
 
     private void StoreLastDamageSource(Damage dmgObj) => lastDamage = new LastDamageObj(dmgObj.damageAmount, dmgObj.poiseDamageAmount, dmgObj.intendedResponse, dmgObj.damageForce, dmgObj.damageSource);

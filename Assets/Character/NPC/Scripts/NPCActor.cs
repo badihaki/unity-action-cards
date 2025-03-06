@@ -90,7 +90,6 @@ public class NPCActor : Actor, ITargetable, IAggressable
 	public override void Die()
 	{
 		EntityIsDamaged -= _AggressionManager.AddAggression;
-
 		base.Die();
 	}
 }

@@ -31,7 +31,7 @@ public class NPCAttackController : CharacterAttackController
         _NPC = character as NonPlayerCharacter;
         _AttackTicket = true;
         
-        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTargetEnemy;
+        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += TrySetNewTargetEnemy;
         _NPC._Actor.onDeath += CleanupAggression;
     }
 
@@ -40,19 +40,36 @@ public class NPCAttackController : CharacterAttackController
 		StopAllCoroutines();
 	}
 
-	public void SetNewTargetEnemy(Transform aggressor)
+	public void TrySetNewTargetEnemy(Character aggressor)
     {
         if(_ActiveTarget == null)
-            _ActiveTarget = aggressor;
-        else
+		{
+			SetActiveTarget(aggressor);
+		}
+		else
         {
             int result = GameManagerMaster.GameMaster.Dice.RollD10();
             if (result >= 4)
-                _ActiveTarget = aggressor;
+                SetActiveTarget(aggressor);
         }
     }
 
-    public float GetDistanceFromTarget()
+	private void SetActiveTarget(Character target)
+	{
+        target._Actor.onDeath += RemoveActiveTarget;
+		_ActiveTarget = target.transform;
+	}
+
+	private void RemoveActiveTarget(Character character)
+	{
+        if(_ActiveTarget == character._Actor.transform)
+        {
+            _ActiveTarget = null;
+        }
+		character._Actor.onDeath -= RemoveActiveTarget;
+	}
+
+	public float GetDistanceFromTarget()
     {
         float dist;
         //float myY = _NPC._NPCActor.transform.position.y > 0 ? _NPC._NPCActor.transform.position.y : _NPC._NPCActor.transform.position.y * -1;

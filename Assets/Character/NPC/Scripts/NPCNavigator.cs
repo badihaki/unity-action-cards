@@ -70,8 +70,6 @@ public class NPCNavigator : MonoBehaviour
                 navNodes.Add(NavNode);
         }
         _CurrentNavNode = GetNavNodeFromList(navNodes.ToArray());
-        print("found a new nav node");
-		//_MovementController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
 		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
 	}
 
@@ -79,9 +77,7 @@ public class NPCNavigator : MonoBehaviour
     {
         NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
         NavigationNode navNode = GetNavNodeFromList(nodes);
-		print("finding next nav node in the order");
 		_CurrentNavNode = navNode;
-		//_MovementController.SetAgentDestination(_CurrentNavNode.transform.position, 3.0f);
 		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
 	}
 
@@ -100,8 +96,9 @@ public class NPCNavigator : MonoBehaviour
         navNodListIsReseting = false;
 
         // get the target
-        _NavTarget = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
-        _AttackController.SetNewTargetEnemy(_NavTarget); // set the enemy
+        Character targetChar = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
+		_NavTarget = targetChar._Actor.transform;
+        _AttackController.TrySetNewTargetEnemy(targetChar); // set the enemy
         
         // clean up navigation nodes
         _PriorNavNodes.Clear();
@@ -183,13 +180,14 @@ public class NPCNavigator : MonoBehaviour
     {
 		_NavTarget = null;
         _MovementController.SetAgentDestination(_NPC._Actor.transform.position);
+        print($"cleaning up:: removing the nav target");
 	}
 	public void RemoveTargetCharacter(Character targetChar)
     {
-        print($"cleaning up:: making sure {targetChar.name} us not the target");
-        targetChar._Actor.onDeath -= RemoveTargetCharacter;
-        if (_NavTarget == targetChar._Actor)
+        print($"cleaning up:: making sure {targetChar.name} is not the target");
+		if (_NavTarget == targetChar._Actor.transform)
             RemoveTarget();
+        targetChar._Actor.onDeath -= RemoveTargetCharacter;
     }
 	public void SetTargetDesiredDistance(float distance, float m_distance = 2.0f)
     {

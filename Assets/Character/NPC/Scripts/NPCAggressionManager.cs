@@ -8,7 +8,7 @@ public class NPCAggressionManager : MonoBehaviour
     [field: SerializeField, Header("Aggression State")]
     public int _Aggression { get; private set; }
     [field: SerializeField]
-    public List<Transform> _LastAggressors {  get; private set; }
+    public List<Character> _LastAggressors {  get; private set; }
     [field: SerializeField]
     public bool isAggressive { get; private set; }
 
@@ -26,7 +26,7 @@ public class NPCAggressionManager : MonoBehaviour
     {
         _NPC = npc;
         _Aggression = 0;
-        _LastAggressors = new List<Transform>();
+        _LastAggressors = new List<Character>();
     }
 
     public void AddAggression(int aggression, Character aggressor)
@@ -35,11 +35,11 @@ public class NPCAggressionManager : MonoBehaviour
         if (_Aggression > 100)
             _Aggression = 100;
         
-        if(!_LastAggressors.Contains(aggressor._Actor.transform) && _LastAggressors.Count < 4)
+        if(!_LastAggressors.Contains(aggressor) && _LastAggressors.Count < 4)
         {
             if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
                 print(">>>>>>> adding aggressor <<");
-            _LastAggressors.Add(aggressor._Actor.transform);
+            _LastAggressors.Add(aggressor);
             aggressor._Actor.onDeath += _NPC._NavigationController.RemoveTargetCharacter;
         }
 
@@ -64,8 +64,8 @@ public class NPCAggressionManager : MonoBehaviour
 			foreach (var enemy in _LastAggressors)
 			{
                 if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-                    print($">> trying to see {enemy.parent.name} || can we see them? {_NPC._EyeSight.CanSeeTarget(enemy)}");
-			    if (_Aggression < 50 && _NPC._EyeSight.CanSeeTarget(enemy))
+                    print($">> trying to see {enemy} || can we see them? {_NPC._EyeSight.CanSeeTarget(enemy._Actor.transform)}");
+			    if (_Aggression < 50 && _NPC._EyeSight.CanSeeTarget(enemy._Actor.transform))
                 {
                     _Aggression = 100;
                     break;
@@ -87,11 +87,9 @@ public class NPCAggressionManager : MonoBehaviour
 			if (_Aggression == 0)
             {
 				// lost all aggression here
-				foreach (Transform aggressor in _LastAggressors)
+				foreach (Character aggressor in _LastAggressors)
 				{
-					Character aggressiveChar = aggressor.GetComponentInParent<Character>();
-                    if (aggressiveChar != null)
-                        aggressiveChar._Actor.onDeath -= _NPC._NavigationController.RemoveTargetCharacter;
+                    aggressor._Actor.onDeath -= _NPC._NavigationController.RemoveTargetCharacter;
 				}
 				_LastAggressors.Clear();
                 isAggressive = false;

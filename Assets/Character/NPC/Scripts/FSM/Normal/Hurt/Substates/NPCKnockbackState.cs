@@ -15,7 +15,7 @@ public class NPCKnockbackState : NPCHurtSuperState
 	{
 		base.EnterState();
 		knockbackTime = 0.0f;
-		knockingFrom = _NPC._NPCActor._AggressionManager._LastAggressors.Last();
+		knockingFrom = _NPC._NPCActor._AggressionManager._LastAggressors.Last()._Actor.transform;
 		_StateMachine.LogFromState(knockingFrom.name);
 	}
 	public override void LogicUpdate()

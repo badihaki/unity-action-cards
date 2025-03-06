@@ -33,7 +33,6 @@ public class PlayerMinionController : CharacterGroupLeader
             loc.z += Random.Range(minSummonDistance, maxSummonDistance); // may wanna move in front of the camera later
             loc.y += 1;
             // now use spherecast to determine if there's a collider there
-            print($"location chosen is {loc}");
             Collider[] collisions = Physics.OverlapSphere(loc, 1);
 			foreach (var collision in collisions)
 			{
