@@ -12,8 +12,6 @@ public class NonPlayerCharacter : Character, IDestroyable
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
     [field: SerializeField] public CharacterEyesight _EyeSight { get; protected set; }
 	[field: SerializeField] public NPCTypesManager _TypesManager { get; protected set; }
-    [field: SerializeField, Header("")]
-    public bool isGroupedUp { get; protected set; } = false;
     public CharacterGroupMember _GroupMember { get; protected set; }
 
 	// State Machine
@@ -82,13 +80,14 @@ public class NonPlayerCharacter : Character, IDestroyable
             isGroupedUp = false;
     }
 
-    public void GetGroupedUp(CharacterGroupMember memberClass)
+    public override void GetGroupedUp(CharacterGroupMember memberClass)
     {
         _GroupMember = memberClass;
-        isGroupedUp = true;
+        base.GetGroupedUp(memberClass);
     }
+    public override CharacterGroupMember GetGroup() => _GroupMember;
 
-    public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+	public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
 	public override void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false) => _MoveController.GetPushedBack(pushFromPoint, pushBackForce, isLaunched);
 	public override void ResetCharacterPushback() => _MoveController.ResetPushback();
 

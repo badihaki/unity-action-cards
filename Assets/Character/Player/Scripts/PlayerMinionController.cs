@@ -10,7 +10,6 @@ public class PlayerMinionController : CharacterGroupLeader
     [SerializeField]
     private Vector3 summonLocation;
 
-
 	public bool TrySummonMinion(NPCSheetScriptableObj minionTemplate)
     {
         if (FindSpaceToSummon())
@@ -34,10 +33,6 @@ public class PlayerMinionController : CharacterGroupLeader
             loc.y += 1;
             // now use spherecast to determine if there's a collider there
             Collider[] collisions = Physics.OverlapSphere(loc, 1);
-			foreach (var collision in collisions)
-			{
-                print(collision.name);
-			}
 			if (collisions.Length == 0)
             {
 				found = true;
@@ -57,5 +52,7 @@ public class PlayerMinionController : CharacterGroupLeader
         groupMember.Initialize(this);
         minion.GetGroupedUp(groupMember);
         AddCharacterToGroup(minion);
+        if (!_Character.isGroupedUp)
+            _Character.GetGroupedUp(this);
     }
 }

@@ -75,7 +75,9 @@ public class PlayerCharacter : Character, IDestroyable
             print("finish setup");
     }
 
-    private void LoadAndBuildActor()
+    public override CharacterGroupMember GetGroup() => _MinionController;
+
+	private void LoadAndBuildActor()
     {
         try
         {

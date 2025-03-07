@@ -7,8 +7,12 @@ public class Actor : MonoBehaviour
     private Character _Character;
     [field: SerializeField]
     public Animator animationController { get; protected set; }
+    [field: SerializeField]
+    public CharacterHitbox _Hitbox { get; protected set; }
+    [field: SerializeField]
+    public CharacterHurtbox _Hurtbox { get; protected set; }
 
-    [field: SerializeField, Header("Components")]
+	[field: SerializeField, Header("Components")]
     public CheckForGround _CheckGrounded { get; private set; }
 
     [field:SerializeField, Header("FXs")]
@@ -28,7 +32,10 @@ public class Actor : MonoBehaviour
 	public virtual void Initialize(Character character)
     {
         _Character = character;
-        animationController = GetComponent<Animator>();
+        _Hitbox = GetComponentInChildren<CharacterHitbox>(true);
+        _Hurtbox = GetComponentInChildren<CharacterHurtbox>();
+
+		animationController = GetComponent<Animator>();
         // animationController.ApplyBuiltinRootMotion();
         animationController.applyRootMotion = true;
         _CheckGrounded = GetComponent<CheckForGround>();

@@ -1,3 +1,4 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -14,11 +15,14 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
-    [field: SerializeField, Header("devmode")] public bool devMode { get; protected set; } = false;
+    [field: SerializeField, Header("devmode")]
+    public bool devMode { get; protected set; } = false;
+	[field: SerializeField, Header("Character Grouping")]
+	public bool isGroupedUp { get; protected set; } = false;
 
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         if (devMode)
             Initialize();
@@ -68,9 +72,19 @@ public class Character : MonoBehaviour
     void Update()
     {
 
+	}
+	public virtual void GetGroupedUp(CharacterGroupMember memberClass)
+	{
+		SetIsGroupedUp(true);
+	}
+
+    public void SetIsGroupedUp(bool value) => isGroupedUp = value;
+    public virtual CharacterGroupMember GetGroup()
+    {
+        throw new NotImplementedException();
     }
 
-    public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
+	public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
     {
     }
 

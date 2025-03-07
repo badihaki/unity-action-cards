@@ -12,7 +12,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 
     // group member struct
     [Serializable]
-    protected struct GroupMember
+	public struct GroupMemberStruct
     {
         public string Name;
         public NonPlayerCharacter Character;
@@ -23,7 +23,7 @@ public class CharacterGroupLeader : CharacterGroupMember
         public bool commandedToMove;
         public bool commandedToAttack;
 
-        public GroupMember(string name, NonPlayerCharacter character, Actor actor, CharacterGroupMember grouping, float dist)
+        public GroupMemberStruct(string name, NonPlayerCharacter character, Actor actor, CharacterGroupMember grouping, float dist)
         {
             Name = name;
             Character = character;
@@ -36,7 +36,7 @@ public class CharacterGroupLeader : CharacterGroupMember
         }
     }
 	[field: Header("Group Member Properties"), SerializeField]
-    protected List<GroupMember> _GroupMembers { get; private set; }
+    public List<GroupMemberStruct> _GroupMembers { get; private set; }
     
     [field: SerializeField, Tooltip("The leash is how far entities can move from the leader")]
     public float _GroupLeashDistance { get; private set; } = 3.85f;
@@ -47,7 +47,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 	void Start()
     {
         _LeaderCharacter = GetComponent<Character>();
-        _GroupMembers = new List<GroupMember>();
+        _GroupMembers = new List<GroupMemberStruct>();
         Initialize(this);
         if(_LeaderCharacter is NonPlayerCharacter)
         {
@@ -72,7 +72,7 @@ public class CharacterGroupLeader : CharacterGroupMember
         }
         // set the character's group leader to this character
         float distance = Vector3.Distance(_Character._Actor.transform.position, character._Actor.transform.position);
-		GroupMember newMemberStruct = new(character.name, character, character._Actor, newGroupMember, distance);
+		GroupMemberStruct newMemberStruct = new(character.name, character, character._Actor, newGroupMember, distance);
         _GroupMembers.Add(newMemberStruct);
         newGroupMember.Initialize(this);
         character.GetGroupedUp(newGroupMember);
@@ -82,7 +82,7 @@ public class CharacterGroupLeader : CharacterGroupMember
 	private void RemoveCharacterFromGroup(Character character)
 	{
 		character.TryGetComponent(out CharacterGroupMember newGroupMember);
-        GroupMember removingMember = _GroupMembers.Find(member=>member.Character == character);
+        GroupMemberStruct removingMember = _GroupMembers.Find(member=>member.Character == character);
         _GroupMembers.Remove(removingMember);
         // _GroupMembers.IndexOf()
 	}
@@ -96,10 +96,10 @@ public class CharacterGroupLeader : CharacterGroupMember
 	private void LeashGroupMembers()
 	{
 		// if too far, call go to leader on the group member
-		List<GroupMember> groupMembers = new List<GroupMember>(_GroupMembers);
-		foreach (GroupMember character in groupMembers)
+		List<GroupMemberStruct> groupMembers = new List<GroupMemberStruct>(_GroupMembers);
+		foreach (GroupMemberStruct character in groupMembers)
 		{
-			GroupMember newCharacterStats = character;
+			GroupMemberStruct newCharacterStats = character;
 			if (newCharacterStats.DistanceFromLeader > _GroupMaxLeashDistance && !newCharacterStats.commandedToMove)
             {
                 newCharacterStats.Character._NavigationController.SetTarget(_LeaderCharacter, _GroupLeashDistance - 1);
@@ -115,11 +115,11 @@ public class CharacterGroupLeader : CharacterGroupMember
 
 	private void ManageGroupDistance()
 	{
-        List<GroupMember> groupMembers = new List<GroupMember>(_GroupMembers);
-		foreach (GroupMember character in groupMembers)
+        List<GroupMemberStruct> groupMembers = new List<GroupMemberStruct>(_GroupMembers);
+		foreach (GroupMemberStruct character in groupMembers)
 		{
             // chekc the distance
-            GroupMember newCharacterStats = character;
+            GroupMemberStruct newCharacterStats = character;
 			float distance = Vector3.Distance(_Character._Actor.transform.position, character.Character._Actor.transform.position);
             newCharacterStats.DistanceFromLeader = distance;
             
@@ -128,10 +128,10 @@ public class CharacterGroupLeader : CharacterGroupMember
 		}
 	}
 
-    private IEnumerator MoveGroupMemberToLeader(GroupMember groupMember, int memberIndexNum)
+    private IEnumerator MoveGroupMemberToLeader(GroupMemberStruct groupMember, int memberIndexNum)
     {
-        GroupMember copyGroupMember = groupMember;
-        while (_GroupMembers[memberIndexNum].commandedToMove)
+        GroupMemberStruct copyGroupMember = groupMember;
+        while (_GroupMembers.Count > 0 && _GroupMembers[memberIndexNum].commandedToMove)
         {
             if(_GroupMembers[memberIndexNum].DistanceFromLeader <= _GroupLeashDistance)
             {
