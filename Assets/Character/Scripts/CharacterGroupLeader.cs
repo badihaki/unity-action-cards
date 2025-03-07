@@ -145,7 +145,8 @@ public class CharacterGroupLeader : CharacterGroupMember
 				yield return null;
             }
 		}
-		copyGroupMember.Character._NavigationController.RemoveTarget();
+        if (copyGroupMember.Character._NavigationController._NavTarget == copyGroupMember.GroupMemberController._GroupLeader._Character._Actor.transform)
+            copyGroupMember.Character._NavigationController.RemoveTarget();
 		_GroupMembers[memberIndexNum] = copyGroupMember;
         groupMember.Character._StateMachine.ChangeState(groupMember.Character._StateMachine._StateLibrary._IdleState);
 	}

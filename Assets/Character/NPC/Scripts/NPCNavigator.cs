@@ -27,21 +27,21 @@ public class NPCNavigator : MonoBehaviour
         navNodListIsReseting = false;
         _AttackController = _NPC._AttackController as NPCAttackController;
         _MovementController = _NPC.GetComponent<NPCMovementController>();
-        _NPC._NPCActor._AggressionManager.IsAggressed += StopNodeListManagement;
+        _NPC._NPCActor._AggressionManager.OnBecomeAggressed += StopNodeListManagement;
     }
 
 	private void OnEnable()
 	{
 		if(_NPC != null)
         {
-			_NPC._NPCActor._AggressionManager.IsAggressed += StopNodeListManagement;
+			_NPC._NPCActor._AggressionManager.OnBecomeAggressed += StopNodeListManagement;
 		}
 	}
 
 	private void OnDisable()
 	{
 
-		_NPC._NPCActor._AggressionManager.IsAggressed -= StopNodeListManagement;
+		_NPC._NPCActor._AggressionManager.OnBecomeAggressed -= StopNodeListManagement;
 	}
 
 

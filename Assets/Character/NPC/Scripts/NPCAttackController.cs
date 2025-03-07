@@ -35,6 +35,12 @@ public class NPCAttackController : CharacterAttackController
         _NPC._Actor.onDeath += CleanupAggression;
     }
 
+	private void OnDisable()
+	{
+		_NPC._Hurtbox.DetermineWhoWhurtMe -= TrySetNewTargetEnemy;
+        _NPC._Actor.onDeath -= CleanupAggression;
+	}
+
 	private void CleanupAggression(Character character)
 	{
 		StopAllCoroutines();
@@ -57,12 +63,13 @@ public class NPCAttackController : CharacterAttackController
 	private void SetActiveTarget(Character target)
 	{
         target._Actor.onDeath += RemoveActiveTarget;
-		_ActiveTarget = target.transform;
+		_ActiveTarget = target._Actor.transform;
+        _NPC._NavigationController.SetTarget(target);
 	}
 
-	private void RemoveActiveTarget(Character character)
+	public void RemoveActiveTarget(Character character)
 	{
-        if(_ActiveTarget == character._Actor.transform)
+        if (_ActiveTarget == character._Actor.transform)
         {
             _ActiveTarget = null;
         }

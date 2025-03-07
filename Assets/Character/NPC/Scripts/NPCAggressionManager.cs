@@ -5,7 +5,8 @@ using UnityEngine;
 public class NPCAggressionManager : MonoBehaviour
 {
     private NonPlayerCharacter _NPC;
-    [field: SerializeField, Header("Aggression State")]
+    private NPCAttackController _AttackController;
+	[field: SerializeField, Header("Aggression State")]
     public int _Aggression { get; private set; }
     [field: SerializeField]
     public List<Character> _LastAggressors {  get; private set; }
@@ -18,14 +19,15 @@ public class NPCAggressionManager : MonoBehaviour
 
     // events
     public delegate void OnAggressed();
-    public event OnAggressed IsAggressed;
+    public event OnAggressed OnBecomeAggressed;
     public delegate void OnSeeAlly(Character character);
     public event OnSeeAlly FoundFriend;
 
 	public void Initialize(NonPlayerCharacter npc)
     {
         _NPC = npc;
-        _Aggression = 0;
+        _AttackController = _NPC._AttackController as NPCAttackController;
+		_Aggression = 0;
         _LastAggressors = new List<Character>();
     }
 
@@ -41,18 +43,46 @@ public class NPCAggressionManager : MonoBehaviour
                 print(">>>>>>> adding aggressor <<");
             _LastAggressors.Add(aggressor);
             aggressor._Actor.onDeath += _NPC._NavigationController.RemoveTargetCharacter;
-        }
+            aggressor._Actor.onDeath += RemoveAggressor;
+		}
 
         if (_Aggression >= 50 && !isAggressive)
         {
             isAggressive = true;
 			_NPC._NPCActor.animationController.SetBool("aggressive", true);
             //print("aggressed in animator <<<<<<<<<<<<<<");
-			IsAggressed();
+			OnBecomeAggressed();
 			StartCoroutine(SlowlyLowerAggression());
         }
         if (_Aggression > 100) _Aggression = 100;
     }
+
+    private void RemoveAggressor(Character aggressor)
+    {
+		_LastAggressors?.Remove(aggressor);
+        _AttackController.RemoveActiveTarget(aggressor);
+        if (_LastAggressors.Count > 0)
+        {
+            Character nextEnemy;
+			if (_LastAggressors.Count == 1)
+                nextEnemy = _LastAggressors[0];
+            else
+            {
+                int enemyIndex = Random.Range(0, _LastAggressors.Count - 1);
+                nextEnemy = _LastAggressors[enemyIndex];
+            }
+            _AttackController.TrySetNewTargetEnemy(nextEnemy);
+        }
+        else
+        {
+            StopAllCoroutines();
+            _Aggression = 0;
+            isAggressive = false;
+			_NPC._NPCActor.animationController.SetBool("aggressive", false);
+		}
+		aggressor._Actor.onDeath -= _NPC._NavigationController.RemoveTargetCharacter;
+		aggressor._Actor.onDeath -= RemoveAggressor;
+	}
 
     private IEnumerator SlowlyLowerAggression()
     {
@@ -63,11 +93,10 @@ public class NPCAggressionManager : MonoBehaviour
             int targetIndex = _Aggression;
 			foreach (var enemy in _LastAggressors)
 			{
-                if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-                    print($">> trying to see {enemy} || can we see them? {_NPC._EyeSight.CanSeeTarget(enemy._Actor.transform)}");
 			    if (_Aggression < 50 && _NPC._EyeSight.CanSeeTarget(enemy._Actor.transform))
                 {
                     _Aggression = 100;
+                    _AttackController.TrySetNewTargetEnemy(enemy);                    
                     break;
                 }				
 			}
@@ -89,14 +118,16 @@ public class NPCAggressionManager : MonoBehaviour
 				// lost all aggression here
 				foreach (Character aggressor in _LastAggressors)
 				{
-                    aggressor._Actor.onDeath -= _NPC._NavigationController.RemoveTargetCharacter;
+                    RemoveAggressor(aggressor);
 				}
-				_LastAggressors.Clear();
+                if (_LastAggressors.Count > 0)
+                    _LastAggressors.Clear();
                 isAggressive = false;
                 _NPC._NPCActor.animationController.SetBool("aggressive", false);
                 _NPC._StateMachine.ChangeState(_NPC._StateMachine._StateLibrary._IdleState);
-            }
-            else
+				StopCoroutine(QuicklyLowerAggression());
+			}
+			else
                 yield return null;
         }
     }
