@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 312642220554178603}
   - component: {fileID: 7106337775562811646}
   - component: {fileID: 1066848319673379452}
+  - component: {fileID: 1316371007805609074}
+  - component: {fileID: 2522391727797802347}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -63,6 +65,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CharacterLaunchForce>k__BackingField: 25.85
   <FarKnockBackForce>k__BackingField: {x: 15.3, y: 23.4}
+  CharactersFolder: {fileID: 0}
+  ProjectilesFolder: {fileID: 0}
+  ParticlesFolder: {fileID: 0}
 --- !u!114 &7106337775562811646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +132,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 578f4a8d8e7c95d48aafb7f3da87787e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1316371007805609074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696046997118454275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5045288fbe6f4664a8c329336c5d2f88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2522391727797802347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3696046997118454275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d46867da81d864ba1ac9a1bba0a252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcTemplate: {fileID: 1797102457050523090, guid: e10474091632b144a84e746585ffe147,
+    type: 3}

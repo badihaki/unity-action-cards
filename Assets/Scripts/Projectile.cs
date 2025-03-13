@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
-                    Damage damageOb = new Damage(_damage, _force, intendedResponse, transform);
+                    Damage damageOb = new Damage(_damage, _force, intendedResponse, transform, _controllingCharacter);
 
 					damageableEntity?.Damage(damageOb);
             
@@ -73,14 +73,20 @@ public class Projectile : MonoBehaviour
     {
         yield return new WaitForSeconds(_lifetime);
 
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
     }
 
     protected virtual void OnImpact(bool withVfx)
     {
-        if (withVfx) Instantiate(_impactVFX, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
+        if (withVfx)
+        {
+            //Instantiate(_impactVFX, transform.position, Quaternion.identity);
+            GameObject effect = ObjectPoolManager.GetObjectFromPool(_impactVFX, transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Particle);
+		}
+		//Destroy(gameObject);
+		ObjectPoolManager.ReturnObjectToPool(gameObject);
+	}
 
     // end
 }

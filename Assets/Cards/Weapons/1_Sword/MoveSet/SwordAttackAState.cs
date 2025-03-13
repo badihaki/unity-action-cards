@@ -12,7 +12,7 @@ public class SwordAttackAState : PlayerAttackSuperState
 	public override void EnterState()
 	{
 		base.EnterState();
-		_PlayerCharacter._LocomotionController.ZeroOutVelocity();
+		_PlayerCharacter._MoveController.ZeroOutVelocity();
 		//_AttackController.SetAttackParameters(false, false);
 		_AttackController.SetAttackParameters();
 		ShowOrHideWeapon(true);

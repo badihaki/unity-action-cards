@@ -46,7 +46,7 @@ public class PlayerWeaponController : MonoBehaviour
 		if(!infiniteDurability)
 		{
 			_CurrentWeaponDurability = _CurrentWeapon._Durability;
-			player._PlayerUIController.ActivateWeaponUI(_CurrentWeaponDurability);
+			player._UIController.ActivateWeaponUI(_CurrentWeaponDurability);
 			OnDurabilityChanged(_CurrentWeaponDurability);
 			//print("starting dur timer coroutine");
 			StartCoroutine(ManageDurabilityTimer());
@@ -98,7 +98,7 @@ public class PlayerWeaponController : MonoBehaviour
 			OnDurabilityChanged(_CurrentWeaponDurability);
 			yield return null;
 		}
-		player._PlayerUIController.DisableWeaponUI();
+		player._UIController.DisableWeaponUI();
 		SwitchWeapon(baseWeapon);
 	}
 
@@ -111,7 +111,8 @@ public class PlayerWeaponController : MonoBehaviour
 
 	public void PlayWeaponVFX()
 	{
-		GameObject vfx = Instantiate(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity);
+		//GameObject vfx = Instantiate(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity);
+		GameObject vfx = ObjectPoolManager.GetObjectFromPool(_CurrentWeapon._WeaponAttackFX, _VfxSpawnPos.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Particle);
 		//Vector3 rotation = player._Actor.transform.forward;
 		Quaternion rotation = player._Actor.transform.rotation;
 		vfx.transform.rotation = rotation;

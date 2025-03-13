@@ -93,27 +93,40 @@ public class NPCState : ScriptableObject
 
 	// stuff that manages state response to getting hit
 	#region Hurt functions
-	public void GetHurt(responsesToDamage damageResponse)
+	public virtual void GetHurt(responsesToDamage damageResponse)
     {
-        switch (damageResponse)
+        NPCState nextState = _StateMachine._StateLibrary._AirHitState;
+		if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+			_StateMachine.LogFromState($"{_NPC.name} is recieving the damage response {damageResponse}");
+		switch (damageResponse)
         {
             case responsesToDamage.hit:
-                GetHurt();
+                //if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+                //    _StateMachine.LogFromState($"{_NPC.name} is going to hit state");
+				GetHit();
 				break;
             case responsesToDamage.stagger:
-                GetStaggered();
+				//if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+				//	_StateMachine.LogFromState($"{_NPC.name} is going to stagger state");
+				GetStaggered();
 				break;
 			case responsesToDamage.launch:
-                GetLaunched();
+				//if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+				//	_StateMachine.LogFromState($"{_NPC.name} is going to launch state");
+				GetLaunched();
 				break;
 			case responsesToDamage.knockBack:
-                GetKnockedBack();
+				//if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+				//	_StateMachine.LogFromState($"{_NPC.name} is going to knockback state");
+				GetKnockedBack();
 				break;
 		}
     }
 
-	public void GetHurt()
+	public virtual void GetHit()
 	{
+        //if (GameManagerMaster.GameMaster.GMSettings.logNPCCombat)
+        //    _StateMachine.LogFromState($"{_NPC.name} is grounded? --> {_NPC._CheckGrounded.IsGrounded()}");
 		if (!_NPC._CheckGrounded.IsGrounded())
 		{
 			_StateMachine.ChangeState(_StateMachine._StateLibrary._AirHitState);

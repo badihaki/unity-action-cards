@@ -31,7 +31,7 @@ public class PlayerInAirSuperState : PlayerState
 
         if (spellSelectDirection != 0)
         {
-            _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
+            _PlayerCharacter._UIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
@@ -45,11 +45,11 @@ public class PlayerInAirSuperState : PlayerState
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 		if (moveInput != Vector2.zero)
         {
-            _PlayerCharacter._LocomotionController.DetectMove(moveInput);
-            _PlayerCharacter._LocomotionController.RotateCharacter(moveInput);
+            _PlayerCharacter._MoveController.DetectMove(moveInput);
+            _PlayerCharacter._MoveController.RotateCharacter(moveInput);
         }
-        _PlayerCharacter._LocomotionController.ApplyGravity();
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        _PlayerCharacter._MoveController.ApplyGravity();
+        _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
     }
 
     public override void CheckStateTransitions()
@@ -59,7 +59,7 @@ public class PlayerInAirSuperState : PlayerState
         if (_PlayerCharacter._CheckGrounded.IsGrounded())
         {
             _StateMachine.ChangeState(_StateMachine._IdleState);
-			_PlayerCharacter._LocomotionController.ResetAllAirSchmoovement();
+			_PlayerCharacter._MoveController.ResetAllAirSchmoovement();
 		}
         if (attackInput)
         {

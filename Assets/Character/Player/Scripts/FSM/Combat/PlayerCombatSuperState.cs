@@ -32,7 +32,7 @@ public class PlayerCombatSuperState : PlayerState
         base.EnterState();
 
         canCombo = false;
-        _PlayerCharacter._LocomotionController.RotateInstantly(moveInput);
+        _PlayerCharacter._MoveController.RotateInstantly(moveInput);
     }
 
     public override void ExitState()
@@ -62,7 +62,7 @@ public class PlayerCombatSuperState : PlayerState
 
         if (spellSelectDirection != 0)
         {
-            _PlayerCharacter._PlayerUIController.ChangeSpell(spellSelectDirection);
+            _PlayerCharacter._UIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
             _PlayerCharacter._Controls.ResetSelectSpell();
         }

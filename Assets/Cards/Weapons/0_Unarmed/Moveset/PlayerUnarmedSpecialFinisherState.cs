@@ -15,7 +15,7 @@ public class PlayerUnarmedSpecialFinisherState : PlayerSpecialSuperState
         // _PlayerCharacter._AnimationController.SetBool("finisherA", true);
 
         //_AttackController.SetAttackParameters(false, false, 2);
-        _AttackController.SetAttackParameters(responsesToDamage.hit, 2, 2.0f);
+        _AttackController.SetAttackParameters(responsesToDamage.hit, 2, 0.2f);
 	}
 
     public override void ExitState()

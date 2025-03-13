@@ -20,7 +20,6 @@ public class NPCAggressiveState : NPCIdleState
 
 	public override void EnterState()
     {
-		_StateMachine.LogFromState($"entering aggressive state");
 		if (waitTime <= 0)
 		{
 			waitTime = CreateNewWaitTime(0.55f, 1.0f);
@@ -52,7 +51,8 @@ public class NPCAggressiveState : NPCIdleState
 	{
 		base.PhysicsUpdate();
 
-		_NPC._MoveController.RotateTowardsTarget(attackController._ActiveTarget);
+		if (attackController._ActiveTarget != null)
+			_NPC._MoveController.RotateTowardsTarget(attackController._ActiveTarget);
 	}
 
 	public override void CheckStateTransitions()
@@ -70,10 +70,13 @@ public class NPCAggressiveState : NPCIdleState
         }
         if (readyToAttack)
         {
-			//_StateMachine.LogFromState($"going to action {_NPC._MoveSet.GetCurrentAttackState().name} from state {name}");
-			waitTime = CreateNewWaitTime(0.5f, _NPC._MoveSet.GetCurrentAttack().waitTime);
-			_StateMachine.ChangeState(_NPC._MoveSet.GetCurrentAttackState());
-        }
+			if (attackController._ActiveTarget != null)
+			{
+				_StateMachine.ChangeState(_NPC._MoveSet.GetCurrentAttackState());
+				return;
+			}
+			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+		}
 		// if aggressive
 		if (!_NPC._NPCActor._AggressionManager.isAggressive)
 		{
@@ -86,7 +89,8 @@ public class NPCAggressiveState : NPCIdleState
         waitTime -= Time.deltaTime;
         if (waitTime <= 0)
 		{
-			_StateMachine.LogFromState($"done with wait");
+			if (GameManagerMaster.GameMaster.GMSettings.logNPCUtilData)
+				_StateMachine.LogFromState($"done with wait");
 			readyToAttack = true;
 		}
     }

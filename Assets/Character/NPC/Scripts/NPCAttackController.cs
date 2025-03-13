@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class NPCAttackController : CharacterAttackController
     private NonPlayerCharacter _NPC;
 
     [SerializeField] private bool _AttackTicket;
-    [field: SerializeField, Header("Attacking Target")]
+    [field: SerializeField, Header("Attacking this Target")]
     public Transform _ActiveTarget { get; private set; }
     
     [field: SerializeField, Header("Distances")]
@@ -30,15 +31,54 @@ public class NPCAttackController : CharacterAttackController
         _NPC = character as NonPlayerCharacter;
         _AttackTicket = true;
         
-        if (_NPC._Hurtbox) _NPC._Hurtbox.DetermineWhoWhurtMe += SetNewTargetEnemy;
+        if (_NPC._Hurtbox) _NPC._Hurtbox.OnHurtByCharacter += TrySetNewTargetEnemy;
+        _NPC._Actor.onDeath += CleanupAggression;
     }
 
-    public void SetNewTargetEnemy(Transform aggressor)
+	private void OnDisable()
+	{
+		_NPC._Hurtbox.OnHurtByCharacter -= TrySetNewTargetEnemy;
+        _NPC._Actor.onDeath -= CleanupAggression;
+        StopAllCoroutines();
+	}
+
+	private void CleanupAggression(Character character)
+	{
+		StopAllCoroutines();
+	}
+
+	public void TrySetNewTargetEnemy(Character aggressor)
     {
-        _ActiveTarget = aggressor;
+        if(_ActiveTarget == null)
+		{
+			SetActiveTarget(aggressor);
+		}
+		else
+        {
+            int result = GameManagerMaster.GameMaster.Dice.RollD10();
+            if (result >= 4)
+                SetActiveTarget(aggressor);
+        }
     }
 
-    public float GetDistanceFromTarget()
+	private void SetActiveTarget(Character target)
+	{
+        target._Actor.onDeath += RemoveActiveTarget;
+		_ActiveTarget = target._Actor.transform;
+        if (_NPC._NavigationController._NavTarget != target)
+            _NPC._NavigationController.SetTarget(target);
+	}
+
+	public void RemoveActiveTarget(Character character)
+	{
+        if (_ActiveTarget == character._Actor.transform)
+        {
+            _ActiveTarget = null;
+        }
+		character._Actor.onDeath -= RemoveActiveTarget;
+	}
+
+	public float GetDistanceFromTarget()
     {
         float dist;
         //float myY = _NPC._NPCActor.transform.position.y > 0 ? _NPC._NPCActor.transform.position.y : _NPC._NPCActor.transform.position.y * -1;
@@ -64,7 +104,7 @@ public class NPCAttackController : CharacterAttackController
     }
 
 	//public override void SetAttackParameters(bool knockback, bool launch, int damageModifier = 0)
-	public override void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 1)
+	public override void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 0.1f)
 	{
 		base.SetAttackParameters(intendedDmgResponse, damageModifier, force);
 		_Damage = _NPC._MoveSet.GetCurrentAttack().damage + damageModifier;

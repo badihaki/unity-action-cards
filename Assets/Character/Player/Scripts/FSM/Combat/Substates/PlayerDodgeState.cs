@@ -27,8 +27,8 @@ public class PlayerDodgeState : PlayerDefenseSuperState
     {
         base.PhysicsUpdate();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity();
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        _PlayerCharacter._MoveController.ApplyGravity();
+        _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
     }
 
     public override void AnimationFinished()

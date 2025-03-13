@@ -1,5 +1,7 @@
+using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Character : MonoBehaviour
 {
@@ -13,11 +15,14 @@ public class Character : MonoBehaviour
     [field: SerializeField] public CharacterHurtbox _Hurtbox { get; private set; }
     [field: SerializeField] public CharacterSoundManager _SoundManager { get; protected set; }
     public Camera _CameraRef { get; protected set; }
-    [field: SerializeField, Header("devmode")] public bool devMode { get; protected set; } = false;
+    [field: SerializeField, Header("devmode")]
+    public bool devMode { get; protected set; } = false;
+	[field: SerializeField, Header("Character Grouping")]
+	public bool isGroupedUp { get; protected set; } = false;
 
 
-    // Start is called before the first frame update
-    void Start()
+	// Start is called before the first frame update
+	void Start()
     {
         if (devMode)
             Initialize();
@@ -28,14 +33,14 @@ public class Character : MonoBehaviour
         // Create the character in the game world
         _Actor = transform.Find("Actor").GetComponent<Actor>();
 
-		// start the hitbox
-		_Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>()?.Initialize(this);
+        // start the hitbox
+        _Actor.transform.Find("Hitbox").GetComponent<CharacterHitbox>()?.Initialize(this);
 
         // Attack
         _AttackController = GetComponent<CharacterAttackController>();
 
-		// start health
-		_Health = GetComponent<Health>();
+        // start health
+        _Health = GetComponent<Health>();
         if (_Health == null) _Health = transform.AddComponent<Health>();
         _Health.InitiateHealth(_CharacterSheet._StartingHealth);
 
@@ -59,27 +64,43 @@ public class Character : MonoBehaviour
 
         _SoundManager = GetComponent<CharacterSoundManager>();
         _SoundManager.InitializeSoundManager(this);
-    }
+
+		CharacterRepelSpace characterRepelSpace = GetComponentInChildren<CharacterRepelSpace>();
+		characterRepelSpace.Initialize(this);
+	}
     // Update is called once per frame
     void Update()
     {
-        
+
+	}
+	public virtual void GetGroupedUp(CharacterGroupMember memberClass)
+	{
+		SetIsGroupedUp(true);
+	}
+
+    public void SetIsGroupedUp(bool value) => isGroupedUp = value;
+    public virtual CharacterGroupMember GetGroup()
+    {
+        throw new NotImplementedException();
     }
 
-    public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
+	public virtual void RespondToHit(responsesToDamage intendedDamageResponse)
     {
-    }
-
-    public virtual void DestroyEntity()
-    {
-        print("goodbye, " + name);
-        Destroy(gameObject);
     }
 
     public virtual void AddToExternalForce(Vector3 force)
     {
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print($"adding force {force} to  {name}");
+    }
+
+    public virtual void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false)
+    {
+        //
+    }
+    public virtual void ResetCharacterPushback()
+    {
+        //
     }
 
     // end of the line

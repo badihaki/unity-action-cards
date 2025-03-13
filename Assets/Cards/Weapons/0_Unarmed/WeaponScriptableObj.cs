@@ -11,7 +11,7 @@ public class WeaponScriptableObj : ScriptableObject
 
     [Header("Stats")]
     public int _Dmg = 1;
-    public float _Force = 5.0f;
+    public float _Force = 0.035f;
     
     [Header("Moves")]
     public PlayerMoveSetScriptableObj _MoveSet;

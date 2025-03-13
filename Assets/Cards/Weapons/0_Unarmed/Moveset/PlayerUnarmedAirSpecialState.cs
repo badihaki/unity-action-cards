@@ -18,7 +18,7 @@ public class PlayerUnarmedAirSpecialState : PlayerAirCombatSuperState
         _PlayerCharacter._AnimationController.SetBool("continue2", false);
 
 		//_AttackController.SetAttackParameters(true, true, 2);
-		_AttackController.SetAttackParameters(responsesToDamage.knockBack, 2, 2.25f);
+		_AttackController.SetAttackParameters(responsesToDamage.knockBack, 1, 0.2f);
 	}
 
     public override void LogicUpdate()
@@ -39,9 +39,9 @@ public class PlayerUnarmedAirSpecialState : PlayerAirCombatSuperState
 
         if (canCombo)
         {
-            _PlayerCharacter._LocomotionController.ApplyGravity(1.35f);
-            _PlayerCharacter._LocomotionController.DetectMove(_PlayerCharacter._PlayerActor.transform.forward);
-            _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+            _PlayerCharacter._MoveController.ApplyGravity(1.35f);
+            _PlayerCharacter._MoveController.DetectMove(_PlayerCharacter._PlayerActor.transform.forward);
+            _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
         }
     }
 

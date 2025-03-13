@@ -11,6 +11,6 @@ public class SwordRushState : PlayerRushAttackSuperState
 	{
 		base.EnterState();
 		//_AttackController.SetAttackParameters(true, false, 1);
-		_AttackController.SetAttackParameters(responsesToDamage.stagger, 1, 1.5f);
+		_AttackController.SetAttackParameters(responsesToDamage.stagger, 1, 0.15f);
 	}
 }

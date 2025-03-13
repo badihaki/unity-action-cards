@@ -15,7 +15,7 @@ public class NPCKnockbackState : NPCHurtSuperState
 	{
 		base.EnterState();
 		knockbackTime = 0.0f;
-		knockingFrom = _NPC._NPCActor._AggressionManager._LastAggressors.Last();
+		knockingFrom = _NPC._NPCActor._AggressionManager._LastAggressors.Last()._Actor.transform;
 		_StateMachine.LogFromState(knockingFrom.name);
 	}
 	public override void LogicUpdate()
@@ -29,7 +29,8 @@ public class NPCKnockbackState : NPCHurtSuperState
 
 		if (knockbackTime < 0.85f)
 		{
-			_NPC._MoveController.FarKnocBack(knockingFrom.position);
+			//_NPC._MoveController.GetKnockback(knockingFrom.position);
+			_NPC._MoveController.GetPushedBack(knockingFrom.position, 0.5f, true);
 		}
 		_NPC._MoveController.ApplyGravity(knockbackTime);
 		_NPC._MoveController.ApplyExternalForces();

@@ -13,6 +13,6 @@ public class SwordFinisherBState : PlayerSpecialSuperState
 	{
 		base.EnterState();
 		//_AttackController.SetAttackParameters(true, false, 1);
-		_AttackController.SetAttackParameters(responsesToDamage.stagger, 1, 2);
+		_AttackController.SetAttackParameters(responsesToDamage.stagger, 1, 0.2f);
 	}
 }

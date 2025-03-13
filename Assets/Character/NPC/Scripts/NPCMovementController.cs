@@ -7,9 +7,6 @@ public class NPCMovementController : MonoBehaviour
     [field: SerializeField, Header("Components")]
 	public CharacterController _CharacterController { get; private set; }
 	
-	[field: SerializeField]
-	private NPCNavigator _Navigator;
-	
 	[field: Header("Forces"), SerializeField]
     public Vector3 _ExternalForces { get; private set; }
 	[SerializeField] private float _Gravity = 9.810f;
@@ -22,12 +19,18 @@ public class NPCMovementController : MonoBehaviour
 	[SerializeField]
 	private Vector3 _IntendedVelocity;
 
+	[field: SerializeField, Header("Knockback")]
+	public Vector3 knockBackSource = Vector3.zero;
+	[field: SerializeField]
+	public Vector3 knockBackDir = Vector3.zero;
+	[field: SerializeField]
+	public float knockBackForce = 0;
+
 	public void InitializeNPCMovement(NonPlayerCharacter character)
 	{
 		_NPC = character;
 		_CharacterController = _NPC._Actor.GetComponent<CharacterController>();
 		_NavAgent = _NPC._Actor.GetComponent<NavMeshAgent>();
-		_Navigator = _NPC._NavigationController;
 		_ExternalForces = Vector3.zero;
 		SetAgentUpdates(false);
 	}
@@ -81,19 +84,52 @@ public class NPCMovementController : MonoBehaviour
 			_ExternalForces = Vector3.zero;
 	}
 
+	public void GetPushedBack(Vector3 pushFromPoint, float pushBackForce = 0, bool isLaunched = false)
+	{
+		if (knockBackSource != pushFromPoint && pushFromPoint != Vector3.zero)
+		{
+			if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
+				print(">> Setting pushed back stuff");
+			knockBackSource = pushFromPoint;
+			knockBackForce = pushBackForce;
+			knockBackDir = knockBackSource - _NPC._NPCActor.transform.position;
+			knockBackDir = -knockBackDir.normalized;
+
+			knockBackDir.y = CalculateKnockbackY(isLaunched);
+		}
+		_CharacterController.Move(knockBackDir * knockBackForce);
+	}
+
+	private float CalculateKnockbackY(bool isLaunched)
+	{
+		if (isLaunched)
+		{
+			return knockBackDir.y = 0.75f;
+		}
+		if (knockBackDir.y < 0)
+			return knockBackDir.y *= -1;
+		return knockBackDir.y;
+	}
+
+	public void ResetPushback()
+	{
+		knockBackSource = Vector3.zero;
+		knockBackForce = 0;
+		knockBackDir = Vector3.zero;
+	}
+
 	public void ApplyExternalForces()
 	{
 		_CharacterController.Move(_ExternalForces * Time.deltaTime);
 		SyncAgentVelToCharControllerVel();
 	}
 
-	public void MoveToCurrentNavNode()
+	public void MoveToNavmeshDestination()
 	{
-		//Vector3 direction = (_Navigator._CurrentNavNode.transform.position - _NPC._Actor.transform.position).normalized;
-		Vector3 direction = _NavAgent.desiredVelocity.normalized;
+		Vector3 movement = _NavAgent.desiredVelocity.normalized;
 		ApplyGravity(1);
-		direction.y = _VerticalVelocity;
-		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
+		movement.y = _VerticalVelocity;
+		_CharacterController.Move((movement * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
 		if (_NavAgent.isStopped)
 			_NavAgent.isStopped = false; // make sure nav agent is not stopped
 		SyncAgentVelToCharControllerVel();
@@ -112,39 +148,36 @@ public class NPCMovementController : MonoBehaviour
 	private void SyncAgentVelToCharControllerVel()
 	{
 		_NavAgent.velocity = _CharacterController.velocity;
-		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-		//	print($"{transform.name} is syncing agent velocity {_NavAgent.velocity.ToString()} to character controller velocity {_CharacterController.velocity}");
 	}
-	public void SetAgentDestination(Vector3? destination, float desiredDistance = 0.0f)
+
+	public void SetAgentDestination(Vector3? destination, float desiredDistance = 1.20f)
 	{
-		//if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-		//	print($"Setting destination to {destination.ToString()}");
 		if (destination != null)
+		{
 			_NavAgent.destination = destination.Value;
+		}
 		else
 		{
 			_NavAgent.destination = _NPC._NPCActor.transform.position;
-			_NavAgent.stoppingDistance = desiredDistance;
 		}
+		_NavAgent.stoppingDistance = desiredDistance;
 	}
 
 	public void MoveToTarget()
 	{
-		//Vector3 direction = (_Navigator._Target.transform.position - _NPC._Actor.transform.position).normalized;
+		if (_NPC._NavigationController._NavTarget == null)
+		{
+			_NavAgent.SetDestination(_NPC._NPCActor.transform.position);
+			return;
+		}
+		_NavAgent.SetDestination(_NPC._NavigationController._NavTarget.position);
 		Vector3 direction = _NavAgent.desiredVelocity.normalized;
 		ApplyGravity(1);
 		direction.y = _VerticalVelocity;
 		_CharacterController.Move((direction * _NPC._CharacterSheet._WalkSpeed) * Time.deltaTime);
 		if (_NavAgent.isStopped)
 		{
-			if (GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
-				print("!!!!!!!!!!!!!! Nav agent was stopped, but is being started again");
 			_NavAgent.isStopped = false; // make sure nav agent is not stopped
-		}
-		else
-		{
-			if(GameManagerMaster.GameMaster.GMSettings.logNPCNavData)
-				print("!!!!!!!!!!!!!! Nav agent was turned on, nothing happened");
 		}
 		SyncAgentVelToCharControllerVel();
 	}
@@ -173,25 +206,21 @@ public class NPCMovementController : MonoBehaviour
 		
 		if (force.z > 0)
 		{
-			print($"backwards force is {backForceVelocity}");
 			force.z *= backForceVelocity;
 		}
 		else
 		{
-			print(Time.deltaTime);
 			float newVerticalVel = _VerticalVelocity * Time.deltaTime;
 			force.z = backForceVelocity * _VerticalVelocity > 0 ? newVerticalVel : newVerticalVel * -1;
 		}
 		_ExternalForces = force;
 	}
 
-	public void FarKnocBack(Vector3 fromPosition)
+	public void GetKnockback(Vector3 fromPosition)
 	{
 		// how far high we goin?
 		_VerticalVelocity = Mathf.Sqrt(GameManagerMaster.GameMaster.GeneralConstantVariables.FarKnockBackForce.y);
 		Vector3 backwardsDir = -_NPC._NPCActor.transform.forward;
-		if (GameManagerMaster.GameMaster.GMSettings.logExtraNPCData)
-			print($">>>>>>>>>>> backwards direction is >>> {backwardsDir.ToString()}");
 		Vector3 extForceCopy = _ExternalForces;
 		extForceCopy.y += _VerticalVelocity;
 		// how far back we goin??

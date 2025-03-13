@@ -17,4 +17,11 @@ public class GMSettings : ScriptableObject
 	public bool logNPCNavData { get; private set; }
 	[field: SerializeField]
 	public bool logNPCUtilData { get; private set; }
+
+	[field: Header("Combat"), SerializeField]
+	public bool logPlayerCombat { get; private set; }
+	[field:SerializeField]
+	public bool logNPCCombat { get; private set; }
+
+	//end
 }

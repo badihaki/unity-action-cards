@@ -187,19 +187,20 @@ GameObject:
   m_Component:
   - component: {fileID: 7077287328336596980}
   - component: {fileID: 214911195564220138}
+  - component: {fileID: 7236318575125279018}
+  - component: {fileID: 6542911905298348363}
+  - component: {fileID: 312133789076485268}
   - component: {fileID: 3710469694778071795}
   - component: {fileID: 358040525570265840}
-  - component: {fileID: 312133789076485268}
-  - component: {fileID: 6542911905298348363}
-  - component: {fileID: 7236318575125279018}
-  - component: {fileID: 3865767190414815257}
-  - component: {fileID: 2985811743604711824}
-  - component: {fileID: 952087385969057769}
-  - component: {fileID: 4013965585459047465}
-  - component: {fileID: 7139961280166402280}
-  - component: {fileID: 5072868601858473742}
   - component: {fileID: 3895246229984299987}
   - component: {fileID: 6084333112869182304}
+  - component: {fileID: 952087385969057769}
+  - component: {fileID: 3865767190414815257}
+  - component: {fileID: 2985811743604711824}
+  - component: {fileID: 7139961280166402280}
+  - component: {fileID: 5072868601858473742}
+  - component: {fileID: 4013965585459047465}
+  - component: {fileID: 3137339615451667405}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -244,80 +245,9 @@ MonoBehaviour:
   <_AnimationController>k__BackingField: {fileID: 0}
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
+  <devMode>k__BackingField: 0
   <_PlayerActor>k__BackingField: {fileID: 0}
   <_LoadNewOnStart>k__BackingField: 1
---- !u!114 &3710469694778071795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a087d10a8d8eaaa4e97c9b622e965397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <_CurrentHealth>k__BackingField: 0
-  restoringPoise: 0
-  <_MaxPoise>k__BackingField: 1
-  <_PoiseFortification>k__BackingField: 0
-  <_CurrentPoise>k__BackingField: 0
---- !u!114 &358040525570265840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d1706b46bae9b6419af8a3ef30486ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <_CurrentAether>k__BackingField: 0
-  <_MaxAether>k__BackingField: 0
-  canRecoverAether: 0
-  <_RecoveryRate>k__BackingField: 0
-  <_RecoveryTimeNeeded>k__BackingField: 1.3
-  <_RecoveryAmount>k__BackingField: 3
---- !u!114 &312133789076485268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b2aaaa41e816cf4babdfb2c3c1bb011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <_CurrentState>k__BackingField: {fileID: 0}
---- !u!114 &6542911905298348363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1f3d536d38bdc14ea2747dbe2841037, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <_MoveInput>k__BackingField: {x: 0, y: 0}
-  <_AimInput>k__BackingField: {x: 0, y: 0}
-  <_LockOnInput>k__BackingField: 0
-  <_JumpInput>k__BackingField: 0
-  <_RushInput>k__BackingField: 0
-  <_CardsInput>k__BackingField: 0
-  <_SpellslingInput>k__BackingField: 0
-  <_AttackInput>k__BackingField: 0
-  <_SpecialAttackInput>k__BackingField: 0
-  <_InteractInput>k__BackingField: 0
-  <_DefenseInput>k__BackingField: 0
-  <_SelectSpellInput>k__BackingField: 0
 --- !u!114 &7236318575125279018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +347,7 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &3865767190414815257
+--- !u!114 &6542911905298348363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -426,22 +356,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764021959895548567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6e41e1e54867b41b2fcc385b922f2c, type: 3}
+  m_Script: {fileID: 11500000, guid: d1f3d536d38bdc14ea2747dbe2841037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Gravity: 15
-  _VerticalVelocity: 0
-  _BaseVerticalVelocity: -1
-  _MaxFallVelocity: -70
-  _DesiredMoveDirection: {x: 0, y: 0, z: 0}
-  _MovementDirection: {x: 0, y: 0, z: 0}
-  <movementSpeed>k__BackingField: 0
-  <targetSpeed>k__BackingField: 0
-  aimRotationSpeed: 1
-  <canDoubleJump>k__BackingField: 0
-  <canAirDash>k__BackingField: 0
-  <_ExternalForces>k__BackingField: {x: 0, y: 0, z: 0}
---- !u!114 &2985811743604711824
+  <_MoveInput>k__BackingField: {x: 0, y: 0}
+  <_AimInput>k__BackingField: {x: 0, y: 0}
+  <_LockOnInput>k__BackingField: 0
+  <_JumpInput>k__BackingField: 0
+  <_RushInput>k__BackingField: 0
+  <_CardsInput>k__BackingField: 0
+  <_SpellslingInput>k__BackingField: 0
+  <_AttackInput>k__BackingField: 0
+  <_SpecialAttackInput>k__BackingField: 0
+  <_InteractInput>k__BackingField: 0
+  <_DefenseInput>k__BackingField: 0
+  <_SelectSpellInput>k__BackingField: 0
+--- !u!114 &312133789076485268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -450,20 +380,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764021959895548567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2997f7a05c0b6954583a7802e2e9525f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b2aaaa41e816cf4babdfb2c3c1bb011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_Camera>k__BackingField: {fileID: 0}
-  <_PlayerCamController>k__BackingField: {fileID: 0}
-  <_PlayerSpellCamController>k__BackingField: {fileID: 0}
-  currentCameraController: {fileID: 0}
-  topLookClamp: 38.6
-  topLookClampWhileAiming: 59.125
-  bottomLookClamp: -43.3
-  lookSensitivity: 3
-  <cinemachineCamTarget>k__BackingField: {fileID: 0}
-  cursorLocked: 0
---- !u!114 &952087385969057769
+  <_CurrentState>k__BackingField: {fileID: 0}
+--- !u!114 &3710469694778071795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,30 +393,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764021959895548567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e21e68f078499049b0d7d5596317755, type: 3}
+  m_Script: {fileID: 11500000, guid: a087d10a8d8eaaa4e97c9b622e965397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_Deck>k__BackingField:
-  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
-  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
-  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
-  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
-  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
-  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
-  - {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1, type: 2}
-  - {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e, type: 2}
-  <_Abyss>k__BackingField: []
-  <_Hand>k__BackingField: []
-  cardPrefab: {fileID: 2994744669256209799, guid: 9cbbbfb1755bbf94aabe2cd0d91d35b6,
-    type: 3}
-  handOfCards: {fileID: 7028789774721231620, guid: a87ae87a94870514c9a8be6b00652842,
-    type: 3}
-  isShowingHand: 0
-  timeTillDrawNewCard: 5.52
-  drawCardTimer: 0
-  drawTimerActivated: 0
-  deckIsRecharging: 0
---- !u!114 &4013965585459047465
+  <_CurrentHealth>k__BackingField: 0
+  restoringPoise: 0
+  <_MaxPoise>k__BackingField: 1
+  <_PoiseFortification>k__BackingField: 0
+  <_CurrentPoise>k__BackingField: 0
+--- !u!114 &358040525570265840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -504,64 +410,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1764021959895548567}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21a98e74e20e97944a4077256fd0998c, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d1706b46bae9b6419af8a3ef30486ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <_baseSpell>k__BackingField: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9,
-    type: 2}
-  <_spellTarget>k__BackingField: {fileID: 0}
-  _spellTimer: 0
-  _UI: {fileID: 0}
---- !u!114 &7139961280166402280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ade214e6798a144b8bfba78c135bfe1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <_Damage>k__BackingField: 0
-  <_KnockedBack>k__BackingField: 0
-  <_Launched>k__BackingField: 0
-  <_AttackA>k__BackingField: {fileID: 0}
-  <_AttackB>k__BackingField: {fileID: 0}
-  <_AttackC>k__BackingField: {fileID: 0}
-  <_Special>k__BackingField: {fileID: 0}
-  <_FinisherA>k__BackingField: {fileID: 0}
-  <_FinisherB>k__BackingField: {fileID: 0}
-  <_FinisherC>k__BackingField: {fileID: 0}
-  <_RushAttack>k__BackingField: {fileID: 0}
-  <_LauncherAttack>k__BackingField: {fileID: 0}
-  <_AirSpecial>k__BackingField: {fileID: 0}
-  <_AirAttackA>k__BackingField: {fileID: 0}
-  <_AirAttackB>k__BackingField: {fileID: 0}
-  <_AirAttackC>k__BackingField: {fileID: 0}
-  <_DefenseAction>k__BackingField: {fileID: 0}
---- !u!114 &5072868601858473742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764021959895548567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72266532d0b7ee34780b7307e50880b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
-  <_CurrentWeapon>k__BackingField: {fileID: 0}
-  <_WeaponHolderL>k__BackingField: {fileID: 0}
-  <_WeaponL>k__BackingField: {fileID: 0}
-  <_WeaponHolderR>k__BackingField: {fileID: 0}
-  <_WeaponR>k__BackingField: {fileID: 0}
-  <_VfxSpawnPos>k__BackingField: {fileID: 0}
-  <_CurrentWeaponDurability>k__BackingField: 0
-  infiniteDurability: 0
+  <_CurrentAether>k__BackingField: 0
+  <_MaxAether>k__BackingField: 0
+  canRecoverAether: 0
+  <_RecoveryRate>k__BackingField: 0
+  <_RecoveryTimeNeeded>k__BackingField: 1.3
+  <_RecoveryAmount>k__BackingField: 3
 --- !u!114 &3895246229984299987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,6 +464,167 @@ MonoBehaviour:
   InteractionClips: []
   HurtClips: []
   HardHitClips: []
+--- !u!114 &952087385969057769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e21e68f078499049b0d7d5596317755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_Deck>k__BackingField:
+  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
+  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
+  - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
+  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
+  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
+  - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
+  - {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1, type: 2}
+  - {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e, type: 2}
+  <_Abyss>k__BackingField: []
+  <_Hand>k__BackingField: []
+  cardPrefab: {fileID: 2994744669256209799, guid: 9cbbbfb1755bbf94aabe2cd0d91d35b6,
+    type: 3}
+  handOfCards: {fileID: 7028789774721231620, guid: a87ae87a94870514c9a8be6b00652842,
+    type: 3}
+  isShowingHand: 0
+  timeTillDrawNewCard: 5.52
+  drawCardTimer: 0
+  drawTimerActivated: 0
+  deckIsRecharging: 0
+--- !u!114 &3865767190414815257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f6e41e1e54867b41b2fcc385b922f2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Gravity: 15
+  _VerticalVelocity: 0
+  _BaseVerticalVelocity: -1
+  _MaxFallVelocity: -70
+  _DesiredMoveDirection: {x: 0, y: 0, z: 0}
+  _MovementDirection: {x: 0, y: 0, z: 0}
+  <movementSpeed>k__BackingField: 0
+  <targetSpeed>k__BackingField: 0
+  aimRotationSpeed: 1
+  <canDoubleJump>k__BackingField: 0
+  <canAirDash>k__BackingField: 0
+  <_ExternalForces>k__BackingField: {x: 0, y: 0, z: 0}
+  knockBackSource: {x: 0, y: 0, z: 0}
+  knockBackDir: {x: 0, y: 0, z: 0}
+  knockBackForce: 0
+--- !u!114 &2985811743604711824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2997f7a05c0b6954583a7802e2e9525f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_Camera>k__BackingField: {fileID: 0}
+  <_PlayerCamController>k__BackingField: {fileID: 0}
+  <_PlayerSpellCamController>k__BackingField: {fileID: 0}
+  currentCameraController: {fileID: 0}
+  topLookClamp: 38.6
+  topLookClampWhileAiming: 59.125
+  bottomLookClamp: -43.3
+  lookSensitivity: 3
+  <cinemachineCamTarget>k__BackingField: {fileID: 0}
+  cursorLocked: 0
+--- !u!114 &7139961280166402280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ade214e6798a144b8bfba78c135bfe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_Damage>k__BackingField: 0
+  <_IntendedResponseToDamageBeingDealt>k__BackingField: 0
+  <_AttackA>k__BackingField: {fileID: 0}
+  <_AttackB>k__BackingField: {fileID: 0}
+  <_AttackC>k__BackingField: {fileID: 0}
+  <_Special>k__BackingField: {fileID: 0}
+  <_FinisherA>k__BackingField: {fileID: 0}
+  <_FinisherB>k__BackingField: {fileID: 0}
+  <_FinisherC>k__BackingField: {fileID: 0}
+  <_RushAttack>k__BackingField: {fileID: 0}
+  <_LauncherAttack>k__BackingField: {fileID: 0}
+  <_AirSpecial>k__BackingField: {fileID: 0}
+  <_AirAttackA>k__BackingField: {fileID: 0}
+  <_AirAttackB>k__BackingField: {fileID: 0}
+  <_AirAttackC>k__BackingField: {fileID: 0}
+  <_DefenseAction>k__BackingField: {fileID: 0}
+--- !u!114 &5072868601858473742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72266532d0b7ee34780b7307e50880b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseWeapon: {fileID: 11400000, guid: 5e8b4c046499cea4b82906f5739967ec, type: 2}
+  <_CurrentWeapon>k__BackingField: {fileID: 0}
+  <_WeaponHolderL>k__BackingField: {fileID: 0}
+  <_WeaponL>k__BackingField: {fileID: 0}
+  <_WeaponHolderR>k__BackingField: {fileID: 0}
+  <_WeaponR>k__BackingField: {fileID: 0}
+  <_VfxSpawnPos>k__BackingField: {fileID: 0}
+  <_CurrentWeaponDurability>k__BackingField: 0
+  infiniteDurability: 0
+--- !u!114 &4013965585459047465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a98e74e20e97944a4077256fd0998c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <_baseSpell>k__BackingField: {fileID: 11400000, guid: ab2831552c6ee2947a602541ba2ad9d9,
+    type: 2}
+  <_spellTarget>k__BackingField: {fileID: 0}
+  _spellTimer: 0
+  _UI: {fileID: 0}
+--- !u!114 &3137339615451667405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9839f45174bb9814f842b57bbdce3379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 0}
+  <_GroupMembers>k__BackingField: []
 --- !u!1 &1803609908426812624
 GameObject:
   m_ObjectHideFlags: 0

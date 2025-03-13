@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Damage
@@ -9,23 +10,26 @@ public class Damage
 	public responsesToDamage intendedResponse { get; private set; }
 	public float damageForce { get; private set; }
 	public Transform damageSource { get; private set; }
+	public Character damageCreatorCharacter { get; private set; }
 
 	private DamageOptions dmgOptions;
 
-	public Damage(int dmg, float force, responsesToDamage response, Transform source)
+	public Damage(int dmg, float force, responsesToDamage response, Transform source, Character creator)
 	{
 		damageAmount = dmg;
 		poiseDamageAmount = CalculatePoise(dmg);
 		damageForce = force;
+		Mathf.Clamp(force, 0, 1);
 		intendedResponse = response;
 		damageSource = source;
+		damageCreatorCharacter = creator;
 
 		dmgOptions = new DamageOptions(0, 0, 0, 0, Vector2.zero);
 	}
 
 	private float CalculatePoise(int dmg)
 	{
-		float calculatedPoise = dmg * Random.Range(15, 25);
+		float calculatedPoise = dmg * UnityEngine.Random.Range(15, 25);
 		return calculatedPoise;
 	}
 

@@ -153,21 +153,22 @@ public class PlayerAttackController : CharacterAttackController
 	//    base.SetAttackParameters(knockback, launch, damageModifier);
 	//}
 
-	public override void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 1.0f)
+	public override void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float forceMod = 0.0f)
 	{
 		// was -->> bool knockback(this is actually stagger), bool launched, int damageModifier(this was additional damage on top of base weapon dmg)
         // if both stagger and launch, then we knockback
-		base.SetAttackParameters(intendedDmgResponse, damageModifier, force);
+		base.SetAttackParameters(intendedDmgResponse, damageModifier, forceMod);
         _Damage = _Damage + player._WeaponController._CurrentWeapon._Dmg;
         // calculate force here
-        _Force = force + player._WeaponController._CurrentWeapon._Force;
+        _Force = forceMod + player._WeaponController._CurrentWeapon._Force;
 	}
 
 	public override void PlayHitSpark(Vector3 hitPos)
 	{
 		base.PlayHitSpark(hitPos);
 
-        Instantiate(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity);
+        //Instantiate(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity);
+		GameObject effect = ObjectPoolManager.GetObjectFromPool(player._WeaponController._CurrentWeapon._WeaponHitSpark, hitPos, Quaternion.identity, ObjectPoolManager.PoolFolder.Particle);
 	}
 
 	// end

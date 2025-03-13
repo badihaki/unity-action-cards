@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: npc_goliathProtoman
   m_EditorClassIdentifier: 
   _CharacterName: Goliath Protoman
-  _StartingHealth: 150
+  _StartingHealth: 35
   _StartingAetherPool: 1
   _WalkSpeed: 5
   _RunSpeed: 8
@@ -26,4 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62fa05e27d9c7d24dbe0a9977233b85f, type: 2}
   Actor: {fileID: 430825095429624883, guid: 8631143882b8a1047b10fb01fd126806, type: 3}
   <isAlwaysAggressive>k__BackingField: 1
-  StateLibrary: {fileID: 11400000, guid: 22bbbcb960d223c48bc2f458e8b3ff26, type: 2}
+  StateLibrary: {fileID: 11400000, guid: ab3823b6e0ef1144c861667497fd05c2, type: 2}

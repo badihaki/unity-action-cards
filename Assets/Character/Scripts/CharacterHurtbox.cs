@@ -1,14 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterHurtbox : MonoBehaviour, IDamageable
 {
-    [SerializeField] private Character character;
+    [field: SerializeField, SerializeReference] private Character character;
     private IKnockbackable knockInterface;
+    [Serializable]
+    struct LastDamageObj
+    {
+        public int damageAmount;
+        public float poiseDamageAmount;
 
-    public delegate void DetectWhoHurtMe(Transform target);
-    public event DetectWhoHurtMe DetermineWhoWhurtMe;
+        public responsesToDamage intendedResponse;
+		public float damageForce;
+		public Transform damageSource;
+        public LastDamageObj(int dmg, float poiseDmg, responsesToDamage dmgResp, float force, Transform dmgSource)
+        {
+            damageAmount = dmg;
+            poiseDamageAmount = poiseDmg;
+            damageSource = dmgSource;
+            intendedResponse = dmgResp;
+            damageForce = force;
+            damageSource = dmgSource;
+        }
+	}
+    [field: SerializeField]
+    LastDamageObj lastDamage;
+
+    public delegate void DetectWhoHurtMe(Character target);
+    public event DetectWhoHurtMe OnHurtByCharacter;
 
     public void InitializeHurtBox(Character _character)
     {
@@ -21,9 +43,15 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 	{
 		//print("damagin from hurtbox");
         character._Actor.TakeDamage(dmgObj);
+		StoreLastDamageSource(dmgObj);
+        print(dmgObj != null);
+        if (OnHurtByCharacter != null)
+            OnHurtByCharacter(dmgObj.damageCreatorCharacter);
     }
 
-    public Transform GetControllingEntity()
+    private void StoreLastDamageSource(Damage dmgObj) => lastDamage = new LastDamageObj(dmgObj.damageAmount, dmgObj.poiseDamageAmount, dmgObj.intendedResponse, dmgObj.damageForce, dmgObj.damageSource);
+
+	public Transform GetControllingEntity()
     {
         return character.transform;
     }

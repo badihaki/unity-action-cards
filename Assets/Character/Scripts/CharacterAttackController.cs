@@ -21,11 +21,12 @@ public class CharacterAttackController : MonoBehaviour
 	}
 
 	// TODO:::: wanna add force to this later
-	public virtual void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 1.0f)
+	public virtual void SetAttackParameters(responsesToDamage intendedDmgResponse = responsesToDamage.hit, int damageModifier = 0, float force = 0.0f)
 	{
 		// was -->> bool knockback, bool launched, int damageModifier(this was additional damage on top of base weapon dmg)
 		_Damage = damageModifier;
 		_Force = force;
+		_IntendedResponseToDamageBeingDealt = intendedDmgResponse;
 	}
 
 	public virtual void ResetAttackParameters()

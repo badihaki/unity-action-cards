@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "AttackAct", menuName = "Characters/NPC/Combat/New Attack Action")]
+[CreateAssetMenu(fileName = "AAction_", menuName = "Characters/NPC/Combat/New Attack Action")]
 public class NPCAttackActionSO : ScriptableObject
 {
 	[field: SerializeField,Header("Basics")]

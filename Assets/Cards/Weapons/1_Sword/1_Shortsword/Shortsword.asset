@@ -16,6 +16,7 @@ MonoBehaviour:
   _WeaponGameObjectR: {fileID: 8720701411225930031, guid: baf0d171cfb8e444f83a6a2247da7847,
     type: 3}
   _Dmg: 1
+  _Force: 0.04
   _MoveSet: {fileID: 11400000, guid: 53975bcbec1ae694eb3592896b3edb6a, type: 2}
   _WeaponType: 1
   _WeaponAttackFX: {fileID: 6445826192643391251, guid: 19ad1952919114446ab32647516f23c6,

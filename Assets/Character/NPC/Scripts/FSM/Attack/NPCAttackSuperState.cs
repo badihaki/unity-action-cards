@@ -42,7 +42,6 @@ public class NPCAttackSuperState : NPCState
 
 		if (_AnimationIsFinished)
 		{
-			_StateMachine.LogFromState($"going from attack state {name} to state {_StateMachine._StateLibrary._IdleAggressiveState.name}");
 			_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleAggressiveState);
 		}
 	}

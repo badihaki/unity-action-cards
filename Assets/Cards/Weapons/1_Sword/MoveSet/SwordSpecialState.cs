@@ -11,6 +11,6 @@ public class SwordSpecialState : PlayerSpecialSuperState
 	{
 		base.EnterState();
 		//_AttackController.SetAttackParameters(false, false, 2);
-		_AttackController.SetAttackParameters(responsesToDamage.hit, 2, 2);
+		_AttackController.SetAttackParameters(responsesToDamage.hit, 2, 0.172f);
 	}
 }

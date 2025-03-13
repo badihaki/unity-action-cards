@@ -8,17 +8,27 @@ public class CharacterRepelSpace : MonoBehaviour
 	private Character character;
 	[field:SerializeField]
 	private List<Character> charactersOnHead;
-	private WaitForSeconds repelWait = new WaitForSeconds(0.178f);
+	private WaitForSeconds repelWait = new WaitForSeconds(0.257f);
 
 
-	public void Initialize(Character newChar)
+	public void Initialize(Character _character)
 	{
-		character = newChar;
-
+		character = _character;
 		character._Actor.onDeath += CleanUp;
 	}
 
-	public void CleanUp()
+	private void OnEnable()
+	{
+		if (character != null)
+			character._Actor.onDeath += CleanUp;
+	}
+	private void OnDisable()
+	{
+		if (character != null)
+			character._Actor.onDeath -= CleanUp;
+	}
+
+	public void CleanUp(Character character)
 	{
 		charactersOnHead.Clear();
 	}
@@ -27,21 +37,26 @@ public class CharacterRepelSpace : MonoBehaviour
 	{
 		if (character != null && charactersOnHead.Count > 0)
 		{
-			charactersOnHead.ForEach(character =>
-			{
-				Vector3 force = Vector3.zero;
-				if (transform.position.z > character._Actor.transform.position.z)
-					force.z = -0.1f;
-				else
-					force.z = 0.1f;
-				if (transform.position.x > character._Actor.transform.position.x)
-					force.x = -0.1f;
-				else
-					force.x = 0.1f;
-
-				character.AddToExternalForce(force);
-			});
+			RepelCharacters();
 		}
+	}
+
+	private void RepelCharacters()
+	{
+		charactersOnHead.ForEach(character =>
+		{
+			//Vector3 force = Vector3.zero;
+			//if (transform.position.z > character._Actor.transform.position.z)
+			//	force.z = -0.1f;
+			//else
+			//	force.z = 0.1f;
+			//if (transform.position.x > character._Actor.transform.position.x)
+			//	force.x = -0.1f;
+			//else
+			//	force.x = 0.1f;
+			//character.AddToExternalForce(force);
+			character.PushBackCharacter(transform.position, 0.5f);
+		});
 	}
 
 	private void OnTriggerEnter(Collider other)

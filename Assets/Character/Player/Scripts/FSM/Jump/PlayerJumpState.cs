@@ -27,12 +27,12 @@ public class PlayerJumpState : PlayerState
         base.EnterState();
 
         canTakeAction = false;
-		_PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
+		_PlayerCharacter._MoveController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
 		_PlayerCharacter._Controls.UseJump();
-        _PlayerCharacter._LocomotionController.Jump();
+        _PlayerCharacter._MoveController.Jump();
         _PlayerCharacter._Controls.UseRush();
         // _PlayerCharacter._LocomotionController.ApplyGravity(0.1f);
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
     }
 
     public override void PhysicsUpdate()
@@ -40,7 +40,7 @@ public class PlayerJumpState : PlayerState
         base.PhysicsUpdate();
 
         // _PlayerCharacter._LocomotionController.ApplyGravity(1);
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+        _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 	}
 
@@ -66,8 +66,8 @@ public class PlayerJumpState : PlayerState
             else
 			{
 				// _PlayerCharacter.LogFromState("finishing, grounded");
-                _PlayerCharacter._LocomotionController.SetDoubleJump(true);
-                _PlayerCharacter._LocomotionController.SetAirDash(true);
+                _PlayerCharacter._MoveController.SetDoubleJump(true);
+                _PlayerCharacter._MoveController.SetAirDash(true);
 				_StateMachine.ChangeState(_StateMachine._IdleState);
 			}
 		}

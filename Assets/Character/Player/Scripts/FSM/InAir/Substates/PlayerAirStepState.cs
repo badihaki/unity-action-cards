@@ -21,10 +21,10 @@ public class PlayerAirStepState : PlayerState
         activateFirstStep = false;
         canShmoove = false;
 
-        _PlayerCharacter._LocomotionController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
+        _PlayerCharacter._MoveController.RotateInstantly(_PlayerCharacter._Controls._MoveInput);
         _PlayerCharacter._Controls.UseRush();
-        _PlayerCharacter._LocomotionController.SetAirDash(false);
-		_PlayerCharacter._LocomotionController.Jump();
+        _PlayerCharacter._MoveController.SetAirDash(false);
+		_PlayerCharacter._MoveController.Jump();
     }
 
     public override void CheckStateTransitions()
@@ -74,11 +74,11 @@ public class PlayerAirStepState : PlayerState
         if (!activateFirstStep)
         {
             activateFirstStep = true;
-            _PlayerCharacter._LocomotionController.Jump(0.189f);
+            _PlayerCharacter._MoveController.Jump(0.189f);
         }
         else
         {
-			_PlayerCharacter._LocomotionController.Jump(0.825f);
+			_PlayerCharacter._MoveController.Jump(0.825f);
 		}
 	}
 
@@ -96,11 +96,11 @@ public class PlayerAirStepState : PlayerState
     {
         base.PhysicsUpdate();
 
-		_PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
+		_PlayerCharacter._MoveController.MoveWithVerticalVelocity();
 
-        _PlayerCharacter._LocomotionController.ApplyGravity(0.34f);
+        _PlayerCharacter._MoveController.ApplyGravity(0.34f);
 		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
-		_PlayerCharacter._LocomotionController.RotateWhileAiming(aimInput);
+		_PlayerCharacter._MoveController.RotateWhileAiming(aimInput);
 	}
 
 	public override void LateUpdate()

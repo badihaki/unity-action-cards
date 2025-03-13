@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class NonPlayerCharacter : Character, IDestroyable
@@ -10,7 +11,8 @@ public class NonPlayerCharacter : Character, IDestroyable
     [field: SerializeField] public NPCMoveSet _MoveSet { get; private set; }
 	[field: SerializeField] public CharacterUIController _UI { get; protected set; }
     [field: SerializeField] public CharacterEyesight _EyeSight { get; protected set; }
-
+	[field: SerializeField] public NPCTypesManager _TypesManager { get; protected set; }
+    public CharacterGroupMember _GroupMember { get; protected set; }
 
 	// State Machine
 	public NPCStateMachine _StateMachine { get; private set; }
@@ -19,11 +21,13 @@ public class NonPlayerCharacter : Character, IDestroyable
     
     public virtual void BuildAndInitialize(NPCSheetScriptableObj characterSheet)
     {
-		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.CharactersFolder(), true);
+		transform.SetParent(GameManagerMaster.GameMaster.GeneralConstantVariables.GetCharactersFolder(), true);
 		_CharacterSheet = characterSheet;
         _NPCharacterSheet = _CharacterSheet as NPCSheetScriptableObj;
-        name = _CharacterSheet._CharacterName;
-        GameObject cloneActor = Instantiate(characterSheet.Actor, transform);
+        _TypesManager = GetComponent<NPCTypesManager>();
+        _TypesManager.Initialize(_NPCharacterSheet);
+        //name = _CharacterSheet._CharacterName;
+        GameObject cloneActor = ObjectPoolManager.GetObjectFromPool(characterSheet.Actor, transform.position, transform.rotation, transform);
         cloneActor.name = "Actor";
         Initialize();
     }
@@ -65,21 +69,39 @@ public class NonPlayerCharacter : Character, IDestroyable
         
         // init moveset
         _MoveSet.Initialize(this);
+
+        // grouping
+        if (TryGetComponent(out CharacterGroupMember member))
+        {
+            _GroupMember = member;
+            isGroupedUp = true;
+        }
+        else
+            isGroupedUp = false;
     }
 
-    public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+    public override void GetGroupedUp(CharacterGroupMember memberClass)
+    {
+        _GroupMember = memberClass;
+        base.GetGroupedUp(memberClass);
+    }
+    public override CharacterGroupMember GetGroup() => _GroupMember;
 
-    public void EndHurtAnimation()
+	public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+	public override void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false) => _MoveController.GetPushedBack(pushFromPoint, pushBackForce, isLaunched);
+	public override void ResetCharacterPushback() => _MoveController.ResetPushback();
+
+	public void EndHurtAnimation()
     {
         _AnimationController.SetBool(hitAnimationString, false);
         hitAnimationString = "";
     }
 
-	public override void DestroyEntity()
+	public void DestroyEntity()
 	{
         
         _Actor.Die();
-		base.DestroyEntity();
+        ObjectPoolManager.ReturnObjectToPool(gameObject);
 	}
 
 	public override void AddToExternalForce(Vector3 force)

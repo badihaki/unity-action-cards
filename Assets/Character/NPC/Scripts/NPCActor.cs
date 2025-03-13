@@ -25,7 +25,17 @@ public class NPCActor : Actor, ITargetable, IAggressable
             print(">>>>>> Subscribed to entity is damaged event");
     }
 
-    public override void StateAnimationFinished()
+	private void OnEnable()
+	{
+        if (_AggressionManager != null)
+		EntityIsDamaged += _AggressionManager.AddAggression;
+	}
+	private void OnDisable()
+	{
+		EntityIsDamaged -= _AggressionManager.AddAggression;
+	}
+
+	public override void StateAnimationFinished()
     {
         base.StateAnimationFinished();
 
@@ -55,11 +65,12 @@ public class NPCActor : Actor, ITargetable, IAggressable
 
     public Transform GetTargetable() => transform;
 
-	//public override void Damage(int damage, Transform damageSource, bool knockback = false, bool launched = false, Character damageSourceController = null)
 	public override void TakeDamage(Damage dmgObj)
 	{
-        //EntityIsDamaged(CalculateAggression(damage, knockback, launched), damageSource);
-        EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageSource);
+        if (dmgObj.damageCreatorCharacter != null)
+            EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), dmgObj.damageCreatorCharacter);
+		else
+            EntityIsDamaged(CalculateAggression(dmgObj.damageAmount, dmgObj.intendedResponse), null);
         base.TakeDamage(dmgObj);
 	}
 
@@ -67,26 +78,18 @@ public class NPCActor : Actor, ITargetable, IAggressable
 	private int CalculateAggression(int damage, responsesToDamage dmgResponse)
 	{
 		float aggressionCalculation = damage * Mathf.Sqrt(100 - _AggressionManager._Aggression);
-		//print($"first calculation = {aggressionCalculation}");
-
-        //if (knockForce < launchForce)
-        //    aggressionCalculation *= (float)Math.Sqrt(knockForce * launchForce);
-        //else
-        //    aggressionCalculation *= (float)Math.Sqrt(launchForce * knockForce);
-		//print($"aggr calculation w/ knock * (health * launch) = {aggressionCalculation}");
+		
         if(dmgResponse == responsesToDamage.knockBack || dmgResponse == responsesToDamage.launch)
         {
             aggressionCalculation = 100.0f;
         }
 		int aggression = (int)Math.Ceiling(aggressionCalculation);
-		//print($"final aggression = {aggression}");
 		return aggression;
 	}
 
 	public override void Die()
 	{
 		EntityIsDamaged -= _AggressionManager.AddAggression;
-
 		base.Die();
 	}
 }

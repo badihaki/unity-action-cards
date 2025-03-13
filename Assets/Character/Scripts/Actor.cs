@@ -7,8 +7,12 @@ public class Actor : MonoBehaviour
     private Character _Character;
     [field: SerializeField]
     public Animator animationController { get; protected set; }
+    [field: SerializeField]
+    public CharacterHitbox _Hitbox { get; protected set; }
+    [field: SerializeField]
+    public CharacterHurtbox _Hurtbox { get; protected set; }
 
-    [field: SerializeField, Header("Components")]
+	[field: SerializeField, Header("Components")]
     public CheckForGround _CheckGrounded { get; private set; }
 
     [field:SerializeField, Header("FXs")]
@@ -22,13 +26,16 @@ public class Actor : MonoBehaviour
 
 
 	// events
-	public delegate void DeathSideEffects();
+	public delegate void DeathSideEffects(Character character);
 	public event DeathSideEffects onDeath;
 
 	public virtual void Initialize(Character character)
     {
         _Character = character;
-        animationController = GetComponent<Animator>();
+        _Hitbox = GetComponentInChildren<CharacterHitbox>(true);
+        _Hurtbox = GetComponentInChildren<CharacterHurtbox>();
+
+		animationController = GetComponent<Animator>();
         // animationController.ApplyBuiltinRootMotion();
         animationController.applyRootMotion = true;
         _CheckGrounded = GetComponent<CheckForGround>();
@@ -77,6 +84,11 @@ public class Actor : MonoBehaviour
 		// calculate rotation
 		Quaternion rotation = CalculateRotationWhenDmg();
 
+        bool launched = false;
+        if (dmgObj.intendedResponse == responsesToDamage.launch || dmgObj.intendedResponse == responsesToDamage.knockBack)
+            launched = true;
+
+        _Character.PushBackCharacter(dmgObj.damageSource.position, dmgObj.damageForce, launched);
 		_Character.RespondToHit(dmgObj.intendedResponse);
 
 		BleedWhenDmg(rotation);
@@ -86,7 +98,8 @@ public class Actor : MonoBehaviour
 	{
 		if (bloodFX != null)
 		{
-			GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
+			//GameObject blood = Instantiate(bloodFX, hitFxOrigin.position, rotation);
+			GameObject blood = ObjectPoolManager.GetObjectFromPool(bloodFX, hitFxOrigin.position, rotation, ObjectPoolManager.PoolFolder.Particle);
 			blood.transform.rotation = hitFxOrigin.rotation;
 		}
 	}
@@ -109,7 +122,6 @@ public class Actor : MonoBehaviour
 
     public virtual void Die()
     {
-        if (onDeath != null)
-            onDeath();
-    }
+		onDeath?.Invoke(_Character);
+	}
 }
