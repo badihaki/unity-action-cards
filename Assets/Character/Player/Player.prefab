@@ -246,6 +246,7 @@ MonoBehaviour:
   <_Hurtbox>k__BackingField: {fileID: 0}
   <_SoundManager>k__BackingField: {fileID: 0}
   <devMode>k__BackingField: 0
+  <isGroupedUp>k__BackingField: 0
   <_PlayerActor>k__BackingField: {fileID: 0}
   <_LoadNewOnStart>k__BackingField: 1
 --- !u!114 &7236318575125279018
@@ -623,8 +624,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9839f45174bb9814f842b57bbdce3379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 0}
+  _Character: {fileID: 0}
+  <_GroupLeader>k__BackingField: {fileID: 0}
+  _LeaderCharacter: {fileID: 0}
   <_GroupMembers>k__BackingField: []
+  <_GroupLeashDistance>k__BackingField: 3.85
+  <_GroupMaxLeashDistance>k__BackingField: 12
+  minSummonDistance: 1
+  maxSummonDistance: 2
+  summonLocation: {x: 0, y: 0, z: 0}
 --- !u!1 &1803609908426812624
 GameObject:
   m_ObjectHideFlags: 0
