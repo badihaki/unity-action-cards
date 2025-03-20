@@ -629,7 +629,7 @@ PrefabInstance:
     - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -684,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1200,7 +1200,7 @@ PrefabInstance:
     - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1255,7 +1255,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1384,7 +1384,7 @@ PrefabInstance:
     - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1672,7 +1672,7 @@ PrefabInstance:
     - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -1727,7 +1727,7 @@ PrefabInstance:
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -2902,6 +2902,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: actor_wolf
       objectReference: {fileID: 0}
+    - target: {fileID: 4531977528929879781, guid: f4a3a9370abe4ad4788ebc3102685d96,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3150,16 +3155,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3137339615451667405, guid: d274e6b2e7f3a53438f1184377199161,
-        type: 3}
-      propertyPath: maxSummonDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3137339615451667405, guid: d274e6b2e7f3a53438f1184377199161,
-        type: 3}
-      propertyPath: minSummonDistance
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3669127000698969702, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}

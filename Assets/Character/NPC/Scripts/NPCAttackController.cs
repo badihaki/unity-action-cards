@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class NPCAttackController : CharacterAttackController
@@ -33,13 +34,25 @@ public class NPCAttackController : CharacterAttackController
         
         if (_NPC._Hurtbox) _NPC._Hurtbox.OnHurtByCharacter += TrySetNewTargetEnemy;
         _NPC._Actor.onDeath += CleanupAggression;
-    }
+		_NPC._NPCActor._AggressionManager.OnBecomeAggressed += SetEnemyOnAggression;
+	}
+
+	private void OnEnable()
+	{
+		if(_NPC != null)
+        {
+			_NPC._Hurtbox.OnHurtByCharacter += TrySetNewTargetEnemy;
+			_NPC._Actor.onDeath += CleanupAggression;
+			_NPC._NPCActor._AggressionManager.OnBecomeAggressed += SetEnemyOnAggression;
+		}
+	}
 
 	private void OnDisable()
 	{
 		_NPC._Hurtbox.OnHurtByCharacter -= TrySetNewTargetEnemy;
         _NPC._Actor.onDeath -= CleanupAggression;
-        StopAllCoroutines();
+		_NPC._NPCActor._AggressionManager.OnBecomeAggressed -= SetEnemyOnAggression;
+		StopAllCoroutines();
 	}
 
 	private void CleanupAggression(Character character)
@@ -55,17 +68,30 @@ public class NPCAttackController : CharacterAttackController
 		}
 		else
         {
+            Character oldTarget = _ActiveTarget.GetComponentInParent<Character>();
+            if (oldTarget != null)
+            {
+                oldTarget._Actor.onDeath -= RemoveActiveTarget;
+            }
             int result = GameManagerMaster.GameMaster.Dice.RollD10();
             if (result >= 4)
                 SetActiveTarget(aggressor);
         }
     }
 
+    private void SetEnemyOnAggression()
+    {
+		// get the target
+		Character targetChar = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
+		SetActiveTarget(targetChar);
+	}
+
 	private void SetActiveTarget(Character target)
 	{
+        print($"{_NPC.name} is setting target");
         target._Actor.onDeath += RemoveActiveTarget;
 		_ActiveTarget = target._Actor.transform;
-        if (_NPC._NavigationController._NavTarget != target)
+        if (_NPC._NavigationController._NavTarget != target._Actor.transform)
             _NPC._NavigationController.SetTarget(target);
 	}
 
@@ -74,6 +100,8 @@ public class NPCAttackController : CharacterAttackController
         if (_ActiveTarget == character._Actor.transform)
         {
             _ActiveTarget = null;
+            print($"{_NPC.name} is removing target");
+            _NPC._NavigationController.RemoveTarget();
         }
 		character._Actor.onDeath -= RemoveActiveTarget;
 	}

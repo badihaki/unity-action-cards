@@ -11,15 +11,13 @@ public class MinionCardScriptableObj : CardScriptableObj
 
     protected override void UseCardAbility(Character controllingCharacter)
     {
-        if (controllingCharacter._Aether._CurrentAether < _CardCost)
-        {
-            Debug.Log("Not enough aether");
-            return;
-        }
-
         if(controllingCharacter is PlayerCharacter player)
         {
-            player._MinionController.TrySummonMinion(_MinionCharacterSheet);
+            if (!player._MinionController.TrySummonMinion(_MinionCharacterSheet))
+            {
+                Debug.Log($"{player.name} cant summon");
+                player._PlayerCards.RefundCardPlay();
+            }
         }
 	}
 

@@ -94,11 +94,6 @@ public class NPCNavigator : MonoBehaviour
         // stop managing the navigation node list
         StopCoroutine(ManageNavNodeRemoval());
         navNodListIsReseting = false;
-
-        // get the target
-        Character targetChar = _NPC._NPCActor._AggressionManager._LastAggressors.LastOrDefault();
-		_NavTarget = targetChar._Actor.transform;
-        _AttackController.TrySetNewTargetEnemy(targetChar); // set the enemy
         
         // clean up navigation nodes
         _PriorNavNodes.Clear();

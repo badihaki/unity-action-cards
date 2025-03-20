@@ -38,7 +38,8 @@ public class CharacterGroupMember : MonoBehaviour
     {
         target.TryGetComponent(out Character targetChar);
         if (targetChar == null) return;
-        AttackTargetCharacter(targetChar);
+        if (targetChar._Health._CurrentHealth > 0)
+            AttackTargetCharacter(targetChar);
     }
 	private void TryGetCharacterAttackingLeader(Character target)
     {

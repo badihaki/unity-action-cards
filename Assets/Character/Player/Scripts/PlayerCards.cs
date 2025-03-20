@@ -132,6 +132,15 @@ public class PlayerCards : MonoBehaviour
         CheckDeckCount();
     }
 
+    public void RefundCardPlay()
+    {
+        int abyssIndex = _Abyss.Count - 1;
+        print($"refunding last card {_Abyss[abyssIndex]._CardName}");
+        _Hand.Add(_Abyss[abyssIndex]); // add last card from abyss
+        player._Aether.RestoreAether(_Abyss[abyssIndex]._CardCost);
+        _Abyss.RemoveAt(abyssIndex);
+    }
+
     private void DrawCard()
     {
         if(_Deck.Count > 0 && _Hand.Count < 4)

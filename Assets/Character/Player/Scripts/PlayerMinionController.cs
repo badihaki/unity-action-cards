@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerMinionController : CharacterGroupLeader
 {
-    [Header("Minion summoning"), SerializeField]
+    [Header("Minion summoning (Player Controls)"), SerializeField]
     private float minSummonDistance; // may have to put this in the summon card??? each card may have to define it's own distance.
     [SerializeField]
     private float maxSummonDistance; // may have to put this in the summon card??? each card may have to define it's own distance.
@@ -25,24 +25,41 @@ public class PlayerMinionController : CharacterGroupLeader
 		for (int i = 0; i < 1000; i++)
 		{
             // use search range to determine if there's a place to spawn
-            Vector3 loc = _LeaderCharacter._Actor.transform.position;
-            loc.x += Random.Range(minSummonDistance, maxSummonDistance);
-            if (GameManagerMaster.GameMaster.Dice.RollD4() > 2)
-                loc.x *= -1; // this moves it to left or the right randomly
-            loc.z += Random.Range(minSummonDistance, maxSummonDistance); // may wanna move in front of the camera later
-            loc.y += 1;
+			Vector3 newSummonPos = CalculateSummonPosition();
+            
+			print($"summoning originates from {_LeaderCharacter._Actor.transform.position.ToString()}. Summoning position is {newSummonPos.ToString()}.");
             // now use spherecast to determine if there's a collider there
-            Collider[] collisions = Physics.OverlapSphere(loc, 1);
+            Collider[] collisions = Physics.OverlapSphere(newSummonPos, 1);
 			if (collisions.Length == 0)
-            {
+			{
 				found = true;
-                summonLocation = loc;
-                break;
-            }
+				summonLocation = newSummonPos;
+				break;
+			}
 		}
 
 		return found;
     }
+
+	private Vector3 CalculateSummonPosition()
+	{
+		float summonX = Random.Range(minSummonDistance, maxSummonDistance);
+		float summonZ = Random.Range(minSummonDistance, maxSummonDistance);
+		Vector3 newSummonPos = Vector3.zero;
+		if (GameManagerMaster.GameMaster.Dice.RollD4() > 2)
+		{
+            summonX *= -1;
+			print("fliping");
+		}
+		print($"summon position is {summonX}(X), {summonZ}(Z)");
+
+
+		Vector3 fromSummonPos = _LeaderCharacter._Actor.transform.position;
+		newSummonPos.x = fromSummonPos.x + summonX;
+		newSummonPos.z = fromSummonPos.z + summonZ;
+		newSummonPos.y = fromSummonPos.y + 1.25f;
+		return newSummonPos;
+	}
 
 	private void SummonMinion(NPCSheetScriptableObj minionTemplate)
     {

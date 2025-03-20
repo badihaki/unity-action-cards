@@ -16715,6 +16715,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPCSpawn (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16764,6 +16769,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: spawnTimerThreshold
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -16925,8 +16935,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
+      propertyPath: maxNumberOfSpawns
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
       propertyPath: spawnTimerThreshold
-      value: 8.7
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -16985,6 +17000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
+      propertyPath: <_Deck>k__BackingField.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
       propertyPath: '<_Deck>k__BackingField.Array.data[1]'
       value: 
       objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
@@ -16993,13 +17013,37 @@ PrefabInstance:
         type: 3}
       propertyPath: '<_Deck>k__BackingField.Array.data[2]'
       value: 
-      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1,
         type: 2}
     - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: '<_Deck>k__BackingField.Array.data[4]'
       value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[5]'
+      value: 
       objectReference: {fileID: 11400000, guid: f415e8965cc6c2e40940da967cc65dc1,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
+    - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: '<_Deck>k__BackingField.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2,
         type: 2}
     - target: {fileID: 952087385969057769, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
