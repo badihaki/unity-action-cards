@@ -45,16 +45,6 @@ public class CharacterRepelSpace : MonoBehaviour
 	{
 		charactersOnHead.ForEach(character =>
 		{
-			//Vector3 force = Vector3.zero;
-			//if (transform.position.z > character._Actor.transform.position.z)
-			//	force.z = -0.1f;
-			//else
-			//	force.z = 0.1f;
-			//if (transform.position.x > character._Actor.transform.position.x)
-			//	force.x = -0.1f;
-			//else
-			//	force.x = 0.1f;
-			//character.AddToExternalForce(force);
 			character.PushBackCharacter(transform.position, 0.5f);
 		});
 	}

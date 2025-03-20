@@ -16718,7 +16718,7 @@ PrefabInstance:
     - target: {fileID: 756304944741146846, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2325519686026111126, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -16772,8 +16772,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: minSpawnTime
+      value: 6.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: maxNumberOfSpawns
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
       propertyPath: spawnTimerThreshold
-      value: 12
+      value: 12.35
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -16935,13 +16950,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
+      propertyPath: npc
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: minSpawnTime
+      value: 6.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
       propertyPath: maxNumberOfSpawns
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: spawnTimerThreshold
-      value: 16.5
+      value: 12.35
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
@@ -16952,11 +16977,17 @@ PrefabInstance:
         type: 3}
       propertyPath: 'spawnableCharacters.Array.data[0]'
       value: 
-      objectReference: {fileID: 11400000, guid: 7173758fea64491418a2f017b0c88416,
+      objectReference: {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666,
         type: 2}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
       propertyPath: 'spawnableCharacters.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 7173758fea64491418a2f017b0c88416,
+        type: 2}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
+      propertyPath: 'spawnableCharacters.Array.data[2]'
       value: 
       objectReference: {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666,
         type: 2}

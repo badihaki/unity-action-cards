@@ -79,19 +79,24 @@ public class Actor : MonoBehaviour
 	private void UseDamageObj(Damage dmgObj)
 	{
 		_Character._Health.TakeDamage(dmgObj.damageAmount);
-		_Character._Actor.transform.LookAt(dmgObj.damageSource);
 
-		// calculate rotation
-		Quaternion rotation = CalculateRotationWhenDmg();
+        if (_Character._Health._CurrentHealth > 0)
+        {
+		    _Character._Actor.transform.LookAt(dmgObj.damageSource);
 
-        bool launched = false;
-        if (dmgObj.intendedResponse == responsesToDamage.launch || dmgObj.intendedResponse == responsesToDamage.knockBack)
-            launched = true;
+		    // calculate rotation
+		    Quaternion rotation = CalculateRotationWhenDmg();
 
-        _Character.PushBackCharacter(dmgObj.damageSource.position, dmgObj.damageForce, launched);
-		_Character.RespondToHit(dmgObj.intendedResponse);
+            bool launched = false;
+            if (dmgObj.intendedResponse == responsesToDamage.launch || dmgObj.intendedResponse == responsesToDamage.knockBack)
+                launched = true;
 
-		BleedWhenDmg(rotation);
+            // visual damage responses (pushback, launch, animation response)
+            _Character.PushBackCharacter(dmgObj.damageSource.position, dmgObj.damageForce, launched);
+		    _Character.RespondToHit(dmgObj.intendedResponse);
+
+		    BleedWhenDmg(rotation);
+        }
 	}
 
 	private void BleedWhenDmg(Quaternion rotation)
