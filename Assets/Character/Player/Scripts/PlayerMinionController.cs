@@ -49,9 +49,8 @@ public class PlayerMinionController : CharacterGroupLeader
 		if (GameManagerMaster.GameMaster.Dice.RollD4() > 2)
 		{
             summonX *= -1;
-			print("fliping");
 		}
-		print($"summon position is {summonX}(X), {summonZ}(Z)");
+		//print($"summon position is {summonX}(X), {summonZ}(Z)");
 
 
 		Vector3 fromSummonPos = _LeaderCharacter._Actor.transform.position;
