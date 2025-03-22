@@ -28,6 +28,13 @@ Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack
 Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
 
 ## Updates
+### 3-22-2025
+Group stuff is working. Onto level generation.
+
+- The Environment Builder class randomly assigns a length/width value, and places that many environment chunks.
+- I need to separate the function of each chunk. Let's try a list of corners (n-0,s-1,e-2,w-3), a list of empty spaces, a list of spaces that support structures
+- Need methods to spawn in chunks as needed.
+
 ### 2-23-2025
 Summoning minions works in that it brings out a NPC character into the world.
 
