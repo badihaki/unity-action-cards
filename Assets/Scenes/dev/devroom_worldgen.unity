@@ -529,6 +529,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <envChunkScrObjs>k__BackingField:
   - {fileID: 11400000, guid: d0c7887c06e60c3428fa66fa5bd50058, type: 2}
+  - {fileID: 11400000, guid: be31ec10c0f6d5740842b6b10bfb9b32, type: 2}
+  - {fileID: 11400000, guid: 02c680f733825ef41b576554c4fe612f, type: 2}
+  - {fileID: 11400000, guid: bba227e6fc7c51744908d18fdc89ce01, type: 2}
+  - {fileID: 11400000, guid: 380fe14aa1227d640ab3841dd5ba856b, type: 2}
+  - {fileID: 11400000, guid: acb01200742e7d941a6f7744ccd46e4e, type: 2}
+  - {fileID: 11400000, guid: 0736cf29c3d30a348bdf70107870311c, type: 2}
+  - {fileID: 11400000, guid: 07f27b26aa963a1429f55079e42084d8, type: 2}
+  - {fileID: 11400000, guid: 58d2c897aecba4440a6c06f2a2f688b0, type: 2}
   gridLengthWidth: {x: 0, y: 0}
   maxLength: 5
   maxWidth: 6
@@ -1647,6 +1655,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3018939211283319422, guid: 01e737dfb76bd5a4d944b28ae48e1bec,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e74584f62b033d4797a6e41ab568c33, type: 3}
+  m_Name: envChunk_SEBorder
+  m_EditorClassIdentifier: 
+  <chunkGameObj>k__BackingField: {fileID: -4916929549540401746, guid: 8f84cddd69b1f7146a600f08f65b8fad,
+    type: 3}
+  <buildingTemplates>k__BackingField: []
+  <floraTemplates>k__BackingField: []
+  <regularNPCs>k__BackingField: []
+  <specialNPCs>k__BackingField: []
+  <enemies>k__BackingField: []
+  <specialEnemies>k__BackingField: []

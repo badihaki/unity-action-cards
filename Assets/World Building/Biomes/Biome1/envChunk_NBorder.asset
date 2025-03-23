@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e74584f62b033d4797a6e41ab568c33, type: 3}
-  m_Name: envChunk_b1
+  m_Name: envChunk_NBorder
   m_EditorClassIdentifier: 
-  <chunkGameObj>k__BackingField: {fileID: 647890074806147804, guid: 01e737dfb76bd5a4d944b28ae48e1bec,
+  <chunkGameObj>k__BackingField: {fileID: -4916929549540401746, guid: 86857f299bceb2e499f3dfffbf967e26,
     type: 3}
   <buildingTemplates>k__BackingField: []
   <floraTemplates>k__BackingField: []

@@ -22,7 +22,7 @@ public class EnvChunkScriptableObj : ScriptableObject
 	public bool west { get; private set; }
 
 	[field:SerializeField]
-	public GameObject chunkGameObj { get; private set; }
+	public EnvChunk chunkGameObj { get; private set; }
 	[field: SerializeField]
 	public List<GameObject> buildingTemplates { get; private set; }
 	[field: SerializeField]

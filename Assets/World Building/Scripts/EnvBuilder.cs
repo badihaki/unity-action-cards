@@ -50,33 +50,149 @@ public class EnvBuilder : MonoBehaviour
 		for (int i = 0; i <= gridLengthWidth.x; i++)
 		{
 			print($"we are at index {i} trying to get to {gridLengthWidth.x}");
-			GameObject envChunk = Instantiate(envChunkScrObjs[0].chunkGameObj, spawnPos, Quaternion.identity);
-			
-			
-			float value = envChunk.transform.Find("Ground").GetComponent<Collider>().bounds.size.x;
-			print($"collider x size is {value} ");
-			// confirmed, we can use this value to set for the size needed
-
 			if (columnIndex == 0)
 			{
-				envChunk.name = envChunk.name + "-NorthBorder";
+				GenerateNorthernChunks(columnIndex, i);
 			}
 			else if (columnIndex == gridLengthWidth.y)
 			{
-				envChunk.name = envChunk.name + "-SouthBorder";
+				GenerateSouthernChunks(columnIndex, i);
 			}
-			if (i == 0)
+			else if (i == 0)
 			{
-				envChunk.name = envChunk.name + "-WestBorder";
+				GenerateWesternChunks(columnIndex, i);
 			}
 			else if(i == gridLengthWidth.x)
 			{
-				envChunk.name = envChunk.name + "-EastBorder";
+				GenerateEasternChunks(columnIndex, i);
 			}
-			envChunk.transform.parent = transform;
+			else
+			{
+				GenerateChunk(columnIndex, i);
+			}
 			spawnPos.x += unitsToStep;
 		}
 		ResetGridLength();
+	}
+
+	private void GenerateChunk(int columnIndex, int i)
+	{
+		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
+		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
+		{
+			if(!chunk.isBorder && !chunk.isCorner)
+				possibleChunks.Add(chunk);
+		}
+		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+		
+
+		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+		envChunk.name = $"Chunk-{columnIndex}-{i}";
+		envChunk.transform.parent = transform;
+	}
+
+	private void GenerateEasternChunks(int columnIndex, int i)
+	{
+		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
+		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
+		{
+			if (chunk.isBorder && chunk.east)
+				possibleChunks.Add(chunk);
+		}
+		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+
+		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+		envChunk.name = $"Chunk-EastBorder-{columnIndex}-{i}";
+		envChunk.transform.parent = transform;
+	}
+
+	private void GenerateWesternChunks(int columnIndex, int i)
+	{
+		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
+		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
+		{
+			if (chunk.isBorder && chunk.west)
+				possibleChunks.Add(chunk);
+		}
+		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+
+		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+		envChunk.name = $"Chunk-WestBorder-{columnIndex}-{i}";
+		envChunk.transform.parent = transform;
+	}
+
+	private void GenerateSouthernChunks(int columnIndex, int i)
+	{
+		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
+		List<EnvChunkScriptableObj> possibleEastCornerChunks = new List<EnvChunkScriptableObj>();
+		List<EnvChunkScriptableObj> possibleWestCornerChunks = new List<EnvChunkScriptableObj>();
+
+		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
+		{
+			if (chunk.isBorder && chunk.south)
+				possibleChunks.Add(chunk);
+			else if(chunk.south && chunk.east && chunk.isCorner)
+				possibleEastCornerChunks.Add(chunk);
+			else if(chunk.south && chunk.west && chunk.isCorner)
+				possibleWestCornerChunks.Add(chunk);
+		}
+		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+
+		EnvChunk envChunk;
+
+		if (i == 0)
+		{
+			envChunk = Instantiate(possibleWestCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunk.name = $"Chunk-SouthWestCorner-{columnIndex}-{i}";
+		}
+		else if (i == gridLengthWidth.x)
+		{
+			envChunk = Instantiate(possibleEastCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunk.name = $"Chunk-SouthEastCorner-{columnIndex}-{i}";
+		}
+		else
+		{
+			envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunk.name = $"Chunk-SouthBorder-{columnIndex}-{i}";
+		}
+		envChunk.transform.parent = transform;
+	}
+
+	private void GenerateNorthernChunks(int columnIndex, int i)
+	{
+		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
+		List<EnvChunkScriptableObj> possibleEastCornerChunks = new List<EnvChunkScriptableObj>();
+		List<EnvChunkScriptableObj> possibleWestCornerChunks = new List<EnvChunkScriptableObj>();
+
+		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
+		{
+			if (chunk.isBorder && chunk.north)
+				possibleChunks.Add(chunk);
+			else if (chunk.north && chunk.east && chunk.isCorner)
+				possibleEastCornerChunks.Add(chunk);
+			else if (chunk.north && chunk.west && chunk.isCorner)
+				possibleWestCornerChunks.Add(chunk);
+		}
+		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+
+		EnvChunk envChunk;
+
+		if (i == 0)
+		{
+			envChunk = Instantiate(possibleWestCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunk.name = $"Chunk-NorthWestCorner-{columnIndex}-{i}";
+		}
+		else if (i == gridLengthWidth.x)
+		{
+			envChunk = Instantiate(possibleEastCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunk.name = $"Chunk-NorthEastCorner-{columnIndex}-{i}";
+		}
+		else
+		{
+			envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunk.name = $"Chunk-NorthBorder-{columnIndex}-{i}";
+		}
+		envChunk.transform.parent = transform;
 	}
 
 	private void ResetGridLength()
