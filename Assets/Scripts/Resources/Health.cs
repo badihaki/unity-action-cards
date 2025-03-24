@@ -73,7 +73,9 @@ public class Health : MonoBehaviour
 
         if(_CurrentHealth <= 0)
         {
-            GetComponent<IDestroyable>().DestroyEntity();
+            TryGetComponent(out IDestroyable destroyable);
+            destroyable?.DestroyEntity();
+            //GetComponent<IDestroyable>().DestroyEntity();
         }
     }
 

@@ -16,7 +16,7 @@ public class ConstantVariables : MonoBehaviour
 			return CharactersFolder;
 		else
 		{
-			Transform folder = CreateNewFolder("Characters");
+			Transform folder = CreateNewFolder("Characters".ToUpper());
 			CharactersFolder = folder;
 			return folder;
 		}
@@ -30,7 +30,8 @@ public class ConstantVariables : MonoBehaviour
 			return ProjectilesFolder;
 		else
 		{
-			Transform folder = CreateNewFolder("Projectiles");
+			print("makin folder");
+			Transform folder = CreateNewFolder("Projectiles".ToUpper());
 			ProjectilesFolder = folder;
 			return folder;
 		}
@@ -44,7 +45,7 @@ public class ConstantVariables : MonoBehaviour
 			return ParticlesFolder;
 		else
 		{
-			Transform folder = CreateNewFolder("Particles");
+			Transform folder = CreateNewFolder("Particles".ToUpper());
 			ParticlesFolder = folder;
 			return folder;
 		}

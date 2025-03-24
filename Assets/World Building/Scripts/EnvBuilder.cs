@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class EnvBuilder : MonoBehaviour
 {
-    [field: SerializeField, Header("Env Layout")]
+	[field: SerializeField, Header("Env Layout")]
+	private Transform layoutFolder;
+	[field:SerializeField]
     public List<EnvChunkScriptableObj> envChunkScrObjs { get; private set; }
     [SerializeField]
     private Vector2 gridLengthWidth;
@@ -31,8 +33,10 @@ public class EnvBuilder : MonoBehaviour
 	private void BeginGeneration()
 	{
 		GenerateLevelLayout();
+		PlaceCorruptionHeart();
 	}
 
+	#region Layout Generation
 	private void GenerateLevelLayout()
 	{
 		GenerateColumns();
@@ -52,7 +56,6 @@ public class EnvBuilder : MonoBehaviour
 	{
 		for (int i = 0; i <= gridLengthWidth.x; i++)
 		{
-			print($"we are at index {i} trying to get to {gridLengthWidth.x}");
 			if (columnIndex == 0)
 			{
 				GenerateNorthernChunks(columnIndex, i);
@@ -78,6 +81,8 @@ public class EnvBuilder : MonoBehaviour
 		ResetGridLength();
 	}
 
+	// Chunk generation is all about creating environment chunks
+	#region Chunk Generation
 	private void GenerateChunk(int columnIndex, int i)
 	{
 		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
@@ -91,7 +96,7 @@ public class EnvBuilder : MonoBehaviour
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-{columnIndex}-{i}";
-		envChunk.transform.parent = transform;
+		envChunk.transform.parent = layoutFolder;
 		ExtractPointsOfInterest(envChunk);
 	}
 
@@ -107,7 +112,7 @@ public class EnvBuilder : MonoBehaviour
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-EastBorder-{columnIndex}-{i}";
-		envChunk.transform.parent = transform;
+		envChunk.transform.parent = layoutFolder;
 		ExtractPointsOfInterest(envChunk);
 	}
 
@@ -123,7 +128,7 @@ public class EnvBuilder : MonoBehaviour
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-WestBorder-{columnIndex}-{i}";
-		envChunk.transform.parent = transform;
+		envChunk.transform.parent = layoutFolder;
 		ExtractPointsOfInterest(envChunk);
 	}
 
@@ -161,7 +166,7 @@ public class EnvBuilder : MonoBehaviour
 			envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 			envChunk.name = $"Chunk-SouthBorder-{columnIndex}-{i}";
 		}
-		envChunk.transform.parent = transform;
+		envChunk.transform.parent = layoutFolder;
 		ExtractPointsOfInterest(envChunk);
 	}
 
@@ -199,10 +204,10 @@ public class EnvBuilder : MonoBehaviour
 			envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 			envChunk.name = $"Chunk-NorthBorder-{columnIndex}-{i}";
 		}
-		envChunk.transform.parent = transform;
+		envChunk.transform.parent = layoutFolder;
 		ExtractPointsOfInterest(envChunk);
 	}
-
+	#endregion
 	private void ExtractPointsOfInterest(EnvChunk envChunk)
 	{
 		envChunk.pointsOfInterest.ForEach(poi =>
@@ -217,6 +222,14 @@ public class EnvBuilder : MonoBehaviour
 		int resetAmount = unitsToStep * (gridLength + 1);
 		spawnPos.x -= resetAmount;
 	}
+	#endregion
 
+	private void PlaceCorruptionHeart()
+	{
+		int heartPlacementIndex = Random.Range(0, usablePointsOfInterest.Count - 1);
+		CorruptionHeart corruptionHeart = Instantiate(GameManagerMaster.GameMaster.Resources.corruptionHeart, usablePointsOfInterest[heartPlacementIndex].position, Quaternion.identity);
+		corruptionHeart.name = "Corruption Heart";
+		corruptionHeart.transform.parent = transform;
+	}
 	// end
 }

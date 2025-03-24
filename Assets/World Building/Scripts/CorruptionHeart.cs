@@ -4,7 +4,6 @@ public class CorruptionHeart : MonoBehaviour, IDamageable
 {
     public Health _Health { get; private set; }
 
-
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
@@ -20,12 +19,7 @@ public class CorruptionHeart : MonoBehaviour, IDamageable
 
 	public void Damage(Damage damageObj)
 	{
-		damageObj.damageSource.TryGetComponent(out PlayerCharacter player);
-		if(player != null)
-		{
-			_Health.TakeDamage(damageObj.damageAmount);
-			print("player is damaging me");
-		}
+		_Health.TakeDamage(damageObj.damageAmount);
 	}
 
 	public Transform GetControllingEntity()
