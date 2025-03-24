@@ -230,6 +230,12 @@ public class EnvBuilder : MonoBehaviour
 		CorruptionHeart corruptionHeart = Instantiate(GameManagerMaster.GameMaster.Resources.corruptionHeart, usablePointsOfInterest[heartPlacementIndex].position, Quaternion.identity);
 		corruptionHeart.name = "Corruption Heart";
 		corruptionHeart.transform.parent = transform;
+		corruptionHeart.OnCorruptionHeartDestroyed += OnCorruptionHeartDestroyed;
+	}
+
+	private void OnCorruptionHeartDestroyed(CorruptionHeart destroyedHeart)
+	{
+		destroyedHeart.OnCorruptionHeartDestroyed -= OnCorruptionHeartDestroyed;
 	}
 	// end
 }

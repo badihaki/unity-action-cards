@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class CorruptionHeart : MonoBehaviour, IDamageable
+public class CorruptionHeart : MonoBehaviour, IDamageable, IDestroyable
 {
     public Health _Health { get; private set; }
+	public delegate void CorruptionHeartDestroyed(CorruptionHeart heart);
+	public CorruptionHeartDestroyed OnCorruptionHeartDestroyed;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -30,5 +32,11 @@ public class CorruptionHeart : MonoBehaviour, IDamageable
 	public Transform GetDamagedEntity()
 	{
 		return transform;
+	}
+
+	public void DestroyEntity()
+	{
+		OnCorruptionHeartDestroyed?.Invoke(this);
+		Destroy(gameObject);
 	}
 }

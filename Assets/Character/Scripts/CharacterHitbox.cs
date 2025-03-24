@@ -15,7 +15,7 @@ public class CharacterHitbox : MonoBehaviour
 
     private void OnTriggerEnter(Collider trigger)
     {
-        if(_Character != null)
+        if(_Character != null) // make sure we have an assigned character to this hitbox
         {
 			trigger.TryGetComponent(out IDamageable damageableEntity);
 			if (damageableEntity != null && _Character.transform != damageableEntity.GetControllingEntity())
