@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnvChunk : MonoBehaviour
 {
+    [field: SerializeField]
+    public List<Transform> pointsOfInterest { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

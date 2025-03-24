@@ -15,6 +15,9 @@ public class EnvBuilder : MonoBehaviour
     private int unitsToStep = 35;
     private Vector3 spawnPos;
 
+	[field:SerializeField, Header("")]
+	public List<Transform> usablePointsOfInterest { get; private set; } = new List<Transform>();
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -80,15 +83,16 @@ public class EnvBuilder : MonoBehaviour
 		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
 		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
 		{
-			if(!chunk.isBorder && !chunk.isCorner)
+			if (!chunk.isBorder && !chunk.isCorner)
 				possibleChunks.Add(chunk);
 		}
 		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
-		
+
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-{columnIndex}-{i}";
 		envChunk.transform.parent = transform;
+		ExtractPointsOfInterest(envChunk);
 	}
 
 	private void GenerateEasternChunks(int columnIndex, int i)
@@ -104,6 +108,7 @@ public class EnvBuilder : MonoBehaviour
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-EastBorder-{columnIndex}-{i}";
 		envChunk.transform.parent = transform;
+		ExtractPointsOfInterest(envChunk);
 	}
 
 	private void GenerateWesternChunks(int columnIndex, int i)
@@ -119,6 +124,7 @@ public class EnvBuilder : MonoBehaviour
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-WestBorder-{columnIndex}-{i}";
 		envChunk.transform.parent = transform;
+		ExtractPointsOfInterest(envChunk);
 	}
 
 	private void GenerateSouthernChunks(int columnIndex, int i)
@@ -156,6 +162,7 @@ public class EnvBuilder : MonoBehaviour
 			envChunk.name = $"Chunk-SouthBorder-{columnIndex}-{i}";
 		}
 		envChunk.transform.parent = transform;
+		ExtractPointsOfInterest(envChunk);
 	}
 
 	private void GenerateNorthernChunks(int columnIndex, int i)
@@ -193,6 +200,15 @@ public class EnvBuilder : MonoBehaviour
 			envChunk.name = $"Chunk-NorthBorder-{columnIndex}-{i}";
 		}
 		envChunk.transform.parent = transform;
+		ExtractPointsOfInterest(envChunk);
+	}
+
+	private void ExtractPointsOfInterest(EnvChunk envChunk)
+	{
+		envChunk.pointsOfInterest.ForEach(poi =>
+		{
+			usablePointsOfInterest.Add(poi);
+		});
 	}
 
 	private void ResetGridLength()
