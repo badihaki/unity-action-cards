@@ -28,6 +28,9 @@ Each weapon-type has a basic 3-hit attack string (A -> A -> A), a special attack
 Certain attacks can end in a dedicated special attack (try A -> S or A -> A -> A -> S). Each weapon-type also has a dedicated Launcher attack by pressing 'Jump' after any regular attack action (try A -> L), as well as a Rush-attack that can be performed while running (try hR -> A).
 
 ## Updates
+### 3-24-2025
+We are spawning a layout correctly, and placing the corruption heart. Now I think we can place down trees, rocks, and buildings.
+
 ### 3-22-2025
 Group stuff is working. Onto level generation.
 
