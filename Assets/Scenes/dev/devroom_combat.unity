@@ -3959,38 +3959,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7701f7fffffb5b4397153b0ad690224, type: 3}
---- !u!1 &617635385
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 617635386}
-  m_Layer: 0
-  m_Name: Characters
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &617635386
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617635385}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.288543, y: 18.123718, z: 13.654413}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1228731097}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &618532631
 GameObject:
   m_ObjectHideFlags: 0
@@ -16997,7 +16965,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 617635386}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 185439897944028444, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
@@ -17316,17 +17284,17 @@ PrefabInstance:
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.888543
+      value: 3.78
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -16.040718
+      value: 15.05
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.954413
+      value: -6.79
       objectReference: {fileID: 0}
     - target: {fileID: 7077287328336596980, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
@@ -17398,9 +17366,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2832351299198644264}
+  - {fileID: 5665371924011712494}
   - {fileID: 4567027643249460837}
   - {fileID: 2102751856}
   - {fileID: 961739753}
   - {fileID: 1705193276}
   - {fileID: 1106406981}
-  - {fileID: 617635386}

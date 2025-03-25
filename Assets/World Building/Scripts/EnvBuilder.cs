@@ -228,6 +228,7 @@ public class EnvBuilder : MonoBehaviour
 	{
 		int heartPlacementIndex = Random.Range(0, usablePointsOfInterest.Count - 1);
 		CorruptionHeart corruptionHeart = Instantiate(GameManagerMaster.GameMaster.Resources.corruptionHeart, usablePointsOfInterest[heartPlacementIndex].position, Quaternion.identity);
+		usablePointsOfInterest.RemoveAt(heartPlacementIndex);
 		corruptionHeart.name = "Corruption Heart";
 		corruptionHeart.transform.parent = transform;
 		corruptionHeart.OnCorruptionHeartDestroyed += OnCorruptionHeartDestroyed;
