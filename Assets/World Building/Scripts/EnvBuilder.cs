@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvBuilder : MonoBehaviour
@@ -17,11 +18,12 @@ public class EnvBuilder : MonoBehaviour
     private int unitsToStep = 35;
     private Vector3 spawnPos;
 
-	[field:SerializeField, Header("")]
+	[field:SerializeField, Header("Points of Interest")]
 	public List<Transform> usablePointsOfInterest { get; private set; } = new List<Transform>();
+	
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+	// Start is called once before the first execution of Update after the MonoBehaviour is created
+	void Start()
     {
         int length = Random.Range(2, maxLength);
         int width = Random.Range(2, maxWidth);
@@ -34,6 +36,7 @@ public class EnvBuilder : MonoBehaviour
 	{
 		GenerateLevelLayout();
 		PlaceCorruptionHeart();
+		PlacePlayer();
 	}
 
 	#region Layout Generation
@@ -97,7 +100,10 @@ public class EnvBuilder : MonoBehaviour
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-{columnIndex}-{i}";
 		envChunk.transform.parent = layoutFolder;
-		ExtractPointsOfInterest(envChunk);
+		EnvChunkScriptableObj envChunkScrObjRef = null;
+		envChunkScrObjRef = possibleChunks[chunkIndex];
+		Transform[] pointsOfInterest = ExtractPointsOfInterest(envChunk);
+		GenerateFlora(pointsOfInterest, envChunkScrObjRef.floraPropTemplates.ToArray());
 	}
 
 	private void GenerateEasternChunks(int columnIndex, int i)
@@ -113,7 +119,10 @@ public class EnvBuilder : MonoBehaviour
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-EastBorder-{columnIndex}-{i}";
 		envChunk.transform.parent = layoutFolder;
-		ExtractPointsOfInterest(envChunk);
+		EnvChunkScriptableObj envChunkScrObjRef = null;
+		envChunkScrObjRef = possibleChunks[chunkIndex];
+		Transform[] pointsOfInterest = ExtractPointsOfInterest(envChunk);
+		GenerateFlora(pointsOfInterest, envChunkScrObjRef.floraPropTemplates.ToArray());
 	}
 
 	private void GenerateWesternChunks(int columnIndex, int i)
@@ -129,7 +138,11 @@ public class EnvBuilder : MonoBehaviour
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-WestBorder-{columnIndex}-{i}";
 		envChunk.transform.parent = layoutFolder;
-		ExtractPointsOfInterest(envChunk);
+		
+		EnvChunkScriptableObj envChunkScrObjRef = null;
+		envChunkScrObjRef = possibleChunks[chunkIndex];
+		Transform[] pointsOfInterest = ExtractPointsOfInterest(envChunk);
+		GenerateFlora(pointsOfInterest, envChunkScrObjRef.floraPropTemplates.ToArray());
 	}
 
 	private void GenerateSouthernChunks(int columnIndex, int i)
@@ -137,6 +150,9 @@ public class EnvBuilder : MonoBehaviour
 		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
 		List<EnvChunkScriptableObj> possibleEastCornerChunks = new List<EnvChunkScriptableObj>();
 		List<EnvChunkScriptableObj> possibleWestCornerChunks = new List<EnvChunkScriptableObj>();
+
+		EnvChunk envChunk;
+		EnvChunkScriptableObj envChunkScrObjRef = null;
 
 		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
 		{
@@ -149,25 +165,27 @@ public class EnvBuilder : MonoBehaviour
 		}
 		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
 
-		EnvChunk envChunk;
-
 		if (i == 0)
 		{
 			envChunk = Instantiate(possibleWestCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunkScrObjRef = possibleWestCornerChunks[chunkIndex];
 			envChunk.name = $"Chunk-SouthWestCorner-{columnIndex}-{i}";
 		}
 		else if (i == gridLengthWidth.x)
 		{
 			envChunk = Instantiate(possibleEastCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunkScrObjRef = possibleEastCornerChunks[chunkIndex];
 			envChunk.name = $"Chunk-SouthEastCorner-{columnIndex}-{i}";
 		}
 		else
 		{
 			envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunkScrObjRef = possibleChunks[chunkIndex];
 			envChunk.name = $"Chunk-SouthBorder-{columnIndex}-{i}";
 		}
 		envChunk.transform.parent = layoutFolder;
-		ExtractPointsOfInterest(envChunk);
+		Transform[] pointsOfInterest = ExtractPointsOfInterest(envChunk);
+		GenerateFlora(pointsOfInterest, envChunkScrObjRef.floraPropTemplates.ToArray());
 	}
 
 	private void GenerateNorthernChunks(int columnIndex, int i)
@@ -175,6 +193,9 @@ public class EnvBuilder : MonoBehaviour
 		List<EnvChunkScriptableObj> possibleChunks = new List<EnvChunkScriptableObj>();
 		List<EnvChunkScriptableObj> possibleEastCornerChunks = new List<EnvChunkScriptableObj>();
 		List<EnvChunkScriptableObj> possibleWestCornerChunks = new List<EnvChunkScriptableObj>();
+
+		EnvChunk envChunk;
+		EnvChunkScriptableObj envChunkScrObjRef = null;
 
 		foreach (EnvChunkScriptableObj chunk in envChunkScrObjs)
 		{
@@ -187,33 +208,69 @@ public class EnvBuilder : MonoBehaviour
 		}
 		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
 
-		EnvChunk envChunk;
-
 		if (i == 0)
 		{
 			envChunk = Instantiate(possibleWestCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunkScrObjRef = possibleWestCornerChunks[chunkIndex];
 			envChunk.name = $"Chunk-NorthWestCorner-{columnIndex}-{i}";
 		}
 		else if (i == gridLengthWidth.x)
 		{
 			envChunk = Instantiate(possibleEastCornerChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunkScrObjRef = possibleEastCornerChunks[chunkIndex];
 			envChunk.name = $"Chunk-NorthEastCorner-{columnIndex}-{i}";
 		}
 		else
 		{
 			envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
+			envChunkScrObjRef = possibleChunks[chunkIndex];
 			envChunk.name = $"Chunk-NorthBorder-{columnIndex}-{i}";
 		}
 		envChunk.transform.parent = layoutFolder;
-		ExtractPointsOfInterest(envChunk);
+		Transform[] pointsOfInterest = ExtractPointsOfInterest(envChunk);
+		GenerateFlora(pointsOfInterest, envChunkScrObjRef.floraPropTemplates.ToArray());
 	}
 	#endregion
-	private void ExtractPointsOfInterest(EnvChunk envChunk)
+
+	private Transform[] ExtractPointsOfInterest(EnvChunk envChunk)
 	{
-		envChunk.pointsOfInterest.ForEach(poi =>
+		Transform[] chunks = new Transform[envChunk.pointsOfInterest.Count];
+		for (int i = 0; i < envChunk.pointsOfInterest.Count; i++)
 		{
-			usablePointsOfInterest.Add(poi);
-		});
+			usablePointsOfInterest.Add(envChunk.pointsOfInterest[i]);
+			chunks[i] = envChunk.pointsOfInterest[i];
+		}
+		return chunks;
+	}
+
+	private void GenerateFlora(Transform[] usableFloraLocations, PropScriptableObj[] flora)
+	{
+		foreach (Transform placementLocation in usableFloraLocations)
+		{
+			bool willBeUsed = GameManagerMaster.GameMaster.Dice.RollD10() > 5;
+
+			if (willBeUsed)
+			{
+				int floraPropIndex = flora.Length > 1 ? Random.Range(0, flora.Length - 1) : 0;
+				print($"flora prop location was {placementLocation.position.ToString()}");
+				GameObject instantiatedFlora = Instantiate(flora[floraPropIndex].propGameObject, placementLocation.position, Quaternion.identity);
+				instantiatedFlora.transform.parent = layoutFolder;
+				int removalIndex = usablePointsOfInterest.IndexOf(usablePointsOfInterest.Find(t => t == placementLocation));
+				print($"usable location was {usablePointsOfInterest[removalIndex].position.ToString()}");
+				usablePointsOfInterest.RemoveAt(removalIndex);
+				PlaceObjectOnNearestGround(instantiatedFlora);
+			}
+		}
+	}
+
+	private void PlaceObjectOnNearestGround(GameObject instantiatedObj)
+	{
+		Ray ray = new Ray(instantiatedObj.transform.position, Vector3.down);
+		if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
+		{
+			Vector3 placementPos = hit.point;
+			instantiatedObj.transform.position = placementPos;
+		}
 	}
 
 	private void ResetGridLength()
@@ -231,12 +288,28 @@ public class EnvBuilder : MonoBehaviour
 		usablePointsOfInterest.RemoveAt(heartPlacementIndex);
 		corruptionHeart.name = "Corruption Heart";
 		corruptionHeart.transform.parent = transform;
+		Vector3 pos = corruptionHeart.transform.position;
+		pos.y = pos.y + 1.35f;
+		corruptionHeart.transform.position = pos;
 		corruptionHeart.OnCorruptionHeartDestroyed += OnCorruptionHeartDestroyed;
 	}
 
 	private void OnCorruptionHeartDestroyed(CorruptionHeart destroyedHeart)
 	{
 		destroyedHeart.OnCorruptionHeartDestroyed -= OnCorruptionHeartDestroyed;
+	}
+
+	private void PlacePlayer()
+	{
+		GameObject.Find("Player").TryGetComponent(out PlayerCharacter player);
+		if (player != null)
+		{
+			int placementIndex = Random.Range(0, usablePointsOfInterest.Count);
+			Vector3 placement = usablePointsOfInterest[placementIndex].position;
+			print($"placing player at {placement.ToString()}");
+			placement.y = placement.y + 1;
+			player.transform.position = placement;
+		}
 	}
 	// end
 }

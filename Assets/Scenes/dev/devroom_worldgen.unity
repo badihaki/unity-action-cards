@@ -722,7 +722,7 @@ Transform:
   m_GameObject: {fileID: 672933839}
   serializedVersion: 2
   m_LocalRotation: {x: -0.38115782, y: 0.35053638, z: -0.05141267, w: -0.85393196}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 60, y: 65, z: -50}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2380,6 +2380,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _MaxVertVelocity
       value: 15.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3950041922641621213, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 183.235
       objectReference: {fileID: 0}
     - target: {fileID: 4225568560460561824, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}

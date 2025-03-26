@@ -15,7 +15,8 @@ MonoBehaviour:
   <chunkGameObj>k__BackingField: {fileID: -4916929549540401746, guid: c7f3eb7db35975a40b28c44fad9b9631,
     type: 3}
   <buildingTemplates>k__BackingField: []
-  <floraTemplates>k__BackingField: []
+  <floraPropTemplates>k__BackingField:
+  - {fileID: 11400000, guid: f56af69fd23e2874d83cd5af04e63ccf, type: 2}
   <regularNPCs>k__BackingField: []
   <specialNPCs>k__BackingField: []
   <enemies>k__BackingField: []

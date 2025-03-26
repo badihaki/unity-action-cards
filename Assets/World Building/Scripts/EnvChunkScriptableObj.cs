@@ -26,7 +26,7 @@ public class EnvChunkScriptableObj : ScriptableObject
 	[field: SerializeField]
 	public List<GameObject> buildingTemplates { get; private set; }
 	[field: SerializeField]
-	public List<GameObject> floraTemplates { get; private set; }
+	public List<PropScriptableObj> floraPropTemplates { get; private set; }
 	[field: SerializeField]
 	public List<NonPlayerCharacter> regularNPCs { get; private set; }
 	[field: SerializeField]

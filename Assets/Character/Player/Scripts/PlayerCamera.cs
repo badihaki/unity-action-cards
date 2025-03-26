@@ -41,18 +41,20 @@ public class PlayerCamera : MonoBehaviour
     {
         Player = controller;
         cinemachineCamTarget = Player.transform.Find("CamTarget");
-        InitializeCinemachineController();
+        InitializeCamController();
         InitializeAimCamController();
         LockCursorKBM();
         currentCameraController = _PlayerCamController;
         cursorLocked = true;
         _Camera = Camera.main;
+        ResetCinemachineTargetTransform();
     }
-    private void InitializeCinemachineController()
+    private void InitializeCamController()
     {
         GameObject newGameObj = new GameObject();
         newGameObj.name = "PlayerCamController";
         _PlayerCamController = newGameObj.AddComponent<CinemachineCamera>();
+        cinemachineCamTarget.transform.rotation = _PlayerCamController.transform.rotation; // does this even work??
         _PlayerCamController.Follow = cinemachineCamTarget;
         _PlayerCamController.Priority = 10;
         _PlayerCamController.Lens.FieldOfView = 90;
