@@ -31,7 +31,6 @@ public class PlayerJumpState : PlayerState
 		_PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._MoveController.Jump();
         _PlayerCharacter._Controls.UseRush();
-        // _PlayerCharacter._LocomotionController.ApplyGravity(0.1f);
         _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
     }
 
@@ -39,7 +38,6 @@ public class PlayerJumpState : PlayerState
     {
         base.PhysicsUpdate();
 
-        // _PlayerCharacter._LocomotionController.ApplyGravity(1);
         _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 	}
@@ -56,16 +54,12 @@ public class PlayerJumpState : PlayerState
 
         if (_AnimationIsFinished)
         {
-			// _PlayerCharacter.LogFromState("animation is finished");
-
-			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
+			if (!_PlayerCharacter._CheckGrounded.IsGrounded()) // in air
             {
-                // _PlayerCharacter.LogFromState("finishing, not on ground");
                 _StateMachine.ChangeState(_StateMachine._FallingState);
             }
-            else
+            else // grounded
 			{
-				// _PlayerCharacter.LogFromState("finishing, grounded");
                 _PlayerCharacter._MoveController.SetDoubleJump(true);
                 _PlayerCharacter._MoveController.SetAirDash(true);
 				_StateMachine.ChangeState(_StateMachine._IdleState);
@@ -79,6 +73,19 @@ public class PlayerJumpState : PlayerState
                 _StateMachine.ChangeState(attackController._AirSpecial);
             if (jumpInput)
                 _StateMachine.ChangeState(_StateMachine._AirJumpState);
+            switch (_PlayerCharacter._Controls.PollForDesiredInput())
+            {
+                case InputProperties.InputType.None:
+                    break;
+				case InputProperties.InputType.jump:
+					break;
+				case InputProperties.InputType.attack:
+					break;
+				case InputProperties.InputType.special:
+					break;
+				case InputProperties.InputType.defense:
+					break;
+			}
 		}
     }
 
