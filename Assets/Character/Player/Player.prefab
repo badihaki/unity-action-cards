@@ -372,6 +372,9 @@ MonoBehaviour:
   <_InteractInput>k__BackingField: 0
   <_DefenseInput>k__BackingField: 0
   <_SelectSpellInput>k__BackingField: 0
+  <inputsQueue>k__BackingField: []
+  inputRemovalTimer: 0
+  inputRemovalMaxTime: 0.15
 --- !u!114 &312133789076485268
 MonoBehaviour:
   m_ObjectHideFlags: 0

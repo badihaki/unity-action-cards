@@ -24,7 +24,7 @@ public class PlayerControlsInput : MonoBehaviour
 	[field: SerializeField]
 	private float inputRemovalTimer = 0.0f;
     [field: SerializeField]
-    private float inputRemovalMaxTime = 0.17f;
+    private float inputRemovalMaxTime = 0.15f;
 
 	private void Start()
 	{
