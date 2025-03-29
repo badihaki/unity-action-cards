@@ -14,12 +14,12 @@ public class PlayerJumpState : PlayerState
     private bool specialInput;
     private bool jumpInput;
     private bool canTakeAction;
-    private PlayerAttackController attackController;
+    private PlayerAttackController _AttackController;
 
 	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
 	{
 		base.InitializeState(pc, animationName, stateMachine);
-        attackController = pc._AttackController as PlayerAttackController;
+        _AttackController = pc._AttackController as PlayerAttackController;
 	}
 
 	public override void EnterState()
@@ -67,24 +67,30 @@ public class PlayerJumpState : PlayerState
 		}
         if (canTakeAction)
         {
-            if (attackInput)
-                _StateMachine.ChangeState(attackController._AirAttackA);
-            if (specialInput)
-                _StateMachine.ChangeState(attackController._AirSpecial);
-            if (jumpInput)
-                _StateMachine.ChangeState(_StateMachine._AirJumpState);
+            //if (attackInput)
+            //    _StateMachine.ChangeState(attackController._AirAttackA);
+            //if (specialInput)
+            //    _StateMachine.ChangeState(attackController._AirSpecial);
+            //if (jumpInput)
+            //    _StateMachine.ChangeState(_StateMachine._AirJumpState);
             switch (_PlayerCharacter._Controls.PollForDesiredInput())
             {
-                case InputProperties.InputType.None:
-                    break;
 				case InputProperties.InputType.jump:
+                    _PlayerCharacter._Controls.UseJump();
+					_StateMachine.ChangeState(_StateMachine._AirJumpState);
 					break;
 				case InputProperties.InputType.attack:
+					_PlayerCharacter._Controls.UseAttack();
+					_StateMachine.ChangeState(_AttackController._AirAttackA);
 					break;
 				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._AirSpecial);
 					break;
 				case InputProperties.InputType.defense:
-					break;
+					break;  
+                default:
+                    break;
 			}
 		}
     }

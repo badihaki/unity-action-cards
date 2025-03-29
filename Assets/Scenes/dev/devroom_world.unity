@@ -4133,6 +4133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6542911905298348363, guid: d274e6b2e7f3a53438f1184377199161,
         type: 3}
+      propertyPath: inputRemovalMaxTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6542911905298348363, guid: d274e6b2e7f3a53438f1184377199161,
+        type: 3}
       propertyPath: <inputsQueue>k__BackingField.Array.size
       value: 0
       objectReference: {fileID: 0}

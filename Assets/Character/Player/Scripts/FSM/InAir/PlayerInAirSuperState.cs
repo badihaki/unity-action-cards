@@ -61,18 +61,31 @@ public class PlayerInAirSuperState : PlayerState
             _StateMachine.ChangeState(_StateMachine._IdleState);
 			_PlayerCharacter._MoveController.ResetAllAirSchmoovement();
 		}
-        if (attackInput)
-        {
-            _PlayerCharacter.LogFromState("attackin");
-            _PlayerCharacter._Controls.UseAttack();
-            _StateMachine.ChangeState(_AttackController._AirAttackA);
-        }
-        if (specialInput)
-        {
-            _StateMachine.ChangeState(_AttackController._AirSpecial);
-            _PlayerCharacter._Controls.UseSpecialAttack();
-        }
-    }
+        //if (attackInput)
+        //{
+        //    _PlayerCharacter.LogFromState("attackin");
+        //    _PlayerCharacter._Controls.UseAttack();
+        //    _StateMachine.ChangeState(_AttackController._AirAttackA);
+        //}
+        //if (specialInput)
+        //{
+        //    _StateMachine.ChangeState(_AttackController._AirSpecial);
+        //    _PlayerCharacter._Controls.UseSpecialAttack();
+        //}
+		switch (_PlayerCharacter._Controls.PollForDesiredInput())
+		{
+			case InputProperties.InputType.attack:
+				_PlayerCharacter._Controls.UseAttack();
+				_StateMachine.ChangeState(_AttackController._AirAttackA);
+				break;
+			case InputProperties.InputType.special:
+				_PlayerCharacter._Controls.UseSpecialAttack();
+				_StateMachine.ChangeState(_AttackController._AirSpecial);
+				break;
+			default:
+				break;
+		}
+	}
 
     public override void CheckInputs()
     {

@@ -28,9 +28,27 @@ public class SwordAttackAState : PlayerAttackSuperState
 	{
 		if (canCombo)
 		{
-			if (attackInput) _StateMachine.ChangeState(_AttackController._AttackB);
-			if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
-			if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
+			//if (attackInput) _StateMachine.ChangeState(_AttackController._AttackB);
+			//if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+			//if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
+
+			switch (_PlayerCharacter._Controls.PollForDesiredInput())
+			{
+				case InputProperties.InputType.jump:
+					_PlayerCharacter._Controls.UseJump();
+					_StateMachine.ChangeState(_AttackController._LauncherAttack);
+					break;
+				case InputProperties.InputType.attack:
+					_PlayerCharacter._Controls.UseAttack();
+					_StateMachine.ChangeState(_AttackController._AttackB);
+					break;
+				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._FinisherA);
+					break;
+				default:
+					break;
+			}
 		}
 
 		base.CheckStateTransitions();

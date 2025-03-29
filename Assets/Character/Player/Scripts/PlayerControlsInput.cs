@@ -22,13 +22,16 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField, Header("buffer")]
     public List<InputProperties> inputsQueue { get; private set; }
 	[field: SerializeField]
-	private float inputRemovalWait = 0.0f;
+	private float inputRemovalTimer = 0.0f;
+    [field: SerializeField]
+    private float inputRemovalMaxTime = 0.17f;
 
 	private void Start()
 	{
         inputManager = GetComponent<PlayerInput>();
 	}
 
+	#region basics
 	public void OnMove(InputValue val)
     {
         ProcessMoveInput(val.Get<Vector2>());
@@ -172,6 +175,7 @@ public class PlayerControlsInput : MonoBehaviour
         if (val.isPressed)
             GameManagerMaster.GameMaster.QuitGame();
     }
+	#endregion
 
 
 	#region input buffer
@@ -189,7 +193,7 @@ public class PlayerControlsInput : MonoBehaviour
 		inputsQueue.Insert(0, input);
 		RemovalOldInputs();
 		print($"added input {inputsQueue[0].inputType.ToString()}");
-		if (inputRemovalWait == 0)
+		if (inputRemovalTimer == 0)
 		{
 			StartCoroutine(ManageQueue());
 		}
@@ -207,16 +211,16 @@ public class PlayerControlsInput : MonoBehaviour
 	{
 		while (inputsQueue.Count > 0)
 		{
-			inputRemovalWait += Time.deltaTime;
+			inputRemovalTimer += Time.deltaTime;
 			print($"removing input {inputsQueue[0].inputType.ToString()}");
-			if (inputRemovalWait > 0.85f)
+			if (inputRemovalTimer > inputRemovalMaxTime)
 			{
 				inputsQueue.RemoveAt(0);
 				foreach (InputProperties inputProp in inputsQueue)
 				{
                     inputProp.ResetPriority();
 				}
-				inputRemovalWait = 0.0f;
+				inputRemovalTimer = 0.0f;
 			}
 			yield return null;
 		}
@@ -253,13 +257,20 @@ public class PlayerControlsInput : MonoBehaviour
             // loop through to see if the priority is greater than our stored priority
             foreach (InputProperties inputProp in inputsQueue)
             {
-                if(inputProp.priority >  currentInputPriority)
+                if (returnedInput != InputProperties.InputType.None)
                 {
-                    returnedInput = inputProp.inputType;
-                    currentInputPriority = inputProp.priority;
-                    // set the input and the priority to use for next time
+                    if (inputProp.priority > currentInputPriority)
+                    {
+                        returnedInput = inputProp.inputType;
+                        currentInputPriority = inputProp.priority;
+                        // set the input and the priority to use for next time
+                    }
+
                 }
+                else // returned input is none, but there are inputs, so this input becomes the returned input
+                    returnedInput = inputProp.inputType;
             }
+            inputRemovalTimer = 0.0f;
             inputsQueue.Clear(); // only clear if we have inputs
 		}
 
