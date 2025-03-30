@@ -14,12 +14,12 @@ public class PlayerJumpState : PlayerState
     private bool specialInput;
     private bool jumpInput;
     private bool canTakeAction;
-    private PlayerAttackController attackController;
+    private PlayerAttackController _AttackController;
 
 	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
 	{
 		base.InitializeState(pc, animationName, stateMachine);
-        attackController = pc._AttackController as PlayerAttackController;
+        _AttackController = pc._AttackController as PlayerAttackController;
 	}
 
 	public override void EnterState()
@@ -31,7 +31,6 @@ public class PlayerJumpState : PlayerState
 		_PlayerCharacter._Controls.UseJump();
         _PlayerCharacter._MoveController.Jump();
         _PlayerCharacter._Controls.UseRush();
-        // _PlayerCharacter._LocomotionController.ApplyGravity(0.1f);
         _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
     }
 
@@ -39,7 +38,6 @@ public class PlayerJumpState : PlayerState
     {
         base.PhysicsUpdate();
 
-        // _PlayerCharacter._LocomotionController.ApplyGravity(1);
         _PlayerCharacter._MoveController.MoveWithVerticalVelocity();
         _PlayerCharacter._CameraController.ControlCameraRotation(aimInput);
 	}
@@ -56,16 +54,12 @@ public class PlayerJumpState : PlayerState
 
         if (_AnimationIsFinished)
         {
-			// _PlayerCharacter.LogFromState("animation is finished");
-
-			if (!_PlayerCharacter._CheckGrounded.IsGrounded())
+			if (!_PlayerCharacter._CheckGrounded.IsGrounded()) // in air
             {
-                // _PlayerCharacter.LogFromState("finishing, not on ground");
                 _StateMachine.ChangeState(_StateMachine._FallingState);
             }
-            else
+            else // grounded
 			{
-				// _PlayerCharacter.LogFromState("finishing, grounded");
                 _PlayerCharacter._MoveController.SetDoubleJump(true);
                 _PlayerCharacter._MoveController.SetAirDash(true);
 				_StateMachine.ChangeState(_StateMachine._IdleState);
@@ -73,12 +67,31 @@ public class PlayerJumpState : PlayerState
 		}
         if (canTakeAction)
         {
-            if (attackInput)
-                _StateMachine.ChangeState(attackController._AirAttackA);
-            if (specialInput)
-                _StateMachine.ChangeState(attackController._AirSpecial);
-            if (jumpInput)
-                _StateMachine.ChangeState(_StateMachine._AirJumpState);
+            //if (attackInput)
+            //    _StateMachine.ChangeState(attackController._AirAttackA);
+            //if (specialInput)
+            //    _StateMachine.ChangeState(attackController._AirSpecial);
+            //if (jumpInput)
+            //    _StateMachine.ChangeState(_StateMachine._AirJumpState);
+            switch (_PlayerCharacter._Controls.PollForDesiredInput())
+            {
+				case InputProperties.InputType.jump:
+                    _PlayerCharacter._Controls.UseJump();
+					_StateMachine.ChangeState(_StateMachine._AirJumpState);
+					break;
+				case InputProperties.InputType.attack:
+					_PlayerCharacter._Controls.UseAttack();
+					_StateMachine.ChangeState(_AttackController._AirAttackA);
+					break;
+				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._AirSpecial);
+					break;
+				case InputProperties.InputType.defense:
+					break;  
+                default:
+                    break;
+			}
 		}
     }
 

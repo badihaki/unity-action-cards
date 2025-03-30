@@ -1,8 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerControlsInput : MonoBehaviour
 {
+    PlayerInput inputManager;
     [field: SerializeField] public Vector2 _MoveInput { get; private set; }
     [field: SerializeField] public Vector2 _AimInput { get; private set; }
     [field: SerializeField] public bool _LockOnInput { get; private set; }
@@ -16,8 +19,20 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _DefenseInput { get; private set; }
     [field: SerializeField] public int _SelectSpellInput { get; private set; }
 
+    [field: SerializeField, Header("buffer")]
+    public List<InputProperties> inputsQueue { get; private set; }
+	[field: SerializeField]
+	private float inputRemovalTimer = 0.0f;
+    [field: SerializeField]
+    private float inputRemovalMaxTime = 0.15f;
 
-    public void OnMove(InputValue val)
+	private void Start()
+	{
+        inputManager = GetComponent<PlayerInput>();
+	}
+
+	#region basics
+	public void OnMove(InputValue val)
     {
         ProcessMoveInput(val.Get<Vector2>());
     }
@@ -52,7 +67,12 @@ public class PlayerControlsInput : MonoBehaviour
     private void ProcessJumpInput(bool inputState)
     {
         _JumpInput = inputState;
-    }
+		if (inputManager.currentActionMap.name == "Gameplay")
+		{
+			InputProperties input = new InputProperties(InputProperties.InputType.jump);
+			ProcessInput(input);
+		}
+	}
     public void UseJump() => _JumpInput = false;
 
     public void OnRush(InputValue val)
@@ -82,17 +102,27 @@ public class PlayerControlsInput : MonoBehaviour
     private void ProcessAttack(bool inputState)
     {
         _AttackInput = inputState;
+        if (inputManager.currentActionMap.name  == "Gameplay")
+        {
+            InputProperties input = new InputProperties(InputProperties.InputType.attack);
+            ProcessInput(input);
+        }
     }
     public void UseAttack() => _AttackInput = false;
     public void OnSpecialAttack(InputValue val)
     {
         ProcessSpecial(val.isPressed);
-    }
+	}
     private void ProcessSpecial(bool inputState)
     {
         _SpecialAttackInput = inputState;
         if (_SpecialAttackInput) _AttackInput = false;
-    }
+		if (inputManager.currentActionMap.name == "Gameplay")
+		{
+			InputProperties input = new InputProperties(InputProperties.InputType.special);
+			ProcessInput(input);
+		}
+	}
     public void UseSpecialAttack() => _SpecialAttackInput = false;
 
     public void OnSpell(InputValue val)
@@ -122,7 +152,12 @@ public class PlayerControlsInput : MonoBehaviour
     private void ProcessDefense(bool inputState)
     {
         _DefenseInput = inputState;
-    }
+		if (inputManager.currentActionMap.name == "Gameplay")
+		{
+			InputProperties input = new InputProperties(InputProperties.InputType.defense);
+			ProcessInput(input);
+		}
+	}
     public void UseDefense()
     {
         _DefenseInput = false;
@@ -140,6 +175,109 @@ public class PlayerControlsInput : MonoBehaviour
         if (val.isPressed)
             GameManagerMaster.GameMaster.QuitGame();
     }
+	#endregion
 
-    // end
+
+	#region input buffer
+	private void ProcessInput(InputProperties input)
+	{
+		InputProperties loggedInput = inputsQueue.Find(inputProp => inputProp.inputType == input.inputType);
+		if (loggedInput != null)
+			loggedInput.AddPriority();
+		else
+			AddInputToQueue(input);
+	}
+
+	private void AddInputToQueue(InputProperties input)
+	{
+		inputsQueue.Insert(0, input);
+		RemovalOldInputs();
+		print($"added input {inputsQueue[0].inputType.ToString()}");
+		if (inputRemovalTimer == 0)
+		{
+			StartCoroutine(ManageQueue());
+		}
+	}
+
+	private void RemovalOldInputs()
+	{
+		if (inputsQueue.Count > 4)
+		{
+			inputsQueue.RemoveAt(inputsQueue.Count - 1);
+		}
+	}
+
+	private IEnumerator ManageQueue()
+	{
+		while (inputsQueue.Count > 0)
+		{
+			inputRemovalTimer += Time.deltaTime;
+			print($"removing input {inputsQueue[0].inputType.ToString()}");
+			if (inputRemovalTimer > inputRemovalMaxTime)
+			{
+				inputsQueue.RemoveAt(0);
+				foreach (InputProperties inputProp in inputsQueue)
+				{
+                    inputProp.ResetPriority();
+				}
+				inputRemovalTimer = 0.0f;
+			}
+			yield return null;
+		}
+	}
+
+    public bool PollForSpecificInput(InputProperties.InputType inputType)
+    {
+        bool foundInput = false;
+
+		if (inputsQueue.Count > 0) // make sure we have some inputs
+		{
+            foreach (InputProperties inputProp in inputsQueue)
+            {
+                if (inputType == inputProp.inputType)
+                {
+                    foundInput = true;
+                    break;
+                }
+            }
+
+		    inputsQueue.Clear(); // only clear if we have inputs
+        }
+
+		return foundInput;
+    }
+
+    public InputProperties.InputType PollForDesiredInput()
+    {
+        InputProperties.InputType returnedInput = InputProperties.InputType.None;
+        int currentInputPriority = 0;
+
+        if(inputsQueue.Count > 0) // make sure we have some inputs
+        {
+            // loop through to see if the priority is greater than our stored priority
+            foreach (InputProperties inputProp in inputsQueue)
+            {
+                if (returnedInput != InputProperties.InputType.None)
+                {
+                    if (inputProp.priority > currentInputPriority)
+                    {
+                        returnedInput = inputProp.inputType;
+                        currentInputPriority = inputProp.priority;
+                        // set the input and the priority to use for next time
+                    }
+
+                }
+                else // returned input is none, but there are inputs, so this input becomes the returned input
+                    returnedInput = inputProp.inputType;
+            }
+            inputRemovalTimer = 0.0f;
+            inputsQueue.Clear(); // only clear if we have inputs
+		}
+
+        return returnedInput;
+    }
+
+	// end
+	#endregion
+	// end
 }
