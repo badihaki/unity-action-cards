@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Windows;
 
 public class PlayerControlsInput : MonoBehaviour
 {
@@ -62,16 +63,17 @@ public class PlayerControlsInput : MonoBehaviour
 
     public void OnJump(InputValue val)
     {
-        ProcessJumpInput(val.isPressed);
-    }
-    private void ProcessJumpInput(bool inputState)
-    {
-        _JumpInput = inputState;
-		if (inputManager.currentActionMap.name == "Gameplay")
+		if (inputManager.currentActionMap.name == "Combat")
 		{
 			InputProperties input = new InputProperties(InputProperties.InputType.jump);
 			ProcessInput(input);
 		}
+        else
+            ProcessJumpInput(val.isPressed);
+    }
+    private void ProcessJumpInput(bool inputState)
+    {
+        _JumpInput = inputState;
 	}
     public void UseJump() => _JumpInput = false;
 
@@ -97,31 +99,37 @@ public class PlayerControlsInput : MonoBehaviour
 
     public void OnAttack(InputValue val)
     {
-        ProcessAttack(val.isPressed);
-    }
-    private void ProcessAttack(bool inputState)
-    {
-        _AttackInput = inputState;
-        if (inputManager.currentActionMap.name  == "Gameplay")
+        if (inputManager.currentActionMap.name  == "Combat")
         {
             InputProperties input = new InputProperties(InputProperties.InputType.attack);
             ProcessInput(input);
         }
+        else
+            ProcessAttack(val.isPressed);
+    }
+    private void ProcessAttack(bool inputState)
+    {
+        print(inputState);
+        _AttackInput = inputState;
     }
     public void UseAttack() => _AttackInput = false;
     public void OnSpecialAttack(InputValue val)
     {
-        ProcessSpecial(val.isPressed);
+		if (inputManager.currentActionMap.name == "Combat")
+		{
+			print("special attacking from combat action map");
+			InputProperties input = new InputProperties(InputProperties.InputType.special);
+			ProcessInput(input);
+		}
+        else
+        {
+            ProcessSpecial(val.isPressed);
+        }
 	}
     private void ProcessSpecial(bool inputState)
     {
         _SpecialAttackInput = inputState;
         if (_SpecialAttackInput) _AttackInput = false;
-		if (inputManager.currentActionMap.name == "Gameplay")
-		{
-			InputProperties input = new InputProperties(InputProperties.InputType.special);
-			ProcessInput(input);
-		}
 	}
     public void UseSpecialAttack() => _SpecialAttackInput = false;
 
@@ -147,16 +155,17 @@ public class PlayerControlsInput : MonoBehaviour
 
     public void OnDefenseAction(InputValue val)
     {
+		if (inputManager.currentActionMap.name == "Combat")
+		{
+			InputProperties input = new InputProperties(InputProperties.InputType.defense);
+			ProcessInput(input);
+		}
+
         ProcessDefense(val.isPressed);
     }
     private void ProcessDefense(bool inputState)
     {
         _DefenseInput = inputState;
-		if (inputManager.currentActionMap.name == "Gameplay")
-		{
-			InputProperties input = new InputProperties(InputProperties.InputType.defense);
-			ProcessInput(input);
-		}
 	}
     public void UseDefense()
     {
@@ -190,10 +199,11 @@ public class PlayerControlsInput : MonoBehaviour
 
 	private void AddInputToQueue(InputProperties input)
 	{
+		print($"adding input {input.inputType.ToString()} to the queue");
 		inputsQueue.Insert(0, input);
 		RemovalOldInputs();
-		print($"added input {inputsQueue[0].inputType.ToString()}");
-		if (inputRemovalTimer == 0)
+		//print($"added input {inputsQueue[0].inputType.ToString()}");
+		if (inputRemovalTimer <= 0)
 		{
 			StartCoroutine(ManageQueue());
 		}
@@ -203,30 +213,35 @@ public class PlayerControlsInput : MonoBehaviour
 	{
 		if (inputsQueue.Count > 4)
 		{
+            print($"removing input {inputsQueue[inputsQueue.Count - 1].inputType.ToString()} to the queue");
+
 			inputsQueue.RemoveAt(inputsQueue.Count - 1);
 		}
 	}
 
 	private IEnumerator ManageQueue()
 	{
+        print("starting management of queue");
 		while (inputsQueue.Count > 0)
 		{
+            print($"timer is at {inputRemovalTimer} and delta time is {Time.deltaTime.ToString()}");
 			inputRemovalTimer += Time.deltaTime;
-			print($"removing input {inputsQueue[0].inputType.ToString()}");
+			//print($"removing input {inputsQueue[0].inputType.ToString()}");
 			if (inputRemovalTimer > inputRemovalMaxTime)
 			{
+			    print($"input remove timer is {inputRemovalTimer} / {inputRemovalMaxTime} and removing input {inputsQueue[0].inputType.ToString()}");
+				inputRemovalTimer = 0.0f;
 				inputsQueue.RemoveAt(0);
 				foreach (InputProperties inputProp in inputsQueue)
 				{
                     inputProp.ResetPriority();
 				}
-				inputRemovalTimer = 0.0f;
 			}
-			yield return null;
+		    yield return null;
 		}
 	}
 
-    public bool PollForSpecificInput(InputProperties.InputType inputType)
+	public bool PollForSpecificInput(InputProperties.InputType inputType)
     {
         bool foundInput = false;
 
@@ -237,11 +252,12 @@ public class PlayerControlsInput : MonoBehaviour
                 if (inputType == inputProp.inputType)
                 {
                     foundInput = true;
+                    inputsQueue.Remove(inputProp);
                     break;
                 }
             }
 
-		    inputsQueue.Clear(); // only clear if we have inputs
+		    //inputsQueue.Clear(); // only clear if we have inputs
         }
 
 		return foundInput;
