@@ -10,6 +10,7 @@ public class PlayerSpellslingingSuperState : PlayerState
 
 	public int spellSelectDirection { get; protected set; }
 	public bool spellslingInput { get; private set; }
+	public bool attackInput { get; private set; }
 	public Vector2 aimInput { get; private set; }
     private Vector3 target;
 
@@ -17,6 +18,8 @@ public class PlayerSpellslingingSuperState : PlayerState
 	public override void EnterState()
     {
         base.EnterState();
+
+        _PlayerCharacter._Controls.SetInputMap(2);
 
         _PlayerCharacter._MoveController.ZeroOutVelocity();
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
@@ -42,7 +45,7 @@ public class PlayerSpellslingingSuperState : PlayerState
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
         _PlayerCharacter._UIController.UpdateCrosshairPos(target);
 
-        if (spellslingInput)
+        if (_PlayerCharacter._Controls.PollForSpecificInput(InputProperties.InputType.attack))
         {
 			_PlayerCharacter._PlayerSpells.UseSpell(target);
         }
@@ -83,13 +86,15 @@ public class PlayerSpellslingingSuperState : PlayerState
 		_PlayerCharacter._UIController.SetShowCrossHair(false);
 
 		_PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
-    }
+        
+        _PlayerCharacter._Controls.SetInputMap(0);
+	}
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished)
+        if (_AnimationIsFinished && !_PlayerCharacter._Controls._SpellslingInput)
         {
             if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
             else _StateMachine.ChangeState(_StateMachine._FallingState);
@@ -103,6 +108,7 @@ public class PlayerSpellslingingSuperState : PlayerState
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
         aimInput = _PlayerCharacter._Controls._AimInput;
 		spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
+        attackInput = _PlayerCharacter._Controls._AttackInput;
 	}
 
     // end
