@@ -26,10 +26,12 @@ public class PlayerControlsInput : MonoBehaviour
 	private float inputRemovalTimer = 0.0f;
     [field: SerializeField]
     private float inputRemovalMaxTime = 0.15f;
+    private WaitForSeconds inputRemovalWaitTime = new WaitForSeconds(0.25f);
 
 	private void Start()
 	{
         inputManager = GetComponent<PlayerInput>();
+        inputManager.SwitchCurrentActionMap("Combat");
 	}
 
 	#region basics
@@ -222,23 +224,38 @@ public class PlayerControlsInput : MonoBehaviour
 	private IEnumerator ManageQueue()
 	{
         print("starting management of queue");
-		while (inputsQueue.Count > 0)
-		{
-            print($"timer is at {inputRemovalTimer} and delta time is {Time.deltaTime.ToString()}");
-			inputRemovalTimer += Time.deltaTime;
-			//print($"removing input {inputsQueue[0].inputType.ToString()}");
-			if (inputRemovalTimer > inputRemovalMaxTime)
-			{
-			    print($"input remove timer is {inputRemovalTimer} / {inputRemovalMaxTime} and removing input {inputsQueue[0].inputType.ToString()}");
-				inputRemovalTimer = 0.0f;
-				inputsQueue.RemoveAt(0);
-				foreach (InputProperties inputProp in inputsQueue)
-				{
+        //while (inputsQueue.Count > 0)
+        //{
+        //          print($"timer is at {inputRemovalTimer} and delta time is {Time.deltaTime.ToString()}");
+        //	inputRemovalTimer += Time.deltaTime;
+        //	//print($"removing input {inputsQueue[0].inputType.ToString()}");
+        //	if (inputRemovalTimer > inputRemovalMaxTime)
+        //	{
+        //	    print($"input remove timer is {inputRemovalTimer} / {inputRemovalMaxTime} and removing input {inputsQueue[0].inputType.ToString()}");
+        //		inputRemovalTimer = 0.0f;
+        //		inputsQueue.RemoveAt(0);
+        //		foreach (InputProperties inputProp in inputsQueue)
+        //		{
+        //                  inputProp.ResetPriority();
+        //		}
+        //	}
+        //    yield return null;
+        //}
+
+        while (inputsQueue.Count > 0)
+        {
+            yield return inputRemovalWaitTime;
+
+            if (inputsQueue.Count > 0)
+            {
+                inputsQueue.RemoveAt(0);
+                foreach (InputProperties inputProp in inputsQueue)
+                {
                     inputProp.ResetPriority();
-				}
-			}
-		    yield return null;
+                }
+            }
 		}
+
 	}
 
 	public bool PollForSpecificInput(InputProperties.InputType inputType)
@@ -247,18 +264,27 @@ public class PlayerControlsInput : MonoBehaviour
 
 		if (inputsQueue.Count > 0) // make sure we have some inputs
 		{
-            foreach (InputProperties inputProp in inputsQueue)
+            //foreach (InputProperties inputProp in inputsQueue)
+            //{
+            //    if (inputType == inputProp.inputType)
+            //    {
+            //        foundInput = true;
+            //        inputsQueue.Remove(inputProp);
+            //        break;
+            //    }
+            //}
+            for (int i = 0; i < inputsQueue.Count; i++)
             {
-                if (inputType == inputProp.inputType)
+                if (inputsQueue[i].inputType == inputType)
                 {
-                    foundInput = true;
-                    inputsQueue.Remove(inputProp);
+                    print($"taking input from input queue position - {i} - ");
+                    print($"input is {inputsQueue[i].inputType.ToString()}");
+					foundInput = true;
+                    inputsQueue.RemoveAt(i);
                     break;
                 }
             }
-
-		    //inputsQueue.Clear(); // only clear if we have inputs
-        }
+		}
 
 		return foundInput;
     }

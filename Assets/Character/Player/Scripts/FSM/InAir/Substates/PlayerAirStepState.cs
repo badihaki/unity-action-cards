@@ -1,12 +1,16 @@
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class PlayerAirStepState : PlayerState
 {
     public PlayerAirStepState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine) : base(pc, animationName, stateMachine)
     {
-    }
+	}
 
-    private bool canShmoove;
+	protected PlayerAttackController _AttackController;
+	protected PlayerControlsInput _Controls;
+
+	private bool canShmoove; // for air jumping/air step
     private bool activateFirstStep;
 
 
@@ -14,7 +18,15 @@ public class PlayerAirStepState : PlayerState
     private bool jumpInput;
     private bool rushInput;
 
-    public override void EnterState()
+	public override void InitializeState(PlayerCharacter pc, string animationName, PlayerStateMachine stateMachine)
+	{
+		base.InitializeState(pc, animationName, stateMachine);
+
+		_AttackController = pc._AttackController as PlayerAttackController;
+		_Controls = pc._Controls;
+	}
+
+	public override void EnterState()
     {
         base.EnterState();
 
@@ -39,31 +51,16 @@ public class PlayerAirStepState : PlayerState
         if (canShmoove)
         {
 			// check for jump and rush input here
-			if (jumpInput)
-            {
+			if (_Controls.PollForSpecificInput(InputProperties.InputType.jump))
+			{
 				_PlayerCharacter._Controls.UseJump();
 				_StateMachine.ChangeState(_StateMachine._AirJumpState);
 			}
-            if (rushInput)
+			if (rushInput)
             {
 				_PlayerCharacter._Controls.UseRush();
 				_StateMachine.ChangeState(_StateMachine._FallingState);
 			}
-			//if (_PlayerCharacter._LocomotionController.canDoubleJump)
-   //         {
-   //             if (jumpInput)
-   //                 _StateMachine.ChangeState(_StateMachine._AirJumpState);
-   //         }
-   //         else
-   //         {
-   //             if (jumpInput || rushInput)
-   //             {
-   //                 _PlayerCharacter._Controls.UseJump();
-   //                 _PlayerCharacter._Controls.UseRush();
-   //                 _StateMachine.ChangeState(_StateMachine._FallingState);
-   //             }
-   //         }
-
         }
     }
 

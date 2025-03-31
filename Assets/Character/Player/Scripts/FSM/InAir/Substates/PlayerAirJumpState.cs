@@ -13,13 +13,6 @@ public class PlayerAirJumpState : PlayerJumpState
         base.EnterState();
 
         _PlayerCharacter._MoveController.SetDoubleJump(false);
-        // _PlayerCharacter._LocomotionController.ZeroOutVertVelocity();
-        // isIncreasingVertVel = true;
-        /*
-        _PlayerCharacter._Controls.UseJump();
-        _PlayerCharacter._LocomotionController.Jump();
-        _PlayerCharacter._LocomotionController.MoveWithVerticalVelocity();
-         */
     }
 
     public override void PhysicsUpdate()

@@ -67,12 +67,6 @@ public class PlayerJumpState : PlayerState
 		}
         if (canTakeAction)
         {
-            //if (attackInput)
-            //    _StateMachine.ChangeState(attackController._AirAttackA);
-            //if (specialInput)
-            //    _StateMachine.ChangeState(attackController._AirSpecial);
-            //if (jumpInput)
-            //    _StateMachine.ChangeState(_StateMachine._AirJumpState);
             switch (_PlayerCharacter._Controls.PollForDesiredInput())
             {
 				case InputProperties.InputType.jump:

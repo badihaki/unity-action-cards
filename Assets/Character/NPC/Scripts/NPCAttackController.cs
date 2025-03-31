@@ -88,7 +88,6 @@ public class NPCAttackController : CharacterAttackController
 
 	private void SetActiveTarget(Character target)
 	{
-        print($"{_NPC.name} is setting target");
         target._Actor.onDeath += RemoveActiveTarget;
 		_ActiveTarget = target._Actor.transform;
         if (_NPC._NavigationController._NavTarget != target._Actor.transform)
