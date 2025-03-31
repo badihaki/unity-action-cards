@@ -50,10 +50,20 @@ public class Projectile : MonoBehaviour
                 if (_impactVFX) OnImpact(true);
                 else OnImpact(false);
             }
-            //Character hitCharacter = collider.GetComponentInParent<Character>();
-            collider.TryGetComponent(out Character hitCharacter);
+            Character hitCharacter = collider.GetComponentInParent<Character>();
             if (hitCharacter != null && hitCharacter != _controllingCharacter)
             {
+                if (_controllingCharacter.isGroupedUp)
+                {
+                    if (hitCharacter == _controllingCharacter.GetGroup()._GroupLeader)
+                        return;
+                    foreach (CharacterGroupLeader.GroupMemberStruct grMem in _controllingCharacter.GetGroup()._GroupLeader._GroupMembers)
+                    {
+                        if (hitCharacter == grMem.Character)
+                            return;
+                    }
+                }
+
                  //print(hitCharacter.name);
                 if (collider.name == "Hurtbox")
                 {
