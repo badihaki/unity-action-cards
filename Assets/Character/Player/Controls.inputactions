@@ -1004,7 +1004,7 @@
                     "id": "59157c69-23ea-4f1b-853d-dbdb4ee78022",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press,Hold",
                     "initialStateCheck": true
                 },
                 {
@@ -1031,7 +1031,25 @@
                     "id": "f28303ef-39eb-480a-9939-cc620f20a8e9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectSpell",
+                    "type": "Button",
+                    "id": "e8171d57-85e1-4607-8137-8dfe6f6601e6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Quit",
+                    "type": "Button",
+                    "id": "5493adb6-a4a0-4b3e-bcf2-cff55bbf3b7d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -1165,6 +1183,50 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "MWheel",
+                    "id": "2d1a7872-2111-4359-85d3-cb7fca0e71d7",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSpell",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "2b42aac2-148a-46d2-82a1-4421a7fc7d18",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "a82c1951-4a98-4ab3-a8ea-e38d3a83d567",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "SelectSpell",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "65c9e214-9614-4685-a908-78a88492dda6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KBM",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

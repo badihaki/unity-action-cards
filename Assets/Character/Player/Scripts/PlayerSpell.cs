@@ -67,22 +67,15 @@ public class PlayerSpell : MonoBehaviour
         Projectile conjuredSpell = ObjectPoolManager.GetObjectFromPool(_UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Projectile).GetComponent<Projectile>();
 		if (targetPos !=  Vector3.zero)
         {
-			print($"target position is {targetPos}");
-            //conjuredSpell = Instantiate(_UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
 			Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
             conjuredSpell.transform.eulerAngles = _spellTarget.transform.eulerAngles;
-            // this didnt work
-			//Vector3 targetDir = targetPos - _spellTarget.transform.position;
-			//conjuredSpell.transform.eulerAngles = targetDir;
 		}
         else
         {
             print($"no target pos");
-			//conjuredSpell = Instantiate(_UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity).GetComponent<Projectile>();
 			Vector3 targetDir = targetPos - _spellTarget.transform.position;
             conjuredSpell.transform.eulerAngles = targetDir;
         }
-		//conjuredSpell.name = _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._CardName;
         conjuredSpell.InitializeProjectile(player, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellDamage, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectileSpeed, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellLifetime, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellImpactVFX);
         _spellTimer = timeToAddToTimer;
         _UI.RemoveSpellCharge();

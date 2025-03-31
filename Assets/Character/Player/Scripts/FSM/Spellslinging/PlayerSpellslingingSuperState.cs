@@ -45,18 +45,14 @@ public class PlayerSpellslingingSuperState : PlayerState
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
         _PlayerCharacter._UIController.UpdateCrosshairPos(target);
 
-        if (_PlayerCharacter._Controls.PollForSpecificInput(InputProperties.InputType.attack))
+        if (attackInput)
         {
 			_PlayerCharacter._PlayerSpells.UseSpell(target);
         }
-        if(spellSelectDirection != 0)
+        if (spellSelectDirection != 0)
         {
             _PlayerCharacter._UIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
-            _PlayerCharacter._Controls.ResetSelectSpell();
-        }
-        if(spellSelectDirection != 0)
-        {
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
     }

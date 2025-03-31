@@ -6,6 +6,7 @@ using UnityEngine.Windows;
 
 public class PlayerControlsInput : MonoBehaviour
 {
+    [SerializeField]
     PlayerInput inputManager;
 
     private enum InputMaps
@@ -14,7 +15,8 @@ public class PlayerControlsInput : MonoBehaviour
         UI = 1,
         Spellsling = 2
     }
-    InputMaps currentInputMap = 0;
+    [SerializeField]
+    private InputMaps currentInputMap = 0;
 
     [field: SerializeField] public Vector2 _MoveInput { get; private set; }
     [field: SerializeField] public Vector2 _AimInput { get; private set; }
@@ -49,14 +51,17 @@ public class PlayerControlsInput : MonoBehaviour
         switch(inputMapId)
         {
             case 0:
+                currentInputMap = 0;
 				inputManager.SwitchCurrentActionMap("Combat");
 				break;
             case 1:
+                currentInputMap = InputMaps.UI;
 				inputManager.SwitchCurrentActionMap("UI");
 				break;
             case 2:
+                currentInputMap = InputMaps.Spellsling;
 				inputManager.SwitchCurrentActionMap("Spellsling");
-                break;
+				break;
 		}
     }
 	#endregion
@@ -128,10 +133,14 @@ public class PlayerControlsInput : MonoBehaviour
 
     public void OnAttack(InputValue val)
     {
-        if (inputManager.currentActionMap.name  == "Combat")
+        if (currentInputMap == 0)
         {
             InputProperties input = new InputProperties(InputProperties.InputType.attack);
             ProcessInput(input);
+        }
+        else if (currentInputMap == InputMaps.Spellsling)
+        {
+            ProcessAttack(val.isPressed);
         }
         else
             ProcessAttack(val.isPressed);

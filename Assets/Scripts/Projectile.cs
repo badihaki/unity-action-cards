@@ -45,13 +45,14 @@ public class Projectile : MonoBehaviour
         //print(collider.name);
         if(_ready)
         {
-            if(collider.gameObject.layer == 9)
+            if (collider.gameObject.layer == 7) // looking for environment layer
             {
                 if (_impactVFX) OnImpact(true);
                 else OnImpact(false);
             }
-            Character hitCharacter = collider.GetComponentInParent<Character>();
-            if(hitCharacter != _controllingCharacter)
+            //Character hitCharacter = collider.GetComponentInParent<Character>();
+            collider.TryGetComponent(out Character hitCharacter);
+            if (hitCharacter != null && hitCharacter != _controllingCharacter)
             {
                  //print(hitCharacter.name);
                 if (collider.name == "Hurtbox")
@@ -64,7 +65,22 @@ public class Projectile : MonoBehaviour
                      print("projectile " + name + " collided with " + hitCharacter.name);
                 }
                 if (_impactVFX) OnImpact(true);
-                else OnImpact(false);
+                else
+                    OnImpact(false);
+                return;
+            }
+
+            collider.TryGetComponent(out Projectile hitProjectile);
+            if (hitProjectile != null)
+            {
+                print("hit projectile with a projectile!!");
+                if (hitProjectile._controllingCharacter != _controllingCharacter)
+                {
+					if (_impactVFX) OnImpact(true);
+					else
+						OnImpact(false);
+				}
+                return;
             }
         }
     }
