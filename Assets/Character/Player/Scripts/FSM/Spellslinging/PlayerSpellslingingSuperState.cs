@@ -11,6 +11,7 @@ public class PlayerSpellslingingSuperState : PlayerState
 	public int spellSelectDirection { get; protected set; }
 	public bool spellslingInput { get; private set; }
 	public bool attackInput { get; private set; }
+	public Vector2 moveInput { get; private set; }
 	public Vector2 aimInput { get; private set; }
     private Vector3 target;
 
@@ -61,7 +62,7 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._MoveController.ApplyGravity(0.15f);
-        _PlayerCharacter._MoveController.SlowDown();
+        _PlayerCharacter._MoveController.MoveWhileAiming(moveInput);
 		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
 	}
 
@@ -102,6 +103,7 @@ public class PlayerSpellslingingSuperState : PlayerState
         base.CheckInputs();
 
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
+        moveInput = _PlayerCharacter._Controls._MoveInput;
         aimInput = _PlayerCharacter._Controls._AimInput;
 		spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
         attackInput = _PlayerCharacter._Controls._AttackInput;
