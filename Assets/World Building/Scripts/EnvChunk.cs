@@ -5,11 +5,12 @@ public class EnvChunk : MonoBehaviour
 {
     [field: SerializeField]
     public List<Transform> pointsOfInterest { get; private set; }
+    [field: SerializeField]
+    public Transform playerSpawnPosition { get; private set; }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
-        
+        playerSpawnPosition = transform.Find("PlayerSpawn");
     }
 
     // Update is called once per frame

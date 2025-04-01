@@ -1,5 +1,5 @@
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnvBuilder : MonoBehaviour
@@ -20,7 +20,11 @@ public class EnvBuilder : MonoBehaviour
 
 	[field:SerializeField, Header("Points of Interest")]
 	public List<Transform> usablePointsOfInterest { get; private set; } = new List<Transform>();
-	
+
+	[field:SerializeField, Header("Player stuff")]
+	private List<Transform> possiblePlayerSpawnPoints = new List<Transform>();
+
+
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -240,7 +244,14 @@ public class EnvBuilder : MonoBehaviour
 			usablePointsOfInterest.Add(envChunk.pointsOfInterest[i]);
 			chunks[i] = envChunk.pointsOfInterest[i];
 		}
+
+		ExtractPlayerSpawnPos(envChunk);
 		return chunks;
+	}
+
+	private void ExtractPlayerSpawnPos(EnvChunk envChunk)
+	{
+		possiblePlayerSpawnPoints.Add(envChunk.playerSpawnPosition);
 	}
 
 	private void GenerateFlora(Transform[] usableFloraLocations, PropScriptableObj[] flora)
@@ -252,11 +263,11 @@ public class EnvBuilder : MonoBehaviour
 			if (willBeUsed)
 			{
 				int floraPropIndex = flora.Length > 1 ? Random.Range(0, flora.Length - 1) : 0;
-				print($"flora prop location was {placementLocation.position.ToString()}");
+				//print($"flora prop location was {placementLocation.position.ToString()}");
 				GameObject instantiatedFlora = Instantiate(flora[floraPropIndex].propGameObject, placementLocation.position, Quaternion.identity);
 				instantiatedFlora.transform.parent = layoutFolder;
 				int removalIndex = usablePointsOfInterest.IndexOf(usablePointsOfInterest.Find(t => t == placementLocation));
-				print($"usable location was {usablePointsOfInterest[removalIndex].position.ToString()}");
+				//print($"usable location was {usablePointsOfInterest[removalIndex].position.ToString()}");
 				usablePointsOfInterest.RemoveAt(removalIndex);
 				PlaceObjectOnNearestGround(instantiatedFlora);
 			}
@@ -304,12 +315,27 @@ public class EnvBuilder : MonoBehaviour
 		GameObject.Find("Player").TryGetComponent(out PlayerCharacter player);
 		if (player != null)
 		{
-			int placementIndex = Random.Range(0, usablePointsOfInterest.Count);
-			Vector3 placement = usablePointsOfInterest[placementIndex].position;
-			print($"placing player at {placement.ToString()}");
+			int placementIndex = Random.Range(0, possiblePlayerSpawnPoints.Count);
+			print($"placement index is {placementIndex}");
+			
+			Vector3 placement = possiblePlayerSpawnPoints[placementIndex].position;
 			placement.y = placement.y + 1;
-			player.transform.position = placement;
+
+			//print($"placing player at {placement.ToString()}");
+			StartCoroutine(StartPlayerInCorrectPosition(player, placement));
 		}
 	}
+
+	private IEnumerator StartPlayerInCorrectPosition(PlayerCharacter player, Vector3 placement)
+	{
+		yield return new WaitForSeconds(0.1f);
+		print($"placing player at {placement.ToString()}");
+		CharacterController charControl = player._PlayerActor.GetComponent<CharacterController>();
+		charControl.enabled = false;
+		//player._PlayerActor.GetComponent<Rigidbody>().position = placement;
+		player._PlayerActor.transform.position = placement;
+		charControl.enabled = true;
+	}
+
 	// end
 }

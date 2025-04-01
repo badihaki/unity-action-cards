@@ -12,6 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e74584f62b033d4797a6e41ab568c33, type: 3}
   m_Name: envChunk_SBorder
   m_EditorClassIdentifier: 
+  <isBorder>k__BackingField: 1
+  <isCorner>k__BackingField: 0
+  <north>k__BackingField: 0
+  <south>k__BackingField: 1
+  <east>k__BackingField: 0
+  <west>k__BackingField: 0
   <chunkGameObj>k__BackingField: {fileID: -4916929549540401746, guid: 1104813d0603ab842aff8adc57f48890,
     type: 3}
   <buildingTemplates>k__BackingField: []

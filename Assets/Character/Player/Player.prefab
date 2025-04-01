@@ -345,7 +345,7 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
+  m_DefaultActionMap: 
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &6542911905298348363
@@ -360,6 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1f3d536d38bdc14ea2747dbe2841037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputManager: {fileID: 0}
+  currentInputMap: 0
   <_MoveInput>k__BackingField: {x: 0, y: 0}
   <_AimInput>k__BackingField: {x: 0, y: 0}
   <_LockOnInput>k__BackingField: 0
