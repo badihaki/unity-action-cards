@@ -10,6 +10,8 @@ public class PlayerSpellslingingSuperState : PlayerState
 
 	public int spellSelectDirection { get; protected set; }
 	public bool spellslingInput { get; private set; }
+	public bool attackInput { get; private set; }
+	public Vector2 moveInput { get; private set; }
 	public Vector2 aimInput { get; private set; }
     private Vector3 target;
 
@@ -17,6 +19,8 @@ public class PlayerSpellslingingSuperState : PlayerState
 	public override void EnterState()
     {
         base.EnterState();
+
+        _PlayerCharacter._Controls.SetInputMap(2);
 
         _PlayerCharacter._MoveController.ZeroOutVelocity();
         _PlayerCharacter._AnimationController.SetBool(_PlayerCharacter._WeaponController._CurrentWeapon._WeaponType.ToString(), false);
@@ -42,18 +46,14 @@ public class PlayerSpellslingingSuperState : PlayerState
 		_PlayerCharacter._PlayerSpells.RotateSpellTarget();
         _PlayerCharacter._UIController.UpdateCrosshairPos(target);
 
-        if (spellslingInput)
+        if (attackInput)
         {
 			_PlayerCharacter._PlayerSpells.UseSpell(target);
         }
-        if(spellSelectDirection != 0)
+        if (spellSelectDirection != 0)
         {
             _PlayerCharacter._UIController.ChangeSpell(spellSelectDirection);
             spellSelectDirection = 0;
-            _PlayerCharacter._Controls.ResetSelectSpell();
-        }
-        if(spellSelectDirection != 0)
-        {
             _PlayerCharacter._Controls.ResetSelectSpell();
         }
     }
@@ -62,7 +62,10 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._MoveController.ApplyGravity(0.15f);
-        _PlayerCharacter._MoveController.SlowDown();
+		//_PlayerCharacter._MoveController.MoveWhileAiming(moveInput);
+		_PlayerCharacter._MoveController.DetectMove(moveInput);
+		_PlayerCharacter._MoveController.RotateCharacter(moveInput);
+		_PlayerCharacter._MoveController.MoveWithVerticalVelocity();
 		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
 	}
 
@@ -83,17 +86,23 @@ public class PlayerSpellslingingSuperState : PlayerState
 		_PlayerCharacter._UIController.SetShowCrossHair(false);
 
 		_PlayerCharacter._PlayerSpells.ResetSpellTargetRotation();
-    }
+        
+        _PlayerCharacter._Controls.SetInputMap(0);
+	}
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished)
+        if (!_PlayerCharacter._Controls._SpellslingInput)
         {
-            if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
-            else _StateMachine.ChangeState(_StateMachine._FallingState);
+            if (_PlayerCharacter._CheckGrounded.IsGrounded())
+                _StateMachine.ChangeState(_StateMachine._IdleState);
+            else
+                _StateMachine.ChangeState(_StateMachine._FallingState);
         }
+        if (!_PlayerCharacter._CheckGrounded.IsGrounded())
+            _StateMachine.ChangeState(_StateMachine._FallingState);
     }
 
     public override void CheckInputs()
@@ -101,8 +110,10 @@ public class PlayerSpellslingingSuperState : PlayerState
         base.CheckInputs();
 
         spellSelectDirection = _PlayerCharacter._Controls._SelectSpellInput;
+        moveInput = _PlayerCharacter._Controls._MoveInput;
         aimInput = _PlayerCharacter._Controls._AimInput;
 		spellslingInput = _PlayerCharacter._Controls._SpellslingInput;
+        attackInput = _PlayerCharacter._Controls._AttackInput;
 	}
 
     // end

@@ -55,7 +55,7 @@ public class NPCSpawnManager : MonoBehaviour
 	{
 		float newTimeThreshold = Random.Range(minSpawnTime, maxSpawnTime);
 		float percentageNpcCount = ((float)currentNpcCount / maxNumberOfSpawns); // should be a value between 0 and 1
-		print($"current {currentNpcCount} / max {maxNumberOfSpawns} is {percentageNpcCount}");
+		//print($"current {currentNpcCount} / max {maxNumberOfSpawns} is {percentageNpcCount}");
 		if (percentageNpcCount > 0.3f)
 			newTimeThreshold *= 2.35f;
 		else if (percentageNpcCount > 0.7f)
@@ -65,7 +65,6 @@ public class NPCSpawnManager : MonoBehaviour
 
 	private void SpawnNewNPC()
 	{
-		//NonPlayerCharacter activeNpc = Instantiate(npc, transform.position, Quaternion.identity);
 		int spawnIndex = Random.Range(0, spawnableCharacters.Count);
 		GameObject pooledNpc = ObjectPoolManager.GetObjectFromPool(GameManagerMaster.GameMaster.Resources.npcTemplate.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Character, spawnableCharacters[spawnIndex]._CharacterName);
 		NonPlayerCharacter activeNpc = pooledNpc.GetComponent<NonPlayerCharacter>();
