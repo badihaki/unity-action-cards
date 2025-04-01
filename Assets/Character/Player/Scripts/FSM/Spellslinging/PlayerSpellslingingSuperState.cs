@@ -62,7 +62,10 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.PhysicsUpdate();
         _PlayerCharacter._MoveController.ApplyGravity(0.15f);
-        _PlayerCharacter._MoveController.MoveWhileAiming(moveInput);
+		//_PlayerCharacter._MoveController.MoveWhileAiming(moveInput);
+		_PlayerCharacter._MoveController.DetectMove(moveInput);
+		_PlayerCharacter._MoveController.RotateCharacter(moveInput);
+		_PlayerCharacter._MoveController.MoveWithVerticalVelocity();
 		_PlayerCharacter._CameraController.ControlCameraRotation(aimInput * 0.225f, true);
 	}
 
@@ -91,11 +94,15 @@ public class PlayerSpellslingingSuperState : PlayerState
     {
         base.CheckStateTransitions();
 
-        if (_AnimationIsFinished && !_PlayerCharacter._Controls._SpellslingInput)
+        if (!_PlayerCharacter._Controls._SpellslingInput)
         {
-            if (_PlayerCharacter._CheckGrounded.IsGrounded()) _StateMachine.ChangeState(_StateMachine._IdleState);
-            else _StateMachine.ChangeState(_StateMachine._FallingState);
+            if (_PlayerCharacter._CheckGrounded.IsGrounded())
+                _StateMachine.ChangeState(_StateMachine._IdleState);
+            else
+                _StateMachine.ChangeState(_StateMachine._FallingState);
         }
+        if (!_PlayerCharacter._CheckGrounded.IsGrounded())
+            _StateMachine.ChangeState(_StateMachine._FallingState);
     }
 
     public override void CheckInputs()

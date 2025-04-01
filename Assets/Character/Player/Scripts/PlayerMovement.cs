@@ -223,12 +223,19 @@ public class PlayerMovement : MonoBehaviour
 
 	public void MoveWhileAiming(Vector2 moveInput)
 	{
-		_DesiredMoveDirection.x = moveInput.x;
-        _DesiredMoveDirection.z = moveInput.y;
-        movementSpeed = 4.35f;
-        ApplyDesiredMoveToMovement();
+        if (moveInput != Vector2.zero)
+        {
+		    _DesiredMoveDirection.x = moveInput.x;
+            _DesiredMoveDirection.z = moveInput.y;
+            _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        }
+        else
+            _DesiredMoveDirection = Vector3.zero;
+		//*_Player._Actor.transform.forward
+		movementSpeed = 4.35f;
+		ApplyDesiredMoveToMovement();
 		ApplyExternalForcesToMovement();
-        _Controller.Move(_MovementDirection * Time.deltaTime);
+        _Controller.Move((_MovementDirection) * Time.deltaTime);
 	}
 
 
