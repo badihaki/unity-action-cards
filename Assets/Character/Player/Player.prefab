@@ -201,6 +201,7 @@ GameObject:
   - component: {fileID: 5072868601858473742}
   - component: {fileID: 4013965585459047465}
   - component: {fileID: 3137339615451667405}
+  - component: {fileID: 1840180777295010633}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -638,6 +639,18 @@ MonoBehaviour:
   minSummonDistance: 1
   maxSummonDistance: 2
   summonLocation: {x: 0, y: 0, z: 0}
+--- !u!114 &1840180777295010633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764021959895548567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6caa19987fc744444bd9b741e48e7ade, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1803609908426812624
 GameObject:
   m_ObjectHideFlags: 0

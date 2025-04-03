@@ -22,6 +22,8 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerHitState _HitState { get; private set; }
 	#endregion
 
+    public PlayerCinemaWaitState _CinemaWaitState { get; private set; }
+
 	#endregion
 	public void InitializeStateMachine(PlayerCharacter player)
     {
@@ -50,11 +52,18 @@ public class PlayerStateMachine : MonoBehaviour
         _AirJumpState.InitializeState(player, "airJump", this);
 
 		InitializeHurtStates(player);
+		InitiatlizeCinematicStates(player);
 
         _CurrentState = _IdleState;
         // Debug.Log("Starting state machine with " + state._StateAnimationName);
         _CurrentState.EnterState();
     }
+
+	private void InitiatlizeCinematicStates(PlayerCharacter player)
+	{
+		_CinemaWaitState = ScriptableObject.CreateInstance<PlayerCinemaWaitState>();
+        _CinemaWaitState.InitializeState(player, "cinematic", this);
+	}
 
 	private void InitializeHurtStates(PlayerCharacter player)
 	{
