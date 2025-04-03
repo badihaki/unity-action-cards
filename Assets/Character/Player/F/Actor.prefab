@@ -1655,6 +1655,72 @@ Transform:
   - {fileID: 8580688818034700282}
   m_Father: {fileID: 7685527536829298858}
   m_LocalEulerAnglesHint: {x: 0.000014994227, y: 0.00003186154, z: 0.000017536267}
+--- !u!1 &3017052294898320859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6695921240336903093}
+  - component: {fileID: 1253690281382940008}
+  - component: {fileID: 5149428316192704525}
+  m_Layer: 0
+  m_Name: InteractableDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6695921240336903093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017052294898320859}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7058586077146020884}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &1253690281382940008
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017052294898320859}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.7
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5149428316192704525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017052294898320859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a306a3c7bcaa7c048a24cb1cc0ff5d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3047618757322195238
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,6 +1896,7 @@ Transform:
   - {fileID: 5175429368299952816}
   - {fileID: 4286762416662872371}
   - {fileID: 4419585455643216039}
+  - {fileID: 6695921240336903093}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3636352799954022296
@@ -1868,6 +1935,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Character: {fileID: 0}
   <animationController>k__BackingField: {fileID: 0}
+  <_Hitbox>k__BackingField: {fileID: 0}
+  <_Hurtbox>k__BackingField: {fileID: 0}
   <_CheckGrounded>k__BackingField: {fileID: 0}
   bloodFX: {fileID: 1263810463913142815, guid: ffe61da82c5f1b64b93e1e3aa4ae7977, type: 3}
   <hitFxOrigin>k__BackingField: {fileID: 0}

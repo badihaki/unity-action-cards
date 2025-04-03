@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 public class EnvBuilder : MonoBehaviour
@@ -7,7 +8,11 @@ public class EnvBuilder : MonoBehaviour
 	[field: SerializeField, Header("Env Layout")]
 	private Transform layoutFolder;
 	[field:SerializeField]
-    public List<EnvChunkScriptableObj> envChunkScrObjs { get; private set; }
+	private Transform floraFolder;
+	[field: SerializeField]
+	private Transform structuresFolder;
+	[field:SerializeField]
+	public List<EnvChunkScriptableObj> envChunkScrObjs { get; private set; }
     [SerializeField]
     private Vector2 gridLengthWidth;
 	[SerializeField]
@@ -24,6 +29,9 @@ public class EnvBuilder : MonoBehaviour
 	[field:SerializeField, Header("Player stuff")]
 	private List<Transform> possiblePlayerSpawnPoints = new List<Transform>();
 
+	[field: SerializeField, Header("Nav Mesh")]
+	private NavMeshSurface navMesh;
+
 
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,7 +41,9 @@ public class EnvBuilder : MonoBehaviour
         int width = Random.Range(2, maxWidth);
         gridLengthWidth = new Vector2(length, width);
 		spawnPos = transform.position;
+		navMesh = layoutFolder.GetComponent<NavMeshSurface>();
 		BeginGeneration();
+		GenerateNavMeshSurface();
     }
 
 	private void BeginGeneration()
@@ -236,6 +246,7 @@ public class EnvBuilder : MonoBehaviour
 	}
 	#endregion
 
+	#region Chunk Transform Extraction
 	private Transform[] ExtractPointsOfInterest(EnvChunk envChunk)
 	{
 		Transform[] chunks = new Transform[envChunk.pointsOfInterest.Count];
@@ -253,7 +264,9 @@ public class EnvBuilder : MonoBehaviour
 	{
 		possiblePlayerSpawnPoints.Add(envChunk.playerSpawnPosition);
 	}
+	#endregion
 
+	#region Flora Generation
 	private void GenerateFlora(Transform[] usableFloraLocations, PropScriptableObj[] flora)
 	{
 		foreach (Transform placementLocation in usableFloraLocations)
@@ -265,7 +278,7 @@ public class EnvBuilder : MonoBehaviour
 				int floraPropIndex = flora.Length > 1 ? Random.Range(0, flora.Length - 1) : 0;
 				//print($"flora prop location was {placementLocation.position.ToString()}");
 				GameObject instantiatedFlora = Instantiate(flora[floraPropIndex].propGameObject, placementLocation.position, Quaternion.identity);
-				instantiatedFlora.transform.parent = layoutFolder;
+				instantiatedFlora.transform.parent = floraFolder;
 				int removalIndex = usablePointsOfInterest.IndexOf(usablePointsOfInterest.Find(t => t == placementLocation));
 				//print($"usable location was {usablePointsOfInterest[removalIndex].position.ToString()}");
 				usablePointsOfInterest.RemoveAt(removalIndex);
@@ -273,6 +286,7 @@ public class EnvBuilder : MonoBehaviour
 			}
 		}
 	}
+	#endregion
 
 	private void PlaceObjectOnNearestGround(GameObject instantiatedObj)
 	{
@@ -292,6 +306,7 @@ public class EnvBuilder : MonoBehaviour
 	}
 	#endregion
 
+	#region Corruption Heart
 	private void PlaceCorruptionHeart()
 	{
 		int heartPlacementIndex = Random.Range(0, usablePointsOfInterest.Count - 1);
@@ -300,7 +315,7 @@ public class EnvBuilder : MonoBehaviour
 		corruptionHeart.name = "Corruption Heart";
 		corruptionHeart.transform.parent = transform;
 		Vector3 pos = corruptionHeart.transform.position;
-		pos.y = pos.y + 1.35f;
+		pos.y = pos.y + 0.76f;
 		corruptionHeart.transform.position = pos;
 		corruptionHeart.OnCorruptionHeartDestroyed += OnCorruptionHeartDestroyed;
 	}
@@ -309,6 +324,7 @@ public class EnvBuilder : MonoBehaviour
 	{
 		destroyedHeart.OnCorruptionHeartDestroyed -= OnCorruptionHeartDestroyed;
 	}
+	#endregion
 
 	private void PlacePlayer()
 	{
@@ -322,20 +338,19 @@ public class EnvBuilder : MonoBehaviour
 			placement.y = placement.y + 1;
 
 			//print($"placing player at {placement.ToString()}");
-			StartCoroutine(StartPlayerInCorrectPosition(player, placement));
+			CharacterController charControl = player._PlayerActor.GetComponent<CharacterController>();
+			charControl.enabled = false;
+			player._PlayerActor.transform.position = placement;
+			charControl.enabled = true;
 		}
 	}
 
-	private IEnumerator StartPlayerInCorrectPosition(PlayerCharacter player, Vector3 placement)
+	private void GenerateNavMeshSurface()
 	{
-		yield return new WaitForSeconds(0.1f);
-		print($"placing player at {placement.ToString()}");
-		CharacterController charControl = player._PlayerActor.GetComponent<CharacterController>();
-		charControl.enabled = false;
-		//player._PlayerActor.GetComponent<Rigidbody>().position = placement;
-		player._PlayerActor.transform.position = placement;
-		charControl.enabled = true;
+		navMesh.BuildNavMesh();
 	}
+
+	public void UpdateNavMesh() => navMesh.UpdateNavMesh(navMesh.navMeshData);
 
 	// end
 }
