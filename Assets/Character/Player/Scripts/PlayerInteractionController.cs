@@ -21,6 +21,7 @@ public class PlayerInteractionController : MonoBehaviour
             {
                 player._Controls.UseInteract();
                 player._StateMachine.ChangeState(player._StateMachine._CinemaWaitState);
+                player._UIController.OpenInteractionMenu();
 			}
         }
 	}

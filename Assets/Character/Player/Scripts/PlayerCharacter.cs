@@ -13,6 +13,7 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
     public PlayerUIController _UIController { get; private set; }
     public PlayerMinionController _MinionController { get; private set; }
+    public PlayerInteractionController _InteractionController { get; private set; }
 
     // Actor Stuff
     [field:SerializeField, Header("~> Player Character <~")]
@@ -70,6 +71,8 @@ public class PlayerCharacter : Character, IDestroyable
         _UIController.InitializeUI(true, this);
 
         _MinionController = GetComponent<PlayerMinionController>();
+
+        _InteractionController = GetComponent<PlayerInteractionController>();
 
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print("finish setup");
