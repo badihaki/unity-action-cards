@@ -282,7 +282,6 @@ public class PlayerUIController : CharacterUIController
 	#region Interaction UI
 	public void OpenInteractionMenu()
 	{
-		
 		_InteractionCanvas.gameObject.SetActive(true);
 		_Player._CameraController.UnlockCursorKBM();
 		_InteractionCanvas.ShowInteraction();

@@ -51,7 +51,7 @@ public class PlayerControlsInput : MonoBehaviour
         switch(inputMapId)
         {
             case 0:
-                currentInputMap = 0;
+                currentInputMap = InputMaps.Combat;
 				inputManager.SwitchCurrentActionMap("Combat");
 				break;
             case 1:

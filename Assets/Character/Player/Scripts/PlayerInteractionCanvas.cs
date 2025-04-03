@@ -3,12 +3,17 @@ using UnityEngine;
 public class PlayerInteractionCanvas : MonoBehaviour
 {
     [SerializeField]
-    private PlayerCharacter player;
+	private PlayerCharacter player;
+    [SerializeField]
+    private PlayerInteractionController interactionController;
     
     void Awake()
     {
         if (player == null)
+        {
             player = GetComponentInParent<PlayerCharacter>();
+            interactionController = GetComponentInParent<PlayerInteractionController>();
+        }
     }
 
     // Update is called once per frame
@@ -26,6 +31,7 @@ public class PlayerInteractionCanvas : MonoBehaviour
     {
         player._StateMachine.ChangeState(player._StateMachine._IdleState);
         player._CameraController.LockCursorKBM();
+        interactionController.CloseMenu();
         gameObject.SetActive(false);
     }
 }
