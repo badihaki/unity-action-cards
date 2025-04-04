@@ -17,7 +17,7 @@ public class PlayerInteractableDetector : MonoBehaviour
 	{
         if (other.TryGetComponent(out IInteractable interactable))
         {
-            _InteractableController.AddInteractableToList(interactable);
+            _InteractableController.TrySetActiveInteractable(interactable);
         }
        
 	}

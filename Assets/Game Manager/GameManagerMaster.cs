@@ -8,6 +8,7 @@ public class GameManagerMaster : MonoBehaviour
     public GMDice Dice { get; private set; }
     public ConstantVariables GeneralConstantVariables { get; private set; }
     public GameResources Resources { get; private set; }
+    public static PlayerCharacter Player { get; set; }
 
     
     [field: SerializeField]
@@ -34,6 +35,8 @@ public class GameManagerMaster : MonoBehaviour
         GeneralConstantVariables = GetComponent<ConstantVariables>();
         Resources = GetComponent<GameResources>();
     }
+
+    public static void SetPlayer(PlayerCharacter newChallenger) => Player = newChallenger;
 
     
 	public void QuitGame()

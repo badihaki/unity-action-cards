@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,8 @@ public class PlayerControlsInput : MonoBehaviour
     [field: SerializeField] public bool _SpecialAttackInput { get; private set; }
     [field: SerializeField] public bool _InteractInput { get; private set; }
     [field: SerializeField] public bool _DefenseInput { get; private set; }
-    [field: SerializeField] public int _SelectSpellInput { get; private set; }
+	[field: SerializeField] public int _SelectSpellInput { get; private set; }
+    [field: SerializeField] public bool _UiCancelInput { get; private set; }
 
     [field: SerializeField, Header("buffer")]
     public List<InputProperties> inputsQueue { get; private set; }
@@ -221,6 +223,16 @@ public class PlayerControlsInput : MonoBehaviour
         if (val.isPressed)
             GameManagerMaster.GameMaster.QuitGame();
     }
+
+    public void OnCancel(InputValue val)
+    {
+        if (val.isPressed)
+			ProcessUiCancel(val.isPressed);
+    }
+	private void ProcessUiCancel(bool inputState)
+	{
+        _UiCancelInput = inputState;
+	}
 	#endregion
 
 

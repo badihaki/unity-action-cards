@@ -482,7 +482,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "228b2563-130f-4a2f-9ca7-04cd8d19ad42",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -845,6 +845,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM;Gamepad",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "94312c22-df86-4108-bfee-27e69263ec9b",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KBM",
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false

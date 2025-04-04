@@ -7,6 +7,6 @@ public class InteractionScriptableObj : ScriptableObject
 	public string interactionName;
 	public virtual void Interact(Character initiator)
 	{
-		Debug.Log("Interacting");
+		Debug.Log($"Interacting || {interactionName}(interactioon)");
 	}
 }

@@ -25,6 +25,8 @@ public class PlayerCharacter : Character, IDestroyable
 
     public override void Initialize()
     {
+        GameManagerMaster.SetPlayer(this);
+
         // lets set up the actor
         if (_LoadNewOnStart) LoadAndBuildActor();
         else LoadActor();

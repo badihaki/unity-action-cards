@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,22 +8,25 @@ public class PlayerInteractionController : MonoBehaviour
     // lets how an IInterablable
     public PlayerCharacter player;
 	[SerializeField]
-    private bool canInteract = true;
+	private bool canInteract = true;
+	[SerializeField]
+	private bool isInteracting = false;
 
-	public List<IInteractable> queuedInteractionsList;
     public IInteractable activeInteractable { get; private set; }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GetComponent<PlayerCharacter>();
-		queuedInteractionsList = new List<IInteractable>();
 		canInteract = true;
+		isInteracting = false;
     }
 
 	private void Update()
 	{
 		DetectInteract();
+		if (isInteracting)
+			DetectCancelInteract();
 	}
 
 	private void DetectInteract()
@@ -31,32 +35,41 @@ public class PlayerInteractionController : MonoBehaviour
 		{
 			if (player._Controls._InteractInput)
 			{
-				OpenMenu();
+				player._Controls.UseInteract();
+				activeInteractable.Interact(player);
+				player._StateMachine.ChangeState(player._StateMachine._CinemaWaitState);
+				player._CameraController.UnlockCursorKBM();
+				player._Controls.SetInputMap(1);
+				canInteract = false;
+				isInteracting = true;
 			}
 		}
 	}
 
-	private void OpenMenu()
+	private void DetectCancelInteract()
 	{
-		player._Controls.UseInteract();
-		player._StateMachine.ChangeState(player._StateMachine._CinemaWaitState);
-		player._Controls.SetInputMap(1);
-		player._UIController.OpenInteractionMenu();
-		canInteract = false;
+		if(player._Controls._UiCancelInput)
+		{
+			activeInteractable.StopInteraction(player);
+			StopPlayerInteraction();
+		}
 	}
 
-	public void CloseMenu()
+	public void StopPlayerInteraction()
 	{
+		player._StateMachine.ChangeState(player._StateMachine._IdleState);
+		player._CameraController.LockCursorKBM();
 		player._Controls.SetInputMap(0);
-		ResetCanInteract();
+		canInteract = true;
+		isInteracting = false;
 	}
 
-	public void ResetCanInteract() => canInteract = true;
-
-	public void SetNewActiveInteractable(IInteractable interactable)
+	public void TrySetActiveInteractable(IInteractable interactable)
     {
-        activeInteractable = interactable;
-        print("setting new interactable");
+		if (activeInteractable == null)
+			activeInteractable = interactable;
+		else
+			SetClosestInteractableAsActive(interactable);
     }
     public void RemoveActiveInteractable(IInteractable interactable)
     {
@@ -65,32 +78,11 @@ public class PlayerInteractionController : MonoBehaviour
 		print("unbsetting interactable");
 	}
 
-	public void AddInteractableToList(IInteractable interactable)
-	{
-		if (queuedInteractionsList.Count <= 0)
-			SetNewActiveInteractable(interactable);
-		else
-		{
-			SetClosestInteractableAsActive(interactable);
-		}
-	}
-	public void RemoveInteractableFromList(IInteractable interactable)
-	{
-		if (queuedInteractionsList.Contains(interactable))
-			queuedInteractionsList.Remove(interactable);
-		RemoveActiveInteractable(interactable);
-	}
-
 	private void SetClosestInteractableAsActive(IInteractable interactable)
 	{
 		IInteractable selectedInteractable = interactable;
-		float distance = Vector3.Distance(player._PlayerActor.transform.position, interactable.GetControllingEntity().position);
-		queuedInteractionsList.ForEach(compareInteractable =>
-		{
-			float compareInteractableDistance = Vector3.Distance(player._PlayerActor.transform.position, compareInteractable.GetControllingEntity().position);
-			if (compareInteractableDistance < distance)
-				selectedInteractable = compareInteractable;
-		});
+		float distanceFromNewInteractable = Vector3.Distance(player._PlayerActor.transform.position, interactable.GetControllingEntity().position);
+		float distanceFromActiveInteractable = Vector3.Distance(player._PlayerActor.transform.position, activeInteractable.GetControllingEntity().position);
 	}
 
 	// end

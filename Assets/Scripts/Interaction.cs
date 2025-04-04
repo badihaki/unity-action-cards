@@ -9,24 +9,38 @@ public class Interaction : MonoBehaviour, IInteractable
 	{
 		return controllingEntity;
 	}
-
-
 	[SerializeField]
-	private List<InteractionScriptableObj> interactions;
-	public void Interact(Character interactingCharacter)
+	private InteractionScriptableObj interaction;
+	[SerializeField]
+	private InteractionCanvasBase interactionCanvas;
+
+
+
+	private void Start()
 	{
-		throw new System.NotImplementedException();
+		interactionCanvas = GetComponentInChildren<InteractionCanvasBase>();
+		interactionCanvas.Initialize(this);
+		interactionCanvas.gameObject.SetActive(false);
 	}
 
-	// Start is called once before the first execution of Update after the MonoBehaviour is created
-	void Start()
-    {
-        
-    }
+	public void Interact(Character interactingCharacter)
+	{
+		interaction.Interact(interactingCharacter);
+		interactionCanvas.gameObject.SetActive(true);
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	/// <summary>
+	/// Basic way to stop an interaction
+	/// </summary>
+	public void StopInteraction() => interactionCanvas.gameObject.SetActive(false);
+	/// <summary>
+	/// Stop an interaction with a  specific character
+	/// </summary>
+	/// <param name="interactingCharacter">Pass in a character to have it run logic additional logic on that character</param>
+	public void StopInteraction(Character interactingCharacter)
+	{
+		interactionCanvas.gameObject.SetActive(false);
+	}
+
+	// end
 }

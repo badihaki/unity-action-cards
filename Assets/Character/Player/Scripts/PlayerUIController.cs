@@ -38,18 +38,12 @@ public class PlayerUIController : CharacterUIController
 	[SerializeField] private int _MaxSpellCount = 6;
 	[field: SerializeField] public int _CurrentSpellIndex { get; private set; }
 
-	[field: Header("Interaction"), SerializeField]
-	public PlayerInteractionCanvas _InteractionCanvas { get; private set; }
-
 	#region Initialize
 	public override void InitializeUI(bool isEntityPlayer, Character character)
 	{
 		base.InitializeUI(isEntityPlayer, character);
 		_Player = character as PlayerCharacter;
 		_Cam = Camera.main;
-
-		_InteractionCanvas = GetComponentInChildren<PlayerInteractionCanvas>();
-		_InteractionCanvas.gameObject.SetActive(false);
 
 		InitAetherUI();
 		InitSpellUI();
@@ -276,15 +270,6 @@ public class PlayerUIController : CharacterUIController
 			}
 			else _ActiveSpellList[_CurrentSpellIndex] = modifiedSpell;
 		}
-	}
-	#endregion
-
-	#region Interaction UI
-	public void OpenInteractionMenu()
-	{
-		_InteractionCanvas.gameObject.SetActive(true);
-		_Player._CameraController.UnlockCursorKBM();
-		_InteractionCanvas.ShowInteraction();
 	}
 	#endregion
 
