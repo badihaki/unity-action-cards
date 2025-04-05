@@ -12,12 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e74584f62b033d4797a6e41ab568c33, type: 3}
   m_Name: envChunk
   m_EditorClassIdentifier: 
+  <isBorder>k__BackingField: 0
+  <isCorner>k__BackingField: 0
+  <north>k__BackingField: 0
+  <south>k__BackingField: 0
+  <east>k__BackingField: 0
+  <west>k__BackingField: 0
   <chunkGameObj>k__BackingField: {fileID: 6585722128256658212, guid: aa19b773b8a37c049830453b9b37db96,
     type: 3}
   <buildingTemplates>k__BackingField: []
   <floraPropTemplates>k__BackingField:
   - {fileID: 11400000, guid: f56af69fd23e2874d83cd5af04e63ccf, type: 2}
-  <regularNPCs>k__BackingField: []
-  <specialNPCs>k__BackingField: []
-  <enemies>k__BackingField: []
-  <specialEnemies>k__BackingField: []
+  <regularNPCs>k__BackingField:
+  - {fileID: 11400000, guid: 7173758fea64491418a2f017b0c88416, type: 2}
+  <specialNPCs>k__BackingField:
+  - {fileID: 11400000, guid: d167dc007b20d194db97282d75be3b47, type: 2}
+  <enemies>k__BackingField:
+  - {fileID: 11400000, guid: 95357d2f90b4e204b9288516c72bce8d, type: 2}
+  <specialEnemies>k__BackingField:
+  - {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666, type: 2}

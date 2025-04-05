@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.AI.Navigation;
@@ -32,18 +33,38 @@ public class EnvBuilder : MonoBehaviour
 	[field: SerializeField, Header("Nav Mesh")]
 	private NavMeshSurface navMesh;
 
+	[field: SerializeField, Header("NPCs")]
+	private NPCSpawnManager npcSpawnManagerTemplate;
+	[Serializable]
+	private struct spawnManagerStruct
+	{
+		public NPCSpawnManager spawnManager;
+		public List<NPCSheetScriptableObj> characters;
+		public spawnManagerStruct(NPCSpawnManager spwnMng, List<NPCSheetScriptableObj> npcs)
+		{
+			spawnManager = spwnMng;
+			characters = npcs;
+		}
+	}
+	[SerializeField]
+	private int npcSpawnPointsAllotted = 4;
+	[SerializeField]
+	private List<spawnManagerStruct> npcSpawnManagers = new List<spawnManagerStruct>();
+
 
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
-        int length = Random.Range(2, maxLength);
-        int width = Random.Range(2, maxWidth);
+        int length = UnityEngine.Random.Range(2, maxLength);
+        int width = UnityEngine.Random.Range(2, maxWidth);
         gridLengthWidth = new Vector2(length, width);
 		spawnPos = transform.position;
 		navMesh = layoutFolder.GetComponent<NavMeshSurface>();
+		npcSpawnManagers = new List<spawnManagerStruct>();
 		BeginGeneration();
 		GenerateNavMeshSurface();
+		GenerateCharacterSpawnPoints();
     }
 
 	private void BeginGeneration()
@@ -108,7 +129,7 @@ public class EnvBuilder : MonoBehaviour
 			if (!chunk.isBorder && !chunk.isCorner)
 				possibleChunks.Add(chunk);
 		}
-		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+		int chunkIndex = possibleChunks.Count > 1 ? UnityEngine.Random.Range(0, possibleChunks.Count) : 0;
 
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
@@ -128,7 +149,7 @@ public class EnvBuilder : MonoBehaviour
 			if (chunk.isBorder && chunk.east)
 				possibleChunks.Add(chunk);
 		}
-		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+		int chunkIndex = possibleChunks.Count > 1 ? UnityEngine.Random.Range(0, possibleChunks.Count) : 0;
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-EastBorder-{columnIndex}-{i}";
@@ -147,7 +168,7 @@ public class EnvBuilder : MonoBehaviour
 			if (chunk.isBorder && chunk.west)
 				possibleChunks.Add(chunk);
 		}
-		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+		int chunkIndex = possibleChunks.Count > 1 ? UnityEngine.Random.Range(0, possibleChunks.Count) : 0;
 
 		EnvChunk envChunk = Instantiate(possibleChunks[chunkIndex].chunkGameObj, spawnPos, Quaternion.identity);
 		envChunk.name = $"Chunk-WestBorder-{columnIndex}-{i}";
@@ -177,7 +198,7 @@ public class EnvBuilder : MonoBehaviour
 			else if(chunk.south && chunk.west && chunk.isCorner)
 				possibleWestCornerChunks.Add(chunk);
 		}
-		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+		int chunkIndex = possibleChunks.Count > 1 ? UnityEngine.Random.Range(0, possibleChunks.Count) : 0;
 
 		if (i == 0)
 		{
@@ -220,7 +241,7 @@ public class EnvBuilder : MonoBehaviour
 			else if (chunk.north && chunk.west && chunk.isCorner)
 				possibleWestCornerChunks.Add(chunk);
 		}
-		int chunkIndex = possibleChunks.Count > 1 ? Random.Range(0, possibleChunks.Count) : 0;
+		int chunkIndex = possibleChunks.Count > 1 ? UnityEngine.Random.Range(0, possibleChunks.Count) : 0;
 
 		if (i == 0)
 		{
@@ -275,7 +296,7 @@ public class EnvBuilder : MonoBehaviour
 
 			if (willBeUsed)
 			{
-				int floraPropIndex = flora.Length > 1 ? Random.Range(0, flora.Length - 1) : 0;
+				int floraPropIndex = flora.Length > 1 ? UnityEngine.Random.Range(0, flora.Length - 1) : 0;
 				//print($"flora prop location was {placementLocation.position.ToString()}");
 				GameObject instantiatedFlora = Instantiate(flora[floraPropIndex].propGameObject, placementLocation.position, Quaternion.identity);
 				instantiatedFlora.transform.parent = floraFolder;
@@ -309,7 +330,7 @@ public class EnvBuilder : MonoBehaviour
 	#region Corruption Heart
 	private void PlaceCorruptionHeart()
 	{
-		int heartPlacementIndex = Random.Range(0, usablePointsOfInterest.Count - 1);
+		int heartPlacementIndex = UnityEngine.Random.Range(0, usablePointsOfInterest.Count - 1);
 		CorruptionHeart corruptionHeart = Instantiate(GameManagerMaster.GameMaster.Resources.corruptionHeart, usablePointsOfInterest[heartPlacementIndex].position, Quaternion.identity);
 		usablePointsOfInterest.RemoveAt(heartPlacementIndex);
 		corruptionHeart.name = "Corruption Heart";
@@ -326,12 +347,13 @@ public class EnvBuilder : MonoBehaviour
 	}
 	#endregion
 
+	#region Characters
 	private void PlacePlayer()
 	{
 		GameObject.Find("Player").TryGetComponent(out PlayerCharacter player);
 		if (player != null)
 		{
-			int placementIndex = Random.Range(0, possiblePlayerSpawnPoints.Count);
+			int placementIndex = UnityEngine.Random.Range(0, possiblePlayerSpawnPoints.Count);
 			print($"placement index is {placementIndex}");
 			
 			Vector3 placement = possiblePlayerSpawnPoints[placementIndex].position;
@@ -345,12 +367,107 @@ public class EnvBuilder : MonoBehaviour
 		}
 	}
 
+	private void GenerateCharacterSpawnPoints()
+	{
+		int spawnPointsCreated = 0;
+		spawnPointsCreated = GenerateAllSpawnManagers(spawnPointsCreated);
+		for (int i = 0; i < npcSpawnManagers.Count; i++)
+		{
+			npcSpawnManagers[i].spawnManager.Initialize(npcSpawnManagers[i].characters);
+		}
+	}
+
+	private int GenerateAllSpawnManagers(int spawnPointsCreated)
+	{
+		for (int i = 0; i < usablePointsOfInterest.Count; i++)
+		{
+			int roll = GameManagerMaster.GameMaster.Dice.RollD100();
+			int rollModifier = (npcSpawnPointsAllotted - spawnPointsCreated) * 10;
+			roll += rollModifier;
+			print($"generating characters, roll modifier is {rollModifier} || spawn points allocated({npcSpawnPointsAllotted}) - spawn points created({spawnPointsCreated})");
+			print($"full roll is {roll}");
+			if (roll > 78)
+			{
+				GenerateSingleSpawnManager(i);
+				spawnPointsCreated++;
+				if (spawnPointsCreated >= npcSpawnPointsAllotted)
+					break;
+			}
+		}
+
+		return spawnPointsCreated;
+	}
+
+	private void GenerateSingleSpawnManager(int i)
+	{
+		print($"generating spawn point at usable POI(index-{i}) position");
+		NPCSpawnManager spawnManager = Instantiate(npcSpawnManagerTemplate, usablePointsOfInterest[i].position, Quaternion.identity);
+		spawnManager.transform.parent = layoutFolder;
+
+		int chunkIndex = UnityEngine.Random.Range(0, envChunkScrObjs.Count);
+		List<NPCSheetScriptableObj> spawnableNpcs = ExtractCharacters(chunkIndex);
+
+
+		//spawnManagerStruct spawnManagerStruct = new spawnManagerStruct(spawnManager, spawnableNpcs);
+		//spawnManagers.Add(spawnManagerStruct);
+		npcSpawnManagers.Add(new spawnManagerStruct(spawnManager, spawnableNpcs));
+	}
+
+	private List<NPCSheetScriptableObj> ExtractCharacters(int chunkIndex)
+	{
+		bool willSpawnEnemies = GameManagerMaster.GameMaster.Dice.RollD100() > 50;
+		bool canSpawnSpecial = GameManagerMaster.GameMaster.Dice.RollD100() > 90;
+		List<NPCSheetScriptableObj> returnedCharactersList = new List<NPCSheetScriptableObj>();
+		if (willSpawnEnemies)
+		{
+			print("adding enemies to the list");
+			// spawn npcs from enemy list
+			for(int regIndex = 0; regIndex < envChunkScrObjs[chunkIndex].enemies.Count; regIndex++)
+			{
+				returnedCharactersList.Add(envChunkScrObjs[chunkIndex].enemies[regIndex]);
+				// check if can do specials, if so, add special enemies
+				if(canSpawnSpecial)
+				{
+					print("adding SPECIAL enemies to the list");
+					for (int specIndex = 0; specIndex < envChunkScrObjs[chunkIndex].specialEnemies.Count; specIndex++) 
+					{
+						returnedCharactersList.Add(envChunkScrObjs[chunkIndex].specialEnemies[specIndex]);
+					}
+				}
+			}
+		}
+		else
+		{
+			// spawn regular npcs
+			for (int regIndex = 0; regIndex < envChunkScrObjs[chunkIndex].regularNPCs.Count; regIndex++)
+			{
+				print("adding enemies to the list");
+				returnedCharactersList.Add(envChunkScrObjs[chunkIndex].regularNPCs[regIndex]);
+				// check if can do specials, if so, add special enemies
+				if (canSpawnSpecial)
+				{
+					print("adding SPECIAL enemies to the list");
+					for (int specIndex = 0; specIndex < envChunkScrObjs[chunkIndex].specialNPCs.Count; specIndex++)
+					{
+						returnedCharactersList.Add(envChunkScrObjs[chunkIndex].specialNPCs[specIndex]);
+					}
+				}
+			}
+			// same as before, but special npcs
+		}
+		return returnedCharactersList;
+	}
+	#endregion
+
+
+	#region Navigation
 	private void GenerateNavMeshSurface()
 	{
 		navMesh.BuildNavMesh();
 	}
 
 	public void UpdateNavMesh() => navMesh.UpdateNavMesh(navMesh.navMeshData);
+	#endregion
 
 	// end
 }

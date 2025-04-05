@@ -249,7 +249,7 @@ public class PlayerControlsInput : MonoBehaviour
 
 	private void AddInputToQueue(InputProperties input)
 	{
-		print($"adding input {input.inputType.ToString()} to the queue");
+		//print($"adding input {input.inputType.ToString()} to the queue");
 		inputsQueue.Insert(0, input);
 		RemovalOldInputs();
 		//print($"added input {inputsQueue[0].inputType.ToString()}");
@@ -271,7 +271,7 @@ public class PlayerControlsInput : MonoBehaviour
 
 	private IEnumerator ManageQueue()
 	{
-        print("starting management of queue");
+        //print("starting management of queue");
 
         while (inputsQueue.Count > 0)
         {
@@ -299,8 +299,6 @@ public class PlayerControlsInput : MonoBehaviour
             {
                 if (inputsQueue[i].inputType == inputType)
                 {
-                    print($"taking input from input queue position - {i} - ");
-                    print($"input is {inputsQueue[i].inputType.ToString()}");
 					foundInput = true;
                     inputsQueue.RemoveAt(i);
                     break;

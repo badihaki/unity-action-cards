@@ -810,6 +810,10 @@ MonoBehaviour:
   <usablePointsOfInterest>k__BackingField: []
   possiblePlayerSpawnPoints: []
   navMesh: {fileID: 0}
+  npcSpawnManagerTemplate: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+    type: 3}
+  npcSpawnPointsAllotted: 12
+  npcSpawnManagers: []
 --- !u!4 &710283350
 Transform:
   m_ObjectHideFlags: 0

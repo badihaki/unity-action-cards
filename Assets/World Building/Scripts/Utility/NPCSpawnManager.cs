@@ -5,6 +5,7 @@ using UnityEngine;
 public class NPCSpawnManager : MonoBehaviour
 {
 	[field: SerializeField] private bool isSpawning;
+	[field: SerializeField] private bool isDevMode;
 	 public bool SetIsSpawning(bool value)
 	{
 		isSpawning = value;
@@ -22,6 +23,23 @@ public class NPCSpawnManager : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
+		if (isDevMode)
+		{
+			SpawnNewNPC();
+			RandomizeSpawnThreshold();
+			SetIsSpawning(true);
+		}
+	}
+
+	public void Initialize()
+	{
+		SpawnNewNPC();
+		RandomizeSpawnThreshold();
+		SetIsSpawning(true);
+	}
+	public void Initialize(List<NPCSheetScriptableObj> characters)
+	{
+		spawnableCharacters = characters;
 		SpawnNewNPC();
 		RandomizeSpawnThreshold();
 		SetIsSpawning(true);

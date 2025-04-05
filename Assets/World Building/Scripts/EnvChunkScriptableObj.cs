@@ -28,11 +28,11 @@ public class EnvChunkScriptableObj : ScriptableObject
 	[field: SerializeField]
 	public List<PropScriptableObj> floraPropTemplates { get; private set; }
 	[field: SerializeField]
-	public List<NonPlayerCharacter> regularNPCs { get; private set; }
+	public List<NPCSheetScriptableObj> regularNPCs { get; private set; }
 	[field: SerializeField]
-	public List<NonPlayerCharacter> specialNPCs { get; private set; }
+	public List<NPCSheetScriptableObj> specialNPCs { get; private set; }
 	[field: SerializeField]
-	public List<NonPlayerCharacter> enemies { get; private set; }
+	public List<NPCSheetScriptableObj> enemies { get; private set; }
 	[field: SerializeField]
-	public List<NonPlayerCharacter> specialEnemies { get; private set; }
+	public List<NPCSheetScriptableObj> specialEnemies { get; private set; }
 }
