@@ -10,23 +10,30 @@ public class Interaction : MonoBehaviour, IInteractable
 		return controllingEntity;
 	}
 	[SerializeField]
-	private InteractionScriptableObj interaction;
+	private InteractionScriptableObj interactionScrObj;
 	[SerializeField]
 	private InteractionCanvasBase interactionCanvas;
+	[SerializeField]
+	private Character interactingCharacter;
 
 
 
 	private void Start()
 	{
 		interactionCanvas = GetComponentInChildren<InteractionCanvasBase>();
-		interactionCanvas.Initialize(this);
+		interactionCanvas.Initialize(this, interactionScrObj.interactionName);
 		interactionCanvas.gameObject.SetActive(false);
 	}
 
-	public void Interact(Character interactingCharacter)
+	public void Interact(Character interactionInitiator)
 	{
-		interaction.Interact(interactingCharacter);
+		interactingCharacter = interactionInitiator;
 		interactionCanvas.gameObject.SetActive(true);
+	}
+
+	public virtual void RunInteraction()
+	{
+		interactionScrObj.Interact(interactingCharacter);
 	}
 
 	/// <summary>

@@ -233,6 +233,7 @@ public class PlayerControlsInput : MonoBehaviour
 	{
         _UiCancelInput = inputState;
 	}
+    public void ResetUiCancel() => _UiCancelInput = false;
 	#endregion
 
 

@@ -59,6 +59,7 @@ public class PlayerInteractionController : MonoBehaviour
 	{
 		player._StateMachine.ChangeState(player._StateMachine._IdleState);
 		player._CameraController.LockCursorKBM();
+		player._Controls.ResetUiCancel();
 		player._Controls.SetInputMap(0);
 		canInteract = true;
 		isInteracting = false;
