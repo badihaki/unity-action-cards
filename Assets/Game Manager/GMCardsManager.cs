@@ -16,15 +16,20 @@ public class GMCardsManager : MonoBehaviour
 		if (devMove)
 		{
 			cardsFound = new List<CardStruct>();
+			List<CardScriptableObj> cardsInNewDeck = new List<CardScriptableObj>();
             foreach (CardScriptableObj card in starterCards)
             {
 				CardStruct cardStruct = new CardStruct(card, true);
 				cardStruct.AddCopy();
+				cardsInNewDeck.Add(card);
 				cardStruct.AddCopy();
+				cardsInNewDeck.Add(card);
 				cardStruct.TryAddCopyInDeck();
 				cardStruct.TryAddCopyInDeck();
 				cardsFound.Add(cardStruct);
 			}
+			//GameManagerMaster.Player._PlayerCards.RebuildDeck(cardsInNewDeck);
+			GameObject.Find("Player").GetComponent<PlayerCards>().RebuildDeck(cardsInNewDeck);
         }
 	}
 

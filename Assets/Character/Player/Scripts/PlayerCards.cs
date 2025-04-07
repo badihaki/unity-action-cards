@@ -51,6 +51,17 @@ public class PlayerCards : MonoBehaviour
             DrawFullHand();
     }
 
+    public void RebuildDeck(List<CardScriptableObj> newDeck)
+    {
+        _Deck.Clear();
+        _Hand.Clear();
+        _Abyss.Clear();
+        foreach (CardScriptableObj card in newDeck)
+        {
+            _Deck.Add(card);
+        }
+        DrawFullHand();
+    }
 
     public void ShowHand()
     {
@@ -129,7 +140,7 @@ public class PlayerCards : MonoBehaviour
                 StartCoroutine(StartDrawCardTmer());
             }
         }
-        CheckDeckCount();
+        CheckIfDeckShouldStartRecharging();
     }
 
     public void RefundCardPlay()
@@ -157,11 +168,11 @@ public class PlayerCards : MonoBehaviour
 		{
 			print($"deck count is {_Deck.Count} and hand count is {_Hand.Count}");
 			Debug.LogWarning("can't draw another card. either not enogh cards in deck or too many in hand.");
-			CheckDeckCount();
+			CheckIfDeckShouldStartRecharging();
 		}
 	}
 
-    private void CheckDeckCount()
+    private void CheckIfDeckShouldStartRecharging()
     {
 		if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
 			Debug.LogWarning("Checking deck");
