@@ -4023,6 +4023,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8787112152431501992, guid: 1bb29c8e3e476f84cbfd0dc941bb97fc,
+        type: 3}
+      propertyPath: starterCards.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8787112152431501992, guid: 1bb29c8e3e476f84cbfd0dc941bb97fc,
+        type: 3}
+      propertyPath: 'starterCards.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e,
+        type: 2}
+    - target: {fileID: 8787112152431501992, guid: 1bb29c8e3e476f84cbfd0dc941bb97fc,
+        type: 3}
+      propertyPath: 'starterCards.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1,
+        type: 2}
+    - target: {fileID: 8787112152431501992, guid: 1bb29c8e3e476f84cbfd0dc941bb97fc,
+        type: 3}
+      propertyPath: 'starterCards.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

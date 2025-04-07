@@ -10,6 +10,7 @@ public class GameManagerMaster : MonoBehaviour
     public GameResources Resources { get; private set; }
     public static PlayerCharacter Player { get; set; }
     public GMSceneManager SceneManager { get; private set; }
+    public GMCardsManager CardsManager { get; private set; }
 
     
     [field: SerializeField]
@@ -36,6 +37,7 @@ public class GameManagerMaster : MonoBehaviour
         GeneralConstantVariables = GetComponent<ConstantVariables>();
         Resources = GetComponent<GameResources>();
         SceneManager = GetComponent<GMSceneManager>();
+        CardsManager = GetComponent<GMCardsManager>();
     }
 
     public static void SetPlayer(PlayerCharacter newChallenger) => Player = newChallenger;
