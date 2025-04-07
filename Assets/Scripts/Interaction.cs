@@ -9,8 +9,8 @@ public class Interaction : MonoBehaviour, IInteractable
 	{
 		return controllingEntity;
 	}
-	[SerializeField]
-	private InteractionScriptableObj interactionScrObj;
+	[field: SerializeField]
+	public InteractionScriptableObj interactionScrObj { get; protected set; }
 	[SerializeField]
 	private InteractionCanvasBase interactionCanvas;
 	[SerializeField]

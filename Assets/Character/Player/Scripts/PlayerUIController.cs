@@ -37,6 +37,9 @@ public class PlayerUIController : CharacterUIController
 	[field: SerializeField] public List<StoredSpellStruct> _ActiveSpellList { get; private set; }
 	[SerializeField] private int _MaxSpellCount = 6;
 	[field: SerializeField] public int _CurrentSpellIndex { get; private set; }
+	private Canvas _InteractionCanvas;
+
+
 
 	#region Initialize
 	public override void InitializeUI(bool isEntityPlayer, Character character)
@@ -49,6 +52,7 @@ public class PlayerUIController : CharacterUIController
 		InitSpellUI();
 		InitWeaponMeterUI();
 		InitDeckUI();
+		InitInteractionUI();
 	}
 
 	private void InitAetherUI()
@@ -93,6 +97,14 @@ public class PlayerUIController : CharacterUIController
 		_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
 		ChangeDeckIcon(true);
 	}
+
+	private void InitInteractionUI()
+	{
+		_InteractionCanvas = transform.Find("InteractionCanvas").GetComponent<Canvas>();
+		_InteractionCanvas.gameObject.SetActive(false);
+		SetShowInteractionCanvas(false);
+		_Player._InteractionController.onCanInteract += SetShowInteractionCanvas;
+	}
 	#endregion
 
 	protected override void OnEnable()
@@ -105,6 +117,7 @@ public class PlayerUIController : CharacterUIController
 			_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI;
 			_Player._PlayerCards.onDeckCountChanged += UpdateDeckCount;
 			_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
+			_Player._InteractionController.onCanInteract += SetShowInteractionCanvas;
 		}
 	}
 	protected override void OnDisable()
@@ -115,6 +128,7 @@ public class PlayerUIController : CharacterUIController
 		_Player._WeaponController.OnDurabilityChanged -= UpdateWeaponUI;
 		_Player._PlayerCards.onDeckCountChanged -= UpdateDeckCount;
 		_Player._PlayerCards.onDeckIsActiveChanged -= ChangeDeckIcon;
+		_Player._InteractionController.onCanInteract -= SetShowInteractionCanvas;
 	}
 
 	protected override void Update()
@@ -271,6 +285,10 @@ public class PlayerUIController : CharacterUIController
 			else _ActiveSpellList[_CurrentSpellIndex] = modifiedSpell;
 		}
 	}
+	#endregion
+
+	#region Interaction UI
+	public void SetShowInteractionCanvas(bool showCanvas) => _InteractionCanvas.gameObject.SetActive(showCanvas);
 	#endregion
 
 	// end

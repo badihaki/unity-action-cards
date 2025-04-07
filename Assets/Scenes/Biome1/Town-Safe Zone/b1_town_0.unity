@@ -8021,6 +8021,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a518ef00b3c5f834bb278469f38f9abe,
         type: 2}
+    - target: {fileID: 9084198802685001013, guid: cccffbc4ea7b1a74993f9d8d4d6a3d1a,
+        type: 3}
+      propertyPath: <interactionScrObj>k__BackingField
+      value: 
+      objectReference: {fileID: 11400000, guid: a518ef00b3c5f834bb278469f38f9abe,
+        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -9307,6 +9313,12 @@ PrefabInstance:
     - target: {fileID: 9084198802685001013, guid: cccffbc4ea7b1a74993f9d8d4d6a3d1a,
         type: 3}
       propertyPath: interactionScrObj
+      value: 
+      objectReference: {fileID: 11400000, guid: 2641426c76fca0549b8d9bae94c7addf,
+        type: 2}
+    - target: {fileID: 9084198802685001013, guid: cccffbc4ea7b1a74993f9d8d4d6a3d1a,
+        type: 3}
+      propertyPath: <interactionScrObj>k__BackingField
       value: 
       objectReference: {fileID: 11400000, guid: 2641426c76fca0549b8d9bae94c7addf,
         type: 2}

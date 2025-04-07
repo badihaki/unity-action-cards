@@ -5,6 +5,8 @@ public class CorruptionHeart : MonoBehaviour, IDamageable, IDestroyable
     public Health _Health { get; private set; }
 	public delegate void CorruptionHeartDestroyed(CorruptionHeart heart);
 	public CorruptionHeartDestroyed OnCorruptionHeartDestroyed;
+	[field: SerializeField]
+	public GameObject _CorruptionPortal { get; private set; }
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
@@ -37,6 +39,7 @@ public class CorruptionHeart : MonoBehaviour, IDamageable, IDestroyable
 	public void DestroyEntity()
 	{
 		OnCorruptionHeartDestroyed?.Invoke(this);
+		Instantiate(_CorruptionPortal, transform.position, Quaternion.identity);
 		Destroy(gameObject);
 	}
 }

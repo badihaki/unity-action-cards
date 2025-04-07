@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: interaction_talk
   m_EditorClassIdentifier: 
   interactionName: Talk
+  dialoguesList:
+  - {fileID: 11400000, guid: 0cb709828a5c05b4ba713fe62d7420b6, type: 2}

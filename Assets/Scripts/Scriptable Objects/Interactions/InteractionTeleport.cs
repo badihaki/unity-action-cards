@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Create new Interaction(base)/teleport",fileName ="interaction_teleport")]
-public class interaction_Teleport : InteractionScriptableObj
+public class InteractionTeleport : InteractionScriptableObj
 {
     [Header("For teleportation")]
     public int sceneIndex;

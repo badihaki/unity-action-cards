@@ -12,7 +12,10 @@ public class PlayerInteractionController : MonoBehaviour
 	[SerializeField]
 	private bool isInteracting = false;
 
-    public IInteractable activeInteractable { get; private set; }
+	[field: SerializeField]
+	public IInteractable activeInteractable { get; private set; }
+	public delegate void CanInteractEvent(bool hasInteraction);
+	public event CanInteractEvent onCanInteract;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -71,12 +74,15 @@ public class PlayerInteractionController : MonoBehaviour
 			activeInteractable = interactable;
 		else
 			SetClosestInteractableAsActive(interactable);
+		if(onCanInteract !=null)
+			onCanInteract(true);
     }
     public void RemoveActiveInteractable(IInteractable interactable)
     {
         if (interactable == activeInteractable)
             activeInteractable = null;
-		print("unbsetting interactable");
+		if(onCanInteract !=null)
+			onCanInteract(false);
 	}
 
 	private void SetClosestInteractableAsActive(IInteractable interactable)

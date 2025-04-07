@@ -68,13 +68,15 @@ public class PlayerCharacter : Character, IDestroyable
         // init weapon controller directly afterwards
         _WeaponController.Initialize(this);
 
+        // minions, gotta keep track of em
+        _MinionController = GetComponent<PlayerMinionController>();
+
+        // interaction controller
+        _InteractionController = GetComponent<PlayerInteractionController>();
+
 		// initialize UI dead last, dawg
 		_UIController = GetComponent<PlayerUIController>();
         _UIController.InitializeUI(true, this);
-
-        _MinionController = GetComponent<PlayerMinionController>();
-
-        _InteractionController = GetComponent<PlayerInteractionController>();
 
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print("finish setup");
