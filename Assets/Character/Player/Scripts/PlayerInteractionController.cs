@@ -16,6 +16,7 @@ public class PlayerInteractionController : MonoBehaviour
 	public IInteractable activeInteractable { get; private set; }
 	public delegate void CanInteractEvent(bool hasInteraction);
 	public event CanInteractEvent onCanInteract;
+	public InteractionCanvasBase activeInteractCanvas { get; private set; }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,7 +54,12 @@ public class PlayerInteractionController : MonoBehaviour
 	{
 		if(player._Controls._UiCancelInput)
 		{
-			activeInteractable.StopInteraction(player);
+			activeInteractCanvas = activeInteractable.GetControllingEntity().GetComponentInChildren<InteractionCanvasBase>();
+			if (activeInteractCanvas != null)
+			{
+				print("got interactable canvas");
+				activeInteractCanvas.CancelInteraction();
+			}
 			StopPlayerInteraction();
 		}
 	}
@@ -79,7 +85,7 @@ public class PlayerInteractionController : MonoBehaviour
     }
     public void RemoveActiveInteractable(IInteractable interactable)
     {
-        if (interactable == activeInteractable)
+		if (interactable == activeInteractable)
             activeInteractable = null;
 		if(onCanInteract !=null)
 			onCanInteract(false);

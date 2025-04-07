@@ -7,7 +7,6 @@ public class DialogueInteractionCanvas : InteractionCanvasBase
 {
 	[field: SerializeField, Header("Dialogue")]
 	private GameObject dialoguePanel;
-	private GameObject basePanel;
 	private TextMeshProUGUI dialogueText;
 	[SerializeField]
 	private GameObject nextBtn;

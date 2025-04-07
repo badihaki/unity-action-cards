@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Create new Interaction(base)/talk", fileName = "interaction_talk")]
+[CreateAssetMenu(menuName = "Create new Interaction(base)/talk", fileName = "interaction_talk_")]
 public class InteractionTalk : InteractionScriptableObj
 {
 	public List<DialogueScriptableObj> dialoguesList;

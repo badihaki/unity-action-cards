@@ -37,7 +37,7 @@ public class PlayerUIController : CharacterUIController
 	[field: SerializeField] public List<StoredSpellStruct> _ActiveSpellList { get; private set; }
 	[SerializeField] private int _MaxSpellCount = 6;
 	[field: SerializeField] public int _CurrentSpellIndex { get; private set; }
-	private Canvas _InteractionCanvas;
+	public Canvas _InteractionCanvas { get; private set; }
 
 
 

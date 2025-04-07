@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-//[CreateAssetMenu(menuName = "Create new Interaction(base)/[interaction]",fileName ="interaction_")]
+[CreateAssetMenu(menuName = "Create new Interaction(base)/[interaction]",fileName ="interaction_")]
 public class InteractionScriptableObj : ScriptableObject
 {
 	public string interactionName;
