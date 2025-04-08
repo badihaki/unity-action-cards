@@ -787,9 +787,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51e174ae4007d2f43a3686c5ded989b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardDeckManagementBtnTemplate: {fileID: 0}
+  cardDeckManagementBtnTemplate: {fileID: 2595435444574469437, guid: 36009524eca73714d98df021a500c555,
+    type: 3}
   <managementGroup>k__BackingField: {fileID: 0}
   <cardContentArea>k__BackingField: {fileID: 0}
+  cardButtons: []
 --- !u!1 &3469686158672146025
 GameObject:
   m_ObjectHideFlags: 0
@@ -958,7 +960,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 100, y: 100}
+  m_CellSize: {x: 150, y: 200}
   m_Spacing: {x: 10, y: 15}
   m_Constraint: 0
   m_ConstraintCount: 2
