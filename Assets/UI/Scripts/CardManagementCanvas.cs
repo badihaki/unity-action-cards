@@ -22,6 +22,10 @@ public class CardManagementCanvas : InteractionCanvasBase
 	private TextMeshProUGUI cardDetailsTitle;
 	private TextMeshProUGUI cardDetailsCost;
 	private Image cardDetailsImage;
+	public GameObject addBtn;
+	public GameObject removeBtn;
+	private TextMeshProUGUI totalCopies;
+	private TextMeshProUGUI copiesInDeck;
 
 	public override void Initialize(Interaction interaction, string interactionName)
 	{
@@ -33,6 +37,10 @@ public class CardManagementCanvas : InteractionCanvasBase
 		cardDetailsTitle = cardDetailsPanel.transform.Find("Title").GetComponent<TextMeshProUGUI>();
 		cardDetailsCost = cardDetailsPanel.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
 		cardDetailsImage = cardDetailsPanel.transform.Find("Image").GetComponent<Image>();
+		addBtn = cardDetailsPanel.transform.Find("Add").gameObject;
+		removeBtn = cardDetailsPanel.transform.Find("Remove").gameObject;
+		totalCopies = cardDetailsPanel.transform.Find("TotalCopies").GetComponent<TextMeshProUGUI>();
+		copiesInDeck = cardDetailsPanel.transform.Find("CopiesInDeck").GetComponent<TextMeshProUGUI>();
 
 		SetShowCardDetailsPanel(false, activeCardId);
 		managementGroup.SetActive(false);
@@ -42,24 +50,19 @@ public class CardManagementCanvas : InteractionCanvasBase
 	{
 		base.OnInteractBtnClilcked();
 
+		GameManagerMaster.Player._PlayerCards.ReturnAllCardsToDeck();
 		basePanel.SetActive(false);
 		managementGroup.SetActive(true);
-		BuildContentArea();
+		BuildDeckContentList();
 	}
 
-	private void BuildContentArea()
+	private void BuildDeckContentList()
 	{
-   //     foreach (CardStruct cardStruct in GameManagerMaster.GameMaster.CardsManager.cardsFound)
-   //     {
-			//CardDeckManagementBtn btn = Instantiate(cardDeckManagementBtnTemplate, cardContentArea.transform);
-			//btn.Initialize(cardStruct.CardScriptableObj, this);
-			//cardButtons.Add(btn);
-   //     }
 		for (int i = 0; i < GameManagerMaster.GameMaster.CardsManager.cardsFound.Count; i++)
 		{
-			CardStruct cardStruct = GameManagerMaster.GameMaster.CardsManager.cardsFound[i];
+			CardSave cardStruct = GameManagerMaster.GameMaster.CardsManager.cardsFound[i];
 			CardDeckManagementBtn btn = Instantiate(cardDeckManagementBtnTemplate, cardContentArea.transform);
-			btn.Initialize(cardStruct.CardScriptableObj, this, i);
+			btn.Initialize(cardStruct.cardScriptableObj, this, i);
 			cardButtons.Add(btn);
 		}
     }
@@ -78,11 +81,12 @@ public class CardManagementCanvas : InteractionCanvasBase
 		basePanel.SetActive(true);
 		managementGroup.SetActive(false);
 		DestroyContentArea();
+		GameManagerMaster.Player._PlayerCards.DrawFullHand();
 		base.CancelInteraction();
 	}
 	public void ClickedCardIcon(int btnId)
 	{
-		print($"clicking card {GameManagerMaster.GameMaster.CardsManager.cardsFound[btnId].CardScriptableObj._CardName}");
+		print($"clicking card {GameManagerMaster.GameMaster.CardsManager.cardsFound[btnId].cardScriptableObj._CardName}");
 		if (!showingCardDetails)
 		{
 			SetShowCardDetailsPanel(true, btnId);
@@ -103,6 +107,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 		if (showingCardDetails)
 		{
 			SetBasicCardDetails(btnId);
+			UpdateActiveCardInDeckAmt();
 		}
 	}
 
@@ -113,10 +118,66 @@ public class CardManagementCanvas : InteractionCanvasBase
 	private void SetBasicCardDetails(int btnId)
 	{
 		activeCardId = btnId;
-		CardScriptableObj card = GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].CardScriptableObj;
+		CardScriptableObj card = GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj;
 		cardDetailsTitle.text = card._CardName;
 		cardDetailsCost.text = card._CardCost.ToString();
 		cardDetailsImage.sprite = card._CardImage;
+		SetAddRemoveBtn();
+	}
+
+	public void SetAddRemoveBtn()
+	{
+		CardSave card = GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId];
+		if (card.copiesInDeck >= 2 || card.copiesInDeck >= card.copiesOwned)
+		{
+			addBtn.SetActive(false);
+			removeBtn.SetActive(true);
+		}
+		else if (card.copiesInDeck < 2)
+		{
+			addBtn.SetActive(true);
+			if (card.copiesInDeck == 0)
+				removeBtn.SetActive(false);
+			else
+				removeBtn.SetActive(true);
+		}
+		
+	}
+
+	public void OnClickAddCardBtn()
+	{
+		print($"add card {activeCardId} to deck");
+		if (GameManagerMaster.GameMaster.CardsManager.TryAddCardtoDeck(activeCardId))
+		{
+			GameManagerMaster.Player._PlayerCards.AddCardToDeck(GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj);
+			UpdateDeckPanel();
+			UpdateActiveCardInDeckAmt();
+			SetAddRemoveBtn();
+		}
+	}
+
+	public void OnClickRemoveBtn()
+	{
+		print($"remove {activeCardId} to deck");
+		if (GameManagerMaster.GameMaster.CardsManager.TryRemoveCardFromDeck(activeCardId))
+		{
+			GameManagerMaster.Player._PlayerCards.RemoveCardFromDeck(GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj);
+			UpdateDeckPanel();
+			UpdateActiveCardInDeckAmt();
+			SetAddRemoveBtn();
+		}
+	}
+
+	private void UpdateActiveCardInDeckAmt()
+	{
+		CardSave card = GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId];
+		copiesInDeck.text = card.copiesInDeck.ToString();
+		totalCopies.text = card.copiesOwned.ToString();
+	}
+
+	public void UpdateDeckPanel()
+	{
+		print("we update the deck panel here");
 	}
 
 	// end

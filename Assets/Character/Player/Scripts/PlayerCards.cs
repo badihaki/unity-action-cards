@@ -52,15 +52,34 @@ public class PlayerCards : MonoBehaviour
     }
 
     public void RebuildDeck(List<CardScriptableObj> newDeck)
+	{
+		RemoveAllCards();
+		foreach (CardScriptableObj card in newDeck)
+		{
+			_Deck.Add(card);
+		}
+		DrawFullHand();
+	}
+
+	public void RemoveAllCards()
+	{
+		_Deck.Clear();
+		_Hand.Clear();
+		_Abyss.Clear();
+	}
+
+	public void ReturnAllCardsToDeck()
     {
-        _Deck.Clear();
-        _Hand.Clear();
-        _Abyss.Clear();
-        foreach (CardScriptableObj card in newDeck)
+        for (int i = 0; i < _Hand.Count; i++)
         {
-            _Deck.Add(card);
+            _Deck.Add(_Hand[i]);
         }
-        DrawFullHand();
+        _Hand.Clear();
+        for (int i = 0; i < _Abyss.Count; i++)
+        {
+            _Deck.Add(_Abyss[i]);
+        }
+        _Abyss.Clear();
     }
 
     public void ShowHand()
@@ -193,7 +212,7 @@ public class PlayerCards : MonoBehaviour
         }
 	}
 
-	private void DrawFullHand()
+	public void DrawFullHand()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -280,6 +299,14 @@ public class PlayerCards : MonoBehaviour
 		deckIsRecharging = true;
 		yield return deckRechargeTime;
         StartCoroutine(RechargeDeck());
+    }
+
+    public void AddCardToDeck(CardScriptableObj cardToAdd) => _Deck.Add(cardToAdd);
+
+    public void RemoveCardFromDeck(CardScriptableObj cardToRemove)
+    {
+        if(_Deck.Contains(cardToRemove))
+            _Deck.Remove(cardToRemove);
     }
 
     // end

@@ -7,7 +7,7 @@ public class GMCardsManager : MonoBehaviour
 	[SerializeField]
 	private bool devMove = true;
 	[field: SerializeField]
-	public List<CardStruct> cardsFound { get; private set; }
+	public List<CardSave> cardsFound { get; private set; }
 	[field: SerializeField]
 	private CardScriptableObj[] starterCards;
 
@@ -15,38 +15,53 @@ public class GMCardsManager : MonoBehaviour
 	{
 		if (devMove)
 		{
-			cardsFound = new List<CardStruct>();
+			PlayerCards playerCards = GameObject.Find("Player").GetComponent<PlayerCards>();
+			//playerCards.RemoveAllCards();
+			cardsFound = new List<CardSave>();
 			List<CardScriptableObj> cardsInNewDeck = new List<CardScriptableObj>();
             foreach (CardScriptableObj card in starterCards)
             {
-				CardStruct cardStruct = new CardStruct(card, true);
-				cardStruct.AddCopy();
+				CardSave cardSave = new CardSave(card, true);
+				cardSave.AddCopy();
 				cardsInNewDeck.Add(card);
-				cardStruct.AddCopy();
+				cardSave.AddCopy();
 				cardsInNewDeck.Add(card);
-				cardStruct.TryAddCopyInDeck();
-				cardStruct.TryAddCopyInDeck();
-				cardsFound.Add(cardStruct);
+				cardSave.TryAddCopyToDeck();
+				cardSave.TryAddCopyToDeck();
+				cardsFound.Add(cardSave);
 			}
 			//GameManagerMaster.Player._PlayerCards.RebuildDeck(cardsInNewDeck);
-			GameObject.Find("Player").GetComponent<PlayerCards>().RebuildDeck(cardsInNewDeck);
+			playerCards.RebuildDeck(cardsInNewDeck);
         }
+	}
+
+	public bool TryAddCardtoDeck(int cardId)
+	{
+		return cardsFound[cardId].TryAddCopyToDeck();
+	}
+	public bool TryRemoveCardFromDeck(int cardId)
+	{
+		return cardsFound[cardId].TryRemoveCopyFromDeck();
 	}
 
 	// end
 }
 
 [Serializable]
-public struct CardStruct
+public class CardSave
 {
-	public CardScriptableObj CardScriptableObj;
-	public bool isUnlocked;
-	public int copiesOwned;
-	public int copiesInDeck;
+	[field: SerializeField]
+	public CardScriptableObj cardScriptableObj { get; private set; }
+	[field: SerializeField]
+	public bool isUnlocked { get; private set; }
+	[field: SerializeField]
+	public int copiesOwned { get; private set; }
+	[field: SerializeField]
+	public int copiesInDeck { get; private set; }
 
-	public CardStruct(CardScriptableObj cardScriptableObj, bool isInstantlyUnlocked)
+	public CardSave(CardScriptableObj cardScriptableObj, bool isInstantlyUnlocked)
 	{
-		CardScriptableObj = cardScriptableObj;
+		this.cardScriptableObj = cardScriptableObj;
 		if (isInstantlyUnlocked)
 		{
 			isUnlocked = true;
@@ -73,7 +88,7 @@ public struct CardStruct
 	}
 
 	#region Adding and Removing from Deck
-	public bool TryAddCopyInDeck()
+	public bool TryAddCopyToDeck()
 	{
 		if (copiesInDeck < 2 && copiesInDeck + 1 <= copiesOwned)
 		{
@@ -84,8 +99,10 @@ public struct CardStruct
 	}
 	public bool TryRemoveCopyFromDeck()
 	{
+		Debug.Log("removing from deck");
 		if (copiesInDeck > 0)
 		{
+			Debug.Log("Yes!!");
 			copiesInDeck--;
 			return true;
 		}
