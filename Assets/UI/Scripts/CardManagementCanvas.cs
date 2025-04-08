@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CardManagementCanvas : InteractionCanvasBase
@@ -8,10 +9,14 @@ public class CardManagementCanvas : InteractionCanvasBase
 	private CardDeckManagementBtn cardDeckManagementBtnTemplate;
 	[field: SerializeField]
 	public GameObject managementGroup { get; private set; }
-	[field: SerializeField]
 	public GameObject cardContentArea { get; private set; }
 	[SerializeField]
 	private List<CardDeckManagementBtn> cardButtons;
+	//
+	private GameObject cardDetailsPanel;
+	private int activeCardId;
+	private TextMeshProUGUI cardDetailsName;
+	private TextMeshProUGUI cardDetailsCost;
 
 	public override void Initialize(Interaction interaction, string interactionName)
 	{
@@ -19,6 +24,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 
 		managementGroup = transform.Find("ManagementGroup").gameObject;
 		cardContentArea = managementGroup.transform.Find("CardInventoryGroup").Find("Scroll View").Find("Viewport").Find("Content").gameObject;
+		cardDetailsPanel = managementGroup.transform.Find("CardDetailPanel").gameObject;
 		managementGroup.SetActive(false);
 	}
 
