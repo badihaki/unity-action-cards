@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardManagementCanvas : InteractionCanvasBase
 {
@@ -14,9 +15,13 @@ public class CardManagementCanvas : InteractionCanvasBase
 	private List<CardDeckManagementBtn> cardButtons;
 	//
 	private GameObject cardDetailsPanel;
+	[SerializeField, Header("Card Details Panel")]
 	private int activeCardId;
-	private TextMeshProUGUI cardDetailsName;
+	[SerializeField]
+	private bool showingCardDetails = false;
+	private TextMeshProUGUI cardDetailsTitle;
 	private TextMeshProUGUI cardDetailsCost;
+	private Image cardDetailsImage;
 
 	public override void Initialize(Interaction interaction, string interactionName)
 	{
@@ -25,6 +30,11 @@ public class CardManagementCanvas : InteractionCanvasBase
 		managementGroup = transform.Find("ManagementGroup").gameObject;
 		cardContentArea = managementGroup.transform.Find("CardInventoryGroup").Find("Scroll View").Find("Viewport").Find("Content").gameObject;
 		cardDetailsPanel = managementGroup.transform.Find("CardDetailPanel").gameObject;
+		cardDetailsTitle = cardDetailsPanel.transform.Find("Title").GetComponent<TextMeshProUGUI>();
+		cardDetailsCost = cardDetailsPanel.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
+		cardDetailsImage = cardDetailsPanel.transform.Find("Image").GetComponent<Image>();
+
+		SetShowCardDetailsPanel(false, activeCardId);
 		managementGroup.SetActive(false);
 	}
 
@@ -73,6 +83,40 @@ public class CardManagementCanvas : InteractionCanvasBase
 	public void ClickedCardIcon(int btnId)
 	{
 		print($"clicking card {GameManagerMaster.GameMaster.CardsManager.cardsFound[btnId].CardScriptableObj._CardName}");
+		if (!showingCardDetails)
+		{
+			SetShowCardDetailsPanel(true, btnId);
+		}
+		else
+		{
+			if (activeCardId != btnId)
+				SetBasicCardDetails(btnId);
+			else
+				RemoveCardDetails();
+		}
+	}
+
+	private void SetShowCardDetailsPanel(bool value, int btnId)
+	{
+		showingCardDetails = value;
+		cardDetailsPanel.SetActive(value);
+		if (showingCardDetails)
+		{
+			SetBasicCardDetails(btnId);
+		}
+	}
+
+	private void RemoveCardDetails()
+	{
+		SetShowCardDetailsPanel(false, activeCardId);
+	}
+	private void SetBasicCardDetails(int btnId)
+	{
+		activeCardId = btnId;
+		CardScriptableObj card = GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].CardScriptableObj;
+		cardDetailsTitle.text = card._CardName;
+		cardDetailsCost.text = card._CardCost.ToString();
+		cardDetailsImage.sprite = card._CardImage;
 	}
 
 	// end
