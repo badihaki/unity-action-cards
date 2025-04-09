@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 	private CardDeckManagementBtn cardDeckManagementBtnTemplate;
 	[field: SerializeField]
 	public GameObject managementGroup { get; private set; }
-	public GameObject cardContentArea { get; private set; }
+	public GameObject cardInventoryArea { get; private set; }
 	[SerializeField]
 	private List<CardDeckManagementBtn> cardButtons;
 	//
@@ -26,13 +27,18 @@ public class CardManagementCanvas : InteractionCanvasBase
 	public GameObject removeBtn;
 	private TextMeshProUGUI totalCopies;
 	private TextMeshProUGUI copiesInDeck;
+	[field: SerializeField, Header("Deck Area")]
+	private GameObject deckPanel;
+	private Transform deckContent;
+	[field:SerializeField]
+	private List<CardDeckManagementBtn> deckCardBtns;
 
 	public override void Initialize(Interaction interaction, string interactionName)
 	{
 		base.Initialize(interaction, interactionName);
 
 		managementGroup = transform.Find("ManagementGroup").gameObject;
-		cardContentArea = managementGroup.transform.Find("CardInventoryGroup").Find("Scroll View").Find("Viewport").Find("Content").gameObject;
+		cardInventoryArea = managementGroup.transform.Find("CardInventoryGroup").Find("Scroll View").Find("Viewport").Find("Content").gameObject;
 		cardDetailsPanel = managementGroup.transform.Find("CardDetailPanel").gameObject;
 		cardDetailsTitle = cardDetailsPanel.transform.Find("Title").GetComponent<TextMeshProUGUI>();
 		cardDetailsCost = cardDetailsPanel.transform.Find("Cost").GetComponent<TextMeshProUGUI>();
@@ -41,6 +47,15 @@ public class CardManagementCanvas : InteractionCanvasBase
 		removeBtn = cardDetailsPanel.transform.Find("Remove").gameObject;
 		totalCopies = cardDetailsPanel.transform.Find("TotalCopies").GetComponent<TextMeshProUGUI>();
 		copiesInDeck = cardDetailsPanel.transform.Find("CopiesInDeck").GetComponent<TextMeshProUGUI>();
+		//deckCardBtns = transform.Find("DeckPanel").Find("Viewport").Find("Content").GetComponentsInChildren<CardDeckManagementBtn>().ToList();
+		deckPanel = transform.Find("DeckPanel").gameObject;
+		deckContent = deckPanel.transform.Find("Viewport").Find("Content");
+		deckPanel.SetActive(false);
+  //      deckCardBtns.ForEach(cardBtn => {
+  //	cardBtn.Initialize(GameManagerMaster.GameMaster.CardsManager.cardsFound[0].cardScriptableObj, this, 0);
+  //	cardBtn.gameObject.SetActive(false);
+  //	}
+  //);
 
 		SetShowCardDetailsPanel(false, activeCardId);
 		managementGroup.SetActive(false);
@@ -53,16 +68,18 @@ public class CardManagementCanvas : InteractionCanvasBase
 		GameManagerMaster.Player._PlayerCards.ReturnAllCardsToDeck();
 		basePanel.SetActive(false);
 		managementGroup.SetActive(true);
-		BuildDeckContentList();
+		BuildCardInventoryList();
+		BuildDeckPanel();
 	}
 
-	private void BuildDeckContentList()
+	private void BuildCardInventoryList()
 	{
 		for (int i = 0; i < GameManagerMaster.GameMaster.CardsManager.cardsFound.Count; i++)
 		{
-			CardSave cardStruct = GameManagerMaster.GameMaster.CardsManager.cardsFound[i];
-			CardDeckManagementBtn btn = Instantiate(cardDeckManagementBtnTemplate, cardContentArea.transform);
-			btn.Initialize(cardStruct.cardScriptableObj, this, i);
+			CardSave cardSave = GameManagerMaster.GameMaster.CardsManager.cardsFound[i];
+			CardDeckManagementBtn btn = Instantiate(cardDeckManagementBtnTemplate, cardInventoryArea.transform);
+			btn.Initialize(cardSave.cardScriptableObj, this, i);
+			btn.GetComponent<Button>().onClick.AddListener(() => ClickedCardIcon(btn.btnId));
 			cardButtons.Add(btn);
 		}
     }
@@ -80,13 +97,16 @@ public class CardManagementCanvas : InteractionCanvasBase
 	{
 		basePanel.SetActive(true);
 		managementGroup.SetActive(false);
+		deckPanel.SetActive(false);
+		deckCardBtns.ForEach(cardBtn => cardBtn.gameObject.SetActive(false));
 		DestroyContentArea();
 		GameManagerMaster.Player._PlayerCards.DrawFullHand();
 		base.CancelInteraction();
 	}
 	public void ClickedCardIcon(int btnId)
 	{
-		print($"clicking card {GameManagerMaster.GameMaster.CardsManager.cardsFound[btnId].cardScriptableObj._CardName}");
+		print($"clicking card with id {btnId}");
+		//print($"clicking card {GameManagerMaster.GameMaster.CardsManager.cardsFound[btnId].cardScriptableObj._CardName}");
 		if (!showingCardDetails)
 		{
 			SetShowCardDetailsPanel(true, btnId);
@@ -150,7 +170,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 		if (GameManagerMaster.GameMaster.CardsManager.TryAddCardtoDeck(activeCardId))
 		{
 			GameManagerMaster.Player._PlayerCards.AddCardToDeck(GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj);
-			UpdateDeckPanel();
+			BuildDeckPanel();
 			UpdateActiveCardInDeckAmt();
 			SetAddRemoveBtn();
 		}
@@ -162,7 +182,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 		if (GameManagerMaster.GameMaster.CardsManager.TryRemoveCardFromDeck(activeCardId))
 		{
 			GameManagerMaster.Player._PlayerCards.RemoveCardFromDeck(GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj);
-			UpdateDeckPanel();
+			BuildDeckPanel();
 			UpdateActiveCardInDeckAmt();
 			SetAddRemoveBtn();
 		}
@@ -175,9 +195,20 @@ public class CardManagementCanvas : InteractionCanvasBase
 		totalCopies.text = card.copiesOwned.ToString();
 	}
 
-	public void UpdateDeckPanel()
+	public void BuildDeckPanel()
 	{
-		print("we update the deck panel here");
+		deckPanel.SetActive(true);
+		print("we are building the deck panel here");
+		//for (int i = 0; i < GameManagerMaster.GameMaster.CardsManager.cardsFound.Count; i++)
+		print($"Deck panel should have {GameManagerMaster.Player._PlayerCards._Deck.Count} objects in it");
+        for (int i = 0; i < GameManagerMaster.Player._PlayerCards._Deck.Count; i++)
+			{
+			CardDeckManagementBtn btn = Instantiate(cardDeckManagementBtnTemplate, deckContent.transform);
+			int cardIndex = GameManagerMaster.GameMaster.CardsManager.cardsFound.FindIndex(card => card.cardScriptableObj == GameManagerMaster.Player._PlayerCards._Deck[i]);
+			btn.Initialize(GameManagerMaster.Player._PlayerCards._Deck[i], this, cardIndex);
+			btn.GetComponent<Button>().onClick.AddListener(() => ClickedCardIcon(btn.btnId));
+			deckCardBtns.Add(btn);
+		}
 	}
 
 	// end

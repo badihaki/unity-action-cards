@@ -11,7 +11,7 @@ public class GMCardsManager : MonoBehaviour
 	[field: SerializeField]
 	private CardScriptableObj[] starterCards;
 
-	private void Start()
+	private void Awake()
 	{
 		if (devMove)
 		{

@@ -7,7 +7,8 @@ public class CardDeckManagementBtn : MonoBehaviour
 	private CardScriptableObj cardScriptableObj;
 	private CardManagementCanvas cardManagementCanvas;
 	public Button btn { get; private set; }
-	private int btnId;
+	[field:SerializeField]
+	public int btnId {  get; private set; }
 
 	public void Initialize(CardScriptableObj _cardScrObj, CardManagementCanvas _cardCanvas, int _btnId)
 	{
@@ -16,7 +17,7 @@ public class CardDeckManagementBtn : MonoBehaviour
 		btnId = _btnId;
 
 		btn = GetComponent<Button>();
-		btn.onClick.AddListener(() => cardManagementCanvas.ClickedCardIcon(btnId));
+		//btn.onClick.AddListener(() => cardManagementCanvas.ClickedCardIcon(btnId));
 
 		TextMeshProUGUI text = transform.Find("Text").GetComponent<TextMeshProUGUI>();
 		text.text = cardScriptableObj._CardName;
