@@ -40,7 +40,15 @@ public class GameManagerMaster : MonoBehaviour
         CardsManager = GetComponent<GMCardsManager>();
     }
 
-    public static void SetPlayer(PlayerCharacter newChallenger) => Player = newChallenger;
+    public static void SetPlayer(PlayerCharacter newChallenger)
+    {
+        if (Player != null)
+        {
+            Destroy(Player.gameObject);
+        }
+        Player = newChallenger;
+        DontDestroyOnLoad(Player);
+    }
 
     
 	public void QuitGame()

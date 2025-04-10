@@ -47,16 +47,9 @@ public class CardManagementCanvas : InteractionCanvasBase
 		removeBtn = cardDetailsPanel.transform.Find("Remove").gameObject;
 		totalCopies = cardDetailsPanel.transform.Find("TotalCopies").GetComponent<TextMeshProUGUI>();
 		copiesInDeck = cardDetailsPanel.transform.Find("CopiesInDeck").GetComponent<TextMeshProUGUI>();
-		//deckCardBtns = transform.Find("DeckPanel").Find("Viewport").Find("Content").GetComponentsInChildren<CardDeckManagementBtn>().ToList();
 		deckPanel = transform.Find("DeckPanel").gameObject;
 		deckContent = deckPanel.transform.Find("Viewport").Find("Content");
 		deckPanel.SetActive(false);
-  //      deckCardBtns.ForEach(cardBtn => {
-  //	cardBtn.Initialize(GameManagerMaster.GameMaster.CardsManager.cardsFound[0].cardScriptableObj, this, 0);
-  //	cardBtn.gameObject.SetActive(false);
-  //	}
-  //);
-
 		SetShowCardDetailsPanel(false, activeCardId);
 		managementGroup.SetActive(false);
 	}
@@ -106,7 +99,6 @@ public class CardManagementCanvas : InteractionCanvasBase
 	public void ClickedCardIcon(int btnId)
 	{
 		print($"clicking card with id {btnId}");
-		//print($"clicking card {GameManagerMaster.GameMaster.CardsManager.cardsFound[btnId].cardScriptableObj._CardName}");
 		if (!showingCardDetails)
 		{
 			SetShowCardDetailsPanel(true, btnId);
@@ -170,7 +162,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 		if (GameManagerMaster.GameMaster.CardsManager.TryAddCardtoDeck(activeCardId))
 		{
 			GameManagerMaster.Player._PlayerCards.AddCardToDeck(GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj);
-			BuildDeckPanel();
+			UpdateDeckPanel();
 			UpdateActiveCardInDeckAmt();
 			SetAddRemoveBtn();
 		}
@@ -182,7 +174,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 		if (GameManagerMaster.GameMaster.CardsManager.TryRemoveCardFromDeck(activeCardId))
 		{
 			GameManagerMaster.Player._PlayerCards.RemoveCardFromDeck(GameManagerMaster.GameMaster.CardsManager.cardsFound[activeCardId].cardScriptableObj);
-			BuildDeckPanel();
+			UpdateDeckPanel();
 			UpdateActiveCardInDeckAmt();
 			SetAddRemoveBtn();
 		}
@@ -195,6 +187,7 @@ public class CardManagementCanvas : InteractionCanvasBase
 		totalCopies.text = card.copiesOwned.ToString();
 	}
 
+	#region Deck Panel
 	public void BuildDeckPanel()
 	{
 		deckPanel.SetActive(true);
@@ -210,6 +203,14 @@ public class CardManagementCanvas : InteractionCanvasBase
 			deckCardBtns.Add(btn);
 		}
 	}
+
+	private void UpdateDeckPanel()
+	{
+        deckCardBtns.ForEach(cardBtn=> Destroy(cardBtn.gameObject));
+		deckCardBtns.Clear();
+		BuildDeckPanel();
+    }
+	#endregion
 
 	// end
 }

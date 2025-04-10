@@ -214,10 +214,16 @@ public class PlayerCards : MonoBehaviour
 
 	public void DrawFullHand()
     {
-        for (int i = 0; i < 4; i++)
+        if (_Deck.Count > 0)
         {
-            DrawCard();
-            if (_Hand.Count >= 4) break;
+            for (int i = 0; i < 4; i++)
+            {
+                DrawCard();
+                if (_Hand.Count >= 4)
+                    break;
+                if (_Deck.Count <= 0)
+                    break;
+            }
         }
     }
 
