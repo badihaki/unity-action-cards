@@ -106,18 +106,4 @@ public class PlayerCombatSuperState : PlayerState
 
 		}
 	}
-
-	protected void ShowOrHideWeapon(bool showWeapon)
-    {
-        if (showWeapon)
-        {
-            _PlayerCharacter._WeaponController._WeaponR?.SetActive(true);
-            _PlayerCharacter._WeaponController._WeaponL?.SetActive(true);
-        }
-        else
-        {
-            _PlayerCharacter._WeaponController._WeaponR?.SetActive(false);
-            _PlayerCharacter._WeaponController._WeaponL?.SetActive(false);
-        }
-    }
 }

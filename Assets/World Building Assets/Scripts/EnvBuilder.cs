@@ -364,6 +364,8 @@ public class EnvBuilder : MonoBehaviour
 			charControl.enabled = false;
 			player._PlayerActor.transform.position = placement;
 			charControl.enabled = true;
+			player._CameraController.SetTargetCamera();
+			player._UIController.SetShowInteractionCanvas(false);
 		}
 	}
 

@@ -14,6 +14,7 @@ public class AreaManager : MonoBehaviour
 		charControl.enabled = false;
 		GameManagerMaster.Player._PlayerActor.transform.position = playerStartPosition.position;
         GameManagerMaster.Player._CameraController.SetTargetCamera();
+		GameManagerMaster.Player._UIController.SetShowInteractionCanvas(false);
 		charControl.enabled = true;
 	}
 

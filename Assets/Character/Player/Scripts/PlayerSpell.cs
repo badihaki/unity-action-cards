@@ -7,7 +7,6 @@ using TMPro;
 public class PlayerSpell : MonoBehaviour
 {
     private PlayerCharacter player;
-    private Camera cam;
 
     [field: SerializeField] public SpellCardScriptableObj _baseSpell { get; private set; }
 
@@ -26,7 +25,7 @@ public class PlayerSpell : MonoBehaviour
 	public void Initialize(PlayerCharacter pl)
     {
         player = pl;
-        cam = Camera.main;
+        //cam = Camera.main;
         _UI = GetComponent<PlayerUIController>();
         _spellTarget = player._PlayerActor.transform.Find("SpellTarget");
         _spellTimer = 0.0f;
@@ -84,7 +83,7 @@ public class PlayerSpell : MonoBehaviour
     public Vector3 GetIntendedTarget()
     {
         Vector2 screenCenterPoint = new Vector2(Screen.width / 2.0f, Screen.height / 2.0f);
-        Ray ray = cam.ScreenPointToRay(screenCenterPoint);
+        Ray ray = player._CameraController._Camera.ScreenPointToRay(screenCenterPoint);
         if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue))
         {
             //print(hit.transform.name);
@@ -96,7 +95,7 @@ public class PlayerSpell : MonoBehaviour
     public void RotateSpellTarget()
     {
         //Quaternion rotation = cam.transform.rotation;
-        Vector3 rotation = cam.transform.eulerAngles;
+        Vector3 rotation = player._CameraController._Camera.transform.eulerAngles;
         //print($"{rotation.x}, {rotation.y}, {rotation.z}, {rotation.w}");
         _spellTarget.eulerAngles = rotation;
         //Quaternion.Lerp(_spellTarget.transform.rotation, rotation, 2.0f);

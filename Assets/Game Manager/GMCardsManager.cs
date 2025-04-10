@@ -10,29 +10,37 @@ public class GMCardsManager : MonoBehaviour
 	public List<CardSave> cardsFound { get; private set; }
 	[field: SerializeField]
 	private CardScriptableObj[] starterCards;
+	[field: SerializeField]
+	private bool hasBuiltNewStarterDeck;
 
 	private void Awake()
 	{
-		if (devMove)
+		if (devMove && !hasBuiltNewStarterDeck)
 		{
-			PlayerCards playerCards = GameObject.Find("Player").GetComponent<PlayerCards>();
 			//playerCards.RemoveAllCards();
 			cardsFound = new List<CardSave>();
+
 			List<CardScriptableObj> cardsInNewDeck = new List<CardScriptableObj>();
             foreach (CardScriptableObj card in starterCards)
             {
 				CardSave cardSave = new CardSave(card, true);
 				cardSave.AddCopy();
-				cardsInNewDeck.Add(card);
 				cardSave.AddCopy();
+				cardSave.TryAddCopyToDeck();
+				cardSave.TryAddCopyToDeck();
 				cardsInNewDeck.Add(card);
-				cardSave.TryAddCopyToDeck();
-				cardSave.TryAddCopyToDeck();
+				cardsInNewDeck.Add(card);
 				cardsFound.Add(cardSave);
 			}
-			//GameManagerMaster.Player._PlayerCards.RebuildDeck(cardsInNewDeck);
+			print(cardsInNewDeck.Count);
+			PlayerCards playerCards = GameObject.Find("Player").GetComponent<PlayerCards>();
 			playerCards.RebuildDeck(cardsInNewDeck);
-        }
+			hasBuiltNewStarterDeck = true;
+		}
+	}
+
+	private void Start()
+	{
 	}
 
 	public bool TryAddCardtoDeck(int cardId)

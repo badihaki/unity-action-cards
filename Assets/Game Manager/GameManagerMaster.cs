@@ -44,7 +44,8 @@ public class GameManagerMaster : MonoBehaviour
     {
         if (Player != null)
         {
-            Destroy(Player.gameObject);
+            Destroy(newChallenger.gameObject);
+            return;
         }
         Player = newChallenger;
         DontDestroyOnLoad(Player);

@@ -16,7 +16,7 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
         _PlayerCharacter._MoveController.ZeroOutVelocity();
         //_AttackController.SetAttackParameters(false, false);
         _AttackController.SetAttackParameters(responsesToDamage.hit, 1);
-		ShowOrHideWeapon(true);
+		_PlayerCharacter._WeaponController.SetShowWeapons(true);
     }
 
     public override void CheckStateTransitions()
@@ -51,6 +51,6 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
     public override void ExitState()
     {
         base.ExitState();
-        ShowOrHideWeapon(false);
-    }
+		_PlayerCharacter._WeaponController.SetShowWeapons(false);
+	}
 }

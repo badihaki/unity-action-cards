@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerUIController : CharacterUIController
 {
 	private PlayerCharacter _Player;
-	private Camera _Cam;
+	//private Camera _Cam;
 	[SerializeField, Header("Aether")] private Aether _AetherController;
 	[SerializeField] private Slider _AetherBar;
 	[SerializeField] private float _TargetAether;
@@ -46,7 +46,6 @@ public class PlayerUIController : CharacterUIController
 	{
 		base.InitializeUI(isEntityPlayer, character);
 		_Player = character as PlayerCharacter;
-		_Cam = Camera.main;
 
 		InitAetherUI();
 		InitSpellUI();
@@ -199,7 +198,7 @@ public class PlayerUIController : CharacterUIController
 		}
 		else
 		{
-			Vector3 screenPos = _Cam.WorldToScreenPoint(pos);
+			Vector3 screenPos = _Player._CameraController._Camera.WorldToScreenPoint(pos);
 			_Crosshair.transform.position = screenPos;
 		}
 	}

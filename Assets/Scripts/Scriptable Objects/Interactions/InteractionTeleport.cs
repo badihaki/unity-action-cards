@@ -10,6 +10,7 @@ public class InteractionTeleport : InteractionScriptableObj
 	{
 		base.Interact(initiator);
 		GameManagerMaster.Player._InteractionController.StopPlayerInteraction();
+		GameManagerMaster.Player._InteractionController.ClearActiveInteractable();
 		GameManagerMaster.GameMaster.SceneManager.ChangeScene(sceneIndex);
 	}
 }

@@ -15,7 +15,7 @@ public class SwordAttackAState : PlayerAttackSuperState
 		_PlayerCharacter._MoveController.ZeroOutVelocity();
 		//_AttackController.SetAttackParameters(false, false);
 		_AttackController.SetAttackParameters();
-		ShowOrHideWeapon(true);
+		_PlayerCharacter._WeaponController.SetShowWeapons(true);
 	}
 
 	public override void ExitState()

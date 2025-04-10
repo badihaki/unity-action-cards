@@ -73,6 +73,7 @@ public class PlayerInteractionController : MonoBehaviour
 		canInteract = true;
 		isInteracting = false;
 	}
+	public void ClearActiveInteractable() => activeInteractable = null;
 
 	public void TrySetActiveInteractable(IInteractable interactable)
     {
@@ -95,7 +96,17 @@ public class PlayerInteractionController : MonoBehaviour
 	{
 		IInteractable selectedInteractable = interactable;
 		float distanceFromNewInteractable = Vector3.Distance(player._PlayerActor.transform.position, interactable.GetControllingEntity().position);
-		float distanceFromActiveInteractable = Vector3.Distance(player._PlayerActor.transform.position, activeInteractable.GetControllingEntity().position);
+		float distanceFromActiveInteractable = 0;
+		if (activeInteractable != null)
+			distanceFromActiveInteractable = Vector3.Distance(player._PlayerActor.transform.position, activeInteractable.GetControllingEntity().position);
+		else
+		{
+			activeInteractable = interactable;
+			return;
+		}
+
+		if (distanceFromNewInteractable > distanceFromActiveInteractable)
+			activeInteractable = interactable;
 	}
 
 	// end
