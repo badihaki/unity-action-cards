@@ -28,8 +28,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Aim Rotation"), SerializeField]
     private float aimRotationSpeed = 2.0f;
 
-	private Camera cam;
-
     [field: Header("In Air Schmoovement"), SerializeField]
     public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
@@ -50,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         _Actor = controllingPlayer._PlayerActor;
         _Controller = _Player._Actor.GetComponent<CharacterController>();
         _CheckForGround = _Actor.GetComponent<CheckForGround>();
-        cam = Camera.main;
+        //cam = Camera.main;
 
         canAirDash = true;
         canDoubleJump = true;
@@ -135,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
 		// target rotation is the intended vector we want to rotate to
 		targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
 			* Mathf.Rad2Deg
-			+ cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
+			+ _Player._CameraController._Camera.transform.eulerAngles.y; // we take the rotation of the camera into consideration
 										   // rotation direction determines which direction we move to reach our intended rotation
 		if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
 		{
@@ -154,10 +152,10 @@ public class PlayerMovement : MonoBehaviour
     public void RotateInstantly(Vector2 inputDirection)
     {
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
-    * Mathf.Rad2Deg
-    + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
-        // rotation direction determines which direction we move to reach our intended rotation
-        if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
+        * Mathf.Rad2Deg
+        + _Player._CameraController._Camera.transform.eulerAngles.y;
+		// rotation direction determines which direction we move to reach our intended rotation
+		if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
         {
             rotationSmoothingTime = 0.15f;
         }

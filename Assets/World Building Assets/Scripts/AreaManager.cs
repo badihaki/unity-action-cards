@@ -13,6 +13,7 @@ public class AreaManager : MonoBehaviour
 		CharacterController charControl = GameManagerMaster.Player._PlayerActor.GetComponent<CharacterController>();
 		charControl.enabled = false;
 		GameManagerMaster.Player._PlayerActor.transform.position = playerStartPosition.position;
+        GameManagerMaster.Player._CameraController.SetTargetCamera();
 		charControl.enabled = true;
 	}
 

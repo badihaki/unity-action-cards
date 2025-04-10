@@ -9,6 +9,7 @@ public class InteractionTeleport : InteractionScriptableObj
 	public override void Interact(Character initiator)
 	{
 		base.Interact(initiator);
+		GameManagerMaster.Player._InteractionController.StopPlayerInteraction();
 		GameManagerMaster.GameMaster.SceneManager.ChangeScene(sceneIndex);
 	}
 }
