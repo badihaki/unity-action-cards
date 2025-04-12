@@ -53,6 +53,7 @@ public class PlayerCards : MonoBehaviour
 
     public void RebuildDeck(List<CardScriptableObj> newDeck)
 	{
+        print("rebuilding deck");
 		RemoveAllCards();
 		foreach (CardScriptableObj card in newDeck)
 		{
@@ -124,9 +125,6 @@ public class PlayerCards : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, handOfCards.transform);
         newCard.name = cardSO.name;
         newCard.GetComponent<CardUI>().Initialize(cardSO, player, index);
-        // newCard.transform.Find("Illo").GetComponent<RawImage>().texture = cardSO._CardImage.texture;
-        // newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardSO._CardName;
-        // newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cardSO._CardCost.ToString();
 
         return newCard;
     }

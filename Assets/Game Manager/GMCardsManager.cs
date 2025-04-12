@@ -11,9 +11,9 @@ public class GMCardsManager : MonoBehaviour
 	[field: SerializeField]
 	private CardScriptableObj[] starterCards;
 	[field: SerializeField]
-	private bool hasBuiltNewStarterDeck;
+	private bool hasBuiltNewStarterDeck = false;
 
-	private void Awake()
+	private void Start()
 	{
 		if (devMove && !hasBuiltNewStarterDeck)
 		{
@@ -37,10 +37,6 @@ public class GMCardsManager : MonoBehaviour
 			playerCards.RebuildDeck(cardsInNewDeck);
 			hasBuiltNewStarterDeck = true;
 		}
-	}
-
-	private void Start()
-	{
 	}
 
 	public bool TryAddCardtoDeck(int cardId)
