@@ -119,5 +119,13 @@ public class PlayerWeaponController : MonoBehaviour
 		//vfx.transform.Rotate(rotation);
 	}
 
+	public void SetShowWeapons(bool isShown)
+	{
+		if (_WeaponR != null)
+			_WeaponR.SetActive(isShown);
+		if (_WeaponL != null)
+			_WeaponL.SetActive(isShown);
+	}
+
 	// end
 }

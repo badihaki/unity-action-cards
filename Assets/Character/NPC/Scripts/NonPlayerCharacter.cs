@@ -87,7 +87,11 @@ public class NonPlayerCharacter : Character, IDestroyable
     }
     public override CharacterGroupMember GetGroup() => _GroupMember;
 
-	public override void RespondToHit(responsesToDamage intendedDamageResponse) => _StateMachine.GoToHurtState(intendedDamageResponse);
+    public override void RespondToHit(responsesToDamage intendedDamageResponse)
+    {
+        if (_Health._CurrentHealth > 0)
+            _StateMachine.GoToHurtState(intendedDamageResponse);
+    }
 	public override void PushBackCharacter(Vector3 pushFromPoint, float pushBackForce, bool isLaunched = false) => _MoveController.GetPushedBack(pushFromPoint, pushBackForce, isLaunched);
 	public override void ResetCharacterPushback() => _MoveController.ResetPushback();
 

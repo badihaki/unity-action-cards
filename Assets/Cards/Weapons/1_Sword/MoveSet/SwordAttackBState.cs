@@ -15,7 +15,7 @@ public class SwordAttackBState : PlayerAttackSuperState
 		_PlayerCharacter._MoveController.ZeroOutVelocity();
 		//_AttackController.SetAttackParameters(false, false);
 		_AttackController.SetAttackParameters(responsesToDamage.hit, 1);
-		ShowOrHideWeapon(true);
+		_PlayerCharacter._WeaponController.SetShowWeapons(true);
 	}
 
 	public override void ExitState()
@@ -28,9 +28,29 @@ public class SwordAttackBState : PlayerAttackSuperState
 	{
 		if (canCombo)
 		{
-			if (attackInput) _StateMachine.ChangeState(_AttackController._AttackC);
-			if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherB);
-			if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+			//if (attackInput) _StateMachine.ChangeState(_AttackController._AttackC);
+			//if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherB);
+			//if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+
+			switch (_PlayerCharacter._Controls.PollForDesiredInput())
+			{
+				case InputProperties.InputType.jump:
+					_PlayerCharacter._Controls.UseJump();
+					_StateMachine.ChangeState(_AttackController._LauncherAttack);
+					break;
+				case InputProperties.InputType.attack:
+					_PlayerCharacter._Controls.UseAttack();
+					_StateMachine.ChangeState(_AttackController._AttackC);
+					break;
+				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._FinisherB);
+					break;
+				case InputProperties.InputType.defense:
+					break;
+				default:
+					break;
+			}
 		}
 
 		base.CheckStateTransitions();

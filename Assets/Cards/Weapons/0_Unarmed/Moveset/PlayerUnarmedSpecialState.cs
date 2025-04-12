@@ -12,7 +12,7 @@ public class PlayerUnarmedSpecialState : PlayerSpecialSuperState
     public override void EnterState()
     {
         base.EnterState();
-        ShowOrHideWeapon(true);
+        _PlayerCharacter._WeaponController.SetShowWeapons(true);
 		//_AttackController.SetAttackParameters(false, false);
 		_AttackController.SetAttackParameters(responsesToDamage.stagger);
 	}

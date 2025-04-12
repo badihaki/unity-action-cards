@@ -49,8 +49,17 @@ public class NPCChaseState : NPCState
 		if (!_NPC._NPCActor._AggressionManager.isAggressive)
 		{
 			// not aggressive
-			// check distance between current node from nav controller and actor
-			if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
+
+			if(_NPC._NavigationController._CurrentNavNode != null)
+			{
+				// make sure the current node isn't null, and...
+				// check distance between current node from nav controller and actor
+				if (Vector3.Distance(_NPC._NPCActor.transform.position, _NPC._NavigationController._CurrentNavNode.transform.position) <= _NPC._NavigationController._MaxDistance)
+				{
+					_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
+				}
+			}
+			else
 			{
 				_StateMachine.ChangeState(_StateMachine._StateLibrary._IdleState);
 			}

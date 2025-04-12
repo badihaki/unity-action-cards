@@ -22,11 +22,10 @@ MonoBehaviour:
     type: 3}
   _SpellDamage: 1
   _SpellCharges: 1
-  _SpellProjectileSpeed: 10.5
-  _SpellKnockAndLaunchForces: {x: 3, y: 24}
+  _SpellProjectileSpeed: 23.7
   _SpellAetherCost: 4
   _SpellAddonTime: 0.385
-  _SpellLifetime: 5.135
+  _SpellLifetime: 1.9
   _StartSound: {fileID: 0}
   _TravelSound: {fileID: 0}
   _ImpactSound: {fileID: 0}

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e74584f62b033d4797a6e41ab568c33, type: 3}
+  m_Name: envChunk_EBorder
+  m_EditorClassIdentifier: 
+  <isBorder>k__BackingField: 1
+  <isCorner>k__BackingField: 0
+  <north>k__BackingField: 0
+  <south>k__BackingField: 0
+  <east>k__BackingField: 1
+  <west>k__BackingField: 0
+  <chunkGameObj>k__BackingField: {fileID: -4916929549540401746, guid: cdbda527c57d90c459e3397bcc92a604,
+    type: 3}
+  <buildingTemplates>k__BackingField: []
+  <floraPropTemplates>k__BackingField:
+  - {fileID: 11400000, guid: f56af69fd23e2874d83cd5af04e63ccf, type: 2}
+  <regularNPCs>k__BackingField:
+  - {fileID: 11400000, guid: 7173758fea64491418a2f017b0c88416, type: 2}
+  <specialNPCs>k__BackingField:
+  - {fileID: 11400000, guid: d167dc007b20d194db97282d75be3b47, type: 2}
+  <enemies>k__BackingField:
+  - {fileID: 11400000, guid: 95357d2f90b4e204b9288516c72bce8d, type: 2}
+  <specialEnemies>k__BackingField:
+  - {fileID: 11400000, guid: fd2bd030a6387af4bb3d7634e54a6666, type: 2}

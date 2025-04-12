@@ -16,20 +16,41 @@ public class PlayerUnarmedAttackCState : PlayerAttackSuperState
         _PlayerCharacter._MoveController.ZeroOutVelocity();
         //_AttackController.SetAttackParameters(false, false);
         _AttackController.SetAttackParameters(responsesToDamage.hit, 1);
-		ShowOrHideWeapon(true);
+		_PlayerCharacter._WeaponController.SetShowWeapons(true);
     }
 
     public override void CheckStateTransitions()
     {
         base.CheckStateTransitions();
 
-        if (canCombo && specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
-        if (canCombo && jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
-    }
+        //if (canCombo && specialInput) _StateMachine.ChangeState(_AttackController._FinisherA);
+        //if (canCombo && jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+
+        if (canCombo)
+			switch (_PlayerCharacter._Controls.PollForDesiredInput())
+			{
+				case InputProperties.InputType.jump:
+					_PlayerCharacter._Controls.UseJump();
+					_StateMachine.ChangeState(_AttackController._LauncherAttack);
+					break;
+				//case InputProperties.InputType.attack:
+				//	_PlayerCharacter._Controls.UseAttack();
+				//	_StateMachine.ChangeState(attackController._AirAttackA);
+				//	break;
+				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._FinisherA);
+					break;
+				//case InputProperties.InputType.defense:
+				//	break;
+				default:
+					break;
+			}
+	}
 
     public override void ExitState()
     {
         base.ExitState();
-        ShowOrHideWeapon(false);
-    }
+		_PlayerCharacter._WeaponController.SetShowWeapons(false);
+	}
 }

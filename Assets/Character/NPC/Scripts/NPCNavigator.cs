@@ -70,19 +70,21 @@ public class NPCNavigator : MonoBehaviour
                 navNodes.Add(NavNode);
         }
         _CurrentNavNode = GetNavNodeFromList(navNodes.ToArray());
-		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
+		if (_CurrentNavNode != null)
+			_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
 	}
 
 	private void FindNextNavigationNode()
     {
         NavigationNode[] nodes = _CurrentNavNode._Neighbors.ToArray();
-        NavigationNode navNode = GetNavNodeFromList(nodes);
-		_CurrentNavNode = navNode;
-		_MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
+		_CurrentNavNode = GetNavNodeFromList(nodes);
+        if (_CurrentNavNode != null)
+            _MovementController.SetAgentDestination(_CurrentNavNode.transform.position);
 	}
 
     private NavigationNode GetNavNodeFromList(NavigationNode[] nodes)
     {
+        if (nodes.Length == 0) return null;
         NavigationNode navNode = null;
         navNode = nodes[Random.Range(0, nodes.Length - 1)];
 		return navNode; // return a random node

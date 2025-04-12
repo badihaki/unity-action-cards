@@ -15,6 +15,7 @@ public class GameResources : MonoBehaviour
 
 	[Header("Templates")]
 	public GameObject npcTemplate;
+	public CorruptionHeart corruptionHeart;
 
 	// end
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class PlayerUIController : CharacterUIController
 {
 	private PlayerCharacter _Player;
-	private Camera _Cam;
+	//private Camera _Cam;
 	[SerializeField, Header("Aether")] private Aether _AetherController;
 	[SerializeField] private Slider _AetherBar;
 	[SerializeField] private float _TargetAether;
@@ -37,18 +37,21 @@ public class PlayerUIController : CharacterUIController
 	[field: SerializeField] public List<StoredSpellStruct> _ActiveSpellList { get; private set; }
 	[SerializeField] private int _MaxSpellCount = 6;
 	[field: SerializeField] public int _CurrentSpellIndex { get; private set; }
+	public Canvas _InteractionCanvas { get; private set; }
+
+
 
 	#region Initialize
 	public override void InitializeUI(bool isEntityPlayer, Character character)
 	{
 		base.InitializeUI(isEntityPlayer, character);
 		_Player = character as PlayerCharacter;
-		_Cam = Camera.main;
 
 		InitAetherUI();
 		InitSpellUI();
 		InitWeaponMeterUI();
 		InitDeckUI();
+		InitInteractionUI();
 	}
 
 	private void InitAetherUI()
@@ -93,6 +96,14 @@ public class PlayerUIController : CharacterUIController
 		_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
 		ChangeDeckIcon(true);
 	}
+
+	private void InitInteractionUI()
+	{
+		_InteractionCanvas = transform.Find("InteractionCanvas").GetComponent<Canvas>();
+		_InteractionCanvas.gameObject.SetActive(false);
+		SetShowInteractionCanvas(false);
+		_Player._InteractionController.onCanInteract += SetShowInteractionCanvas;
+	}
 	#endregion
 
 	protected override void OnEnable()
@@ -105,6 +116,7 @@ public class PlayerUIController : CharacterUIController
 			_Player._WeaponController.OnDurabilityChanged += UpdateWeaponUI;
 			_Player._PlayerCards.onDeckCountChanged += UpdateDeckCount;
 			_Player._PlayerCards.onDeckIsActiveChanged += ChangeDeckIcon;
+			_Player._InteractionController.onCanInteract += SetShowInteractionCanvas;
 		}
 	}
 	protected override void OnDisable()
@@ -115,6 +127,7 @@ public class PlayerUIController : CharacterUIController
 		_Player._WeaponController.OnDurabilityChanged -= UpdateWeaponUI;
 		_Player._PlayerCards.onDeckCountChanged -= UpdateDeckCount;
 		_Player._PlayerCards.onDeckIsActiveChanged -= ChangeDeckIcon;
+		_Player._InteractionController.onCanInteract -= SetShowInteractionCanvas;
 	}
 
 	protected override void Update()
@@ -185,7 +198,7 @@ public class PlayerUIController : CharacterUIController
 		}
 		else
 		{
-			Vector3 screenPos = _Cam.WorldToScreenPoint(pos);
+			Vector3 screenPos = _Player._CameraController._Camera.WorldToScreenPoint(pos);
 			_Crosshair.transform.position = screenPos;
 		}
 	}
@@ -271,6 +284,10 @@ public class PlayerUIController : CharacterUIController
 			else _ActiveSpellList[_CurrentSpellIndex] = modifiedSpell;
 		}
 	}
+	#endregion
+
+	#region Interaction UI
+	public void SetShowInteractionCanvas(bool showCanvas) => _InteractionCanvas.gameObject.SetActive(showCanvas);
 	#endregion
 
 	// end

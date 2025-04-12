@@ -13,15 +13,29 @@ public class SwordAttackCState : PlayerAttackSuperState
 		_PlayerCharacter._MoveController.ZeroOutVelocity();
 		//_AttackController.SetAttackParameters(false, false, 2);
 		_AttackController.SetAttackParameters(responsesToDamage.hit, 2);
-		ShowOrHideWeapon(true);
+		_PlayerCharacter._WeaponController.SetShowWeapons(true);
 	}
 
 	public override void CheckStateTransitions()
 	{
 		if (canCombo)
 		{
-			if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
-			if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherC);
+			//if (jumpInput) _StateMachine.ChangeState(_AttackController._LauncherAttack);
+			//if (specialInput) _StateMachine.ChangeState(_AttackController._FinisherC);
+
+			switch (_PlayerCharacter._Controls.PollForDesiredInput())
+			{
+				case InputProperties.InputType.jump:
+					_PlayerCharacter._Controls.UseJump();
+					_StateMachine.ChangeState(_AttackController._LauncherAttack);
+					break;
+				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._FinisherC);
+					break;
+				default:
+					break;
+			}
 		}
 
 		base.CheckStateTransitions();

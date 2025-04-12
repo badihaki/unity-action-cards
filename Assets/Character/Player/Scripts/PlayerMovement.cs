@@ -28,8 +28,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Aim Rotation"), SerializeField]
     private float aimRotationSpeed = 2.0f;
 
-	private Camera cam;
-
     [field: Header("In Air Schmoovement"), SerializeField]
     public bool canDoubleJump { get; private set; }
     [field: SerializeField] public bool canAirDash { get; private set; }
@@ -50,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         _Actor = controllingPlayer._PlayerActor;
         _Controller = _Player._Actor.GetComponent<CharacterController>();
         _CheckForGround = _Actor.GetComponent<CheckForGround>();
-        cam = Camera.main;
+        //cam = Camera.main;
 
         canAirDash = true;
         canDoubleJump = true;
@@ -130,49 +128,12 @@ public class PlayerMovement : MonoBehaviour
         _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(0, targetSpeed, movementSpeed));
     }
 
-    public void DetectMove(Vector2 moveInput)
-    {
-        if (moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
-        else
-        {
-            // RotateCharacter(moveInput);
-            _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
-        }
-        SetMovementSpeed();
-        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
-
-    }
-
-    private void SetMovementSpeed()
-    {
-        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
-    }
-
-    public void MoveWhileAiming()
-    {
-        /*
-        if (direction == Vector2.zero) _MoveDirection = Vector2.zero;
-        else
-        {
-            _MoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
-        }
-
-        targetSpeed = _Player._CharacterSheet._WalkSpeed * 0.45f;
-        movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
-
-
-        _Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
-        ApplyMovementToVelocity();
-        ApplyGravity();
-        */
-    }
-
     public void RotateCharacter(Vector2 inputDirection)
     {
 		// target rotation is the intended vector we want to rotate to
 		targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
 			* Mathf.Rad2Deg
-			+ cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
+			+ _Player._CameraController._Camera.transform.eulerAngles.y; // we take the rotation of the camera into consideration
 										   // rotation direction determines which direction we move to reach our intended rotation
 		if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
 		{
@@ -191,10 +152,10 @@ public class PlayerMovement : MonoBehaviour
     public void RotateInstantly(Vector2 inputDirection)
     {
         targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.y)
-    * Mathf.Rad2Deg
-    + cam.transform.eulerAngles.y; // we take the rotation of the camera into consideration
-        // rotation direction determines which direction we move to reach our intended rotation
-        if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
+        * Mathf.Rad2Deg
+        + _Player._CameraController._Camera.transform.eulerAngles.y;
+		// rotation direction determines which direction we move to reach our intended rotation
+		if (_CheckForGround.IsGrounded() && movementSpeed > 5.5f)
         {
             rotationSmoothingTime = 0.15f;
         }
@@ -220,8 +181,24 @@ public class PlayerMovement : MonoBehaviour
 		_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, desiredRotation, aimRotationSpeed);
 		//_Actor.transform.rotation = Quaternion.Lerp(_Actor.transform.rotation, _Player._CameraController.cinemachineCamTarget.rotation, aimRotationSpeed);
 	}
+	public void DetectMove(Vector2 moveInput)
+	{
+		if (moveInput == Vector2.zero) _DesiredMoveDirection = Vector3.zero;
+		else
+		{
+			_DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+		}
+		SetMovementSpeed();
+		_Player._AnimationController.SetFloat("speed", Mathf.InverseLerp(_Player._CharacterSheet._WalkSpeed, _Player._CharacterSheet._RunSpeed, movementSpeed));
 
-    private void ApplyDesiredMoveToMovement()
+	}
+
+	private void SetMovementSpeed()
+	{
+		movementSpeed = Mathf.Lerp(movementSpeed, targetSpeed, lerpSpeedOnMovement);
+	}
+
+	private void ApplyDesiredMoveToMovement()
     {
         _MovementDirection = _DesiredMoveDirection * movementSpeed; // we need to make sure movement is equal to the speed we're trying to achieve
         _MovementDirection.y = _VerticalVelocity;
@@ -241,6 +218,23 @@ public class PlayerMovement : MonoBehaviour
         ApplyExternalForcesToMovement();
         _Controller.Move(_MovementDirection * Time.deltaTime);
     }
+
+	public void MoveWhileAiming(Vector2 moveInput)
+	{
+        if (moveInput != Vector2.zero)
+        {
+		    _DesiredMoveDirection.x = moveInput.x;
+            _DesiredMoveDirection.z = moveInput.y;
+            _DesiredMoveDirection = Quaternion.Euler(0.0f, targetRotation, 0.0f) * Vector3.forward;
+        }
+        else
+            _DesiredMoveDirection = Vector3.zero;
+		//*_Player._Actor.transform.forward
+		movementSpeed = 4.35f;
+		ApplyDesiredMoveToMovement();
+		ApplyExternalForcesToMovement();
+        _Controller.Move((_MovementDirection) * Time.deltaTime);
+	}
 
 
 	public void Jump(float modifier = 1.0f)

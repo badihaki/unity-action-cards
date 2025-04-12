@@ -13,6 +13,7 @@ public class PlayerCharacter : Character, IDestroyable
     public PlayerLockOnTargeter _LockOnTargeter { get; private set; }
     public PlayerUIController _UIController { get; private set; }
     public PlayerMinionController _MinionController { get; private set; }
+    public PlayerInteractionController _InteractionController { get; private set; }
 
     // Actor Stuff
     [field:SerializeField, Header("~> Player Character <~")]
@@ -24,6 +25,8 @@ public class PlayerCharacter : Character, IDestroyable
 
     public override void Initialize()
     {
+        GameManagerMaster.SetPlayer(this);
+
         // lets set up the actor
         if (_LoadNewOnStart) LoadAndBuildActor();
         else LoadActor();
@@ -65,11 +68,15 @@ public class PlayerCharacter : Character, IDestroyable
         // init weapon controller directly afterwards
         _WeaponController.Initialize(this);
 
+        // minions, gotta keep track of em
+        _MinionController = GetComponent<PlayerMinionController>();
+
+        // interaction controller
+        _InteractionController = GetComponent<PlayerInteractionController>();
+
 		// initialize UI dead last, dawg
 		_UIController = GetComponent<PlayerUIController>();
         _UIController.InitializeUI(true, this);
-
-        _MinionController = GetComponent<PlayerMinionController>();
 
         if (GameManagerMaster.GameMaster.GMSettings.logExraPlayerData)
             print("finish setup");

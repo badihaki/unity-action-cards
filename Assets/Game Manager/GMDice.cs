@@ -11,7 +11,8 @@ public class GMDice : MonoBehaviour
     public int RollD100()
     {
         float result = Random.Range(0.01f, 1.0f);
-        return (int)result * 100;
+        //Random.Range(1, 100);
+		return (int)Mathf.Round(result * 100);
     }
     public float RollRandomDice(float min, float max) => Random.Range(min, max);
 }

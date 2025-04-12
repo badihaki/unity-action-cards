@@ -29,6 +29,12 @@ public class NPCStateMachine : MonoBehaviour
         _Ready = true;
     }
 
+	private void OnDisable()
+	{
+		_Ready = false;
+        _CurrentState = null;
+	}
+
 	public void GoToHurtState(responsesToDamage damageResponse) => _CurrentState.GetHurt(damageResponse);
 
 	public void ChangeState(NPCState state)

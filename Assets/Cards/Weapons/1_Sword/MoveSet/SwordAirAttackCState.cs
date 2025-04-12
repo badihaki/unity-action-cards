@@ -22,6 +22,16 @@ public class SwordAirAttackCState : PlayerAirCombatSuperState
 		{
 			if (specialInput)
 				_StateMachine.ChangeState(_AttackController._AirSpecial);
+
+			switch (_PlayerCharacter._Controls.PollForDesiredInput())
+			{
+				case InputProperties.InputType.special:
+					_PlayerCharacter._Controls.UseSpecialAttack();
+					_StateMachine.ChangeState(_AttackController._AirSpecial);
+					break;
+				default:
+					break;
+			}
 		}
 	}
 

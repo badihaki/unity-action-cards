@@ -44,7 +44,6 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 		//print("damagin from hurtbox");
         character._Actor.TakeDamage(dmgObj);
 		StoreLastDamageSource(dmgObj);
-        print(dmgObj != null);
         if (OnHurtByCharacter != null)
             OnHurtByCharacter(dmgObj.damageCreatorCharacter);
     }

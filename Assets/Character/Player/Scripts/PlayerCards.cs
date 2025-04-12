@@ -51,6 +51,37 @@ public class PlayerCards : MonoBehaviour
             DrawFullHand();
     }
 
+    public void RebuildDeck(List<CardScriptableObj> newDeck)
+	{
+        print("rebuilding deck");
+		RemoveAllCards();
+		foreach (CardScriptableObj card in newDeck)
+		{
+			_Deck.Add(card);
+		}
+		DrawFullHand();
+	}
+
+	public void RemoveAllCards()
+	{
+		_Deck.Clear();
+		_Hand.Clear();
+		_Abyss.Clear();
+	}
+
+	public void ReturnAllCardsToDeck()
+    {
+        for (int i = 0; i < _Hand.Count; i++)
+        {
+            _Deck.Add(_Hand[i]);
+        }
+        _Hand.Clear();
+        for (int i = 0; i < _Abyss.Count; i++)
+        {
+            _Deck.Add(_Abyss[i]);
+        }
+        _Abyss.Clear();
+    }
 
     public void ShowHand()
     {
@@ -94,9 +125,6 @@ public class PlayerCards : MonoBehaviour
         GameObject newCard = Instantiate(cardPrefab, handOfCards.transform);
         newCard.name = cardSO.name;
         newCard.GetComponent<CardUI>().Initialize(cardSO, player, index);
-        // newCard.transform.Find("Illo").GetComponent<RawImage>().texture = cardSO._CardImage.texture;
-        // newCard.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = cardSO._CardName;
-        // newCard.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = cardSO._CardCost.ToString();
 
         return newCard;
     }
@@ -129,7 +157,7 @@ public class PlayerCards : MonoBehaviour
                 StartCoroutine(StartDrawCardTmer());
             }
         }
-        CheckDeckCount();
+        CheckIfDeckShouldStartRecharging();
     }
 
     public void RefundCardPlay()
@@ -157,11 +185,11 @@ public class PlayerCards : MonoBehaviour
 		{
 			print($"deck count is {_Deck.Count} and hand count is {_Hand.Count}");
 			Debug.LogWarning("can't draw another card. either not enogh cards in deck or too many in hand.");
-			CheckDeckCount();
+			CheckIfDeckShouldStartRecharging();
 		}
 	}
 
-    private void CheckDeckCount()
+    private void CheckIfDeckShouldStartRecharging()
     {
 		if (GameManagerMaster.GameMaster.GMSettings.LogCardPlayerData)
 			Debug.LogWarning("Checking deck");
@@ -182,12 +210,18 @@ public class PlayerCards : MonoBehaviour
         }
 	}
 
-	private void DrawFullHand()
+	public void DrawFullHand()
     {
-        for (int i = 0; i < 4; i++)
+        if (_Deck.Count > 0)
         {
-            DrawCard();
-            if (_Hand.Count >= 4) break;
+            for (int i = 0; i < 4; i++)
+            {
+                DrawCard();
+                if (_Hand.Count >= 4)
+                    break;
+                if (_Deck.Count <= 0)
+                    break;
+            }
         }
     }
 
@@ -269,6 +303,14 @@ public class PlayerCards : MonoBehaviour
 		deckIsRecharging = true;
 		yield return deckRechargeTime;
         StartCoroutine(RechargeDeck());
+    }
+
+    public void AddCardToDeck(CardScriptableObj cardToAdd) => _Deck.Add(cardToAdd);
+
+    public void RemoveCardFromDeck(CardScriptableObj cardToRemove)
+    {
+        if(_Deck.Contains(cardToRemove))
+            _Deck.Remove(cardToRemove);
     }
 
     // end
