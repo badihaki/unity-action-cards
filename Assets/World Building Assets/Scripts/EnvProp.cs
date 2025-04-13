@@ -10,10 +10,13 @@ public class EnvProp : MonoBehaviour
     [field: SerializeField]
     public PropScriptableObj propTemplate { get; private set; }
     public Health _Health { get; protected set; }
+    public Collider _Collider { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
         _Health = transform.AddComponent<Health>();
+        _Collider = transform.GetComponent<Collider>();
+        print(_Collider.bounds);
     }
 }
