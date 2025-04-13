@@ -9,11 +9,13 @@ public class PropFlammableInterface : MonoBehaviour, IFlammable
 	private float fireDmg;
 	[SerializeField]
 	private bool onFire;
+	private BoxCollider trigger;
 
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
 	{
 		parentEnvProp = GetComponentInParent<EnvProp>();
+		trigger = GetComponent<BoxCollider>();
 	}
 
 	// Update is called once per frame
@@ -23,9 +25,9 @@ public class PropFlammableInterface : MonoBehaviour, IFlammable
 			RunWhenOnFire();
 	}
 
-	public Collider referenceCollider { get
+	public BoxCollider referenceCollider { get
 		{
-			return parentEnvProp._Collider;
+			return trigger;
 		}
 	}
 

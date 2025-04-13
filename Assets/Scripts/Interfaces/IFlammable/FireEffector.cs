@@ -1,28 +1,41 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FireEffector : MonoBehaviour
 {
-	[SerializeField]
-	private List<IFlammable> flammableEntitiesList;
-	[SerializeField]
-	private List<IFlammable> thoseImmuneToMyFlames;
+	[Serializable]
+	private struct FlammableEntityStruct
+	{
+		public IFlammable flammableInterface;
+		public Transform controller;
+
+		public FlammableEntityStruct(IFlammable _flammableInterface)
+		{
+			flammableInterface = _flammableInterface;
+			controller = flammableInterface.referenceCollider.transform.parent.transform;
+		}
+	}
+	[field: SerializeField]
+	private List<FlammableEntityStruct> flammableEntitiesList;
+	[field: SerializeField]
+	private List<FlammableEntityStruct> thoseImmuneToMyFlames;
 	[SerializeField]
 	private float fireDamageTimer;
 
 	private void Initialize(IFlammable originator)
 	{
-		flammableEntitiesList = new List<IFlammable>();
-		thoseImmuneToMyFlames = new List<IFlammable>
-		{
-			originator
-		};
+		thoseImmuneToMyFlames = new List<FlammableEntityStruct>();
+		FlammableEntityStruct originatorImmune = new FlammableEntityStruct(originator);
 	}
 
 	private void Start()
 	{
+		flammableEntitiesList = new List<FlammableEntityStruct>();
 		if (thoseImmuneToMyFlames == null || thoseImmuneToMyFlames.Count == 0)
-			thoseImmuneToMyFlames = new List<IFlammable>();
+		{
+			thoseImmuneToMyFlames = new List<FlammableEntityStruct>();
+		}
 	}
 
 	private void Update()
@@ -36,7 +49,7 @@ public class FireEffector : MonoBehaviour
 			}
 			for (int i = 0; i < flammableEntitiesList.Count; i++)
 			{
-				flammableEntitiesList[i].TakeFireDamage(1);
+				flammableEntitiesList[i].flammableInterface.TakeFireDamage(1);
 			}
 		}
 	}
@@ -46,7 +59,9 @@ public class FireEffector : MonoBehaviour
 		other.TryGetComponent(out IFlammable flammableEntity);
 		if (flammableEntity != null)
 		{
-			if (thoseImmuneToMyFlames.Contains(flammableEntity))
+			print("that entity was flammable!!");
+			FlammableEntityStruct flammable = new FlammableEntityStruct(flammableEntity);
+			if (thoseImmuneToMyFlames.Contains(flammable))
 				return;
 			flammableEntity.TakeFireDamage(1);
 		}
@@ -57,8 +72,9 @@ public class FireEffector : MonoBehaviour
 		other.TryGetComponent(out IFlammable flammableEntity);
 		if (flammableEntity != null)
 		{
-			if (flammableEntitiesList.Contains(flammableEntity))
-				flammableEntitiesList.Remove(flammableEntity);
+			FlammableEntityStruct flammable = new FlammableEntityStruct(flammableEntity);
+			if (flammableEntitiesList.Contains(flammable))
+				flammableEntitiesList.Remove(flammable);
 		}
 	}
 }

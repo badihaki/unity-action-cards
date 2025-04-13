@@ -32,7 +32,7 @@ public class GMCardsManager : MonoBehaviour
 				cardsInNewDeck.Add(card);
 				cardsFound.Add(cardSave);
 			}
-			print(cardsInNewDeck.Count);
+			print($"congrats, your new deck has {cardsInNewDeck.Count} cards in it!!");
 			PlayerCards playerCards = GameObject.Find("Player").GetComponent<PlayerCards>();
 			playerCards.RebuildDeck(cardsInNewDeck);
 			hasBuiltNewStarterDeck = true;

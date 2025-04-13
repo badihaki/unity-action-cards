@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5700820686251818521}
   - component: {fileID: 8237026338530388574}
-  - component: {fileID: 3535433677683441828}
+  - component: {fileID: 2134632400195720864}
   m_Layer: 0
   m_Name: FireEffector
   m_TagString: Untagged
@@ -54,7 +54,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3535433677683441828
+--- !u!114 &2134632400195720864
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,3 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbdf873d565516a489b164876fc11888, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireDamageTimer: 0

@@ -53,7 +53,6 @@ public class PlayerCards : MonoBehaviour
 
     public void RebuildDeck(List<CardScriptableObj> newDeck)
 	{
-        print("rebuilding deck");
 		RemoveAllCards();
 		foreach (CardScriptableObj card in newDeck)
 		{
