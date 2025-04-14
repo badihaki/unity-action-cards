@@ -162,6 +162,8 @@ MonoBehaviour:
     type: 3}
   corruptionHeart: {fileID: 7964837785642803597, guid: b0aeca4a5039dfe4b805c792a5d47518,
     type: 3}
+  fireElementEffect: {fileID: 1060039533152929714, guid: 59cf699c91527454291ef494bccaf04e,
+    type: 3}
 --- !u!114 &5891336088602778321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,3 +195,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c3555079b7dadcb48aa631cd13879c1e, type: 2}
   - {fileID: 11400000, guid: d98efb33cd6f135498350a15e40704e1, type: 2}
   - {fileID: 11400000, guid: 3c5172468b08eba45992a59967b09db2, type: 2}
+  hasBuiltNewStarterDeck: 0

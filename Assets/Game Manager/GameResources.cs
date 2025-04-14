@@ -17,5 +17,9 @@ public class GameResources : MonoBehaviour
 	public GameObject npcTemplate;
 	public CorruptionHeart corruptionHeart;
 
+	[Header("Effects")]
+	public GameObject fireElementEffect;
+
+
 	// end
 }

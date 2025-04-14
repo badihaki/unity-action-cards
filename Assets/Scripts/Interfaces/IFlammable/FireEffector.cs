@@ -23,10 +23,13 @@ public class FireEffector : MonoBehaviour
 	[SerializeField]
 	private float fireDamageTimer;
 
-	private void Initialize(IFlammable originator)
+	public void Initialize(IFlammable originator)
 	{
 		thoseImmuneToMyFlames = new List<FlammableEntityStruct>();
 		FlammableEntityStruct originatorImmune = new FlammableEntityStruct(originator);
+		BoxCollider col = GetComponent<BoxCollider>();
+		Vector3 colliderSize = col.size * 1.1f;
+		col.size = colliderSize;
 	}
 
 	private void Start()
@@ -46,10 +49,10 @@ public class FireEffector : MonoBehaviour
 			if (fireDamageTimer > 1.35f)
 			{
 				fireDamageTimer = 0;
-			}
-			for (int i = 0; i < flammableEntitiesList.Count; i++)
-			{
-				flammableEntitiesList[i].flammableInterface.TakeFireDamage(1);
+				for (int i = 0; i < flammableEntitiesList.Count; i++)
+				{
+					flammableEntitiesList[i].flammableInterface.TakeFireDamage(1);
+				}
 			}
 		}
 	}
@@ -61,9 +64,18 @@ public class FireEffector : MonoBehaviour
 		{
 			print("that entity was flammable!!");
 			FlammableEntityStruct flammable = new FlammableEntityStruct(flammableEntity);
-			if (thoseImmuneToMyFlames.Contains(flammable))
-				return;
+			if (thoseImmuneToMyFlames.Count > 0)
+			{
+				for (int i = 0; i < thoseImmuneToMyFlames.Count; i++)
+				{
+					if (thoseImmuneToMyFlames[i].flammableInterface == flammableEntity)
+					{
+						return;
+					}
+				}
+			}
 			flammableEntity.TakeFireDamage(1);
+			flammableEntitiesList.Add(flammable);
 		}
 	}
 
