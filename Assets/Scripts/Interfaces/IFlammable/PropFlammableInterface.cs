@@ -49,7 +49,7 @@ public class PropFlammableInterface : MonoBehaviour, IFlammable
 		fireEffect.transform.position = trigger.transform.position;
 	}
 
-	public void TakeFireDamage(int damage)
+	public void TakeFireDamage(float damage)
 	{
 		print("takin fire damage");
 		fireDmg += damage;
@@ -60,5 +60,10 @@ public class PropFlammableInterface : MonoBehaviour, IFlammable
 		if (fireDmg >= 7 && !onFire)
 			SetOnFire();
 		parentEnvProp._Health.TakeDamage((int)Math.Round(fireDmg));
+	}
+
+	public Transform GetControllingEntity()
+	{
+		return parentEnvProp.transform;
 	}
 }

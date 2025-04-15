@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94d11b2cbf4435d43941a681d6f7e6d3, type: 3}
-  m_Name: MagicMissleCard
+  m_Name: Card_MagicMissle
   m_EditorClassIdentifier: 
   _CardName: Magic Missle
   _TypeOfCard: 2
@@ -21,9 +21,12 @@ MonoBehaviour:
   _SpellImpactVFX: {fileID: 7847018365067263693, guid: 834e823a8b6fd8045b6cd233e27d5392,
     type: 3}
   _SpellDamage: 1
+  _SpellPushbackForce: 1
+  _SpellLaunchForce: 0
   _SpellCharges: 1
   _SpellProjectileSpeed: 23.7
   _SpellAetherCost: 4
+  _ResponseToDamage: 0
   _SpellAddonTime: 0.385
   _SpellLifetime: 1.9
   _StartSound: {fileID: 0}

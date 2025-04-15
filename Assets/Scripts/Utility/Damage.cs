@@ -1,18 +1,27 @@
 using System;
 using UnityEngine;
 
+[Serializable]
 public class Damage
 {
+	[field: SerializeField]
 	public int damageAmount {  get; private set; }
 	//public int healAmount { get; private set; }
+	
+	[field: SerializeField]
 	public float poiseDamageAmount { get; private set; }
 
+	[field: SerializeField]
 	public responsesToDamage intendedResponse { get; private set; }
+	[field: SerializeField]
 	public float damageForce { get; private set; }
+	[field: SerializeField]
 	public Transform damageSource { get; private set; }
+	[field: SerializeField]
 	public Character damageCreatorCharacter { get; private set; }
 
-	private DamageOptions dmgOptions;
+	[field: SerializeField]
+	public DamageOptions dmgOptions { get; private set; }
 
 	public Damage(int dmg, float force, responsesToDamage response, Transform source, Character creator)
 	{
@@ -67,12 +76,19 @@ public class Damage
 	}
 }
 
+[Serializable]
 public struct DamageOptions
 {
+
+	[field: SerializeField]
 	public float fireDmg;
+	[field: SerializeField]
 	public float waterDmg;
+	[field: SerializeField]
 	public float plasmaDmg;
+	[field: SerializeField]
 	public float gravityDmg;
+	[field: SerializeField]
 	public Vector2 gravityInflunce;
 	public DamageOptions(float fire, float water, float plasma, float gravity, Vector2 influence)
 	{

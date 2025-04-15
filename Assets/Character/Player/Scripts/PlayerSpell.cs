@@ -62,8 +62,10 @@ public class PlayerSpell : MonoBehaviour
     {
         player._AnimationController.SetTrigger(_UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellAnimationBool.ToString());
         player._Aether.UseAether(_UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellAetherCost);
-        
-        Projectile conjuredSpell = ObjectPoolManager.GetObjectFromPool(_UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Projectile).GetComponent<Projectile>();
+
+        SpellCardScriptableObj spell = _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell;
+
+		Projectile conjuredSpell = ObjectPoolManager.GetObjectFromPool(spell._SpellProjectile, _spellTarget.transform.position, Quaternion.identity, ObjectPoolManager.PoolFolder.Projectile).GetComponent<Projectile>();
 		if (targetPos !=  Vector3.zero)
         {
 			Quaternion targetDir = Quaternion.Euler(player._PlayerActor.transform.position - targetPos);
@@ -75,7 +77,12 @@ public class PlayerSpell : MonoBehaviour
 			Vector3 targetDir = targetPos - _spellTarget.transform.position;
             conjuredSpell.transform.eulerAngles = targetDir;
         }
-        conjuredSpell.InitializeProjectile(player, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellDamage, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectileSpeed, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellLifetime, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellImpactVFX);
+
+        Damage spellDmgObj = new Damage(spell._SpellDamage, spell._SpellPushbackForce, spell._ResponseToDamage, conjuredSpell.transform, player);
+        DamageOptions spellDmgOptions = new DamageOptions(spell._FireDmg, spell._WaterDmg, spell._PlasmaDmg, spell._GravityModifier, spell._GravityInfluence);
+        spellDmgObj.SetOptions(spellDmgOptions);
+
+        conjuredSpell.InitializeProjectile(player, spellDmgObj, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellProjectileSpeed, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellLifetime, _UI._ActiveSpellList[_UI._CurrentSpellIndex].spell._SpellImpactVFX);
         _spellTimer = timeToAddToTimer;
         _UI.RemoveSpellCharge();
     }

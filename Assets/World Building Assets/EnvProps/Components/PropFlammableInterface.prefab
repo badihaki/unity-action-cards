@@ -48,6 +48,7 @@ MonoBehaviour:
   parentEnvProp: {fileID: 0}
   fireDmg: 0
   onFire: 0
+  fireEffect: {fileID: 0}
 --- !u!65 &471566834681650006
 BoxCollider:
   m_ObjectHideFlags: 0

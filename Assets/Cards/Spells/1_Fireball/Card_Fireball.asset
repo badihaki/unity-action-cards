@@ -20,10 +20,17 @@ MonoBehaviour:
     type: 3}
   _SpellImpactVFX: {fileID: 0}
   _SpellDamage: 3
+  _SpellPushbackForce: 2
+  _SpellLaunchForce: 0.5
   _SpellCharges: 5
   _SpellProjectileSpeed: 10
-  _SpellKnockAndLaunchForces: {x: 0, y: 0}
   _SpellAetherCost: 12
+  _ResponseToDamage: 0
+  _FireDmg: 3
+  _WaterDmg: 0
+  _PlasmaDmg: 0
+  _GravityModifier: 0
+  _GravityInfluence: {x: 0, y: 0}
   _SpellAddonTime: 2.5
   _SpellLifetime: 5.135
   _StartSound: {fileID: 0}

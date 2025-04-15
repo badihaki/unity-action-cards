@@ -6,8 +6,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private Character _controllingCharacter;
-    [SerializeField] private int _damage;
-    [SerializeField] private float _force;
+    //[SerializeField] private int _damage;
+    //[SerializeField] private float _force;
+    [field: SerializeField]
+    private Damage _dmgObj;
     [SerializeField] private float _speed;
     [SerializeField] private float _lifetime = 5.135f;
     [SerializeField] private GameObject _impactVFX;
@@ -18,12 +20,13 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] private bool _ready = false;
 
-    public void InitializeProjectile(Character _controller, int _dmg, float _speed, float _life, GameObject impactPrefab)
+    public void InitializeProjectile(Character _controller, Damage dmgObj, float _speed, float _life, GameObject impactPrefab)
     {
         _rigidbody = GetComponent<Rigidbody>();
 
         _controllingCharacter = _controller;
-        _damage = _dmg;
+        //_damage = _dmg;
+        _dmgObj = dmgObj;
         this._speed = _speed;
         _lifetime = _life;
         _impactVFX = impactPrefab;
@@ -49,10 +52,26 @@ public class Projectile : MonoBehaviour
             {
                 if (_impactVFX) OnImpact(true);
                 else OnImpact(false);
+                return;
             }
+
+			collider.TryGetComponent(out Projectile hitProjectile); // looking for another projectile
+			if (hitProjectile != null)
+			{
+				print("hit projectile with a projectile!!");
+				if (hitProjectile._controllingCharacter != _controllingCharacter)
+				{
+					if (_impactVFX) OnImpact(true);
+					else
+						OnImpact(false);
+				}
+				return;
+			}
+			/*
             Character hitCharacter = collider.GetComponentInParent<Character>();
             if (hitCharacter != null && hitCharacter != _controllingCharacter)
             {
+                // check for group activity with the hit character
                 if (_controllingCharacter.isGroupedUp)
                 {
                     if (hitCharacter == _controllingCharacter.GetGroup()._GroupLeader)
@@ -63,14 +82,14 @@ public class Projectile : MonoBehaviour
                             return;
                     }
                 }
+                // end group check
 
-                 //print(hitCharacter.name);
                 if (collider.name == "Hurtbox")
                 {
                     IDamageable damageableEntity = collider.GetComponentInParent<IDamageable>();
-                    Damage damageOb = new Damage(_damage, _force, intendedResponse, transform, _controllingCharacter);
+                    //Damage damageOb = new Damage(_damage, _force, intendedResponse, transform, _controllingCharacter);
 
-					damageableEntity?.Damage(damageOb);
+					damageableEntity?.Damage(_dmgObj);
             
                      print("projectile " + name + " collided with " + hitCharacter.name);
                 }
@@ -79,20 +98,62 @@ public class Projectile : MonoBehaviour
                     OnImpact(false);
                 return;
             }
+             */
 
-            collider.TryGetComponent(out Projectile hitProjectile);
-            if (hitProjectile != null)
+			// get damageable obj
+			collider.TryGetComponent(out IDamageable damageableObj);
+            if (damageableObj != null && damageableObj.GetControllingEntity() != _controllingCharacter.transform)
             {
-                print("hit projectile with a projectile!!");
-                if (hitProjectile._controllingCharacter != _controllingCharacter)
+                // get a character obj
+                damageableObj.GetControllingEntity().TryGetComponent(out Character hitCharacter);
+				if (hitCharacter != null)
                 {
+					// we hit a character
+					// check for group activity with the hit character
+					if (_controllingCharacter.isGroupedUp)
+					{
+						if (hitCharacter == _controllingCharacter.GetGroup()._GroupLeader)
+							return;
+						foreach (CharacterGroupLeader.GroupMemberStruct grMem in _controllingCharacter.GetGroup()._GroupLeader._GroupMembers)
+						{
+							if (hitCharacter == grMem.Character)
+								return;
+						}
+					}
+                    // end group check
+
+                    damageableObj.Damage(_dmgObj);
 					if (_impactVFX) OnImpact(true);
-					else
-						OnImpact(false);
+					else OnImpact(false);
+					return;
 				}
-                return;
+			}
+
+			// elemental stuff
+            if(_dmgObj.dmgOptions.fireDmg > 0)
+            {
+			    collider.TryGetComponent(out IFlammable flammableObj);
+                if (flammableObj != null && flammableObj.GetControllingEntity() != _controllingCharacter.transform)
+                {
+			        flammableObj.GetControllingEntity().TryGetComponent(out Character hitFlammableCharacter);
+				    // check for group activity with the hit character
+				    if (_controllingCharacter.isGroupedUp)
+				    {
+					    if (hitFlammableCharacter == _controllingCharacter.GetGroup()._GroupLeader)
+						    return;
+					    foreach (CharacterGroupLeader.GroupMemberStruct grMem in _controllingCharacter.GetGroup()._GroupLeader._GroupMembers)
+					    {
+						    if (hitFlammableCharacter == grMem.Character)
+							    return;
+					    }
+				    }
+				    // end group check
+				    if (_impactVFX) OnImpact(true);
+				    else OnImpact(false);
+				    flammableObj.TakeFireDamage(_dmgObj.dmgOptions.fireDmg);
+			    }
             }
-        }
+		}
     }
 
     IEnumerator StartLifetimeTimer()
