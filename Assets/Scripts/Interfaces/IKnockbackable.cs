@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IKnockbackable
 {
-    void ApplyKnockback(Transform forceSource, float knockforce, float launchForce);
+    void CalculateKnockback(Transform forceSource, float knockforce, float launchForce);
 }

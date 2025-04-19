@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterHurtbox : MonoBehaviour, IDamageable
+public class CharacterHurtbox : MonoBehaviour, IDamageable, IFlammable
 {
     [field: SerializeField, SerializeReference] private Character character;
-    private IKnockbackable knockInterface;
-    [Serializable]
-    struct LastDamageObj
+    struct DmgObjInfo
     {
         public int damageAmount;
         public float poiseDamageAmount;
@@ -16,7 +14,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         public responsesToDamage intendedResponse;
 		public float damageForce;
 		public Transform damageSource;
-        public LastDamageObj(int dmg, float poiseDmg, responsesToDamage dmgResp, float force, Transform dmgSource)
+        public DmgObjInfo(int dmg, float poiseDmg, responsesToDamage dmgResp, float force, Transform dmgSource)
         {
             damageAmount = dmg;
             poiseDamageAmount = poiseDmg;
@@ -27,19 +25,38 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         }
 	}
     [field: SerializeField]
-    LastDamageObj lastDamage;
+    DmgObjInfo lastDamageObjRecieved;
 
     public delegate void DetectWhoHurtMe(Character target);
     public event DetectWhoHurtMe OnHurtByCharacter;
 
-    public void InitializeHurtBox(Character _character)
+    [SerializeField]
+    private CharacterFlammableInterface characterFlammableInterface;
+
+	#region regular stuff
+	public void InitializeHurtBox(Character _character)
     {
         character = _character;
-        knockInterface = GetComponentInParent<IKnockbackable>();
         //print($"{character.name} has knock interface {knockInterface}");
     }
 
-    public void Damage(Damage dmgObj)
+	//private void OnTriggerEnter(Collider other)
+	//{
+ //       if (other.name == "Hurtbox")
+ //       {
+ //           Character collidedCharacter = other.GetComponentInParent<Character>();
+ //           if (collidedCharacter != null)
+ //           {
+ //               character.PushBackCharacter(transform.position, 1f, false);
+ //           }
+ //       }
+	//}
+
+	private void StoreLastDamageSource(Damage dmgObj) => lastDamageObjRecieved = new DmgObjInfo(dmgObj.damageAmount, dmgObj.poiseDamageAmount, dmgObj.intendedResponse, dmgObj.damageForce, dmgObj.damageSource);
+	#endregion
+
+	#region damage interface
+	public void Damage(Damage dmgObj)
 	{
 		//print("damagin from hurtbox");
         character._Actor.TakeDamage(dmgObj);
@@ -47,8 +64,6 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
         if (OnHurtByCharacter != null)
             OnHurtByCharacter(dmgObj.damageCreatorCharacter);
     }
-
-    private void StoreLastDamageSource(Damage dmgObj) => lastDamage = new LastDamageObj(dmgObj.damageAmount, dmgObj.poiseDamageAmount, dmgObj.intendedResponse, dmgObj.damageForce, dmgObj.damageSource);
 
 	public Transform GetControllingEntity()
     {
@@ -59,6 +74,39 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable
 	{
         return character._Actor.transform;
 	}
+	#endregion
+
+	#region flammable interface
+	public void TakeFireDamage(float damage)
+	{
+		throw new NotImplementedException();
+	}
+
+	public void SetOnFire()
+	{
+		throw new NotImplementedException();
+	}
+	public BoxCollider referenceCollider => characterFlammableInterface.collider;
+
+	public float currentFireDmg => characterFlammableInterface.flammableDamage;
+
+	public bool isOnFire => characterFlammableInterface.onFire;
+	#endregion
 
 	// end
+}
+
+
+[Serializable]
+class CharacterFlammableInterface
+{
+    private Character character;
+
+    [field: SerializeField]
+    public BoxCollider collider { get; private set; }
+
+    [field: SerializeField]
+    public float flammableDamage {  get; private set; }
+    [field: SerializeField]
+    public bool onFire { get; private set; }
 }

@@ -93,6 +93,8 @@ public class NPCMovementController : MonoBehaviour
 			knockBackSource = pushFromPoint;
 			knockBackForce = pushBackForce;
 			knockBackDir = knockBackSource - _NPC._NPCActor.transform.position;
+			if (!isLaunched)
+				knockBackDir.y = 0;
 			knockBackDir = -knockBackDir.normalized;
 
 			knockBackDir.y = CalculateKnockbackY(isLaunched);

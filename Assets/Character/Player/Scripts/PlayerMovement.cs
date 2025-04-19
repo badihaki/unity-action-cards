@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
             knockBackSource = pushFromPoint;
             knockBackForce = pushBackForce;
             knockBackDir = knockBackSource - _Actor.transform.position;
+            if (!isLaunched)
+                knockBackDir.y = 0;
             knockBackDir = -knockBackDir.normalized;
             if (knockBackDir.y < 0)
                 knockBackDir.y *= -1;
