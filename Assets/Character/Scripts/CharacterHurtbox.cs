@@ -69,7 +69,7 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable, IFlammable
 	#region flammable interface
 	public void TakeFireDamage(float damage)
 	{
-		throw new NotImplementedException();
+        print($"{GetControllingEntity()} is taking fire damage");
 	}
 
 	public void SetOnFire()

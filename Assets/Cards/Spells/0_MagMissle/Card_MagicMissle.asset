@@ -21,12 +21,17 @@ MonoBehaviour:
   _SpellImpactVFX: {fileID: 7847018365067263693, guid: 834e823a8b6fd8045b6cd233e27d5392,
     type: 3}
   _SpellDamage: 1
-  _SpellPushbackForce: 1
+  _SpellPushbackForce: 0.2
   _SpellLaunchForce: 0
   _SpellCharges: 1
   _SpellProjectileSpeed: 23.7
   _SpellAetherCost: 4
   _ResponseToDamage: 0
+  _FireDmg: 0
+  _WaterDmg: 0
+  _PlasmaDmg: 0
+  _GravityModifier: 0
+  _GravityInfluence: {x: 0, y: 0}
   _SpellAddonTime: 0.385
   _SpellLifetime: 1.9
   _StartSound: {fileID: 0}

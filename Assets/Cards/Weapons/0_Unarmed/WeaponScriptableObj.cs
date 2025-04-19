@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,4 +36,18 @@ public class WeaponScriptableObj : ScriptableObject
     public int _Durability;
     public int _DurabilityAttackCost;
     public int _DurabilitySpecialCost;
+
+    [field:SerializeField, Header("Elemental Damage")]
+    public WeaponElementalProperties _WeaponElementalProps;
+}
+
+[Serializable]
+public class WeaponElementalProperties
+{
+	[SerializeField]
+	public float fireDamage;
+	[SerializeField]
+	public float iceDamage;
+	[SerializeField]
+	public float plasmaDamage;
 }

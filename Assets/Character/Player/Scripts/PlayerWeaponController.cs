@@ -70,8 +70,20 @@ public class PlayerWeaponController : MonoBehaviour
 	{
 		player._AnimationController.SetBool(_CurrentWeapon._WeaponType.ToString(), false);
 		DestroyWeaponGameObjects();
+		player._Actor._Hitbox.SetElementalProperties(CharacterHitbox.HitBoxElementalProps.none, false);
 		attackController.UnloadMoveSet();
 		SetWeapon(weapon);
+		SetWeaponElementalProperties(weapon);
+	}
+
+	private void SetWeaponElementalProperties(WeaponScriptableObj weapon)
+	{
+		if (weapon._WeaponElementalProps.fireDamage > 0)
+			player._Actor._Hitbox.SetElementalProperties(CharacterHitbox.HitBoxElementalProps.fire, true, weapon._WeaponElementalProps.fireDamage);
+		if (weapon._WeaponElementalProps.iceDamage > 0)
+			player._Actor._Hitbox.SetElementalProperties(CharacterHitbox.HitBoxElementalProps.ice, true, weapon._WeaponElementalProps.iceDamage);
+		if (weapon._WeaponElementalProps.plasmaDamage > 0)
+			player._Actor._Hitbox.SetElementalProperties(CharacterHitbox.HitBoxElementalProps.plasma, true, weapon._WeaponElementalProps.plasmaDamage);
 	}
 
 	private void DestroyWeaponGameObjects()

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5195d51890571e144a7ad87da1c05bc8, type: 3}
+  m_Name: MoveSet_FireSword
+  m_EditorClassIdentifier: 
+  _AttackA: {fileID: 11400000, guid: 18209b545febc7046bbfc20527ae67aa, type: 2}
+  _AttackB: {fileID: 11400000, guid: 5538dc80bdd18c944b69d37277413ced, type: 2}
+  _AttackC: {fileID: 11400000, guid: 33b8079ff9beed84897d137e80ceea70, type: 2}
+  _Special: {fileID: 11400000, guid: 2fbaf9160c1fb4e4897357130f210f3b, type: 2}
+  _SpecialFinisherA: {fileID: 11400000, guid: 6d2510e216f5c46449a078292d192f48, type: 2}
+  _SpecialFinisherB: {fileID: 11400000, guid: 6ef7a108c0ac6704792e779fcc517ea3, type: 2}
+  _SpecialFinisherC: {fileID: 11400000, guid: 66bf049834c6a91479e9809cb1adcdf0, type: 2}
+  _AirAttackA: {fileID: 11400000, guid: 39aada22921654e4da4fd45894b57cf4, type: 2}
+  _AirAttackB: {fileID: 11400000, guid: 6ee59fa756e5003479b2296e8b3c48bf, type: 2}
+  _AirAttackC: {fileID: 11400000, guid: 869312a2a6658d34a837f6747c926314, type: 2}
+  _AirSpecial: {fileID: 11400000, guid: ee38258782b927a47a79ac11328befd0, type: 2}
+  _RushAttack: {fileID: 11400000, guid: 904b6b7ca09061b4c8d163bc427d4a59, type: 2}
+  _LauncherAttack: {fileID: 11400000, guid: 3a42d5eae89cac443af5b9fd4d41458d, type: 2}
+  _Defense: {fileID: 11400000, guid: e492bbaa12b31c0469ab832bbb86af11, type: 2}
