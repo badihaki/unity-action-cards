@@ -37,20 +37,10 @@ public class CharacterHurtbox : MonoBehaviour, IDamageable, IFlammable
 	public void InitializeHurtBox(Character _character)
     {
         character = _character;
+        BoxCollider col = GetComponent<BoxCollider>();
+        characterFlammableInterface = new CharacterFlammableInterface(character, col);
         //print($"{character.name} has knock interface {knockInterface}");
     }
-
-	//private void OnTriggerEnter(Collider other)
-	//{
- //       if (other.name == "Hurtbox")
- //       {
- //           Character collidedCharacter = other.GetComponentInParent<Character>();
- //           if (collidedCharacter != null)
- //           {
- //               character.PushBackCharacter(transform.position, 1f, false);
- //           }
- //       }
-	//}
 
 	private void StoreLastDamageSource(Damage dmgObj) => lastDamageObjRecieved = new DmgObjInfo(dmgObj.damageAmount, dmgObj.poiseDamageAmount, dmgObj.intendedResponse, dmgObj.damageForce, dmgObj.damageSource);
 	#endregion
@@ -109,4 +99,12 @@ class CharacterFlammableInterface
     public float flammableDamage {  get; private set; }
     [field: SerializeField]
     public bool onFire { get; private set; }
+
+    public CharacterFlammableInterface(Character character, BoxCollider collider)
+    {
+        this.character = character;
+        this.collider = collider;
+        flammableDamage = 0;
+        onFire = false;
+    }
 }

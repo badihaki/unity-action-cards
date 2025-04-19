@@ -16918,6 +16918,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
         type: 3}
+      propertyPath: isDevMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3331240882863397095, guid: 31a7df6543fd66c4caebd90ee6dd5c66,
+        type: 3}
       propertyPath: minSpawnTime
       value: 6.35
       objectReference: {fileID: 0}

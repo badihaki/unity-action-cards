@@ -45,9 +45,16 @@ public class CharacterRepelSpace : MonoBehaviour
 	{
 		charactersOnHead.ForEach(character =>
 		{
-			if(character._Actor.transform.position.y > character._Actor.transform.position.y + 0.5f)
+			if (character != null)
 			{
-				character.PushBackCharacter(transform.position, 1f);
+				if (character._Actor.transform.position.y > character._Actor.transform.position.y + 0.5f)
+				{
+					character.PushBackCharacter(transform.position, 1f);
+				}
+			}
+			else
+			{
+				charactersOnHead.Remove(character);
 			}
 		});
 	}
